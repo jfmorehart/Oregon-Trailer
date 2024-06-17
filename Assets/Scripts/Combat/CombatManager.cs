@@ -13,6 +13,7 @@ public class CombatManager : MonoBehaviour
 	public int grid_size_y;
 
 	public Vector2 gridSpacer;
+	public float perspSpacer;
 
 	[HideInInspector]
 	public Vector2 gridOriginOffset;
@@ -54,7 +55,7 @@ public class CombatManager : MonoBehaviour
 			combatGrid[i] = new CombatNode(nodeGridPos);
 
 			GameObject g = Instantiate(node_test, GridToWorld(nodeGridPos), Quaternion.identity, transform);
-			g.transform.localScale = gridSpacer * 0.9f;
+			//g.transform.localScale = gridSpacer * 0.9f;
 			g.name = i.ToString();
 			highlights[i] = g.GetComponent<SquareHighlight>();
 		}

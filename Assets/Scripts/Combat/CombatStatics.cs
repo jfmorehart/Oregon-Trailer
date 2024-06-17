@@ -12,7 +12,7 @@ public static class CombatStatics
 	public static Vector2 GridToWorld(Vector2Int gridPos)
 	{
 		Vector2 world = new Vector2(
-			gridPos.x * CombatManager.Instance.gridSpacer.x,
+			gridPos.x * CombatManager.Instance.gridSpacer.x + gridPos.y * CombatManager.Instance.perspSpacer,
 			gridPos.y * CombatManager.Instance.gridSpacer.y);
 		return world - CombatManager.Instance.gridOriginOffset;
 	}
@@ -22,6 +22,7 @@ public static class CombatStatics
 		Vector2 interm = world + CombatManager.Instance.gridOriginOffset;
 		interm.x /= CombatManager.Instance.gridSpacer.x;
 		interm.y /= CombatManager.Instance.gridSpacer.y;
+		interm.x -= CombatManager.Instance.perspSpacer * Mathf.RoundToInt(interm.y) / CombatManager.Instance.gridSpacer.x;
 		Vector2Int grid = new Vector2Int(
 			Mathf.RoundToInt(interm.x),
 			Mathf.RoundToInt(interm.y));
