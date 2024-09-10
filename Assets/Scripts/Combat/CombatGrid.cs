@@ -17,6 +17,9 @@ public class CombatGrid : MonoBehaviour
 	{
 		Instance = this;
 		MakeGrid();
+
+		Vector2 random = boxes[Random.Range(0, boxes.Length)].transform.position;
+		Debug.Log(random + " " + WorldToGrid(random) + " " + GridToWorld(WorldToGrid(random)));
 	}
 
 	private void Update()
@@ -58,15 +61,28 @@ public class CombatGrid : MonoBehaviour
         return world;
     }
 
-	public void HighlightWalkableSquares(Vector2Int startPos) { 
+	public Vector2Int WorldToGrid(Vector2 worldPos) {
+		Vector2 unrounded = worldPos += offset;
+		unrounded.y /= spacer.y;
+		unrounded.y += Mathf.RoundToInt(gsize.y * 0.5f);
+		unrounded.x -= unrounded.y * spacer.x * tiltSpacer;
+		unrounded.x /= spacer.x;
+		unrounded.x += Mathf.RoundToInt(gsize.x * 0.5f);
+		return new Vector2Int(Mathf.RoundToInt(unrounded.x), Mathf.RoundToInt(unrounded.y));
+	}
+
+	public Vector2Int[] WalkableSquares(Vector2Int startPos, bool highlight = true) {
+		List<Vector2Int> walkables = new List<Vector2Int>();
 		for(int i = 0; i < 9; i++) {
 			Vector2Int testPos = startPos + new Vector2Int((i % 3) - 1, Mathf.FloorToInt(i / 3) - 1);
-			Debug.Log(i + " " + new Vector2Int((i % 3) - 1, Mathf.FloorToInt(i / 3) - 1));
+			//Debug.Log(i + " " + new Vector2Int((i % 3) - 1, Mathf.FloorToInt(i / 3) - 1));
 			if (Vector2Int.Distance(startPos, testPos) < 0.5f) continue;
 			if (IsValidSquare(testPos)) {
-				ColorBox(testPos.x, testPos.y, Color.green);
+				if(highlight) ColorBox(testPos.x, testPos.y, Color.green);
+				walkables.Add(testPos);
 			}
 		}
+		return walkables.ToArray();
     }
 
 	public void ClearAllSquareHighlights() { 

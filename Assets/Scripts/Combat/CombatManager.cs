@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class CombatManager : MonoBehaviour
     public bool isPlayersTurn;
 
     public List<Fighter> fighters;
+
+    public TMP_Text turnText;
 
 	private void Awake()
 	{
@@ -22,5 +25,13 @@ public class CombatManager : MonoBehaviour
 			}
 	    }
         isPlayersTurn = !isPlayersTurn;
+        if (isPlayersTurn) {
+            turnText.text = "your turn!";
+            turnText.color = Color.green;
+        }
+        else {
+			turnText.text = "enemy turn!";
+			turnText.color = Color.red;
+		}
     }
 }
