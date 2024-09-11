@@ -21,7 +21,7 @@ You must choose an option now.
         ->playerchoice("a")
     + [b]
         ->playerchoice("b")
-    + [c]s
+    + [c]
         ->playerchoice("c")
         
 ===playerchoice(pc)===
@@ -41,6 +41,9 @@ You must choose an option now.
 ->DONE
 ===HonkCar===
 displaytext
+text to display
+text here as well
+text
 ->DONE
 ===Avoid===
 texthere
