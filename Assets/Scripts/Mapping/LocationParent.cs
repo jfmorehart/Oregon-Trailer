@@ -14,7 +14,7 @@ public class LocationParent : MonoBehaviour
     [Tooltip("Any roads that the player should be able to travel from should be placed here")]
     private List<Road> WestBoundRoads = new List<Road>();
     
-
+    //should probably have a background to display when in the town so it doesnt look like a black background?
 
     // Start is called before the first frame update
     void Start()

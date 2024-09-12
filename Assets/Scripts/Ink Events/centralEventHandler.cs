@@ -14,6 +14,8 @@ public class centralEventHandler : MonoBehaviour
     private GameObject EventParent;
     [SerializeField]
     private TextMeshProUGUI DescriptionText;
+    [SerializeField]
+    private TextMeshProUGUI pressContinueText;
 
     public static centralEventHandler instance;
     //reference to each event button
@@ -78,14 +80,16 @@ public class centralEventHandler : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && currentStory.currentChoices.Count == 0)
+        if (currentStory.currentChoices.Count == 0)
         {
-            continueStory();
+            //probably use different input system
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                continueStory();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log(currentStory.currentText);
-        }
+        
+       
     }
     public static void StartEvent(TextAsset inkJSON)
     {
@@ -109,11 +113,12 @@ public class centralEventHandler : MonoBehaviour
         if (currentStory.canContinue)
         {
             DescriptionText.text = currentStory.Continue();
-            //Debug.Log("CanContinue");
+            pressContinueText.gameObject.SetActive(true);
             displayChoices();
         }
         else
         {
+            pressContinueText.gameObject.SetActive(false);
             exitEvent();
             return;
         }
@@ -129,6 +134,10 @@ public class centralEventHandler : MonoBehaviour
         {
             Debug.LogError("There are too many choices and not enough buttons. **Cannot display all choices** \n" + "Num of choices given: " + currentChoices.Count);
         }
+        if (currentChoices.Count == 0)
+        {
+            pressContinueText.gameObject.SetActive(false);
+        }
 
         for (int i = 0; i < buttonObjects.Count; i++)
         {
@@ -138,20 +147,18 @@ public class centralEventHandler : MonoBehaviour
             //Debug.Log("Button choice");
 
 
-            if (i > currentChoices.Count || currentChoices.Count == 0)
+            if (i >= currentChoices.Count || currentChoices.Count == 0)
             {
                 //disable the choice button
                 resetChoice(i, false);
-                //Debug.Log("Too many options present");
             }
             else
             {
                 //add function to buttons
-                
-                //buttonScripts[i].onClick.AddListener(delegate { makeChoice(i); });
+
+                Debug.Log("I : " + i);
                 buttonObjects[i].SetActive(true);
                 buttonTexts[i].text = currentChoices[i].text;
-                //Debug.Log("Displaying text at button : " + i);
             }
 
         }
@@ -172,6 +179,7 @@ public class centralEventHandler : MonoBehaviour
         }
         currentStory.ChooseChoiceIndex(choiceIndex);
         //currentStory.Continue();
+        continueStory();
     }
 
     private IEnumerator SelectFirstChoice()
