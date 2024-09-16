@@ -9,50 +9,153 @@ public class Selection : MonoBehaviour
     public Fighter selected;
     Vector2Int[] highlightedSquares;
 
-    // Update is called once per frame
-    void Update()
+    MoveType moveTypeSelected;
+
+    public GameObject moveSelectionMenu;
+    public GameObject cancelButton;
+
+	// Update is called once per frame
+	void Update()
     {
+        if(selected == null) {
+			cancelButton.SetActive(false);
+			moveSelectionMenu.SetActive(false);
+		}
+        else{
+
+			if (!selected.isPlayerTeam) {
+				cancelButton.SetActive(false);
+				moveSelectionMenu.SetActive(false);
+				return;
+			}
+
+			if (moveTypeSelected == MoveType.None)
+			{
+				moveSelectionMenu.SetActive(true);
+				cancelButton.SetActive(false);
+			}
+			else
+			{
+				moveSelectionMenu.SetActive(false);
+				cancelButton.SetActive(true);
+			}
+		}
+
         if (Input.GetMouseButtonDown(0)) {
+			Debug.Log("click");
             CombatGrid.Instance.ClearAllSquareHighlights();
             Vector3 testPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            Collider2D[] results = Physics2D.OverlapPointAll(testPoint);
-            if(results.Length > 0) {
-				Deselect();
-                highlightedSquares = null;
-				for (int i = 0; i < results.Length; i++) {
-                    if (results[i].gameObject.TryGetComponent(out Fighter fight)) {
-                        selected = fight;
-                        fight.Select();
-                        highlightedSquares = CombatGrid.Instance.WalkableSquares(fight.gridPosition);
-		            }
-		        }
-            }
-            else {
-                //missed the raycast, so lets try to get nearest gridsquare
-                Vector2Int gpos = CombatGrid.Instance.WorldToGrid(testPoint);
 
-                if (CombatGrid.IsValidSquare(gpos)) {
-                    CombatGrid.Instance.ColorBox(gpos.x, gpos.y, Color.red);
+			//Check for valid order execution
 
-                    if(highlightedSquares != null) {
-						if (highlightedSquares.Contains(gpos) && selected.isPlayerTeam == CombatManager.Instance.isPlayersTurn)
-						{
-							Debug.Log("valid command input!");
-                            selected.plannedMove = new CombatMove(selected, MoveType.Move, gpos, 0);
-                            CombatManager.Instance.ProcessTurn();
-						}
-					}
+			Vector2Int gpos = CombatGrid.Instance.WorldToGrid(testPoint);
 
-		        }
-                highlightedSquares = null;
-	        }
+			if (!TryUnitSelect(testPoint)) {
+				if (TryOrderComplete(gpos))
+				{
+					Deselect();
+					highlightedSquares = null;
+				}
+			}
+
 		}
     }
+	bool TryOrderComplete(Vector2Int gpos) {
+		if (!CombatGrid.IsValidSquare(gpos, false)) return false;
+
+		//CombatGrid.Instance.ColorBox(gpos.x, gpos.y, Color.red);
+
+		if (highlightedSquares != null)
+		{
+			if (highlightedSquares.Contains(gpos) && selected.isPlayerTeam == CombatManager.Instance.isPlayersTurn)
+			{
+				Debug.Log("valid command input!");
+				selected.plannedMove = new CombatMove(selected, moveTypeSelected, gpos, 1f);
+				CombatManager.Instance.ProcessIndividualMove(selected);
+				CombatGrid.Instance.ColorBox(gpos.x, gpos.y, Color.red);
+
+				return true;
+			}
+			else {
+
+				return false;
+			}
+		}
+		else
+		{
+			Deselect();
+			highlightedSquares = null;
+			return false;
+		}
+	}
+	bool TryUnitSelect(Vector2 testPoint) {
+		//no valid order, try selecting a unit 
+		Collider2D[] results = Physics2D.OverlapPointAll(testPoint);
+		if (results.Length > 0)
+		{
+			Debug.Log("unitclick");
+			for (int i = 0; i < results.Length; i++)
+			{
+				if (results[i].gameObject.TryGetComponent(out Fighter fight))
+				{
+					if (TryOrderComplete(fight.gridPosition))
+					{
+						Debug.Log("ctarget");
+						Deselect();
+						highlightedSquares = null;
+						return true;
+					}
+
+					if (!fight.isPlayerTeam) continue;
+					if (fight.hasMoved) continue;
+					selected = fight;
+					fight.ToggleGreen(true);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
     void Deselect() {
         if (selected == null) return;
-		selected.Deselect();
+		selected.ToggleGreen(false);
+		moveTypeSelected = MoveType.None;
 		selected = null;
+		cancelButton.SetActive(false);
+		moveSelectionMenu.SetActive(true);
 	}
+
+    public void SelectMoveType(int input) {
+        moveTypeSelected = (MoveType)input;
+		switch (moveTypeSelected) {
+			case MoveType.None:
+				break;
+			case MoveType.Melee:
+				highlightedSquares = CombatGrid.Instance.RangedAtkSquares(true, selected.gridPosition, true, 1);
+				break;
+			case MoveType.Move:
+				highlightedSquares = CombatGrid.Instance.WalkableSquares(selected.gridPosition);
+				break;
+			case MoveType.RangedAtk:
+				highlightedSquares = CombatGrid.Instance.RangedAtkSquares(true, selected.gridPosition);
+				break;
+			case MoveType.Heal:
+				List<Fighter> fs = CombatGrid.Instance.GetAllFighters(false, true);
+				Vector2Int[] poss = new Vector2Int[fs.Count];
+				for (int i = 0; i < fs.Count; i++) {
+					poss[i] = fs[i].gridPosition;
+				}
+				highlightedSquares = poss;
+				break;
+
+		}
+		
+	}
+    public void CancelCurrentMoveSelection() {
+        cancelButton.SetActive(false);
+		moveSelectionMenu.SetActive(true);
+		moveTypeSelected = MoveType.None;
+    }
 }

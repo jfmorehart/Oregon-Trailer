@@ -17,9 +17,9 @@ public struct CombatMove {
 	public Fighter mover;
 	public MoveType moveType;
 	public Vector2Int targetSquare;
-	public int power;
+	public float power;
 
-	public CombatMove(Fighter attacker, MoveType move, Vector2Int toSquare, int str) {
+	public CombatMove(Fighter attacker, MoveType move, Vector2Int toSquare, float str) {
 		mover = attacker;
 		moveType = move;
 		targetSquare = toSquare;
@@ -28,6 +28,9 @@ public struct CombatMove {
 
 	public void Execute()
 	{
+		Debug.Log("execute");
+		if (mover == null) return;
+
 		Fighter target;
 		target = CombatGrid.Instance.grid[CombatGrid.Instance.GridCoordinateToIndex(targetSquare)];
 		bool validTarget = (target != null) && (target.isPlayerTeam != mover.isPlayerTeam);
@@ -48,8 +51,12 @@ public struct CombatMove {
 				if (validTarget) break;//cant move there if theres someone there
 				mover.MoveTo(targetSquare);
 				break;
+			case MoveType.Heal:
+				mover.hp.hp += power;
+				break;
 		}
 		mover.MoveProcessed();
+		Debug.Log("executed");
 	}
 }
 

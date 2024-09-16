@@ -8,7 +8,7 @@ public class CombatGrid : MonoBehaviour
 
     public GameObject prefab;
     public Vector2 offset, spacer;
-    public static Vector2Int gsize = new Vector2Int(6, 3);
+    public static Vector2Int gsize = new Vector2Int(9, 5);
 	public float tiltSpacer;
     public Fighter[] grid;
 	public SpriteRenderer[] boxes;
@@ -48,9 +48,70 @@ public class CombatGrid : MonoBehaviour
 		}
     }
 
+	public Vector2Int[] RangedAtkSquares(bool shooterteam, Vector2Int startPos, bool highlight = true, int range = 100) {
+		List<Vector2Int> poss = GetPositionsOfTeam(!shooterteam);
+		List<Vector2Int> validTargets = new List<Vector2Int>();
+		foreach(Vector2Int sqr in poss) {
+
+			if(range < 99) { 
+				//rangecheck
+				if(Vector2Int.Distance(startPos, sqr) > range) {
+					continue;
+				}
+			}
+			if (highlight) ColorBox(sqr.x, sqr.y, Color.green);
+			validTargets.Add(sqr);
+		}
+		return poss.ToArray();
+	}
+
+	public Vector2Int[] WalkableSquares(Vector2Int startPos, bool highlight = true)
+	{
+		List<Vector2Int> walkables = new List<Vector2Int>();
+		for (int i = 0; i < 9; i++)
+		{
+			Vector2Int testPos = startPos + new Vector2Int((i % 3) - 1, Mathf.FloorToInt(i / 3) - 1);
+			//Debug.Log(i + " " + new Vector2Int((i % 3) - 1, Mathf.FloorToInt(i / 3) - 1));
+			if (Vector2Int.Distance(startPos, testPos) < 0.5f) continue;
+			if (IsValidSquare(testPos))
+			{
+				if (highlight) ColorBox(testPos.x, testPos.y, Color.green);
+				walkables.Add(testPos);
+			}
+		}
+		return walkables.ToArray();
+	}
+
+	public List<Vector2Int> GetPositionsOfTeam(bool ofTeam)
+	{
+		List<Vector2Int> poss = new List<Vector2Int>();
+		foreach (Fighter f in GetAllFighters(false, ofTeam))
+		{
+			poss.Add(f.gridPosition);
+		}
+		return poss;
+	}
+
+
+	public List<Fighter> GetAllFighters(bool all = false, bool teamOf = true) {
+		List<Fighter> fighters = new List<Fighter>();
+		for(int i = 0; i < grid.Length; i++) {
+			if (grid[i] == null) continue;
+			if (all) {
+				fighters.Add(grid[i]);
+				continue;
+			}
+			if (grid[i].isPlayerTeam == teamOf) {
+				fighters.Add(grid[i]);
+			}
+		}
+		return fighters;
+    }
+
     public Fighter FighterAtPosition(Vector2Int pos){
 		return grid[GridCoordinateToIndex(pos)];
 	}
+
 
 	public Vector2 GridToWorld(Vector2Int gridPos) {
         Vector2 world = new Vector2(gridPos.x - Mathf.RoundToInt(gsize.x * 0.5f), gridPos.y - Mathf.RoundToInt(gsize.y * 0.5f));
@@ -71,23 +132,10 @@ public class CombatGrid : MonoBehaviour
 		return new Vector2Int(Mathf.RoundToInt(unrounded.x), Mathf.RoundToInt(unrounded.y));
 	}
 
-	public Vector2Int[] WalkableSquares(Vector2Int startPos, bool highlight = true) {
-		List<Vector2Int> walkables = new List<Vector2Int>();
-		for(int i = 0; i < 9; i++) {
-			Vector2Int testPos = startPos + new Vector2Int((i % 3) - 1, Mathf.FloorToInt(i / 3) - 1);
-			//Debug.Log(i + " " + new Vector2Int((i % 3) - 1, Mathf.FloorToInt(i / 3) - 1));
-			if (Vector2Int.Distance(startPos, testPos) < 0.5f) continue;
-			if (IsValidSquare(testPos)) {
-				if(highlight) ColorBox(testPos.x, testPos.y, Color.green);
-				walkables.Add(testPos);
-			}
-		}
-		return walkables.ToArray();
-    }
 
 	public void ClearAllSquareHighlights() { 
 		foreach(SpriteRenderer spr in boxes) {
-			spr.color = Color.white;
+			spr.color = Color.clear;
 		}
     }
 
@@ -107,12 +155,19 @@ public class CombatGrid : MonoBehaviour
 		return pt.y * gsize.x + pt.x;
 	}
 
-	public static bool IsValidSquare(Vector2Int dest) {
+	public static bool IsValidSquare(Vector2Int dest, bool invalidIfOccupied = true) {
 		if (dest.x < 0) return false;
 		if (dest.y < 0) return false;
 		if (dest.x >= gsize.x) return false;
 		if (dest.y >= gsize.y) return false;
-		if (Instance.grid[Instance.GridCoordinateToIndex(dest)] != null) return false;
+		if (Instance.grid[Instance.GridCoordinateToIndex(dest)] != null && invalidIfOccupied) return false;
+		return true;
+	}
+
+	public static bool HasValidTarget(Vector2Int dest, bool ofTeam) {
+		Fighter f = Instance.grid[Instance.GridCoordinateToIndex(dest)];
+		if (f == null) return false;
+		if (f.isPlayerTeam != ofTeam) return false;
 		return true;
 	}
 
