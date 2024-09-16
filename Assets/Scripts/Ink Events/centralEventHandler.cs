@@ -156,7 +156,7 @@ public class centralEventHandler : MonoBehaviour
             {
                 //add function to buttons
 
-                Debug.Log("I : " + i);
+                //Debug.Log("I : " + i);
                 buttonObjects[i].SetActive(true);
                 buttonTexts[i].text = currentChoices[i].text;
             }

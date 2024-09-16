@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
     //van movement speed
     //van push speed
 
+    //Party Information and needs
+
+
     private void Awake()
     {
         if (instance != null && instance != this)
