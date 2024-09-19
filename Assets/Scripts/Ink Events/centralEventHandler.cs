@@ -42,9 +42,7 @@ public class centralEventHandler : MonoBehaviour
             instance = this;
         }
 
-
-
-        
+        EventParent.transform.position = Vector2.zero;//the clutter of the scene is driving me insane
     }
 
 
@@ -71,6 +69,9 @@ public class centralEventHandler : MonoBehaviour
         EventParent.SetActive(false);
 
         Debug.Log("Start Sequence Finished");
+
+        
+
     }
     private void Update()
     {
@@ -94,6 +95,7 @@ public class centralEventHandler : MonoBehaviour
     public static void StartEvent(TextAsset inkJSON)
     {
         instance.startEvent(inkJSON);
+        GameManager.eventPassedIn();
     }
     public void startEvent(TextAsset inkJSON)
     {
@@ -104,6 +106,8 @@ public class centralEventHandler : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         eventPlaying = true;
         EventParent.SetActive(true);
+        currentStory.BindExternalFunction("causeEvent", (int eventID) => { eventReferences.instance.eventDesignator(eventID); });
+        //currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => GameManager.addResource(resourceID, amount));
 
         continueStory();
     }
@@ -113,7 +117,8 @@ public class centralEventHandler : MonoBehaviour
         if (currentStory.canContinue)
         {
             DescriptionText.text = currentStory.Continue();
-            pressContinueText.gameObject.SetActive(true);
+            if (currentStory.currentChoices.Count == 0)
+                pressContinueText.gameObject.SetActive(true);
             displayChoices();
         }
         else
@@ -129,7 +134,7 @@ public class centralEventHandler : MonoBehaviour
     {
 
         List<Choice> currentChoices = currentStory.currentChoices;
-        Debug.Log("Currentchoices amount : " + currentChoices.Count );
+        //Debug.Log("Currentchoices amount : " + currentChoices.Count );
         if (currentChoices.Count > buttonObjects.Count)
         {
             Debug.LogError("There are too many choices and not enough buttons. **Cannot display all choices** \n" + "Num of choices given: " + currentChoices.Count);
@@ -208,6 +213,7 @@ public class centralEventHandler : MonoBehaviour
             resetChoice(i);
         }
         Debug.Log("event Exited");
+        GameManager.eventOver();
     }
 
     //all choices when listeners are removed, should have a single listener to 
@@ -231,13 +237,9 @@ public class centralEventHandler : MonoBehaviour
     }
 
 
-    public void testEvent()
+    public void fightDesignator()
     {
-        Debug.Log("OPTION CHOSEN");
-    }
-    public void testEvent2()
-    {
-        Debug.Log("SECOND OPTION CHOSEN");
+        //for now this will only start the standard fight. No need for anything extra
     }
 
 }

@@ -16,42 +16,52 @@ public class VanMovement : MonoBehaviour
     [SerializeField]
     bool vanRunning = false;
     [SerializeField]
-    int vibrato = 10;
+    int vibrato = 1;
     [SerializeField]
     float randomnes = 90;
     [SerializeField]
-    float strength = 1;
+    float strength = 0.25f;
     [SerializeField]
-    float duration = 1;
+    float duration = 5;
     [SerializeField]
     ShakeRandomnessMode shakeMode = ShakeRandomnessMode.Harmonic;
     [SerializeField]
     bool snapping = false;
     [SerializeField]
-    bool fadeout = false;
+    bool fadeout = true;
     Vector2 vanTargetPosition;
     [Header("Van Stopping Settings")]
     [SerializeField]
-    bool vanSnap = true;
-    [SerializeField]
+    bool vanSnap = false;
+    [SerializeField][Tooltip("Time the van takes to stop moving")]
     float vanTime = 1f;
+    [Header("Van Clamp Settings")]
     [SerializeField]
-    float vanXPosModifier = 1;
+    float vanXPosModifier = 0.25f;
     [SerializeField]
-    float vanYPosModifier = 1;
+    float vanYPosModifier = 0.25f;
 
     float _maxXClamp;
     float _minXClamp;
     float _maxYClamp;
     float _minYClamp;
     Tweener Shake;
-    
+
+    public static VanMovement instance;
     private void Awake()
     {
-
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else if (instance == null)
+        {
+            instance = this;
+        }
     }
     private void Start()
     {
+        vanRunning = GameManager.VanRunning;
         DOTween.Init();
         vanTargetPosition = vanObj.transform.position;
         //Debug.Log(vanTargetPosition);
@@ -68,12 +78,13 @@ public class VanMovement : MonoBehaviour
 
     private void Update()
     {
-        
+        /*
         if (Input.GetKeyDown(KeyCode.Q))
         {
             vanRunning = !vanRunning;
         }
-        
+        */
+        vanRunning = GameManager.VanRunning;
         if (vanRunning)
         {
             //do little rumble animation using dotween
@@ -129,6 +140,7 @@ public class VanMovement : MonoBehaviour
 
         }
     }
+
     /*
     IEnumerator shakeRoutine(float _duration)
     {

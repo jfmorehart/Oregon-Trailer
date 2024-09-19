@@ -1,0 +1,271 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
+using Ink.Runtime;
+public class GameManager : MonoBehaviour
+{
+    //this generally handles resource management, group members, and other miscellanious information
+    public static GameManager instance;
+    //choose what screen to show
+    //Map screen, Game Screen, Van Screen
+    [Header("Party Resources")]
+    private int _moneyAmount = 10;
+    public static int MoneyAmount => instance._moneyAmount;
+    [SerializeField]
+    private float _fuelAmount = 100;
+    public static float FuelAmount => instance._fuelAmount;
+    [SerializeField][Tooltip("The amount of fuel that is drained every second the van is running")]
+    private float _fuelDrainRate = 5;
+    [SerializeField]
+    private int _foodAmount = 50;
+    public static int FoodAmount => instance._foodAmount;
+
+
+    [Header("Van Movement Settings")]
+    [SerializeField][Tooltip("Determines if the van is going forward. False if there is an event or if there is no fuel. If this is false, then time stops")]
+    private bool _vanRunning = true;
+    public static bool VanRunning => instance._vanRunning;
+    //[SerializeField]
+    //private bool _timeRunning = false;
+    //public static bool TimeRunning => instance._timeRunning;
+    [SerializeField][Tooltip("The speed the van moves on the map visually")]
+    private float _vanSpeed = 1f;
+    public static float VanSpeed => instance._vanSpeed;
+    [SerializeField][Tooltip("The amount of miles we say the van is moving every time it is running")]
+    private float _vanMPH = 10;
+    public static float VanMPH => instance._vanMPH;
+    [SerializeField]
+    private float _milesTraveledToday = 0;
+    public static float MilesTraveledToday => instance._milesTraveledToday;
+    [SerializeField][Tooltip("Increases with the above amount")]
+    private float _totalMilesTravelled = 0;
+    public static float TotalMilesTravelled => instance._totalMilesTravelled;
+    [SerializeField][Tooltip("The speed of the van when it needs to be pushed, in the map view")]
+    private float _vanPushSpeed = 2; // maybe this value can scale to the party members 
+    [SerializeField][Tooltip("The speed of the van in the map view")]
+    private float _vanMaxSpeed = 60;//maybe add in functionality to make the van go faster in certain cases.
+    public enum gameScreens
+    {
+        outsideVanScreen,
+        insideVanScreen,
+        MapScreen,
+        combatScreen
+    }
+    gameScreens currentScreen;
+    //have a reference to what should be on screen for each screen. Maybe move the camera to a certain camera
+    //todo: move this to the UImanager
+    [Header("Game Screens Settings")]
+    [SerializeField][Tooltip("This is the same as the event screen")]
+    private Camera outsideVanScreenCam;
+    [SerializeField]
+    private Camera insideVanScreenCam;
+    [SerializeField]
+    private Camera mapScreenCam;
+    float standardCameraPriority = 8;
+    float mainCamPriority = 10;
+
+
+    [Header("Day and Time System")]
+    //day system info
+    //day pass rate
+    [SerializeField]
+    private int _dayCount = 1;
+    public static int DayCount => instance._dayCount;
+    [SerializeField][Tooltip("Amount of real time seconds are in a day")]
+    private float _timePerDay = 240;//amount of real world seconds are in a day
+    public static float TimePerDay => instance._timePerDay;
+    [SerializeField]
+    private float _currentTime = 0;
+    public static float CurrentTime => instance._currentTime;
+    [Header("Special Ink Events")]
+    [SerializeField]
+    private Story fuelOutStory;//maybe have multiple variants of this story. 
+
+    [Header("party member settings")]
+    [SerializeField]//need to have characters soon
+    private string placeholder;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    private void Start()
+    {
+        //set the current screen - probably have additional screen for initial cutscene?
+        //setScreen(gameScreens.outsideVanScreen);
+    }
+    private void Update()
+    {
+        vanCheck();
+        timeCheck();
+    }
+    private void setScreen(gameScreens s)
+    {
+        switch (s)
+        {
+            case gameScreens.outsideVanScreen:
+                outsideVanScreenCam.depth = mainCamPriority;
+                mapScreenCam.depth = standardCameraPriority;
+                insideVanScreenCam.depth = standardCameraPriority;
+                break;
+            case gameScreens.insideVanScreen:
+                outsideVanScreenCam.depth = standardCameraPriority;
+                mapScreenCam.depth = standardCameraPriority;
+                insideVanScreenCam.depth = mainCamPriority;
+                break;
+            case gameScreens.MapScreen:
+                outsideVanScreenCam.depth = standardCameraPriority;
+                mapScreenCam.depth = mainCamPriority;
+                insideVanScreenCam.depth = standardCameraPriority;
+                break;
+            case gameScreens.combatScreen:
+                //switch scene
+                break;
+            default:
+                break;
+        }
+    }
+    public static void SetScreen(gameScreens s)
+    {
+        instance.setScreen(s);
+    }
+
+
+    
+    public void goToMap()
+    {
+        setScreen(gameScreens.MapScreen);
+    }
+
+
+    public static void eventPassedIn()
+    {
+        //pause game
+        instance._vanRunning= false;
+    }
+
+    public static void eventOver()
+    {
+        instance._vanRunning = true;
+    }
+    public void vanCheck()
+    {
+        //if the fuel ever runs out, give the event handler the fuel option
+        //_fuelAmount = Mathf.Clamp(_fuelAmount, -5, 10000);
+        if (_fuelAmount <= 0)
+        {
+            //Debug.Log("Out of fuel");
+            _vanRunning = false;
+            _vanMPH = 0;
+            
+            //give the centralevent handler an outOfFuel event
+        }
+
+        //remove fuel and increase mph
+        if (VanRunning && _fuelAmount > 0)
+        {
+            _vanMPH = _vanMaxSpeed;
+            _fuelAmount -= _fuelDrainRate * Time.deltaTime;
+            _milesTraveledToday += _vanMaxSpeed * 0.5f * Time.deltaTime;
+        }
+        else if (_vanRunning)
+        {
+            //van being pushed
+            _vanMPH = _vanPushSpeed;
+        }
+    }
+
+
+    public static bool canAffordFuel(int amount)
+    {
+        return (instance._fuelAmount>= amount) ? true : false;
+    }
+    public static bool canAffordFood(int amount)
+    {
+        return (instance._foodAmount >= amount) ? true: false;
+    }
+    public static bool canAffordPrice(int amount)
+    {
+        return (instance._moneyAmount >= amount) ? true : false;
+    }
+
+    public static void setResource(int resourceID, int amount)
+    {
+        switch (resourceID)
+        {
+            case 1://fuel
+                instance._fuelAmount = amount;
+                break;
+            case 2://food
+                instance._foodAmount = amount;
+                break;
+            case 3://money
+                instance._moneyAmount = amount;
+                break;
+            case 4:
+            default:
+                Debug.Log("Resource ID not recognized");
+                break;
+        }
+    }
+
+    public static void addResource(int resourceID, int amount)
+    {
+        switch (resourceID)
+        {
+            case 1://fuel
+                instance._fuelAmount += amount;
+                break;
+            case 2://food
+                instance._foodAmount += amount;
+                break;
+            case 3://money
+                instance._moneyAmount += amount;
+                break;
+            case 4:
+            default:
+                Debug.Log("Resource ID not recognized");
+                break;
+        }
+    }
+
+    private void timeCheck()
+    {
+        if(_vanRunning)
+            _currentTime += Time.deltaTime;
+        if ( _currentTime > _timePerDay)
+        {
+            //stop the van from running.
+            _vanRunning = false;
+            //communicate with UI manager to throw up the van
+            Debug.Log("End of day");
+            UIManager.doEndOfDayPopUp();
+            instance._currentTime = 0;
+        }
+    }
+
+    public static void restartDay()
+    {
+        instance._dayCount++;
+        instance._currentTime = 0;
+        if (FuelAmount > 0)
+        {
+            instance._vanRunning = true;
+        }
+    }
+}
+
+
+
+
+
