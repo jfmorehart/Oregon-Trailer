@@ -10,7 +10,10 @@ public class CombatGrid : MonoBehaviour
     public Vector2 offset, spacer;
     public static Vector2Int gsize = new Vector2Int(9, 5);
 	public float tiltSpacer;
+
+	[HideInInspector]
     public Fighter[] grid;
+	[HideInInspector]
 	public SpriteRenderer[] boxes;
 
 	private void Awake()
@@ -174,6 +177,32 @@ public class CombatGrid : MonoBehaviour
 	public static Vector2Int RandomGridSquare() {
 		return new Vector2Int(Random.Range(0, gsize.x), Random.Range(0, gsize.y));
     }
+	public static Vector2Int RandomEmptyGridSquare()
+	{
+		Vector2Int pos = Vector2Int.zero;
+		int tries = 0;
+		do
+		{
+			tries++;
+			if (tries > 500) return Vector2Int.zero;
+			pos = new Vector2Int(Random.Range(0, gsize.x), Random.Range(0, gsize.y));
+		}
+		while (Instance.grid[Instance.GridCoordinateToIndex(pos)] != null);
+		return pos;
+	}
+	public static Vector2Int RandomEmptyGridSquare(int xmin, int xmax)
+	{
+		Vector2Int pos = Vector2Int.zero;
+		int tries = 0;
+		do
+		{
+			tries++;
+			if (tries > 500) return Vector2Int.zero;
+			pos = new Vector2Int(Random.Range(xmin, Mathf.Min(gsize.x, xmax)), Random.Range(0, gsize.y));
+		}
+		while (Instance.grid[Instance.GridCoordinateToIndex(pos)] != null);
+		return pos;
+	}
 	public static Vector2Int RandomWalk(Vector2Int origin) {
 		bool validDest;
 		Vector2Int dest;

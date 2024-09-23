@@ -28,7 +28,6 @@ public struct CombatMove {
 
 	public void Execute()
 	{
-		Debug.Log("execute");
 		if (mover == null) return;
 
 		Fighter target;
