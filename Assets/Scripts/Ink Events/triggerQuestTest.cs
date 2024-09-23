@@ -20,4 +20,20 @@ public class triggerQuestTest : MonoBehaviour
             centralEventHandler.StartEvent(resourceJSON);
         }
     }
+
+
+
+    //for the first milestone, this will control the quests and when they happen
+
+
+
+
+
+}
+
+
+public enum roadArchetype
+{
+    standard,
+    //for now only have standard.
 }
