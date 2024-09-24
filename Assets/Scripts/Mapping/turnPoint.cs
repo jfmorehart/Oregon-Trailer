@@ -16,6 +16,10 @@ public class turnPoint : LocationPoint
     //sign communicates with this 
 
 
-    public void 
+    public void chooseDestination()
+    {
+        //give the van its destination.
+        //if van has destination then allow it to run
+    }
 
 }

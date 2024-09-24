@@ -32,6 +32,7 @@ public class eventReferences : MonoBehaviour
                 break;
             case 2:
                 //enter jack's fight scene
+                CombatantsStatic.LoadCombat(null);
                 break;
             case 3:
                 //remove 10 fuel

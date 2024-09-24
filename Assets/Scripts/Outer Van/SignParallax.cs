@@ -9,7 +9,7 @@ public class SignParallax : BackgroundObjectParallax
     private Button firstRoadButton;
     [SerializeField]
     private Button secondRoadButton;
-
+    private Road r1, r2;
     bool signActive = false;
     public static SignParallax instance;
     private void Awake()
@@ -27,12 +27,14 @@ public class SignParallax : BackgroundObjectParallax
     {
         firstRoadButton.onClick.RemoveAllListeners();
         secondRoadButton.onClick.RemoveAllListeners();
-        
+
+        r1 = firstRoad;
+        r2 = secondRoad;
     }
     public void chooseFirstRoad()
     {
         //gives the direction to the vanManager
-
+        
     }
     public void chooseSecondRoad()
     {
@@ -41,7 +43,7 @@ public class SignParallax : BackgroundObjectParallax
 
     private void Update()
     {
-
+//once at a certain point stop the van from moving
     }
 
 

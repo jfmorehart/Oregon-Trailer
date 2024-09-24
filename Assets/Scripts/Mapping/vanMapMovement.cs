@@ -29,20 +29,40 @@ public class vanMapMovement : MonoBehaviour
     {
         vanRotation();
 
+        vanMovement();
+    }
+
+    private void vanMovement()
+    {
         if (GameManager.VanRunning)
         {
             //move to next point
             transform.position = Vector2.MoveTowards(transform.position, destination.transform.position, GameManager.VanSpeed * Time.deltaTime);
-
         }
+        //get percent of the way between the origin and destination using the distance from destination.
+        //starting distance (dist: origin, destination) current distance from ending/beginning
+        //currentDist/startingDist
+
+        
     }
+
     public void init(LocationPoint o)
     {
         origin = o;
         transform.position = origin.transform.position;
     }
-    public void vanRotation()
+    private void vanRotation()
     {
         //calculate rotation the van should be at depending on angle they are moving
+    }
+
+    public void setOrigin(LocationPoint origin)
+    {
+        this.origin = origin;
+    }
+
+    public void setDestination(LocationPoint destination)
+    {
+        this.destination = destination;
     }
 }
