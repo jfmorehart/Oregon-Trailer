@@ -15,12 +15,15 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _mphAmountText;
     [SerializeField]
-    private Button _mapButton;
-    [SerializeField]
     private TextMeshProUGUI _moneyAmountText;
     [Header("End of Day screen")]
     [SerializeField]
     private endOfDayUI endOfDayScreen;
+
+
+    [Header("Map Info")]
+    [SerializeField]
+    Button mapButton;
 
     private void Awake()
     {
@@ -44,12 +47,31 @@ public class UIManager : MonoBehaviour
         _moneyAmountText.text = GameManager.MoneyAmount.ToString();
     }
 
-
-
+    private void Start()
+    {
+        mapButton.onClick.AddListener(delegate { startMapScreen(); });
+    }
 
     public static void doEndOfDayPopUp()
     {
         Debug.Log("End of day popup");
         endOfDayUI.instance.popUp();
     }
+
+    public static void startMapScreen()
+    {
+        mapUI.instance.popUp();
+
+        instance.mapButton.onClick.RemoveAllListeners();
+        instance.mapButton.onClick.AddListener(delegate { endMapScreen(); });
+    }
+
+    public static void endMapScreen()
+    {
+        mapUI.instance.pullDown();
+        instance.mapButton.onClick.RemoveAllListeners();
+        instance.mapButton.onClick.AddListener(delegate { startMapScreen(); });
+    }
+
+
 }

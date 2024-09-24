@@ -7,7 +7,7 @@ public abstract class LocationPoint : MonoBehaviour
     //destinations this points connects to
     //only the places you can go from this point
     [SerializeField]
-    List<Road> destinations = new List<Road>();
+    Road roadConnection = new Road();
 
     
 
@@ -23,9 +23,9 @@ public struct Road
     public LocationPoint origin;
     public string roadName;
 
-    //these should change on runtime
+    //the amount of events is chosen in the inspector
     public roadArchetype type;
-    public List<eventLoc> eventsList;
+    public eventLoc[] eventsList;
 
     public float nextQuestPercent;
     public void addQuest(TextAsset q)
@@ -34,32 +34,69 @@ public struct Road
         //this percent value is the distance that the player must be to experience this
 
         float dist = 0;
-        eventLoc evloc = new eventLoc();
 
-
-        switch (eventsList.Count)
+        //check how many empty slots there are
+        int i = 0;
+        foreach (eventLoc item in eventsList)
+        {
+            if (item.quest != null)
+            {
+                i++;
+            }
+        } 
+        //go to whatever empty slot there is and fill it up
+        switch (i)
         {
             case 0:
-                
+                dist = 0.5f;
                 break;
             case 1:
-                
+                eventsList[0].percentDistance = 0.33f;
+                dist = 0.6f;
                 break;
             case 2:
-
-                break;
-            case 3:
-                
+                eventsList[0].percentDistance = 0.25f;
+                eventsList[1].percentDistance = 0.5f;
+                dist = 0.75f;
+                //eventsList[2] = (new eventLoc(q, dist));
                 break;
             default:
-                Debug.Log("No Events in this object. Attached to " + origin.transform.name);
+                Debug.Log("Invalid number of events in this object. Attached to " + origin.transform.name + "  -  " + roadName);
                 break;
         }
+        eventsList[i] = new eventLoc(q, dist);
     }
-    
-    public void checkGiveQuest()
+
+    public void checkGiveQuest(float cpercent)
     {
         //checks if we should give the player a quest 
+
+        //null check
+        if (nextQuestPercent == 0)
+        {
+            nextQuestPercent = eventsList[0].percentDistance;
+        }
+
+
+        if (cpercent > nextQuestPercent)
+        {
+            //give the quest
+            //reset the event to give
+            for (int i = 0; i < eventsList.Length; i++)
+            {
+                //get the first event that has not been activated and just set that percent
+                if (!eventsList[i].eventActivated)
+                {
+                    //pass on the appropriate quest to the central event manager
+                    centralEventHandler.StartEvent(eventsList[i].quest);
+
+
+                    //set the next percent
+                    nextQuestPercent = eventsList[i].percentDistance;
+                    return;
+                }
+            }
+        }
     }
 }
 

@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class settlementPoint : LocationPoint
 {
-    public void interact()
-    {
-
-    }
+    
 }

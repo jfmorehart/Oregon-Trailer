@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
     //day system info
     //day pass rate
     [SerializeField]
+    private bool timeTicking = true;
+    [SerializeField]
     private int _dayCount = 1;
     public static int DayCount => instance._dayCount;
     [SerializeField][Tooltip("Amount of real time seconds are in a day")]
@@ -83,10 +85,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Story fuelOutStory;//maybe have multiple variants of this story. 
 
-    [Header("party member settings")]
-    [SerializeField]//need to have characters soon
-    private string placeholder;
-
+    [Header("Road Sign Settings")]
+    [SerializeField]
+    private Vector2 roadSignSpawn;
+    private SignParallax roadSign;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -144,7 +146,8 @@ public class GameManager : MonoBehaviour
     
     public void goToMap()
     {
-        setScreen(gameScreens.MapScreen);
+        //UIManager.doMapScreen();
+        //setScreen(gameScreens.MapScreen);
     }
 
 
@@ -241,16 +244,21 @@ public class GameManager : MonoBehaviour
 
     private void timeCheck()
     {
-        if(_vanRunning)
-            _currentTime += Time.deltaTime;
-        if ( _currentTime > _timePerDay)
+        if (timeTicking)
         {
-            //stop the van from running.
-            _vanRunning = false;
-            //communicate with UI manager to throw up the van
-            Debug.Log("End of day");
-            UIManager.doEndOfDayPopUp();
-            instance._currentTime = 0;
+
+            if (_vanRunning)
+                _currentTime += Time.deltaTime;
+            if (_currentTime > _timePerDay)
+            {
+                //stop the van from running.
+                _vanRunning = false;
+                //communicate with UI manager to throw up the van
+                Debug.Log("End of day");
+                UIManager.doEndOfDayPopUp();
+                instance._currentTime = 0;
+
+            }
         }
     }
 
@@ -263,6 +271,16 @@ public class GameManager : MonoBehaviour
             instance._vanRunning = true;
         }
     }
+
+
+
+    public static void createSign()
+    {
+
+    }
+
+
+
 }
 
 
