@@ -51,7 +51,7 @@ public class CombatGrid : MonoBehaviour
 		}
     }
 
-	public Vector2Int[] RangedAtkSquares(bool shooterteam, Vector2Int startPos, bool highlight = true, int range = 100) {
+	public Vector2Int[] RangedAtkSquares(bool shooterteam, Vector2Int startPos, bool highlight = true, float range = 100) {
 		List<Vector2Int> poss = GetPositionsOfTeam(!shooterteam);
 		List<Vector2Int> validTargets = new List<Vector2Int>();
 		foreach(Vector2Int sqr in poss) {
@@ -65,7 +65,7 @@ public class CombatGrid : MonoBehaviour
 			if (highlight) ColorBox(sqr.x, sqr.y, Color.green);
 			validTargets.Add(sqr);
 		}
-		return poss.ToArray();
+		return validTargets.ToArray();
 	}
 
 	public Vector2Int[] WalkableSquares(Vector2Int startPos, bool highlight = true)

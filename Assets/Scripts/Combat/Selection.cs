@@ -58,7 +58,6 @@ public class Selection : MonoBehaviour
 					highlightedSquares = null;
 				}
 			}
-
 		}
     }
 	bool TryOrderComplete(Vector2Int gpos) {
@@ -134,7 +133,7 @@ public class Selection : MonoBehaviour
 			case MoveType.None:
 				break;
 			case MoveType.Melee:
-				highlightedSquares = CombatGrid.Instance.RangedAtkSquares(true, selected.gridPosition, true, 1);
+				highlightedSquares = CombatGrid.Instance.RangedAtkSquares(true, selected.gridPosition, true, 1.5f);
 				break;
 			case MoveType.Move:
 				highlightedSquares = CombatGrid.Instance.WalkableSquares(selected.gridPosition);
