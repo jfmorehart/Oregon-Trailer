@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
-    public static CombatManager Instance;
+	public static CombatManager Instance;
 
-    public bool isPlayersTurn;
+	public bool isPlayersTurn;
 
-    public List<Fighter> fighters;
+	public List<Fighter> fighters;
 
-    public TMP_Text turnText;
+	public TMP_Text turnText;
 
 	public GameObject endpanel;
 	public TMP_Text endpanelText;
@@ -30,11 +31,12 @@ public class CombatManager : MonoBehaviour
 
 	private void Awake()
 	{
-        Instance = this;
+		Instance = this;
 		isPlayersTurn = false;
 		gatorHead = new Character(gatorBase);
 		medic = new Character(medicBase);
-		if (CurrentGame.activeParty == null) {
+		if (CurrentGame.activeParty == null)
+		{
 			CurrentGame.NewParty(medic, medic);
 		}
 		if (CombatantsStatic.combatants == null)
@@ -47,7 +49,8 @@ public class CombatManager : MonoBehaviour
 	private void Start()
 	{
 		Party party = CurrentGame.activeParty;
-		for (int i =0; i < party.members.Count; i++) {
+		for (int i = 0; i < party.members.Count; i++)
+		{
 			GameObject go = Instantiate(friendly);
 			Fighter f = go.GetComponent<Fighter>();
 			Vector2Int pos = CombatGrid.RandomEmptyGridSquare(4, 10);
@@ -63,55 +66,67 @@ public class CombatManager : MonoBehaviour
 		ProcessTurn();
 	}
 
-	public void ProcessTurn() {
+	public void ProcessTurn()
+	{
 		//used for simultaneous moves
-        foreach(Fighter h in fighters) { 
-            if(isPlayersTurn == h.isPlayerTeam) {
-                h.plannedMove.Execute();
+		foreach (Fighter h in fighters)
+		{
+			if (isPlayersTurn == h.isPlayerTeam)
+			{
+				h.plannedMove.Execute();
 			}
-	    }
+		}
 		if (WLCheck()) return;
 		isPlayersTurn = !isPlayersTurn;
 		NewTurn?.Invoke(isPlayersTurn); //tell everyone
 
-		if (isPlayersTurn) {
-            turnText.text = "your turn!";
-            turnText.color = Color.green;
-        }
-        else {
+		if (isPlayersTurn)
+		{
+			turnText.text = "your turn!";
+			turnText.color = Color.green;
+		}
+		else
+		{
 			turnText.text = "enemy turn!";
 			turnText.color = Color.red;
 		}
-    }
-	public bool WLCheck() {
+	}
+	public bool WLCheck()
+	{
 		//checks if the player has won or lost
 		bool teamAremains = false;
 		bool teamBremains = false;
 
 		foreach (Fighter h in fighters)
 		{
-			if (h.isPlayerTeam) {
+			if (h.isPlayerTeam)
+			{
 				teamAremains = true;
 			}
-			else {
+			else
+			{
 				teamBremains = true;
 			}
-			if(teamAremains && teamBremains) {
+			if (teamAremains && teamBremains)
+			{
 				return false;
-			}	
+			}
 		}
-		if (teamAremains) {
+		if (teamAremains)
+		{
 			Debug.Log("Victory to team A");
 			endpanel.SetActive(true);
 			endpanelText.text = "VICTORY";
 		}
-		if (teamBremains) {
+		if (teamBremains)
+		{
 			Debug.Log("Victory to team B");
 			endpanelText.text = "DEFEAT";
 		}
 		return true;
 	}
-    public void ProcessIndividualMove(Fighter f) {
+	public void ProcessIndividualMove(Fighter f)
+	{
 
 		f.plannedMove.Execute();
 		WLCheck();
@@ -137,5 +152,10 @@ public class CombatManager : MonoBehaviour
 			turnText.color = Color.red;
 			ProcessTurn();
 		}
+	}
+
+	public void ExitCombat()
+	{
+		SceneManager.LoadScene(2);
 	}
 }

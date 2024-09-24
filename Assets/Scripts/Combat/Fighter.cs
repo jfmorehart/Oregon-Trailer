@@ -84,6 +84,15 @@ public class Fighter : MonoBehaviour, IDamageable
 		UnHighlight();
     }
 	public void MoveTo(Vector2Int square) {
+		if (CombatGrid.Instance.grid[CombatGrid.Instance.GridCoordinateToIndex(square)] != null) {
+			//already occupied
+			CombatGrid.Instance.grid[CombatGrid.Instance.GridCoordinateToIndex(gridPosition)] = this;
+			transform.position = CombatGrid.Instance.GridToWorld(gridPosition);
+			charSprite.sortingOrder = 10 + (CombatGrid.gsize.y - gridPosition.y);
+			Debug.Log(gridPosition + " blocked to " + square);
+			return;
+		}
+
 		Debug.Log("moving to " + square);
 		CombatGrid.Instance.grid[CombatGrid.Instance.GridCoordinateToIndex(gridPosition)] = null;
 		gridPosition = square;
