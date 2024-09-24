@@ -64,17 +64,15 @@ public class Selection : MonoBehaviour
 	bool TryOrderComplete(Vector2Int gpos) {
 		if (!CombatGrid.IsValidSquare(gpos, false)) return false;
 
-		//CombatGrid.Instance.ColorBox(gpos.x, gpos.y, Color.red);
+		//returns true if the 'gpos' square is a valid target for an existing order
 
 		if (highlightedSquares != null)
 		{
 			if (highlightedSquares.Contains(gpos) && selected.isPlayerTeam == CombatManager.Instance.isPlayersTurn)
 			{
-				Debug.Log("valid command input!");
 				selected.plannedMove = new CombatMove(selected, moveTypeSelected, gpos, 1f);
 				CombatManager.Instance.ProcessIndividualMove(selected);
 				CombatGrid.Instance.ColorBox(gpos.x, gpos.y, Color.red);
-
 				return true;
 			}
 			else {
@@ -90,23 +88,26 @@ public class Selection : MonoBehaviour
 		}
 	}
 	bool TryUnitSelect(Vector2 testPoint) {
-		//no valid order, try selecting a unit 
+
+		//no valid order found on nearest square, try selecting a unit 
 		Collider2D[] results = Physics2D.OverlapPointAll(testPoint);
 		if (results.Length > 0)
 		{
-			Debug.Log("unitclick");
 			for (int i = 0; i < results.Length; i++)
 			{
 				if (results[i].gameObject.TryGetComponent(out Fighter fight))
 				{
-					if (TryOrderComplete(fight.gridPosition))
+					//we found a unit
+					//are they the target of an order?
+					if (TryOrderComplete(fight.gridPosition)) //execute the order
 					{
-						Debug.Log("ctarget");
+						//yes
 						Deselect();
 						highlightedSquares = null;
 						return true;
 					}
-
+					//no, they aren't
+					//select them if you can
 					if (!fight.isPlayerTeam) continue;
 					if (fight.hasMoved) continue;
 					selected = fight;

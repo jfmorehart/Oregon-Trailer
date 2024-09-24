@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[HideInInspector]
 public class Fighter : MonoBehaviour, IDamageable
 {
-    public int hP;
+	public Character me; //character who this instance represents
+
 	public bool isPlayerTeam;
 	public bool hasMoved;
 
@@ -18,30 +21,26 @@ public class Fighter : MonoBehaviour, IDamageable
 
 	public HealthBar hp;
 
-	private void Awake()
-	{
-		CombatManager.NewTurn += NewTurn; //unsubscribe before death
-		UnHighlight();
-	}
-	private void Start()
-	{
-		RegisterOnGrid();
-		MoveTo(gridPosition);
-	}
+	public void Setup(Vector2Int gpos, Character myself) {
+		me = myself;
+		charSprite.sprite = me.baseCharacter.combat_sprite;
+		if (isPlayerTeam) {
+			charSprite.flipX = me.baseCharacter.isFacingRight;
+		}
+		else {
+			charSprite.flipX = !me.baseCharacter.isFacingRight;
+		}
 
-	private void Update()
-	{
-		//todo replace with requiring player input
-		//if(isPlayerTeam == CombatManager.Instance.isPlayersTurn) { 
-		//	if(plannedMove.moveType == MoveType.None) {
-		//		plannedMove = new CombatMove(this, MoveType.Move, CombatGrid.RandomWalk(gridPosition), 1);
-		//	}
-		//}
+		CombatManager.NewTurn += NewTurn; // remember to unsubscribe before death
+		UnHighlight();
+		gridPosition = gpos;
+		RegisterOnGrid();
 	}
 
 	public void RegisterOnGrid(){
 		CombatManager.Instance.fighters.Add(this);
 		CombatGrid.Instance.grid[CombatGrid.Instance.GridCoordinateToIndex(gridPosition)] = this;
+		MoveTo(gridPosition);
 	}
 
 	public void ToggleGreen(bool green) {
@@ -59,10 +58,17 @@ public class Fighter : MonoBehaviour, IDamageable
 	{
 		Debug.Log(gameObject.name + " took " + dmg + " damage");
 		hp.hp -= dmg;
+		if(hp.hp < 0.01f) {
+			Kill();
+		}
 	}
+	public void Kill() {
+		CombatManager.Instance.fighters.Remove(this);
+		CombatGrid.Instance.grid[CombatGrid.Instance.GridCoordinateToIndex(gridPosition)] = null;
+		Destroy(gameObject);
+    }
 
 	public void NewTurn(bool team) {
-		Debug.Log("newturn  " + team);
 		if(team == isPlayerTeam) {
 			hasMoved = false;
 			Highlight();
