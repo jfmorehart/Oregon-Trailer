@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +20,10 @@ public class Fighter : MonoBehaviour, IDamageable
 
 	public HealthBar hp;
 
+	public float baseAtk;
+
 	public void Setup(Vector2Int gpos, Character myself) {
+		Debug.Log(Vector2Int.Distance(Vector2Int.zero, Vector2Int.one));
 		me = myself;
 		charSprite.sprite = me.baseCharacter.combat_sprite;
 		if (isPlayerTeam) {
@@ -29,6 +31,9 @@ public class Fighter : MonoBehaviour, IDamageable
 		}
 		else {
 			charSprite.flipX = !me.baseCharacter.isFacingRight;
+		}
+		if (!CombatManager.Instance.playerTeamOnRight) {
+			charSprite.flipX = !charSprite.flipX;
 		}
 
 		CombatManager.NewTurn += NewTurn; // remember to unsubscribe before death
@@ -73,7 +78,14 @@ public class Fighter : MonoBehaviour, IDamageable
 			hasMoved = false;
 			Highlight();
 			if (!isPlayerTeam) {
-				plannedMove = new CombatMove(this, MoveType.Move, CombatGrid.RandomWalk(gridPosition), 1);
+				Debug.Log("new turn registered " + gridPosition);
+				Vector2Int[] meleeSquares = CombatGrid.Instance.RangedAtkSquares(isPlayerTeam, gridPosition, false, 1.6f);
+				if(meleeSquares.Length > 0) {
+					plannedMove = new CombatMove(this, MoveType.Melee, meleeSquares[Random.Range(0, meleeSquares.Length)], baseAtk);
+				}
+				else {
+					plannedMove = new CombatMove(this, MoveType.Move, CombatGrid.RandomWalk(gridPosition), 1);
+				}
 			}
 		}
     }

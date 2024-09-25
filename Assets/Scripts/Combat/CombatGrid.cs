@@ -8,7 +8,7 @@ public class CombatGrid : MonoBehaviour
 
     public GameObject prefab;
     public Vector2 offset, spacer;
-    public static Vector2Int gsize = new Vector2Int(9, 5);
+    public static Vector2Int gsize = new Vector2Int(4, 3);
 	public float tiltSpacer;
 
 	[HideInInspector]
@@ -22,7 +22,6 @@ public class CombatGrid : MonoBehaviour
 		MakeGrid();
 
 		Vector2 random = boxes[Random.Range(0, boxes.Length)].transform.position;
-		Debug.Log(random + " " + WorldToGrid(random) + " " + GridToWorld(WorldToGrid(random)));
 	}
 
 	private void Update()
@@ -138,7 +137,7 @@ public class CombatGrid : MonoBehaviour
 
 	public void ClearAllSquareHighlights() { 
 		foreach(SpriteRenderer spr in boxes) {
-			spr.color = Color.clear;
+			spr.color = Color.grey * 0.3f;
 		}
     }
 

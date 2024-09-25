@@ -40,7 +40,7 @@ public struct CombatMove {
 				break;
 			case MoveType.Melee:
 				if(!validTarget)break;
-				target.TakeDamage(power);
+				target.TakeDamage(power * 2);
 				break;
 			case MoveType.RangedAtk:
 				if (!validTarget) break;
