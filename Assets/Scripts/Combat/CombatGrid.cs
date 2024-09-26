@@ -202,14 +202,14 @@ public class CombatGrid : MonoBehaviour
 		while (Instance.grid[Instance.GridCoordinateToIndex(pos)] != null);
 		return pos;
 	}
-	public static Vector2Int RandomWalk(Vector2Int origin) {
+	public static Vector2Int RandomWalk(Vector2Int origin, int xBias = 0) {
 		bool validDest;
 		Vector2Int dest;
 		int tries = 0;
 		do {
 			tries++;
 			validDest = true;
-			dest = origin + new Vector2Int(Random.Range(-1, 2), Random.Range(-1, 2));
+			dest = origin + new Vector2Int(Random.Range(-1 + Mathf.Max(0, xBias), 2 + Mathf.Min(0, xBias)), Random.Range(-1, 2));
 			validDest = IsValidSquare(dest);
 			if (Vector2Int.Distance(dest, origin) < 0.1f) validDest = false;
 			if (tries > 500)
