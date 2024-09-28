@@ -29,6 +29,8 @@ public class CombatManager : MonoBehaviour
 	public Character medic;
 	public Character gatorHead;
 
+	public bool playerTeamOnRight;
+
 	private void Awake()
 	{
 		Instance = this;
@@ -41,9 +43,10 @@ public class CombatManager : MonoBehaviour
 		}
 		if (CombatantsStatic.combatants == null)
 		{
-			CombatantsStatic.combatants = new Character[2];
+			CombatantsStatic.combatants = new Character[3];
 			CombatantsStatic.combatants[0] = gatorHead;
 			CombatantsStatic.combatants[1] = gatorHead;
+			CombatantsStatic.combatants[2] = gatorHead;
 		}
 	}
 	private void Start()
@@ -53,14 +56,30 @@ public class CombatManager : MonoBehaviour
 		{
 			GameObject go = Instantiate(friendly);
 			Fighter f = go.GetComponent<Fighter>();
-			Vector2Int pos = CombatGrid.RandomEmptyGridSquare(4, 10);
+
+			Vector2Int pos;
+			if (playerTeamOnRight) { 
+				pos = CombatGrid.RandomEmptyGridSquare(CombatGrid.gsize.x / 2, CombatGrid.gsize.x);
+			}
+			else {
+				pos = CombatGrid.RandomEmptyGridSquare(0, CombatGrid.gsize.x / 2);
+			}
+			
 			f.Setup(pos, party.members[i]);
 		}
 		for (int i = 0; i < CombatantsStatic.combatants.Length; i++)
 		{
 			GameObject go = Instantiate(enemy);
 			Fighter f = go.GetComponent<Fighter>();
-			Vector2Int pos = CombatGrid.RandomEmptyGridSquare(0, 5);
+			Vector2Int pos;
+			if (playerTeamOnRight)
+			{
+				pos = CombatGrid.RandomEmptyGridSquare(0, CombatGrid.gsize.x / 2);
+			}
+			else {
+				pos = CombatGrid.RandomEmptyGridSquare(CombatGrid.gsize.x / 2, CombatGrid.gsize.x);
+			}
+			
 			f.Setup(pos, CombatantsStatic.combatants[i]);
 		}
 		ProcessTurn();
@@ -69,13 +88,20 @@ public class CombatManager : MonoBehaviour
 	public void ProcessTurn()
 	{
 		//used for simultaneous moves
+
+		//these moves may kill some 
+		List<Fighter> team = new List<Fighter>();
 		foreach (Fighter h in fighters)
 		{
 			if (isPlayersTurn == h.isPlayerTeam)
 			{
-				h.plannedMove.Execute();
+				team.Add(h);
 			}
 		}
+		foreach(Fighter h in team) { 
+			h.plannedMove.Execute();
+		}
+
 		if (WLCheck()) return;
 		isPlayersTurn = !isPlayersTurn;
 		NewTurn?.Invoke(isPlayersTurn); //tell everyone
@@ -122,6 +148,7 @@ public class CombatManager : MonoBehaviour
 		{
 			Debug.Log("Victory to team B");
 			endpanelText.text = "DEFEAT";
+			endpanel.SetActive(true);
 		}
 		return true;
 	}

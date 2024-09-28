@@ -42,7 +42,6 @@ public class Selection : MonoBehaviour
 		}
 
         if (Input.GetMouseButtonDown(0)) {
-			Debug.Log("click");
             CombatGrid.Instance.ClearAllSquareHighlights();
             Vector3 testPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
