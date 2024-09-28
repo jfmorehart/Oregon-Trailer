@@ -6,13 +6,24 @@ public class vanMapMovement : MonoBehaviour
 {
     //has locationPoint that it is trying to go to
     [SerializeField]
-    LocationPoint origin;
+    LocationPoint _origin;
+    public static LocationPoint Origin => instance._origin;
     //has locationpoint that it is going from
     [SerializeField]
-    LocationPoint destination;
+    LocationPoint _destination;
+    public static LocationPoint Destination => instance._destination;
     //move in a straight line from each point. Check distance and see what percent we move. Based on the map movement 
     public static vanMapMovement instance;
+    [SerializeField]
+    private Road currentRoad;
 
+    private float currentDistancePercent, currentDistance, startingDistance;
+    public static float CurrentDistancePercent => instance.currentDistancePercent;
+    private bool StartSequenceCalled = false;
+    [SerializeField]
+    private float vanProximitySnap = 0.05f;
+
+    private bool loadedBackInFromCombat = false;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -24,7 +35,29 @@ public class vanMapMovement : MonoBehaviour
             instance = this;
         }
     }
+    private void Start()
+    {
 
+    }
+
+    public void startSequence(bool loadPos = false)
+    {
+        //initialize the destination point
+        if (loadPos)
+        {
+            //take in the rsi road connection
+            loadVanPosition();
+        }
+        else
+        {
+            
+            currentRoad = _origin.roadConnection;
+            
+            _destination = currentRoad.Destination;
+
+            StartSequenceCalled = true;
+        }
+    }
     private void Update()
     {
         vanRotation();
@@ -34,35 +67,100 @@ public class vanMapMovement : MonoBehaviour
 
     private void vanMovement()
     {
-        if (GameManager.VanRunning)
+        //Debug.Log(_destination == null);
+        //Debug.Log(" ROad"+ currentRoad == null);
+        if (_destination == null)
+        {
+            Debug.Log("SHould olnly happen once");
+            setDestination(currentRoad.Destination);
+            return;
+        }
+        if (GameManager.VanRunning && StartSequenceCalled)
         {
             //move to next point
-            transform.position = Vector2.MoveTowards(transform.position, destination.transform.position, GameManager.VanSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, _destination.transform.position, GameManager.VanSpeed * Time.deltaTime);
         }
+        if (currentRoad.endingRoad)
+        {
+            GameManager.instance.endPrototype();
+        }
+
+
         //get percent of the way between the origin and destination using the distance from destination.
         //starting distance (dist: origin, destination) current distance from ending/beginning
         //currentDist/startingDist
+        startingDistance = Vector2.Distance(_origin.transform.position, _destination.transform.position);//probably move these to only be done one time
+        currentDistance = Vector2.Distance(transform.position, _destination.transform.position);
+        currentDistancePercent = ((currentDistance - startingDistance) / startingDistance) + 1;//difference in current distance to
 
-        
+        //update the percent travelled on that road
+        //Debug.Log(currentDistancePercent);
+        if(!loadedBackInFromCombat)
+            currentRoad.checkGiveQuest(currentDistancePercent);
+        //everything is handled in currentRoad
+        //and the next quest percent is updated
+
+        updateDestination();
     }
+    private void updateDestination()
+    {
 
+
+        //change the origin to whatever the new settlement is
+        //if the position is close enough
+        if (Vector2.Distance(transform.position, _destination.transform.position) < vanProximitySnap)
+        {
+            loadedBackInFromCombat = false;
+            _destination.becomeOrigin();
+        }
+    }
     public void init(LocationPoint o)
     {
-        origin = o;
-        transform.position = origin.transform.position;
+        _origin = o;
+        transform.position = _origin.transform.position;
     }
     private void vanRotation()
     {
         //calculate rotation the van should be at depending on angle they are moving
     }
 
-    public void setOrigin(LocationPoint origin)
+    public void setOrigin(Road originRoad)
     {
-        this.origin = origin;
+        //unused
+        currentRoad = originRoad;
+        _origin = originRoad.origin;
+
     }
 
     public void setDestination(LocationPoint destination)
     {
-        this.destination = destination;
+        //unused
+        _destination = destination;
     }
+
+
+
+    public void loadVanPosition()
+    {
+        //ideally compare localposition to where it is supposed to be 
+        _origin = triggerQuestTest.RoadDict[SaveManager.VanMapOriginID];
+        Debug.Log(" Save dict ID: "+ SaveManager.VanMapDestinationID + " "+ triggerQuestTest.RoadDict[SaveManager.VanMapDestinationID].transform.name);
+        _destination = triggerQuestTest.RoadDict[SaveManager.VanMapDestinationID];
+        
+        currentDistancePercent = SaveManager.VanMapPositionPercent;
+
+        
+
+        //somehow find the location that is between these 
+
+        Debug.Log("Load Van Positoin");
+
+        //lerp the position?
+        transform.position = Vector2.Lerp(_origin.transform.position, _destination.transform.position, currentDistancePercent);
+
+        StartSequenceCalled = true;
+        loadedBackInFromCombat = true;
+    }
+
+
 }

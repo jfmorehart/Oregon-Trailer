@@ -6,7 +6,7 @@ public class BackgroundObjectParallax : MonoBehaviour
 {
     //object will come into view and stop depending on if the van is stopped
     [SerializeField]
-    private float speed = 2;
+    protected float speed = 2;
 
     [SerializeField]
     private Vector2 startPos;

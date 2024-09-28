@@ -15,6 +15,7 @@ public class mapUI : MonoBehaviour
     private float animationDuration = 0.5f;
 
     bool isActivated = false;
+    public bool IsActivated => instance.isActivated;
 
     Tween popUpTween, pullDownTween;
 
