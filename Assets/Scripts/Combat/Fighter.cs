@@ -91,7 +91,7 @@ public class Fighter : MonoBehaviour, IDamageable
     }
 
 	public void MoveProcessed() {
-		StartCoroutine(Wiggle(0.25f));
+		//StartCoroutine(Wiggle(0.25f));
 		plannedMove = new CombatMove(this, MoveType.None, Vector2Int.zero, 0);
 		hasMoved = true;
 		UnHighlight();
