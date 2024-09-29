@@ -28,7 +28,7 @@ public class centralEventHandler : MonoBehaviour
 
     private Story currentStory;
     private bool eventPlaying = true;
-
+    public static bool EventPlaying => instance.eventPlaying;
     private void Awake()
     {
         //set the options based on the 
@@ -68,7 +68,7 @@ public class centralEventHandler : MonoBehaviour
         eventPlaying = false;
         EventParent.SetActive(false);
 
-        Debug.Log("Start Sequence Finished");
+        Debug.Log("EVentParent Start Sequence Finished");
 
         
 
@@ -83,9 +83,11 @@ public class centralEventHandler : MonoBehaviour
 
         if (currentStory.currentChoices.Count == 0)
         {
+            //Debug.Log("Current Choices is 0");
             //probably use different input system
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
             {
+                Debug.Log("Continuing story");
                 continueStory();
             }
         }
@@ -96,6 +98,7 @@ public class centralEventHandler : MonoBehaviour
     {
         instance.startEvent(inkJSON);
         GameManager.eventPassedIn();
+        UIManager.endMapScreen();
     }
     public void startEvent(TextAsset inkJSON)
     {
@@ -108,22 +111,26 @@ public class centralEventHandler : MonoBehaviour
         EventParent.SetActive(true);
         currentStory.BindExternalFunction("causeEvent", (int eventID) => { eventReferences.instance.eventDesignator(eventID); });
         //currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => GameManager.addResource(resourceID, amount));
-
         continueStory();
     }
 
     private void continueStory()
     {
+        Debug.Log("Checking if can continue story");
         if (currentStory.canContinue)
         {
             DescriptionText.text = currentStory.Continue();
             if (currentStory.currentChoices.Count == 0)
-                pressContinueText.gameObject.SetActive(true);
+                pressContinueText.gameObject.SetActive(false);
             displayChoices();
+
+            Debug.Log("story can continue - updating choices");
+
         }
         else
         {
-            pressContinueText.gameObject.SetActive(false);
+            pressContinueText.gameObject.SetActive(true);
+            Debug.Log("Event is over");
             exitEvent();
             return;
         }
@@ -135,6 +142,7 @@ public class centralEventHandler : MonoBehaviour
 
         List<Choice> currentChoices = currentStory.currentChoices;
         //Debug.Log("Currentchoices amount : " + currentChoices.Count );
+        //Debug.Log("Current choices "+currentChoices.Count);
         if (currentChoices.Count > buttonObjects.Count)
         {
             Debug.LogError("There are too many choices and not enough buttons. **Cannot display all choices** \n" + "Num of choices given: " + currentChoices.Count);
@@ -176,7 +184,7 @@ public class centralEventHandler : MonoBehaviour
     public void makeChoice(int choiceIndex)
     {
 
-        //Debug.Log("Making choice on button " + choiceIndex);
+        Debug.Log("Making choice on button " + choiceIndex);
         if (currentStory.currentChoices.Count == 0 || currentStory.currentChoices.Count < choiceIndex)
         {
             Debug.Log("Current Story has no choices or the index is too big");

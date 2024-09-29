@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +20,10 @@ public class Fighter : MonoBehaviour, IDamageable
 
 	public HealthBar hp;
 
+	public float baseAtk;
+
 	public void Setup(Vector2Int gpos, Character myself) {
+		Debug.Log(Vector2Int.Distance(Vector2Int.zero, Vector2Int.one));
 		me = myself;
 		charSprite.sprite = me.baseCharacter.combat_sprite;
 		if (isPlayerTeam) {
@@ -29,6 +31,9 @@ public class Fighter : MonoBehaviour, IDamageable
 		}
 		else {
 			charSprite.flipX = !me.baseCharacter.isFacingRight;
+		}
+		if (!CombatManager.Instance.playerTeamOnRight) {
+			charSprite.flipX = !charSprite.flipX;
 		}
 
 		CombatManager.NewTurn += NewTurn; // remember to unsubscribe before death
@@ -73,12 +78,20 @@ public class Fighter : MonoBehaviour, IDamageable
 			hasMoved = false;
 			Highlight();
 			if (!isPlayerTeam) {
-				plannedMove = new CombatMove(this, MoveType.Move, CombatGrid.RandomWalk(gridPosition), 1);
+				Debug.Log("new turn registered " + gridPosition);
+				Vector2Int[] meleeSquares = CombatGrid.Instance.RangedAtkSquares(isPlayerTeam, gridPosition, false, 1.6f);
+				if(meleeSquares.Length > 0) {
+					plannedMove = new CombatMove(this, MoveType.Melee, meleeSquares[Random.Range(0, meleeSquares.Length)], baseAtk);
+				}
+				else {
+					plannedMove = new CombatMove(this, MoveType.Move, CombatGrid.RandomWalk(gridPosition, CombatManager.Instance.playerTeamOnRight? 1: -1), 1);
+				}
 			}
 		}
     }
 
 	public void MoveProcessed() {
+		//StartCoroutine(Wiggle(0.25f));
 		plannedMove = new CombatMove(this, MoveType.None, Vector2Int.zero, 0);
 		hasMoved = true;
 		UnHighlight();
@@ -97,7 +110,32 @@ public class Fighter : MonoBehaviour, IDamageable
 		CombatGrid.Instance.grid[CombatGrid.Instance.GridCoordinateToIndex(gridPosition)] = null;
 		gridPosition = square;
 		CombatGrid.Instance.grid[CombatGrid.Instance.GridCoordinateToIndex(gridPosition)] = this;
-		transform.position = CombatGrid.Instance.GridToWorld(gridPosition);
+		StartCoroutine(LerpTo(0.1f));
+		//transform.position = CombatGrid.Instance.GridToWorld(gridPosition);
 		charSprite.sortingOrder = 10 + (CombatGrid.gsize.y - gridPosition.y);
+	}
+
+	public IEnumerator LerpTo(float lerpTime) {
+		Vector3 initPos = transform.position;
+		float lerpVal = 0;
+		while (lerpVal < lerpTime) {
+			lerpVal += Time.deltaTime;
+			transform.position = Vector3.Lerp(initPos, CombatGrid.Instance.GridToWorld(gridPosition), lerpVal / lerpTime);
+			yield return new WaitForEndOfFrame();
+		}
+    }
+	public IEnumerator Wiggle(float duration)
+	{
+		float atime = 0;
+		float freq = 0.5f;
+		float amp = 0.2f;
+		float init_amp = amp;
+		while (atime < duration)
+		{
+			atime += Time.deltaTime;
+			amp = init_amp * (duration / atime + 0.01f);
+			transform.position = amp * new Vector3(Mathf.PerlinNoise1D(Time.time * freq), Mathf.PerlinNoise1D(freq * Time.time + 0.5f), 0);
+			yield return new WaitForEndOfFrame();
+		}
 	}
 }

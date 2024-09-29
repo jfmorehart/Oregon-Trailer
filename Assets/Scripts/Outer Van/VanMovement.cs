@@ -47,6 +47,12 @@ public class VanMovement : MonoBehaviour
     float _minYClamp;
     Tweener Shake;
 
+    [SerializeField]
+    private AudioClip vanDrivingSound;
+    [SerializeField]
+    private AudioSource vanAS;
+
+
     public static VanMovement instance;
     private void Awake()
     {
@@ -87,6 +93,9 @@ public class VanMovement : MonoBehaviour
         vanRunning = GameManager.VanRunning;
         if (vanRunning)
         {
+            vanAS.volume = 1;
+
+
             //do little rumble animation using dotween
             if (!Shake.IsActive() || !Shake.IsPlaying())
             {
@@ -110,6 +119,7 @@ public class VanMovement : MonoBehaviour
         {
             vanObj.transform.DOMove(vanTargetPosition, vanTime, vanSnap);
             Shake.Kill();
+            vanAS.volume = 0;
             //Debug.Log("Van No longer running");
         }
 
@@ -139,6 +149,11 @@ public class VanMovement : MonoBehaviour
             //Debug.Log("Correcting Y Movement");
 
         }
+    }
+
+    public void setVolume(float v)
+    {
+        vanAS.volume = v;
     }
 
     /*

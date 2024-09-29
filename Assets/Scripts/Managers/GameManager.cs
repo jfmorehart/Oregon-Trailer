@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
     //day system info
     //day pass rate
     [SerializeField]
+    private bool timeTicking = true;
+    [SerializeField]
     private int _dayCount = 1;
     public static int DayCount => instance._dayCount;
     [SerializeField][Tooltip("Amount of real time seconds are in a day")]
@@ -83,10 +85,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Story fuelOutStory;//maybe have multiple variants of this story. 
 
-    [Header("party member settings")]
-    [SerializeField]//need to have characters soon
-    private string placeholder;
-
+    [Header("Road Sign Settings")]
+    [SerializeField]
+    private Vector2 roadSignSpawn;
+    [SerializeField]
+    private GameObject roadSignPrefab;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -103,11 +106,58 @@ public class GameManager : MonoBehaviour
     {
         //set the current screen - probably have additional screen for initial cutscene?
         //setScreen(gameScreens.outsideVanScreen);
+        startSequence();
     }
+
+    private void startSequence()
+    {
+        if (SaveManager.CanLoad)
+        {
+            Debug.Log("Savemanager can Load");
+            //load correct values into here
+            load();
+
+            //load correct values into the trigger quest test
+            //triggerQuestTest.instance.Load();
+                //for the prototype this doesnt need to be so advanced
+            triggerQuestTest.instance.createRoadDictionary();
+            //load the van position.
+            vanMapMovement.instance.startSequence(true);
+            return;
+        }
+        else
+        {
+            //wholly new game
+            Debug.Log("New Game Started");
+            vanMapMovement.instance.startSequence();
+
+        }
+        
+        //triggerQuestTest.instance.GiveOutQuests();
+    }
+
+    private void load()
+    {
+        if (SaveManager.CanLoad)
+        {
+            Debug.Log("Loading game");
+            _moneyAmount = SaveManager.SavedMoney;
+            _fuelAmount = SaveManager.SavedGas;
+            _currentTime = SaveManager.SavedTime;
+        }
+    }
+
     private void Update()
     {
         vanCheck();
         timeCheck();
+        /*
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+         
+            SaveManager.instance.save();
+            SceneManager.LoadScene(3);
+        }*/
     }
     private void setScreen(gameScreens s)
     {
@@ -144,11 +194,21 @@ public class GameManager : MonoBehaviour
     
     public void goToMap()
     {
-        setScreen(gameScreens.MapScreen);
+        //UIManager.doMapScreen();
+        //setScreen(gameScreens.MapScreen);
     }
 
-
-    public static void eventPassedIn()
+    public static void stopVan()
+    {
+        Debug.Log("StopVan");
+        instance._vanRunning = false;
+    }
+    public static void startVan()
+    {
+        Debug.Log("StartVan");
+        instance._vanRunning = true;
+    }
+    public static void eventPassedIn()//todo: join this with the stop van
     {
         //pause game
         instance._vanRunning= false;
@@ -176,11 +236,12 @@ public class GameManager : MonoBehaviour
         {
             _vanMPH = _vanMaxSpeed;
             _fuelAmount -= _fuelDrainRate * Time.deltaTime;
-            _milesTraveledToday += _vanMaxSpeed * 0.5f * Time.deltaTime;
+            _milesTraveledToday += (_vanMaxSpeed * Time.deltaTime )/ 10;
         }
-        else if (_vanRunning)
+        else if (_vanRunning && _fuelAmount <= 0)
         {
             //van being pushed
+            
             _vanMPH = _vanPushSpeed;
         }
     }
@@ -241,16 +302,20 @@ public class GameManager : MonoBehaviour
 
     private void timeCheck()
     {
-        if(_vanRunning)
-            _currentTime += Time.deltaTime;
-        if ( _currentTime > _timePerDay)
+        if (timeTicking)
         {
-            //stop the van from running.
-            _vanRunning = false;
-            //communicate with UI manager to throw up the van
-            Debug.Log("End of day");
-            UIManager.doEndOfDayPopUp();
-            instance._currentTime = 0;
+            if (_vanRunning)
+                _currentTime += Time.deltaTime;
+            if (_currentTime > _timePerDay)
+            {
+                //stop the van from running.
+                _vanRunning = false;
+                //communicate with UI manager to throw up the van
+                Debug.Log("End of day");
+                UIManager.doEndOfDayPopUp();
+                instance._currentTime = 0;
+
+            }
         }
     }
 
@@ -263,6 +328,38 @@ public class GameManager : MonoBehaviour
             instance._vanRunning = true;
         }
     }
+
+
+
+    public void createSign(Road r1, Road r2)
+    {
+        Debug.Log("Creating Sign");
+        SignParallax roadSign = Instantiate(instance.roadSignPrefab, 
+            GameObject.Find("Canvas Outside Van Scene").transform, false).GetComponent<SignParallax>();
+        roadSign.transform.localPosition = roadSignSpawn;
+        roadSign.initialize(r1, r2);
+        
+    }
+    [SerializeField]
+    private GameObject endGameIMG;
+    public void endPrototype()
+    {
+        VanMovement.instance.setVolume(0);
+        endGameIMG.SetActive(true);
+        //quit button
+    }
+    public void quitButton()
+    {
+        Application.Quit();
+    }
+    public void reloadButton()
+    {
+        //reload game
+        //delete save
+        SaveManager.instance.clearSave();
+        SceneManager.LoadScene(2);
+    }
+
 }
 
 
