@@ -52,6 +52,7 @@ public class VanMovement : MonoBehaviour
     [SerializeField]
     private AudioSource vanAS;
 
+    public float freq, ampl;
 
     public static VanMovement instance;
     private void Awake()
@@ -69,85 +70,21 @@ public class VanMovement : MonoBehaviour
     {
         vanRunning = GameManager.VanRunning;
         DOTween.Init();
-        vanTargetPosition = vanObj.transform.position;
-        //Debug.Log(vanTargetPosition);
-        //_xClamp = Mathf.Clamp(transform.position.x, vanTargetPosition.x - vanXPosModifier, vanTargetPosition.x + vanXPosModifier);
-        //_yClamp = Mathf.Clamp(transform.position.y, vanTargetPosition.y - vanYPosModifier, vanTargetPosition.y + vanYPosModifier);
-        _maxYClamp = vanTargetPosition.y + vanYPosModifier;
-        _minYClamp = vanTargetPosition.y - vanYPosModifier;
-        _maxXClamp = vanTargetPosition.x + vanXPosModifier;
-        _minXClamp = vanTargetPosition.x - vanXPosModifier;
-        //StartCoroutine(shakeRoutine(vanTime));
-        Shake = transform.DOShakePosition(duration, strength, vibrato, randomnes, snapping, fadeout, shakeMode);
-        //Shake.SetAutoKill(false);
     }
 
     private void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            vanRunning = !vanRunning;
-        }
-        */
         vanRunning = GameManager.VanRunning;
         if (vanRunning)
         {
-            vanAS.volume = 1;
-
-
-            //do little rumble animation using dotween
-            if (!Shake.IsActive() || !Shake.IsPlaying())
-            {
-                //Shake.Restart();
-                Shake = transform.DOShakePosition(duration, strength, vibrato, randomnes, snapping, fadeout, shakeMode);
-            }
-            float _xClamp = Mathf.Clamp(vanObj.transform.position.x, _minXClamp, _maxXClamp);
-            float _yClamp = Mathf.Clamp(vanObj.transform.position.y, _minYClamp, _maxYClamp);
-            //clamp position
-            Vector2 finalVanShake = new Vector2(_xClamp, _yClamp);
-            //Debug.Log("XClamp: " + _xClamp + "\n YClamp: " + _yClamp + "\n Vanshake: " + vanShake);
-            if (_xClamp < _minXClamp || _xClamp > _maxXClamp)
-            {
-                Debug.Log("transform out of bounds");
-
-            }
-            vanObj.transform.position = finalVanShake;
-            //Debug.Log("Vanshake: " + vanShake + " VanTarget: " + vanTargetPosition + " \nPos: " + transform.position);
-        }
+            Vector2 pnoise = new Vector2(Mathf.PerlinNoise1D((0.5f + Time.time) * freq), Mathf.PerlinNoise1D(Time.time) * freq);
+            vanObj.transform.localPosition = ampl * (pnoise - Vector2.one * 0.5f);
+			vanAS.volume = 1;
+		}
         else
         {
-            vanObj.transform.DOMove(vanTargetPosition, vanTime, vanSnap);
-            Shake.Kill();
             vanAS.volume = 0;
             //Debug.Log("Van No longer running");
-        }
-
-
-
-        //correct X and Y movement
-        if (transform.position.x > _maxXClamp)
-        {
-            //Debug.Log("Correcting X Movement");
-            transform.position = new Vector2(_maxXClamp, transform.position.y);
-        }
-        else if (transform.position.x < _minXClamp)
-        {
-            //Debug.Log("Correcting X Movement");
-            transform.position = new Vector2(_minXClamp, transform.position.y);
-        }
-
-        if (transform.position.y > _maxYClamp)
-        {
-            transform.position = new Vector2(transform.position.y, _maxYClamp);
-            //Debug.Log("Correcting Y Movement");
-
-        }
-        else if (transform.position.x < _minYClamp)
-        {
-            transform.position = new Vector2(transform.position.y, _minYClamp);
-            //Debug.Log("Correcting Y Movement");
-
         }
     }
 
@@ -155,22 +92,4 @@ public class VanMovement : MonoBehaviour
     {
         vanAS.volume = v;
     }
-
-    /*
-    IEnumerator shakeRoutine(float _duration)
-    {
-        if (vanRunning)
-        {
-            transform.DOShakePosition(_duration, strength, vibrato, randomnes, snapping, fadeout, shakeMode);
-        }
-        else
-        {
-            vanObj.transform.DOMove(vanTargetPosition, vanTime, vanSnap);
-            StopCoroutine(shakeRoutine(_duration));
-        }
-        yield return new WaitForSeconds(_duration);
-
-        StartCoroutine(shakeRoutine(duration));
-    }*/
-
 }
