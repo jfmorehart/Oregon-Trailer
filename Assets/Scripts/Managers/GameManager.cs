@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     private float _vanSpeed = 1f;
     public static float VanSpeed => instance._vanSpeed;
     [SerializeField][Tooltip("The amount of miles we say the van is moving every time it is running")]
-    private float _vanMPH = 10;
+    private float _vanMPH = 0;
     public static float VanMPH => instance._vanMPH;
     [SerializeField]
     private float _milesTraveledToday = 0;
@@ -90,6 +90,12 @@ public class GameManager : MonoBehaviour
     private Vector2 roadSignSpawn;
     [SerializeField]
     private GameObject roadSignPrefab;
+    [SerializeField]
+    private GameObject youDiedObj;
+    [SerializeField]
+    private bool careAboutPlayerDeath = false;
+    public bool CareAboutPlayerDeath => instance.careAboutPlayerDeath;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -124,6 +130,11 @@ public class GameManager : MonoBehaviour
             //load the van position.
             vanMapMovement.instance.startSequence(true);
             return;
+        }
+        else if (SaveManager.instance.PlayerDied)
+        {
+            //player died in combat, show restart screen
+            endPrototype(true);
         }
         else
         {
@@ -241,8 +252,12 @@ public class GameManager : MonoBehaviour
         else if (_vanRunning && _fuelAmount <= 0)
         {
             //van being pushed
-            
-            _vanMPH = _vanPushSpeed;
+
+            _vanMPH = 0;//_vanPushSpeed;
+        }
+        else if(!_vanRunning)
+        {
+            _vanMPH = 0;
         }
     }
 
@@ -269,6 +284,12 @@ public class GameManager : MonoBehaviour
                 break;
             case 2://food
                 instance._foodAmount = amount;
+
+                if (instance._foodAmount < 0 && instance.careAboutPlayerDeath)
+                {
+                    //player is dead
+                    instance.endPrototype(true);
+                }
                 break;
             case 3://money
                 instance._moneyAmount = amount;
@@ -342,10 +363,14 @@ public class GameManager : MonoBehaviour
     }
     [SerializeField]
     private GameObject endGameIMG;
-    public void endPrototype()
+    public void endPrototype(bool playerDied = false)
     {
         VanMovement.instance.setVolume(0);
-        endGameIMG.SetActive(true);
+        _vanRunning =false;
+        if (!playerDied)
+            endGameIMG.SetActive(true);
+        else
+            youDiedObj.SetActive(true);
         //quit button
     }
     public void quitButton()
@@ -356,7 +381,7 @@ public class GameManager : MonoBehaviour
     {
         //reload game
         //delete save
-        SaveManager.instance.clearSave();
+        SaveManager.instance.clearSave(true);
         SceneManager.LoadScene(2);
     }
 

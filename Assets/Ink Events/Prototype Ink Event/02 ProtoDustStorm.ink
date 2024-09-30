@@ -21,9 +21,9 @@ A pretty big dust storm is kicking up ahead, what's the plan?
 }
 
 === driveThrough ===
+You attempt to drive through the storm
 ~ temp num = RANDOM(1, 100)
-
-{ num > 50: 
+{ num > 99: 
     -> driveThroughSuccess
 - else: 
     ->driveThroughFail
@@ -33,19 +33,19 @@ A pretty big dust storm is kicking up ahead, what's the plan?
 ~causeEvent(6)
 You stop the van outside an abandoned joint and everyone shelters inside successfully. You even find an untouched food kit wedged inside a cabinet for the taking. 
 
--> DONE 
+->END
 === takeCoverFail===
 ~causeEvent(4)
 You get blasted with dust so bad that you get bowled over. You have to scramble to drag yourself out, though you at least manage to successfully take cover afterwards. 
--> DONE
+->END
 === driveThroughSuccess ===
 ~causeEvent(5)
 Long live the vainglorious! You charge into the dust storm without giving a shit whether your wheels are still making contact with the asphalt below. If you die, you die—and your van comes out the other end relatively unscathed!
--> DONE
+->END
 ===driveThroughFail ===
-~causeEvent(2)
 Somehow, you aren’t the only one crazy enough to try driving through this dust storm… 
--> DONE
+~causeEvent(2)
+->END
 
 
 -> END

@@ -12,6 +12,7 @@ public class SignParallax : BackgroundObjectParallax
     private Road r1, r2;
     bool directionChosen = false;
     public static SignParallax instance;
+    
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -38,14 +39,14 @@ public class SignParallax : BackgroundObjectParallax
     {
         //gives the direction to the vanManager
         vanMapMovement.instance.setDestination(r1.Destination);
-        Debug.Log("THIS anChosen");
+        //Debug.Log("THIS anChosen");
         directionChosen = true;
         GameManager.startVan();
     }
     public void chooseSecondRoad()
     {
         vanMapMovement.instance.setDestination(r2.Destination);
-        Debug.Log("VanChosen");
+        //Debug.Log("VanChosen");
         directionChosen = true;
 
         GameManager.startVan();
@@ -53,14 +54,16 @@ public class SignParallax : BackgroundObjectParallax
 
     private void Update()
     {
-        if (!directionChosen && transform.position.x < 0)
+
+        //Debug.Log(transform.position.x + "  <? " + (transform.localPosition.x < -375));
+        if (!directionChosen && transform.localPosition.x < -375)
         {
             //stops when it comes to a certain point 
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
+            transform.Translate(Vector2.right * speed * 2 * Time.deltaTime);//speed * 2
         }
         else if (directionChosen)
         {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
+            transform.Translate(Vector2.right * ParallaxManager.ins.speed * Time.deltaTime);
             if (transform.localPosition.x > 500)
             {
                 Destroy(gameObject);

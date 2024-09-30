@@ -50,8 +50,7 @@ Do you still want to go inside?
 ~causeEvent(6)
 You skirt around the inside of the building, evading patrolmen stationed around its interior. Your van is a day's rations richer once you come out and unload your stolen finds.
 
-->DONE
-
+->END
 === inNOut_goInsideFail ===
 ~causeEvent(2)
 “HA!” Someone barks. You freeze in place, frozen food in hand. “Another bastard thinks they can just waltz in an’ out of here without consequence. Get ‘em!”

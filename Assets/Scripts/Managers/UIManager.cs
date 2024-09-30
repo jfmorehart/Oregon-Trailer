@@ -88,9 +88,7 @@ public class UIManager : MonoBehaviour
     {
         if (!mapUI.instance.IsActivated)
         {
-
             mapUI.instance.popUp();
-
             instance.mapButton.onClick.RemoveAllListeners();
             instance.mapButton.onClick.AddListener(delegate { endMapScreen(); });
 

@@ -29,6 +29,9 @@ public class CombatManager : MonoBehaviour
 	public Character medic;
 	public Character gatorHead;
 
+	public CharacterBase punkBase;
+	public Character punk;
+
 	public bool playerTeamOnRight;
 
 	private void Awake()
@@ -37,16 +40,17 @@ public class CombatManager : MonoBehaviour
 		isPlayersTurn = false;
 		gatorHead = new Character(gatorBase);
 		medic = new Character(medicBase);
+		punk = new Character(punkBase);
 		if (CurrentGame.activeParty == null)
 		{
-			CurrentGame.NewParty(medic, medic);
+			CurrentGame.NewParty(gatorHead, medic);
 		}
 		if (CombatantsStatic.combatants == null)
 		{
 			CombatantsStatic.combatants = new Character[3];
-			CombatantsStatic.combatants[0] = gatorHead;
-			CombatantsStatic.combatants[1] = gatorHead;
-			CombatantsStatic.combatants[2] = gatorHead;
+			CombatantsStatic.combatants[0] = punk;
+			CombatantsStatic.combatants[1] = punk;
+			CombatantsStatic.combatants[2] = punk;
 		}
 	}
 	private void Start()
@@ -149,6 +153,8 @@ public class CombatManager : MonoBehaviour
 			Debug.Log("Victory to team B");
 			endpanelText.text = "DEFEAT";
 			endpanel.SetActive(true);
+			if(SaveManager.instance != null)
+				SaveManager.instance.playerDied();
 		}
 		return true;
 	}
