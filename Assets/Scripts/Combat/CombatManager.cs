@@ -189,6 +189,6 @@ public class CombatManager : MonoBehaviour
 
 	public void ExitCombat()
 	{
-		SceneManager.LoadScene(2);
+		SceneManager.LoadScene(0);
 	}
 }

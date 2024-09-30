@@ -382,7 +382,7 @@ public class GameManager : MonoBehaviour
         //reload game
         //delete save
         SaveManager.instance.clearSave(true);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
 
 }
