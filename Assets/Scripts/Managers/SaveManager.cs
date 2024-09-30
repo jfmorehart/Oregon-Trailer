@@ -137,11 +137,13 @@ public class SaveManager : MonoBehaviour
         instance._vanMapPositionPercent = 0;
 
 
-
-        triggerQuestTest.instance.createRoadDictionary();
+        if(triggerQuestTest.instance != null)
+            triggerQuestTest.instance.createRoadDictionary();
         instance._vanMapOriginID = 0;
         instance._vanMapDestinationID = 0;
     }
+
+
 
     /*
     public void save(int Money, int Gas, float CurrentTime, Dictionary<int, LocationPoint> dict, bool n)
