@@ -12,7 +12,9 @@ public class mapUI : MonoBehaviour
     [SerializeField]
     Vector2 endPosition;
     [SerializeField]
-    private float animationDuration = 0.5f;
+    private float pulldownDuration = 1f;
+    [SerializeField]
+    private float pullUpDuration = 0.5f;
 
     bool isActivated = false;
     public bool IsActivated => instance.isActivated;
@@ -38,7 +40,7 @@ public class mapUI : MonoBehaviour
     {
         if (!isActivated)
         {
-            transform.DOLocalMove(endPosition, animationDuration, false).SetEase(Ease.InBounce);
+            transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.InBounce);
             isActivated = true;
         }
     }
@@ -50,7 +52,7 @@ public class mapUI : MonoBehaviour
         if (isActivated)
         {
             isActivated = false;
-            transform.DOLocalMove(startPosition, animationDuration, false).SetEase(Ease.InBack);
+            transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InBack);
             
         }
     }

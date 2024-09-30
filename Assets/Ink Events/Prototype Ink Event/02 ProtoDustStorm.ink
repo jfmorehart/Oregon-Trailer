@@ -21,9 +21,9 @@ A pretty big dust storm is kicking up ahead, what's the plan?
 }
 
 === driveThrough ===
+You attempt to drive through the storm
 ~ temp num = RANDOM(1, 100)
-
-{ num > 50: 
+{ num > 99: 
     -> driveThroughSuccess
 - else: 
     ->driveThroughFail

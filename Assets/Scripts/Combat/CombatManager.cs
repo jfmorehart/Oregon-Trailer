@@ -153,6 +153,8 @@ public class CombatManager : MonoBehaviour
 			Debug.Log("Victory to team B");
 			endpanelText.text = "DEFEAT";
 			endpanel.SetActive(true);
+			if(SaveManager.instance != null)
+				SaveManager.instance.playerDied();
 		}
 		return true;
 	}

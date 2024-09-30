@@ -23,7 +23,7 @@ public class SaveManager : MonoBehaviour
     public static int VanMapOriginID => instance._vanMapOriginID;
     private int _vanMapDestinationID;
     public static int VanMapDestinationID => instance._vanMapDestinationID;
-    
+    bool careAboutPlayerDeath = false;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -35,6 +35,11 @@ public class SaveManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+    }
+    private void Start()
+    {
+        careAboutPlayerDeath = GameManager.instance.CareAboutPlayerDeath;
     }
 
     [System.Serializable]
@@ -128,7 +133,7 @@ public class SaveManager : MonoBehaviour
         canLoad = true;
     }
 
-    public void clearSave()
+    public void clearSave(bool resetPlayerDied = false)
     {
         canLoad = false;
         instance._money = 0;
@@ -141,10 +146,20 @@ public class SaveManager : MonoBehaviour
             triggerQuestTest.instance.createRoadDictionary();
         instance._vanMapOriginID = 0;
         instance._vanMapDestinationID = 0;
+
+        if (resetPlayerDied)
+            _playerDied = false;
     }
-
-
-
+    private bool _playerDied = false;//this resets on the game restarting
+    public bool PlayerDied => _playerDied;
+    public void playerDied()//ignore how messy this is, it is 2:45 AM on a monday morning I am allowed to make bad code rn
+    {
+        //clears the save and changes local playerdied variable
+        clearSave();
+        if (careAboutPlayerDeath)
+            _playerDied = true;//GameManager.instance.endPrototype(true);
+        //when the gamemanager starts in the next scene, the you died screen pops up and allows the player to restart fresh
+    }
     /*
     public void save(int Money, int Gas, float CurrentTime, Dictionary<int, LocationPoint> dict, bool n)
     {
