@@ -21,6 +21,8 @@ public class ParallaxObject : MonoBehaviour
 
 	float invheight;
 
+	float odometer;
+
 	private void Start()
 	{
 		lerpV = Random.Range(0.01f, 1f);
@@ -35,6 +37,12 @@ public class ParallaxObject : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        transform.Translate(ParallaxManager.ins.speed * Time.deltaTime * Vector2.right * invheight);
+		
+        transform.Translate(ParallaxManager.ins.speed * Vector2.right * Time.deltaTime * invheight);
+		odometer = GameManager.MilesTraveledToday;
+
+		if(transform.position.x > -ParallaxManager.ins.leftboundary * 1.3f) {
+			Destroy(gameObject);
+		}
     }
 }
