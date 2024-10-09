@@ -56,13 +56,14 @@ public class vanMapMovement : MonoBehaviour
             _destination = currentRoad.Destination;
 
             StartSequenceCalled = true;
+            GameManager.startVan();
         }
     }
     private void Update()
     {
         vanRotation();
 
-        vanMovement();
+        //vanMovement();
     }
 
     private void vanMovement()
@@ -114,6 +115,28 @@ public class vanMapMovement : MonoBehaviour
             _destination.becomeOrigin();
         }
     }
+    public void NextDestination() {
+
+        if(Random.value > 0f && !currentRoad.eventActivated) {
+            currentRoad.eventActivated = true;
+			currentDistancePercent = 0.6f;
+			centralEventHandler.StartEvent(currentRoad.quest);
+			SaveManager.instance.save();
+		}
+        else {
+			transform.position = _destination.transform.position;
+            //loadedBackInFromCombat = false;
+            _destination.becomeOrigin();
+
+			if (currentRoad.endingRoad)
+			{
+				GameManager.instance.endPrototype();
+			}
+
+			SaveManager.instance.save();
+
+		}
+	}
     public void init(LocationPoint o)
     {
         _origin = o;
@@ -129,7 +152,7 @@ public class vanMapMovement : MonoBehaviour
         //unused
         currentRoad = originRoad;
         _origin = originRoad.origin;
-
+        Debug.Log("Set origin called");
     }
 
     public void setDestination(LocationPoint destination)
@@ -146,11 +169,15 @@ public class vanMapMovement : MonoBehaviour
         _origin = triggerQuestTest.RoadDict[SaveManager.VanMapOriginID];
         Debug.Log(" Save dict ID: "+ SaveManager.VanMapDestinationID + " "+ triggerQuestTest.RoadDict[SaveManager.VanMapDestinationID].transform.name);
         _destination = triggerQuestTest.RoadDict[SaveManager.VanMapDestinationID];
-        
-        currentDistancePercent = SaveManager.VanMapPositionPercent;
 
-        
+		setOrigin(_origin.roadConnection);
+		if (SaveManager.VanMapPositionPercent > 0.5f) {
+            currentRoad.eventActivated = true;
 
+	    }
+        Debug.Log(_origin + " " + _destination + "please");
+
+       
         //somehow find the location that is between these 
 
         Debug.Log("Load Van Positoin");
