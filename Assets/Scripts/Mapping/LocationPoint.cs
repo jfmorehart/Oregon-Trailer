@@ -39,6 +39,9 @@ public struct Road
     public roadArchetype type;
     //public eventLoc[] eventsList;
     //public eventLoc quest;
+
+    [SerializeField]
+    public bool notebookEvent;
     public TextAsset quest;
     public float nextQuestPercent ;
     public bool eventActivated;
@@ -167,7 +170,7 @@ public struct Road
             //if (quest != null)
             //Debug.Log("QUESTS Quest is null: " + (quest == null));
 
-            centralEventHandler.StartEvent(quest);
+            centralEventHandler.StartEvent(quest, notebookEvent);
             //else
             //    Debug.Log("Quest is null");
             eventActivated = true;

@@ -65,6 +65,13 @@ public class eventReferences : MonoBehaviour
             case 9:
                 testInkVariables.instance.UpdateChoice();
                 break;
+            case 10:
+                //casue player to spawn in
+                centralEventHandler.instance.tempFunctionCharactersSpawnIn();
+                break;
+            case 11:
+                centralEventHandler.instance.tempFunctionCharactersSpawnIn();
+                break;
             default:
                 Debug.Log("EVENT DEFAULTED");
                 break;

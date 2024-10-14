@@ -8,6 +8,7 @@ using Ink.Runtime;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using Ink.UnityIntegration;
+using DG.Tweening;
 public class centralEventHandler : MonoBehaviour
 {
     //reference to the Event parent
@@ -54,7 +55,7 @@ public class centralEventHandler : MonoBehaviour
 
     private bool playingNotebookEvent = false;
     [SerializeField]
-    private SpriteRenderer notebookEventSprite;
+    private Image notebookEventSprite;
 
     private const string SPEAKER_TAG = "speaker";
     private const string SPRITE_TAG = "spr";
@@ -66,7 +67,8 @@ public class centralEventHandler : MonoBehaviour
     Sprite gatorheadSprite;
     [SerializeField]
     Sprite playerSprite;
-
+    [SerializeField]
+    Sprite pigRace1Sprite, pigRace2Sprite, pigRace3Sprite;
     private void Awake()
     {
         //set the options based on the 
@@ -80,7 +82,7 @@ public class centralEventHandler : MonoBehaviour
             instance = this;
         }
 
-        EventParent.transform.position = Vector2.zero;//the clutter of the scene is driving me insane
+        EventParent.transform.localPosition= new Vector2(0, -158.67f);//the clutter of the scene is driving me insane
 
         dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
     }
@@ -136,11 +138,15 @@ public class centralEventHandler : MonoBehaviour
             return;
         }
         //skip empty text
-        if (DescriptionText.text == "" || DescriptionText.text == " " || DescriptionText.text == "\n" || string.IsNullOrWhiteSpace(DescriptionText.text))
+        if ( DescriptionText.text == "" || DescriptionText.text == " " || DescriptionText.text == "\n" || string.IsNullOrWhiteSpace(DescriptionText.text))
         {
-            Debug.Log("Text is empty, go to next thing");
-            //we still want the thing to continue
-            StartCoroutine(skipEmptyText());
+            if (!playingNotebookEvent)
+            {
+                Debug.Log("Text is empty, go to next thing");
+                //we still want the thing to continue
+                StartCoroutine(skipEmptyText());
+            }
+
         }
         if (currentStory.currentChoices.Count == 0 && canContinueToNextLine)
         {
@@ -167,6 +173,7 @@ public class centralEventHandler : MonoBehaviour
 
     void handleTags(List<string> currentTags)
     {
+        //likely need a way to parse tags collectively
         foreach (string tag in currentTags)
         {
             string[] splitTag = tag.Split(':');
@@ -201,9 +208,33 @@ public class centralEventHandler : MonoBehaviour
                     {
                         leftSprite.sprite = spriteFromTag("you");
                     }
+                    else if(playingNotebookEvent){
+                        if (tagValue == "PigRace1")
+                        {
+                            notebookEventSprite.sprite = pigRace1Sprite;
+                        }
+                        else if (tagValue== "PigRace2")
+                        {
+                            notebookEventSprite.sprite = pigRace2Sprite;
+
+                        }
+                        else if(tagValue == "PigRace1")
+                        {
+                            notebookEventSprite.sprite = pigRace3Sprite;
+
+                        }
+                    }
                     break;
                 case EMOTION_TAG:
-
+                    Debug.Log("EMOTING");
+                    if (tagValue == "pigReact")
+                    {
+                        rightSprite.transform.parent.transform.DOPunchRotation(new Vector3(1.5f, 1.5f, 1.5f), 1.5f, 15, 1);
+                    }
+                    else if (tagValue == "playerReact")
+                    {
+                        leftSprite.transform.parent.transform.DOPunchRotation(new Vector3(1.5f,1.5f,1.5f), 1.5f, 15, 1);
+                    }
                     break;
                 case LAYOUT_TAG:
 
@@ -256,6 +287,8 @@ public class centralEventHandler : MonoBehaviour
         currentStory.BindExternalFunction("causeEvent", (int eventID) => { eventReferences.instance.eventDesignator(eventID); });
         dialogueVariables.StartListening(currentStory);
         continueStory();
+        GameManager.eventPassedIn();
+        UIManager.endMapScreen();
     }
 
     private void continueStory()
@@ -350,35 +383,13 @@ public class centralEventHandler : MonoBehaviour
             canContinueToNextLine = false;
             hideChoicesNotebook();
             //display each letter one at a time
-            bool isAddingRichTag = false;
             foreach (char letter in line.ToCharArray())
             {
 
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    notebookDescriptionText.text = line;
-                    break;
-                }
-
-                if (isAddingRichTag || letter == '<')
-                {
-                    //remove the entire rich tag 
-                    isAddingRichTag = true;
-                    notebookDescriptionText.text += letter;
-                    if (letter == '>')
-                    {
-                        isAddingRichTag = false;
-                    }
-                }
-                else
-                {
-                    //add normally
-                    notebookDescriptionText.text += letter;
-                    yield return new WaitForSeconds(typingSpeed);
-                }
+                notebookDescriptionText.text += letter;
+                yield return null;
 
             }
-            //pressContinueText.gameObject.SetActive(true);
             displayChoices();
 
             canContinueToNextLine = true;
@@ -581,5 +592,12 @@ public class centralEventHandler : MonoBehaviour
     }
 
     //need a way to interpret
+    public void tempFunctionCharactersSpawnIn()
+    {
 
+        rightSprite.sprite = spriteFromTag("gatorhead");
+
+        leftSprite.sprite = spriteFromTag("you");
+       
+    }
 }

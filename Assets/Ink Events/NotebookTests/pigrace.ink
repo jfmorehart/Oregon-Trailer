@@ -1,7 +1,7 @@
 INCLUDE ../globals.ink
-->Main
-===Main===
+EXTERNAL causeEvent(ID)
 You stumble across a pig race happening in the field. You can bet on one of them #spr: PigRace1
+
     *[bet on pig one]
         -> win
     *[bet on pig two]

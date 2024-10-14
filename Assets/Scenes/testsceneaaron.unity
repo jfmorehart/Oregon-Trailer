@@ -290,7 +290,7 @@ MonoBehaviour:
   _fuelDrainRate: 0.2
   _foodAmount: 50
   _vanRunning: 0
-  _vanSpeed: 0.1
+  _vanSpeed: 0.61
   _vanMPH: 10
   _milesTraveledToday: 0
   _totalMilesTravelled: 0
@@ -1584,6 +1584,7 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
+    notebookEvent: 0
     quest: {fileID: 0}
     nextQuestPercent: 0
     eventActivated: 0
@@ -2119,7 +2120,8 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
-    quest: {fileID: 4900000, guid: dd39b44d7a53a03408865839de9755a3, type: 3}
+    notebookEvent: 0
+    quest: {fileID: 4900000, guid: 93aed15df80db5b4db1057cabf734901, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
   secondRoadConnection:
@@ -2128,7 +2130,8 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
-    quest: {fileID: 4900000, guid: dd39b44d7a53a03408865839de9755a3, type: 3}
+    notebookEvent: 0
+    quest: {fileID: 4900000, guid: 93aed15df80db5b4db1057cabf734901, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!1 &264625394
@@ -2299,9 +2302,9 @@ RectTransform:
   - {fileID: 74337061}
   m_Father: {fileID: 387501543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -64.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &264977173
@@ -2361,7 +2364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3030,7 +3033,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -21.17, y: 29.12}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &307411600
@@ -3220,7 +3223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &374507741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3299,7 +3302,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 15
+  m_Spacing: 18.02
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -4713,8 +4716,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.000000029802322, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 962492004}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6443,6 +6446,7 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
+    notebookEvent: 0
     quest: {fileID: 0}
     nextQuestPercent: 0
     eventActivated: 0
@@ -6555,9 +6559,9 @@ RectTransform:
   - {fileID: 271102612}
   m_Father: {fileID: 387501543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -160.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1087995622
@@ -6617,7 +6621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6669,8 +6673,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.000000029802322, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1599840216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7048,6 +7052,7 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
+    notebookEvent: 0
     quest: {fileID: 0}
     nextQuestPercent: 0
     eventActivated: 0
@@ -7289,7 +7294,8 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
-    quest: {fileID: 4900000, guid: 93aed15df80db5b4db1057cabf734901, type: 3}
+    notebookEvent: 1
+    quest: {fileID: 4900000, guid: 4b169e4f0fb61544495d85593cd74e2f, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!1 &1159542160
@@ -7329,7 +7335,8 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
-    quest: {fileID: 4900000, guid: 4c6d79010d87ba843ba6c7245a04ffe8, type: 3}
+    notebookEvent: 0
+    quest: {fileID: 4900000, guid: 391213c38adb94b44b14cd3c9c42bff6, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
   secondRoadConnection:
@@ -7338,7 +7345,8 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
-    quest: {fileID: 4900000, guid: 7e06bf7e2e0179a41ba5bf4cef8a11e7, type: 3}
+    notebookEvent: 0
+    quest: {fileID: 4900000, guid: 391213c38adb94b44b14cd3c9c42bff6, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!212 &1159542162
@@ -7950,6 +7958,7 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: dd39b44d7a53a03408865839de9755a3, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -8055,8 +8064,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.000000029802322, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1323654630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8582,9 +8591,9 @@ RectTransform:
   - {fileID: 1097336271}
   m_Father: {fileID: 387501543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -112.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1367857071
@@ -8644,7 +8653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9066,9 +9075,12 @@ MonoBehaviour:
   rightSprite: {fileID: 1092482398}
   displayName: {fileID: 1234674488}
   typingSpeed: 0.01
-  notebookEventSprite: {fileID: 0}
+  notebookEventSprite: {fileID: 307411600}
   gatorheadSprite: {fileID: 21300000, guid: 58e0ddb48c361474db576f95b611a56b, type: 3}
   playerSprite: {fileID: 21300000, guid: 9be692582c76d4b01b805e89f0c3e8ea, type: 3}
+  pigRace1Sprite: {fileID: 21300000, guid: 4354c024558f74b4a8edd9b8c6680ac7, type: 3}
+  pigRace2Sprite: {fileID: 21300000, guid: 5e4db53ee7ee9104495c82f3a1231c31, type: 3}
+  pigRace3Sprite: {fileID: 21300000, guid: acc91b7bac3ad3c48a5d4fca5596217a, type: 3}
 --- !u!4 &1483669149
 Transform:
   m_ObjectHideFlags: 0
@@ -9344,6 +9356,7 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: 7e06bf7e2e0179a41ba5bf4cef8a11e7, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -9980,9 +9993,9 @@ RectTransform:
   - {fileID: 235673938}
   m_Father: {fileID: 387501543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -16.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1633262980
@@ -10042,7 +10055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10094,8 +10107,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.000000029802322, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1675258016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13555,7 +13568,8 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
-    quest: {fileID: 4900000, guid: 26887c6b7379bb84b9ca4790e8ed19dd, type: 3}
+    notebookEvent: 0
+    quest: {fileID: 4900000, guid: 391213c38adb94b44b14cd3c9c42bff6, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!1 &2136071937
@@ -13662,6 +13676,7 @@ MonoBehaviour:
     roadName: 
     endingRoad: 0
     type: 0
+    notebookEvent: 0
     quest: {fileID: 0}
     nextQuestPercent: 0
     eventActivated: 0
