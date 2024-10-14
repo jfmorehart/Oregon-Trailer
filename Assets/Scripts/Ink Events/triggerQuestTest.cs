@@ -10,6 +10,9 @@ public class triggerQuestTest : MonoBehaviour
     [SerializeField]
     TextAsset resourceJSON;
     public static triggerQuestTest instance;
+    [SerializeField]
+    TextAsset notebookJSON;
+
 
     private void Awake()
     {
@@ -57,6 +60,10 @@ public class triggerQuestTest : MonoBehaviour
             //SaveManager.Save(10, 10, 10, roadDict);
         }
         */
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            centralEventHandler.StartEvent(notebookJSON, true);
+        }
     }
     public void Load()
     {

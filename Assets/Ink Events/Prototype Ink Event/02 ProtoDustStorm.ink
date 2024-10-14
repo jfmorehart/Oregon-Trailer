@@ -4,7 +4,6 @@ EXTERNAL causeEvent(ID)
 
 === dustStorm === 
 A pretty big dust storm is kicking up ahead, what's the plan? 
-
     * [Take Cover]
         -> takeCover
     * [Drive Through] 
@@ -22,7 +21,9 @@ A pretty big dust storm is kicking up ahead, what's the plan?
 
 === driveThrough ===
 You attempt to drive through the storm
+pre
 ~ temp num = RANDOM(1, 100)
+post
 { num > 99: 
     -> driveThroughSuccess
 - else: 
@@ -43,7 +44,7 @@ You get blasted with dust so bad that you get bowled over. You have to scramble 
 Long live the vainglorious! You charge into the dust storm without giving a shit whether your wheels are still making contact with the asphalt below. If you die, you die—and your van comes out the other end relatively unscathed!
 ->END
 ===driveThroughFail ===
-Somehow, you aren’t the only one crazy enough to try driving through this dust storm… 
+Somehow, you aren’t the only one crazy enough to try driving through this dust storm…
 ~causeEvent(2)
 ->END
 
