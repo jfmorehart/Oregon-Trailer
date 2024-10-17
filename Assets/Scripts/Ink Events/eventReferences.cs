@@ -67,10 +67,10 @@ public class eventReferences : MonoBehaviour
                 break;
             case 10:
                 //casue player to spawn in
-                centralEventHandler.instance.tempFunctionCharactersSpawnIn();
+                Debug.Log("10 aclled");
                 break;
             case 11:
-                centralEventHandler.instance.tempFunctionCharactersSpawnIn();
+                Debug.Log("11 called");
                 break;
             default:
                 Debug.Log("EVENT DEFAULTED");

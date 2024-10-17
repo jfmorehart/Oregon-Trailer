@@ -19,11 +19,6 @@ public class InkEventCharacterManager : MonoBehaviour
 
     }
 
-    public void moveCharacter()
-    {
-        //moves a character to a certain position for now
-
-    }
     public void eventOver()
     {
         //exits the event

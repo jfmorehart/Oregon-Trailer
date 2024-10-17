@@ -9,6 +9,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using Ink.UnityIntegration;
 using DG.Tweening;
+using System;
+
 public class centralEventHandler : MonoBehaviour
 {
     //reference to the Event parent
@@ -44,8 +46,6 @@ public class centralEventHandler : MonoBehaviour
     private InkFile globalsInkFile;
     private DialogueVariables dialogueVariables;
     [SerializeField]
-    SpriteRenderer leftSprite, midLeftSprite, midRightSprite, rightSprite;
-    [SerializeField]
     TextMeshProUGUI displayName;
     [SerializeField]
     private float typingSpeed = 0.04f;
@@ -53,22 +53,33 @@ public class centralEventHandler : MonoBehaviour
     private Coroutine displayLineCoroutine;
     private bool canContinueToNextLine = false;
 
-    private bool playingNotebookEvent = false;
+    private bool playingNotebookOnlyEvent = false;
+    private bool shouldShowNotebook = false;//temporary tag 
     [SerializeField]
     private Image notebookEventSprite;
 
-    private const string SPEAKER_TAG = "speaker";
-    private const string SPRITE_TAG = "spr";
-    private const string EMOTION_TAG = "emotion";
-    private const string SPRITEPOSITION_TAG = "pos";//temporary, until we get the character movement system online
-    private const string LAYOUT_TAG = "layout";
+    private const string MOVE_TAG = "move";
+    private const string CHANGE_SPRITE_TAG = "spr";
+    private const string EMOTE_TAG = "emote";
+    private const string ENTER_TAG = "enter";//temporary, until we get the character movement system online
+    private const string EXIT_TAG= "exit";
+    private const string STATE_TAG = "state";
+    private const string NOTEBOOK_TAG = "notebook";
+    //#move charactername movement_type stage_destination
+    //#move charactername direction number
+    //#spr charactername image_name
+    //#enter charactername entrance_type stage_destination
+    //#emote charactername emotion_type
+    //#exit charactername exit_type
+    //#state character state_type
 
+    [Header("Stage")]
     [SerializeField]
-    Sprite gatorheadSprite;
+    List<SpriteRenderer> stageCharacters = new List<SpriteRenderer>();
+    private const string BLANK_CHARACTER_NAME = "temp";//the name each character sprite renderer resets to 
     [SerializeField]
-    Sprite playerSprite;
-    [SerializeField]
-    Sprite pigRace1Sprite, pigRace2Sprite, pigRace3Sprite;
+    Transform offStageLeft, stageLeft, stageMidLeft, stageMiddle, stageMidRight, stageRight, offStageRight;
+    Dictionary<SpriteRenderer, Transform> StageCharacterFinalDestination = new Dictionary<SpriteRenderer, Transform>();
     private void Awake()
     {
         //set the options based on the 
@@ -127,7 +138,12 @@ public class centralEventHandler : MonoBehaviour
 
         Debug.Log("EVentParent Start Sequence Finished");
 
-        
+        //add each to the dictionary
+        foreach (SpriteRenderer sr in stageCharacters)
+        {
+            sr.transform.position = offStageLeft.position;
+            StageCharacterFinalDestination.Add(sr ,offStageLeft);
+        }
 
     }
     private void Update()
@@ -140,7 +156,7 @@ public class centralEventHandler : MonoBehaviour
         //skip empty text
         if ( DescriptionText.text == "" || DescriptionText.text == " " || DescriptionText.text == "\n" || string.IsNullOrWhiteSpace(DescriptionText.text))
         {
-            if (!playingNotebookEvent)
+            if (!playingNotebookOnlyEvent)
             {
                 Debug.Log("Text is empty, go to next thing");
                 //we still want the thing to continue
@@ -167,99 +183,88 @@ public class centralEventHandler : MonoBehaviour
     public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false)
     {
         instance.startEvent(inkJSON, isNoteBookEvent);
+        passInCharacterStats();
         GameManager.eventPassedIn();
         UIManager.endMapScreen();
     }
 
-    void handleTags(List<string> currentTags)
+    private static void passInCharacterStats()
     {
-        //likely need a way to parse tags collectively
-        foreach (string tag in currentTags)
-        {
-            string[] splitTag = tag.Split(':');
-            if (splitTag.Length != 2)
-            {
-                Debug.LogError("tag could not be parsed" + tag);
-            }
-            string tagKey = splitTag[0].Trim();
-            string tagValue = splitTag[1].Trim();
-
-            switch (tagKey)
-            {
-                case SPEAKER_TAG:
-                    displayName.text = tagValue;
-                    break;
-                case SPRITEPOSITION_TAG:
-                    if (tagValue == "left")
-                    {
-                        
-                    }
-                    else if(tagValue == "right")
-                    {
-
-                    }
-                    break;
-                case SPRITE_TAG:
-                    if (tagValue == "gatorhead")
-                    {
-                        rightSprite.sprite = spriteFromTag("gatorhead");
-                    }
-                    else if(tagValue == "you")
-                    {
-                        leftSprite.sprite = spriteFromTag("you");
-                    }
-                    else if(playingNotebookEvent){
-                        if (tagValue == "PigRace1")
-                        {
-                            notebookEventSprite.sprite = pigRace1Sprite;
-                        }
-                        else if (tagValue== "PigRace2")
-                        {
-                            notebookEventSprite.sprite = pigRace2Sprite;
-
-                        }
-                        else if(tagValue == "PigRace1")
-                        {
-                            notebookEventSprite.sprite = pigRace3Sprite;
-
-                        }
-                    }
-                    break;
-                case EMOTION_TAG:
-                    Debug.Log("EMOTING");
-                    if (tagValue == "pigReact")
-                    {
-                        rightSprite.transform.parent.transform.DOPunchRotation(new Vector3(1.5f, 1.5f, 1.5f), 1.5f, 15, 1);
-                    }
-                    else if (tagValue == "playerReact")
-                    {
-                        leftSprite.transform.parent.transform.DOPunchRotation(new Vector3(1.5f,1.5f,1.5f), 1.5f, 15, 1);
-                    }
-                    break;
-                case LAYOUT_TAG:
-
-                    break;
-                default:
-                    Debug.LogWarning("Tag came in but is not currently being handled: " + tagKey + " -- "+ tag);
-                    break;
-            }
-        }
+        throw new NotImplementedException();
     }
 
-    public Sprite spriteFromTag(string spriteTag)
+    void handleTags(List<string> currentTags)
     {
-        switch (spriteTag)
+
+        foreach (string tag in currentTags)
         {
-            case "you":
-                return playerSprite;
-                break;
-            case "gatorhead":
-                return gatorheadSprite;
-                break;
-            default:
-                Debug.LogWarning("Cannot find sprite");
-                return null;
-                break;
+            string[] splitTag = tag.Split(' ');
+            if (splitTag.Length <= 2)
+            {
+                Debug.LogError("tag could not be parsed : " + tag);
+            }
+            string actionType = splitTag[0];
+            switch (actionType)
+            {
+                case MOVE_TAG:
+                    //parse the movement tag
+                    //check to see if there are the right amount of tags first
+                    //#move charactername movement_type stage_destination
+                    //#move charactername direction number
+                    if (splitTag.Length != 4)
+                        return;
+
+                    float _moveAmount;
+                    if(float.TryParse(splitTag[3], out _moveAmount))
+                    {
+                        moveCharacter(splitTag[1], _moveAmount, splitTag[2]);
+                    }
+                    else
+                    {
+                        moveCharacter(splitTag[1], splitTag[2], splitTag[3]);
+                    }
+                    break;
+                case CHANGE_SPRITE_TAG:
+                    //#spr charactername image_name
+                    if (splitTag.Length != 3)
+                        return;
+                    changeSprite(splitTag[1], splitTag[2]);
+                    break;
+                case ENTER_TAG:
+                    //#enter charactername entrance_type stage_destination
+                    if (splitTag.Length != 4)
+                        return;
+                    enterCharacter(splitTag[1], splitTag[2], splitTag[3]);
+                    break;
+                case EMOTE_TAG:
+                    //#emote charactername emotion_type
+                    if (splitTag.Length != 3)
+                        return;
+                    characterEmote(splitTag[1], splitTag[2]);
+                    break;
+                case EXIT_TAG:
+                    //#exit charactername exit_type
+                    if (splitTag.Length != 3)
+                    {
+                        Debug.Log("Tag cannot be parsed - " + tag);
+                        return;
+                    }
+                    exitCharacter(splitTag[1], splitTag[2]);
+                    break;
+                case STATE_TAG:
+                    //#state character state_type
+                    if (splitTag.Length != 3)
+                        return;
+                    characterState(splitTag[1], splitTag[2]);
+                    break;
+                case NOTEBOOK_TAG:
+                    //make this string become a notebook
+                    //set notebook bool to be active
+                    break;
+                default:
+                    Debug.LogWarning("Tag came in but is not currently being handled: " + actionType + " -- "+ tag);
+                    break;
+            }
         }
     }
     public void startEvent(TextAsset inkJSON, bool notebookEvent = false)
@@ -281,7 +286,7 @@ public class centralEventHandler : MonoBehaviour
             currentStory = new Story(inkJSON.text);
             eventPlaying = true;
             notebookParent.SetActive(true);
-            playingNotebookEvent = true;
+            playingNotebookOnlyEvent = true;
         }
 
         currentStory.BindExternalFunction("causeEvent", (int eventID) => { eventReferences.instance.eventDesignator(eventID); });
@@ -300,11 +305,15 @@ public class centralEventHandler : MonoBehaviour
             {
                 StopCoroutine(displayLineCoroutine);
             }
+            shouldShowNotebook = false;
 
             //we now use a typewriter effect
             //DescriptionText.text = currentStory.Continue();
-            displayLineCoroutine = StartCoroutine(displayLine(currentStory.Continue()));
             handleTags(currentStory.currentTags);
+            handleNotebookEvent();
+
+            displayLineCoroutine = StartCoroutine(displayLine(currentStory.Continue()));
+
             Debug.Log("story can continue - updating choices");
 
         }
@@ -316,14 +325,19 @@ public class centralEventHandler : MonoBehaviour
         }
 
     }
-    
+    void handleNotebookEvent()
+    {
+        if (shouldShowNotebook)
+        {
+
+        }
+    }
     private void displayChoices()
     {
 
         List<Choice> currentChoices = currentStory.currentChoices;
-        //Debug.Log("Currentchoices amount : " + currentChoices.Count );
-        //Debug.Log("Current choices "+currentChoices.Count);
-        if (playingNotebookEvent)
+        //NOTE: it doesnt hurt to always update this section just in case
+        if (playingNotebookOnlyEvent || shouldShowNotebook)
         {
 
             if (currentChoices.Count > notebookButtonObjects.Count)
@@ -375,7 +389,7 @@ public class centralEventHandler : MonoBehaviour
 
     private IEnumerator displayLine(string line)
     {
-        if (playingNotebookEvent)
+        if (playingNotebookOnlyEvent)
         {
 
             notebookDescriptionText.text = "";
@@ -385,13 +399,26 @@ public class centralEventHandler : MonoBehaviour
             //display each letter one at a time
             foreach (char letter in line.ToCharArray())
             {
-
                 notebookDescriptionText.text += letter;
                 yield return null;
-
             }
             displayChoices();
+            canContinueToNextLine = true;
+        }
+        else if (shouldShowNotebook)
+        {
 
+            notebookDescriptionText.text = "";
+            //pressContinueText.gameObject.SetActive(false);
+            canContinueToNextLine = false;
+            hideChoicesNotebook();
+            //display each letter one at a time
+            foreach (char letter in line.ToCharArray())
+            {
+                notebookDescriptionText.text += letter;
+                yield return null;
+            }
+            displayChoices();
             canContinueToNextLine = true;
         }
         else
@@ -479,7 +506,7 @@ public class centralEventHandler : MonoBehaviour
         //for at least one frame before we set the new frame
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
-        if (playingNotebookEvent)
+        if (playingNotebookOnlyEvent || shouldShowNotebook)
         {
             EventSystem.current.SetSelectedGameObject(notebookButtonObjects[0]);
         }
@@ -498,10 +525,6 @@ public class centralEventHandler : MonoBehaviour
         notebookDescriptionText.text = "";
         DescriptionText.text = "";
         displayName.text = "";
-        rightSprite.sprite = null;
-        midRightSprite.sprite = null;
-        midLeftSprite.sprite = null;
-        leftSprite.sprite = null;
         dialogueVariables.StopListening(currentStory);
         //remove text and listeners from each button
         for (int i = 0; i < buttonObjects.Count; i++)
@@ -591,13 +614,459 @@ public class centralEventHandler : MonoBehaviour
         
     }
 
-    //need a way to interpret
-    public void tempFunctionCharactersSpawnIn()
+
+    //characters must be instantiated by using character entrance first
+
+    //to move a character to a certain stage position use this syntax (stage_destination should be left, l, midleft, ml, middle, m, midright, mr, right, r):
+    //#move charactername movement_type stage_destination
+
+    //to move a character precisely use this syntax (direction must either be left, right, l , or r): 
+    //#move charactername direction number
+
+    //to change a sprite use this syntax (character has to be instantiated first, just move the character to a position):
+    //#spr charactername image_name
+
+    //to make a character enter use this syntax (entrance_type should be oneword - fadeout/fastappearright):
+    //#enter charactername entrance_type stage_destination
+
+    //to make a character emote: 
+    //#emote charactername emotion_type
+
+    //to make a character exit:
+    //#exit charactername exit_type
+
+    //to change a character state:
+    //#state character state_type
+
+    public void enterCharacter(string characterName, string movementType, string stagePosition)
     {
+        //instantiates character
+        SpriteRenderer refChar = null;
 
-        rightSprite.sprite = spriteFromTag("gatorhead");
-
-        leftSprite.sprite = spriteFromTag("you");
-       
+        for (int i = 0; i < stageCharacters.Count; i++)
+        {
+            //loop through all until we find a blank character
+            if (refChar == null && stageCharacters[i].name == BLANK_CHARACTER_NAME)
+            {
+                refChar = stageCharacters[i];
+                stageCharacters[i].name = characterName;
+            }
+        }
+        if (refChar == null)
+        {
+            Debug.LogWarning("No character slots available");
+            return;
+        }
+        //move the character
+        doEntranceMovement(refChar.transform, movementType, getStagePosition(stagePosition));
     }
+    private void exitCharacter(string characterName, string movementType)
+    {
+        //instantiates character
+        SpriteRenderer refChar = null;
+
+        for (int i = 0; i < stageCharacters.Count; i++)
+        {
+            //loop through all until we find a blank character
+            if (refChar == null && stageCharacters[i].name == BLANK_CHARACTER_NAME)
+            {
+                refChar = stageCharacters[i];
+                stageCharacters[i].name = characterName;
+            }
+        }
+        if (refChar == null)
+        {
+            Debug.LogWarning("No character slots available");
+            return;
+        }
+
+        doExitMovement(refChar.transform, movementType);
+    }
+    public void changeSprite(string characterName, string spriteName)
+    {
+        SpriteRenderer refChar = null;
+        for (int i = 0; i < stageCharacters.Count; i++)
+        {
+            if (refChar != null)
+                break;
+            if (refChar == null && stageCharacters[i].name == characterName)
+            {
+                refChar = stageCharacters[i];
+                //all sprites should be in resources
+                //sprite 01 should be in (Assets/Resources/Sprites/sprite01.png)
+                var spr = Resources.Load<Sprite>("Sprites/"+spriteName);
+                refChar.sprite = spr;
+            }
+        }
+    }
+    private void changeSprite(string spriteName)
+    {
+        //changes the sprite in the notebook event
+        var spr = Resources.Load<Sprite>("Sprites/" + spriteName);
+        notebookEventSprite.sprite = spr;
+    }
+
+    private void moveCharacter(string characterName, string movementType, string stagePosition)
+    {
+        SpriteRenderer refChar = null;
+        //check through each position in our spriterenderer list, check the character names
+        //if any match the character name present, have a reference to that character
+        //if reference character is null, then we just take whatever character is available
+        for (int i = 0; i < stageCharacters.Count; i++)
+        {
+            if (stageCharacters[i].name == characterName)
+            {
+                //clear out previously used blank character just in case we already assigned it
+                if (refChar != null)
+                    refChar.name = BLANK_CHARACTER_NAME;
+                refChar = stageCharacters[i];
+                break;
+            }
+            else if (refChar == null && stageCharacters[i].name == BLANK_CHARACTER_NAME)
+            {
+                //if we still havent found the character
+                refChar = stageCharacters[i];
+                stageCharacters[i].name = characterName;
+            }
+        }
+
+        //get the final position, either a new stage position or its current position
+        Transform stpos = getStagePosition(stagePosition);
+
+        //add their final destination to the dictionary so if the player skips the dialogue
+        //they instantly finish their movement at the position
+        StageCharacterFinalDestination[refChar] = stpos;
+
+        //parse the movement type
+        doMoveToPosition(refChar.transform, stpos, movementType);
+
+    }
+
+    public void moveCharacter(string characterName, float movementAmount, string leftOrRight)
+    {
+        SpriteRenderer refChar = null;
+        //check through each position in our spriterenderer list, check the character names
+        //if any match the character name present, have a reference to that character
+        //if reference character is null, then we just take whatever character is available
+        for (int i = 0; i < stageCharacters.Count; i++)
+        {
+            if (stageCharacters[i].name == characterName)
+            {
+                //clear out previously used blank character just in case we already assigned it
+                if (refChar != null)
+                    refChar.name = BLANK_CHARACTER_NAME;
+                refChar = stageCharacters[i];
+                break;
+            }
+            else if (refChar == null && stageCharacters[i].name == BLANK_CHARACTER_NAME)
+            {
+                //if we still havent found the character
+                refChar = stageCharacters[i];
+                stageCharacters[i].name = characterName;
+            }
+        }
+
+        //parse movement 
+        doMoveToPosition(refChar.transform, movementAmount, leftOrRight);
+
+    }
+
+    public void resetStage()
+    {
+        //teleport each character off screen - reset sprites for each
+        //check their transform names and see if any have been set, if 
+        foreach (SpriteRenderer sr in stageCharacters)
+        {
+            sr.name = BLANK_CHARACTER_NAME;
+            sr.transform.localPosition = offStageRight.localPosition;
+            sr.sprite = null;
+        }
+    }
+
+    private IEnumerator resetCharacter(SpriteRenderer sr)
+    {
+        yield return new WaitForSeconds(1);
+        sr.name = BLANK_CHARACTER_NAME;
+        sr.transform.localPosition = offStageRight.localPosition;
+        sr.sprite = null;
+    }
+
+
+    private void doMoveToPosition(Transform characterTransform, float movementAmount, string LorR)
+    {
+        switch (LorR)
+        {
+            case "l":
+            case "left":
+                movementAmount *= -1;
+                break;
+            default:
+                break;
+        }
+        Vector2 newpos = new Vector2(characterTransform.position.x + movementAmount, characterTransform.position.y);
+        //for right now we do not consider this as having fast movement
+        characterTransform.DOMove(newpos, 1f, true);
+    }
+    private void doMoveToPosition(Transform characterTransform, Transform stagePosition, string movementType)
+    {
+        if(movementType == "fast")
+            characterTransform.DOMove(stagePosition.position, 0.5f, true);
+        else if(movementType == "normal")
+            characterTransform.DOMove(stagePosition.position, 1f, true);
+
+        //move the dictionary value
+        StageCharacterFinalDestination[characterTransform.GetComponent<SpriteRenderer>()] = stagePosition;
+    }
+
+    //when the player presses continue,
+    //we kill any tweens on the functions and move them to their final locations
+    private Transform getStagePosition(string stagePos)
+    {
+        stagePos = stagePos.ToLower();
+        switch (stagePos)
+        {
+
+            case "left":
+            case "l":
+                return stageLeft;
+            case "ml":
+            case "midleft":
+                return stageMidLeft;
+            case "mid":
+            case "middle":
+            case "m":
+                return stageMiddle;
+            case "mr":
+            case "midright":
+            case "middleright":
+                return stageMidRight;
+            case "right":
+            case "r":
+                return stageRight;
+            case "offstageleft":
+            case "ol":
+            case "osl":
+                return offStageLeft;
+            case "offstageright":
+            case "or":
+            case "osr":
+                return offStageRight;
+            default:
+                Debug.Log("Cannot find stage position : " + stagePos);
+                return offStageLeft;
+        }
+    }
+
+    private void doEntranceMovement(Transform characterTransform, string movementType, Transform destination)
+    {
+        movementType = movementType.ToLower();
+        switch (movementType)
+        {
+            case "appearleft":
+                //set the position according to name, and then slide in accordingly
+                characterTransform.position = stageLeft.position;
+                characterTransform.DOLocalMove(destination.position, 1f, true);
+                break;
+            case "appearright":
+                characterTransform.position = stageRight.position;
+                characterTransform.DOLocalMove(destination.position, 1f, true);
+                break;
+            case "fastappearleft":
+                characterTransform.position = stageLeft.position;
+                characterTransform.DOLocalMove(destination.position, 0.5f, true);
+                break;
+            case "fastappearright":
+                characterTransform.position = stageRight.position;
+                characterTransform.DOLocalMove(destination.position, 0.5f, true);
+                break;
+            case "fadein":
+                Debug.Log("fading in");
+                characterTransform.position = destination.position;
+                characterTransform.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                characterTransform.GetComponent<SpriteRenderer>().DOFade(1,0.5f);
+                break;
+            default:
+                break;
+        }
+        //set the characters dictionary value
+        StageCharacterFinalDestination[characterTransform.GetComponent<SpriteRenderer>()] = destination;
+
+    }
+    private void doExitMovement(Transform characterTransform, string movementType)
+    {
+        switch (movementType)
+        {
+            case "exitleft":
+                characterTransform.DOLocalMove(offStageLeft.position, 1f, true);
+                break;
+            case "exitright":
+                characterTransform.DOLocalMove(offStageRight.position, 1f, true);
+                break;
+            case "fastexitleft":
+                characterTransform.DOLocalMove(offStageLeft.position, 0.5f, true);
+                break;
+            case "fastexitright":
+                characterTransform.DOLocalMove(offStageRight.position, 0.5f, true);
+                break;
+            case "fadeout":
+                characterTransform.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
+                break;
+            default:
+                break;
+        }
+
+        //set the final destination to off stage right no matter the move
+        StageCharacterFinalDestination[characterTransform.GetComponent<SpriteRenderer>()] = offStageRight;
+
+        StartCoroutine(resetCharacter(characterTransform.GetComponent<SpriteRenderer>()));
+    }
+
+    private void characterEmote(string characterName, string emotionType)
+    {
+        SpriteRenderer refChar = null;
+        //check through each position in our spriterenderer list, check the character names
+        //if any match the character name present, have a reference to that character
+        //if reference character is null, then we just take whatever character is available
+        for (int i = 0; i < stageCharacters.Count; i++)
+        {
+            if (stageCharacters[i].name == characterName)
+            {
+                //clear out previously used blank character just in case we already assigned it
+                if (refChar != null)
+                    refChar.name = BLANK_CHARACTER_NAME;
+                refChar = stageCharacters[i];
+                break;
+            }
+            else if (refChar == null && stageCharacters[i].name == BLANK_CHARACTER_NAME)
+            {
+                //if we still havent found the character
+                refChar = stageCharacters[i];
+                stageCharacters[i].name = characterName;
+            }
+        }
+
+        doEmote(refChar.transform, emotionType);
+    }
+    private void doEmote(Transform characterTransform, string emotionType)
+    {
+        //Pop - little scale up effect to create a pop - pop
+        emotionType = emotionType.ToLower();
+        switch (emotionType)
+        {
+            case "pop":
+                Vector3 aimScale= characterTransform.localScale * 1.5f;
+                characterTransform.DOPunchScale(characterTransform.localScale, 1, 10, 1);
+                break;
+            default:
+                Debug.LogWarning("EmoteType is note available");
+                break;
+        }
+
+    }
+    private void characterState(string characterName, string stateType)
+    {
+        SpriteRenderer refChar = null;
+        //check through each position in our spriterenderer list, check the character names
+        //if any match the character name present, have a reference to that character
+        //if reference character is null, then we just take whatever character is available
+        for (int i = 0; i < stageCharacters.Count; i++)
+        {
+            if (stageCharacters[i].name == characterName)
+            {
+                //clear out previously used blank character just in case we already assigned it
+                if (refChar != null)
+                    refChar.name = BLANK_CHARACTER_NAME;
+                refChar = stageCharacters[i];
+                break;
+            }
+            else if (refChar == null && stageCharacters[i].name == BLANK_CHARACTER_NAME)
+            {
+                //if we still havent found the character
+                refChar = stageCharacters[i];
+                stageCharacters[i].name = characterName;
+            }
+        }
+
+        //parse movement
+        doState(refChar.transform, stateType);
+    }
+    private void doState(Transform characterTransform, string stateType)
+    {
+        stateType = stateType.ToLower();
+        switch (stateType)
+        {
+            case "flip":
+                break;
+            case "bounce":
+                break;
+            case "shake":
+                break;
+            default:
+                break;
+        }
+    }
+
+    //to make a character emote: 
+    //#emote charactername emotion_type
+
+    //to change a character state:
+    //#state character state_type
 }
+
+//list of objects
+//create object (string name. entrance , pos)
+//move(movement type, object name)
+//
+
+
+//#char_gatorhead # verb #
+//#char_gatorhead verb position movement_type
+
+
+//characters talking with each other at pit stops
+//   set two characters talking at a certain point
+
+//loop through all 3 reference character objects. Change their sprite
+
+
+/*
+ * Visual novel effects list for programmers
+
+Entrances:
+Appear left- slide in from the left - appearleft
+Appear right - slide in from the right - appearright
+Fast appear left - fast slide in from left - fastappearleft
+Fast appear right - fast slide in from right - fastappearright
+Appear - fade in - fadein
+
+Exits:
+fade - fade out - fadeout
+Exit left - slide out left - exitleft
+Exit right - slide out right - exitright
+Fast exit left - fast slide out left - fastexitleft
+Fast exit right - fast slide out right - fastexitright
+
+Emotion changes:
+Pop - little scale up effect to create a pop - pop
+Fade - fade transition - fade what the hell is this?
+
+States:
+Shake - make the character jitter a bit - shake
+Bounce - make the character bounce up and down - bounce
+Flip - flip the character - flip
+
+Movement: 
+Move left x amount - move character left x amount - 
+Move right x amount - move character right x amount - 
+
+Movement slide to position
+move to stagePosition
+#move character_name stage_position fast/normal
+
+Text:
+Pop in - similar to “STOP THE VAN”
+Shake - make the text jitter a bit, still comes it normal typewriter 
+Small - make the text a bit smaller
+Big - make the text big
+Slow - make the text appear slowly
+*/

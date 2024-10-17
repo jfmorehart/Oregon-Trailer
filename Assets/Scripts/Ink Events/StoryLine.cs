@@ -78,3 +78,7 @@ public struct storyEvent
     private Transform triggerLocation;
     public Transform TriggerLocation => triggerLocation;
 }
+
+
+//storylinemanager/countyclass that chooses random event
+//available storylines based on the 
