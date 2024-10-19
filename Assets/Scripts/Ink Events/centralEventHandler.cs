@@ -65,6 +65,8 @@ public class centralEventHandler : MonoBehaviour
     private const string EXIT_TAG= "exit";
     private const string STATE_TAG = "state";
     private const string NOTEBOOK_TAG = "notebook";
+    private const string NOTEBOOKONLY_TAG = "notebookonly";
+    private const string SPEAKER_TAG = "speaker";
     //#move charactername movement_type stage_destination
     //#move charactername direction number
     //#spr charactername image_name
@@ -151,12 +153,13 @@ public class centralEventHandler : MonoBehaviour
         if (!eventPlaying)
         {
             EventParent.SetActive(false);
+            notebookParent.SetActive(false);
             return;
         }
         //skip empty text
-        if ( DescriptionText.text == "" || DescriptionText.text == " " || DescriptionText.text == "\n" || string.IsNullOrWhiteSpace(DescriptionText.text))
+        if (DescriptionText.text == "" || DescriptionText.text == " " || DescriptionText.text == "\n" || string.IsNullOrWhiteSpace(DescriptionText.text))
         {
-            if (!playingNotebookOnlyEvent)
+            if (!playingNotebookOnlyEvent && !shouldShowNotebook)
             {
                 Debug.Log("Text is empty, go to next thing");
                 //we still want the thing to continue
@@ -190,20 +193,22 @@ public class centralEventHandler : MonoBehaviour
 
     private static void passInCharacterStats()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     void handleTags(List<string> currentTags)
     {
+        if(currentTags.Count != 0)
+            Debug.Log("Handling tags "+ currentTags[0]);
+
 
         foreach (string tag in currentTags)
         {
-            string[] splitTag = tag.Split(' ');
-            if (splitTag.Length <= 2)
-            {
-                Debug.LogError("tag could not be parsed : " + tag);
-            }
+            string[] splitTag = tag.Split(" ");
+            
             string actionType = splitTag[0];
+
+            Debug.Log("tag: " + actionType);
             switch (actionType)
             {
                 case MOVE_TAG:
@@ -226,9 +231,12 @@ public class centralEventHandler : MonoBehaviour
                     break;
                 case CHANGE_SPRITE_TAG:
                     //#spr charactername image_name
-                    if (splitTag.Length != 3)
-                        return;
-                    changeSprite(splitTag[1], splitTag[2]);
+                    if (splitTag.Length == 3)
+                        changeSprite(splitTag[1], splitTag[2]);
+                    if(playingNotebookOnlyEvent || shouldShowNotebook)
+                    {
+                        notebookEventSprite.sprite = Resources.Load<Sprite>("Sprites/" + splitTag[1]);
+                    }
                     break;
                 case ENTER_TAG:
                     //#enter charactername entrance_type stage_destination
@@ -260,6 +268,16 @@ public class centralEventHandler : MonoBehaviour
                 case NOTEBOOK_TAG:
                     //make this string become a notebook
                     //set notebook bool to be active
+                    Debug.Log("Notebook tag found");
+                    shouldShowNotebook = true;
+                    //StopCoroutine(displayLineCoroutine);
+                    //StartCoroutine(displayLine(currentStory.Continue()));
+                    break;
+                case NOTEBOOKONLY_TAG:
+                    Debug.Log("Notebook tag found");
+                    playingNotebookOnlyEvent = true;
+                    //StopCoroutine(displayLineCoroutine);
+                    //StartCoroutine(displayLine(currentStory.Continue()));
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + actionType + " -- "+ tag);
@@ -271,14 +289,14 @@ public class centralEventHandler : MonoBehaviour
     {
         //takes in the ink's json file.
         //if there is no option present, display just the text
-
         //setting the currentStory is necessary whenever starting a new dialogue event.
-        
+
         if (notebookEvent == false)
         {
             currentStory = new Story(inkJSON.text);
             eventPlaying = true;
             EventParent.SetActive(true);
+            notebookParent.SetActive(true);
             //currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => GameManager.addResource(resourceID, amount));
         }
         else
@@ -327,40 +345,28 @@ public class centralEventHandler : MonoBehaviour
     }
     void handleNotebookEvent()
     {
-        if (shouldShowNotebook)
+        if (shouldShowNotebook || playingNotebookOnlyEvent)
         {
 
+            Debug.Log("Notebook to be displayed");
+            //set the notebook to be active and disable regular textbox
+            notebookParent.SetActive(true);
+            EventParent.SetActive(false);
         }
+        else
+        {
+            notebookParent.SetActive(false);
+            EventParent.SetActive(true);
+        }
+
     }
     private void displayChoices()
     {
 
         List<Choice> currentChoices = currentStory.currentChoices;
         //NOTE: it doesnt hurt to always update this section just in case
-        if (playingNotebookOnlyEvent || shouldShowNotebook)
-        {
 
-            if (currentChoices.Count > notebookButtonObjects.Count)
-            {
-                Debug.LogError("There are too many choices and not enough buttons. **Cannot display all choices** \n" + "Num of choices given: " + currentChoices.Count);
-            }
-
-            for (int i = 0; i < buttonObjects.Count; i++)
-            {
-                if (i >= currentChoices.Count || currentChoices.Count == 0)
-                {
-                    //disable the choice button
-                    resetChoiceNotebook(i, false);
-                }
-                else
-                {
-                    notebookButtonObjects[i].SetActive(true);
-                    notebookButtonTexts[i].text = currentChoices[i].text;
-                }
-            }
-        }
-        else
-        {
+        
             if (currentChoices.Count > buttonObjects.Count)
             {
                 Debug.LogError("There are too many choices and not enough buttons. **Cannot display all choices** \n" + "Num of choices given: " + currentChoices.Count);
@@ -381,7 +387,22 @@ public class centralEventHandler : MonoBehaviour
                     buttonTexts[i].text = currentChoices[i].text;
                 }
             }
-        }
+
+            for (int i = 0; i < buttonObjects.Count; i++)
+            {
+                if (i >= currentChoices.Count || currentChoices.Count == 0)
+                {
+                    //disable the choice button
+                    resetChoiceNotebook(i, false);
+                }
+                else
+                {
+                    if(playingNotebookOnlyEvent || shouldShowNotebook)
+                        notebookButtonObjects[i].SetActive(true);
+                    notebookButtonTexts[i].text = currentChoices[i].text;
+                }
+            }
+        
         //select first choice in list
         StartCoroutine(SelectFirstChoice());
 
@@ -389,45 +410,14 @@ public class centralEventHandler : MonoBehaviour
 
     private IEnumerator displayLine(string line)
     {
-        if (playingNotebookOnlyEvent)
-        {
+        //handleNotebookEvent();
 
             notebookDescriptionText.text = "";
-            //pressContinueText.gameObject.SetActive(false);
-            canContinueToNextLine = false;
-            hideChoicesNotebook();
-            //display each letter one at a time
-            foreach (char letter in line.ToCharArray())
-            {
-                notebookDescriptionText.text += letter;
-                yield return null;
-            }
-            displayChoices();
-            canContinueToNextLine = true;
-        }
-        else if (shouldShowNotebook)
-        {
-
-            notebookDescriptionText.text = "";
-            //pressContinueText.gameObject.SetActive(false);
-            canContinueToNextLine = false;
-            hideChoicesNotebook();
-            //display each letter one at a time
-            foreach (char letter in line.ToCharArray())
-            {
-                notebookDescriptionText.text += letter;
-                yield return null;
-            }
-            displayChoices();
-            canContinueToNextLine = true;
-        }
-        else
-        {
-
             DescriptionText.text = "";
             pressContinueText.gameObject.SetActive(false);
             canContinueToNextLine = false;
             hideChoices();
+            hideChoicesNotebook();
             //display each letter one at a time
             bool isAddingRichTag = false;
             foreach (char letter in line.ToCharArray())
@@ -436,6 +426,7 @@ public class centralEventHandler : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     DescriptionText.text = line;
+                    notebookDescriptionText.text = line;
                     break;
                 }
 
@@ -444,6 +435,7 @@ public class centralEventHandler : MonoBehaviour
                     //remove the entire rich tag 
                     isAddingRichTag = true;
                     DescriptionText.text += letter;
+                    notebookDescriptionText.text += letter;
                     if (letter == '>')
                     {
                         isAddingRichTag = false;
@@ -453,15 +445,16 @@ public class centralEventHandler : MonoBehaviour
                 {
                     //add normally
                     DescriptionText.text += letter;
+                    notebookDescriptionText.text += letter;
                     yield return new WaitForSeconds(typingSpeed);
                 }
 
             }
             pressContinueText.gameObject.SetActive(true);
             displayChoices();
-
+            
             canContinueToNextLine = true;
-        }
+        
     }
     private void hideChoices()
     {
@@ -1004,6 +997,11 @@ public class centralEventHandler : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void displayNotebookImage(Sprite spr)
+    {
+        notebookEventSprite.sprite = spr;
     }
 
     //to make a character emote: 

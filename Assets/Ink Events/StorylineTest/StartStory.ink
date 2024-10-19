@@ -1,10 +1,9 @@
 INCLUDE ../globals.ink
 EXTERNAL causeEvent(ID)
 //spawn in player
- #speaker: you #pos:left #spr: you
+#enter you appearright l #spr you you
 My brother is dead
 
-#speaker: you #pos:left
 I must go out to the secret californian way 
 
     * [Go to Cali]

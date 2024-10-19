@@ -1,6 +1,8 @@
 INCLUDE ../globals.ink
 EXTERNAL causeEvent(ID)
-You stumble across a pig race happening in the field. You can bet on one of them #spr: PigRace1
+
+~ causeEvent(10)
+You stumble across a pig race happening in the field. You can bet on one of them 
 
     *[bet on pig one]
         -> win
@@ -11,12 +13,12 @@ You stumble across a pig race happening in the field. You can bet on one of them
     *[bet on pig four]
         ->lose
 === win===
-this one wins #spr: PigRace2
+this one wins #spr pigrace2
 
 ->END
 === lose ===
-this one loses #spr: PigRace3
+this one loses #spr pigpace2
 ->END
 === ending ===
-You enjoy the festivities #spr: PigRace4
+You enjoy the festivities #spr pigRace2
 ->END

@@ -16,8 +16,13 @@ public class eventReferences : MonoBehaviour
             instance = this;
         }
     }
+
+
     [SerializeField]
     private Sprite playerSpriteProt;
+    [SerializeField]
+    List<Sprite> notebooksprites = new List<Sprite>();
+
 
     //this holds all the events we need a reference to
     public IEnumerator eventDesRoutine(int ID)
@@ -67,10 +72,10 @@ public class eventReferences : MonoBehaviour
                 break;
             case 10:
                 //casue player to spawn in
-                Debug.Log("10 aclled");
+                centralEventHandler.instance.displayNotebookImage(notebooksprites[0]);
                 break;
             case 11:
-                Debug.Log("11 called");
+                centralEventHandler.instance.displayNotebookImage(notebooksprites[1]);
                 break;
             default:
                 Debug.Log("EVENT DEFAULTED");
