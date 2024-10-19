@@ -14,7 +14,7 @@ public class VanMovement : MonoBehaviour
     [SerializeField]
     GameObject vanObj;
     [SerializeField]
-    bool vanRunning = false;
+    bool vanRunning = true;
     [SerializeField]
     int vibrato = 1;
     [SerializeField]

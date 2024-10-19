@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
             triggerQuestTest.instance.createRoadDictionary();
             //load the van position.
             vanMapMovement.instance.startSequence(true);
+            _vanRunning = true;
             return;
         }
         else if (SaveManager.instance.PlayerDied)
@@ -161,7 +162,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         vanCheck();
-        timeCheck();
+        //timeCheck();
         /*
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -200,8 +201,6 @@ public class GameManager : MonoBehaviour
     {
         instance.setScreen(s);
     }
-
-
     
     public void goToMap()
     {

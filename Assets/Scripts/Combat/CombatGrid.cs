@@ -26,10 +26,14 @@ public class CombatGrid : MonoBehaviour
 
 	private void Update()
 	{
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            ClearGrid();
-			MakeGrid();
-	    }
+		//     if (Input.GetKeyDown(KeyCode.Space)) {
+		//         ClearGrid();
+		//MakeGrid();
+		//  }
+
+		if (Input.GetKey(KeyCode.Q)) {
+			CombatManager.Instance.ExitCombat();
+		}
 	}
     void MakeGrid() {
 		grid = new Fighter[gsize.x * gsize.y];

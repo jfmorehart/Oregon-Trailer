@@ -42,7 +42,8 @@ public class SignParallax : BackgroundObjectParallax
         //Debug.Log("THIS anChosen");
         directionChosen = true;
         GameManager.startVan();
-    }
+
+	}
     public void chooseSecondRoad()
     {
         vanMapMovement.instance.setDestination(r2.Destination);
@@ -50,7 +51,7 @@ public class SignParallax : BackgroundObjectParallax
         directionChosen = true;
 
         GameManager.startVan();
-    }
+	}
 
     private void Update()
     {
