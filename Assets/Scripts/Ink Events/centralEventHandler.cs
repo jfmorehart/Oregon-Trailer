@@ -25,7 +25,7 @@ public class centralEventHandler : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI notebookDescriptionText;
     [SerializeField]
-    private List<GameObject> notebookButtonObjects= new List<GameObject>();
+    private List<GameObject> notebookButtonObjects = new List<GameObject>();
     [SerializeField]
     private List<Button> notebookButtonScripts = new List<Button>();
     private List<TextMeshProUGUI> notebookButtonTexts = new List<TextMeshProUGUI>();
@@ -62,7 +62,7 @@ public class centralEventHandler : MonoBehaviour
     private const string CHANGE_SPRITE_TAG = "spr";
     private const string EMOTE_TAG = "emote";
     private const string ENTER_TAG = "enter";//temporary, until we get the character movement system online
-    private const string EXIT_TAG= "exit";
+    private const string EXIT_TAG = "exit";
     private const string STATE_TAG = "state";
     private const string NOTEBOOK_TAG = "notebook";
     private const string NOTEBOOKONLY_TAG = "notebookonly";
@@ -82,6 +82,12 @@ public class centralEventHandler : MonoBehaviour
     [SerializeField]
     Transform offStageLeft, stageLeft, stageMidLeft, stageMiddle, stageMidRight, stageRight, offStageRight;
     Dictionary<SpriteRenderer, Transform> StageCharacterFinalDestination = new Dictionary<SpriteRenderer, Transform>();
+    [SerializeField]
+    Image eventBackground, fadetoblackBG;
+
+    [SerializeField]
+    CharacterBase mc;
+
     private void Awake()
     {
         //set the options based on the 
@@ -95,7 +101,7 @@ public class centralEventHandler : MonoBehaviour
             instance = this;
         }
 
-        EventParent.transform.localPosition= new Vector2(0, -158.67f);//the clutter of the scene is driving me insane
+        EventParent.transform.localPosition = new Vector2(0, -158.67f);//the clutter of the scene is driving me insane
 
         dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
     }
@@ -103,6 +109,10 @@ public class centralEventHandler : MonoBehaviour
 
     private void Start()
     {
+        if(CurrentGame.activeParty.members == null)
+            CurrentGame.NewParty(new Character(mc));
+
+        DOTween.Init();
         for (int i = 0; i < buttonObjects.Count; i++)
         {
             if (i > buttonObjects.Count)
@@ -144,7 +154,7 @@ public class centralEventHandler : MonoBehaviour
         foreach (SpriteRenderer sr in stageCharacters)
         {
             sr.transform.position = offStageLeft.position;
-            StageCharacterFinalDestination.Add(sr ,offStageLeft);
+            StageCharacterFinalDestination.Add(sr, offStageLeft);
         }
 
     }
@@ -183,17 +193,58 @@ public class centralEventHandler : MonoBehaviour
         yield return new WaitForEndOfFrame();
         continueStory();
     }
-    public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false)
+    public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false, Sprite bgSprite = null)
     {
-        instance.startEvent(inkJSON, isNoteBookEvent);
-        passInCharacterStats();
+        if (bgSprite == null)
+        {
+            instance.startEvent(inkJSON, isNoteBookEvent);
+        }
+        else
+        {
+            instance.StartCoroutine(instance.showbackground(bgSprite, inkJSON, isNoteBookEvent));
+        }
         GameManager.eventPassedIn();
         UIManager.endMapScreen();
     }
 
-    private static void passInCharacterStats()
+    private void passInCharacterStats()
     {
         //throw new NotImplementedException();
+
+        //CurrentGame.activeParty.members[0].SkillCheck(Character.ScalableSkill.Charisma);
+
+        //callInkFunction("setGatorHeadInParty", );
+        callInkFunction("setTestValue", 30);
+        if ( CurrentGame.activeParty.members == null)
+        {
+            Debug.Log("Crassus");
+        }
+        Debug.Log(currentStory.variablesState["testValue"]);
+        callInkFunction("setCharisma", CurrentGame.activeParty.members[0].SkillCheck(Character.ScalableSkill.Charisma));
+        callInkFunction("setWisdom", CurrentGame.activeParty.members[0].SkillCheck(Character.ScalableSkill.Wisdom));
+        callInkFunction("setConstitution", CurrentGame.activeParty.members[0].SkillCheck(Character.ScalableSkill.Constitution));
+        callInkFunction("setMoxie", CurrentGame.activeParty.members[0].SkillCheck(Character.ScalableSkill.Moxie));
+        callInkFunction("setGumption", CurrentGame.activeParty.members[0].SkillCheck(Character.ScalableSkill.Gumption));
+
+        //Debug.Log(dialogueVariables.variables["testValue"]);
+        //Constitution, 0 
+        //Charisma, 1 
+        //Wisdom, 2
+        //Moxie,  3
+        //Gumption 4
+        
+
+    }
+    public bool TrySetInkStoryVariable(string variable, object value)
+    {
+        if (currentStory != null &&
+            currentStory.variablesState.GlobalVariableExistsWithName(variable))
+        {
+            currentStory.variablesState[variable] = value;
+            return true;
+        }
+
+        return false;
     }
 
     void handleTags(List<string> currentTags)
@@ -208,7 +259,7 @@ public class centralEventHandler : MonoBehaviour
             
             string actionType = splitTag[0];
 
-            Debug.Log("tag: " + actionType);
+            //Debug.Log("tag: " + actionType);
             switch (actionType)
             {
                 case MOVE_TAG:
@@ -279,13 +330,16 @@ public class centralEventHandler : MonoBehaviour
                     //StopCoroutine(displayLineCoroutine);
                     //StartCoroutine(displayLine(currentStory.Continue()));
                     break;
+                case SPEAKER_TAG:
+                    displayName.text = splitTag[1];
+                    break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + actionType + " -- "+ tag);
                     break;
             }
         }
     }
-    public void startEvent(TextAsset inkJSON, bool notebookEvent = false)
+    private void startEvent(TextAsset inkJSON, bool notebookEvent = false)
     {
         //takes in the ink's json file.
         //if there is no option present, display just the text
@@ -306,12 +360,13 @@ public class centralEventHandler : MonoBehaviour
             notebookParent.SetActive(true);
             playingNotebookOnlyEvent = true;
         }
-
+        instance.passInCharacterStats();
         currentStory.BindExternalFunction("causeEvent", (int eventID) => { eventReferences.instance.eventDesignator(eventID); });
         dialogueVariables.StartListening(currentStory);
         continueStory();
         GameManager.eventPassedIn();
         UIManager.endMapScreen();
+
     }
 
     private void continueStory()
@@ -319,6 +374,7 @@ public class centralEventHandler : MonoBehaviour
         //Debug.Log("Checking if can continue story");
         if (currentStory.canContinue)
         {
+            passInCharacterStats();
             if (displayLineCoroutine != null)
             {
                 StopCoroutine(displayLineCoroutine);
@@ -407,11 +463,19 @@ public class centralEventHandler : MonoBehaviour
         StartCoroutine(SelectFirstChoice());
 
     }
-
+    private void skipmovement()
+    {
+        Debug.Log("skippinmg movement");
+        foreach (SpriteRenderer sr in stageCharacters)
+        {
+            sr.DOKill();
+            sr.transform.position = StageCharacterFinalDestination[sr].position;
+        }
+    }
     private IEnumerator displayLine(string line)
     {
         //handleNotebookEvent();
-
+        skipmovement();
             notebookDescriptionText.text = "";
             DescriptionText.text = "";
             pressContinueText.gameObject.SetActive(false);
@@ -528,8 +592,9 @@ public class centralEventHandler : MonoBehaviour
         {
             resetChoiceNotebook(i);
         }
-
+        StartCoroutine(removeBackground());
         Debug.Log("event Exited");
+        resetStage();
         GameManager.eventOver();
     }
 
@@ -589,6 +654,7 @@ public class centralEventHandler : MonoBehaviour
         //ideally this will change the value to 14
         currentStory.EvaluateFunction(functionName,value);
     }
+
     public void callInkFunction(string functionName, float value)
     {
         //ideally this will change the value to 14
@@ -596,17 +662,9 @@ public class centralEventHandler : MonoBehaviour
     }
     public void callInkFunction(string functionName, string value)
     {
-        //ideally this will change the value to whatever the string is
+        //ideally this will change the value to 14
         currentStory.EvaluateFunction(functionName, value);
     }
-    public void sendCharacterInformation()
-    {
-        //send the party's character information to Ink
-        //ink needs a list of the characters we have and appropriate bools for them
-        //essentially loop through the party member list and set it to true
-        
-    }
-
 
     //characters must be instantiated by using character entrance first
 
@@ -634,6 +692,7 @@ public class centralEventHandler : MonoBehaviour
     public void enterCharacter(string characterName, string movementType, string stagePosition)
     {
         //instantiates character
+        
         SpriteRenderer refChar = null;
 
         for (int i = 0; i < stageCharacters.Count; i++)
@@ -650,6 +709,8 @@ public class centralEventHandler : MonoBehaviour
             Debug.LogWarning("No character slots available");
             return;
         }
+        Debug.Log("ENTER CHARCTER CALLED to " + stagePosition + " " + getStagePosition(stagePosition));
+
         //move the character
         doEntranceMovement(refChar.transform, movementType, getStagePosition(stagePosition));
     }
@@ -729,6 +790,7 @@ public class centralEventHandler : MonoBehaviour
         //add their final destination to the dictionary so if the player skips the dialogue
         //they instantly finish their movement at the position
         StageCharacterFinalDestination[refChar] = stpos;
+        Debug.Log("MOVE CHARACTER CALLED");
 
         //parse the movement type
         doMoveToPosition(refChar.transform, stpos, movementType);
@@ -770,9 +832,11 @@ public class centralEventHandler : MonoBehaviour
         //check their transform names and see if any have been set, if 
         foreach (SpriteRenderer sr in stageCharacters)
         {
+            sr.DOKill();
             sr.name = BLANK_CHARACTER_NAME;
             sr.transform.localPosition = offStageRight.localPosition;
             sr.sprite = null;
+            sr.flipX = false;
         }
     }
 
@@ -798,14 +862,14 @@ public class centralEventHandler : MonoBehaviour
         }
         Vector2 newpos = new Vector2(characterTransform.position.x + movementAmount, characterTransform.position.y);
         //for right now we do not consider this as having fast movement
-        characterTransform.DOMove(newpos, 1f, true);
+        characterTransform.DOMove(newpos, 1f, false);
     }
     private void doMoveToPosition(Transform characterTransform, Transform stagePosition, string movementType)
     {
         if(movementType == "fast")
-            characterTransform.DOMove(stagePosition.position, 0.5f, true);
+            characterTransform.DOMove(stagePosition.position, 0.5f, false);
         else if(movementType == "normal")
-            characterTransform.DOMove(stagePosition.position, 1f, true);
+            characterTransform.DOMove(stagePosition.position, 1f, false);
 
         //move the dictionary value
         StageCharacterFinalDestination[characterTransform.GetComponent<SpriteRenderer>()] = stagePosition;
@@ -816,6 +880,7 @@ public class centralEventHandler : MonoBehaviour
     private Transform getStagePosition(string stagePos)
     {
         stagePos = stagePos.ToLower();
+        Debug.Log("Going to a position" + stagePos);
         switch (stagePos)
         {
 
@@ -853,28 +918,31 @@ public class centralEventHandler : MonoBehaviour
     private void doEntranceMovement(Transform characterTransform, string movementType, Transform destination)
     {
         movementType = movementType.ToLower();
+        Debug.Log("destination  " + destination.name);
         switch (movementType)
         {
             case "appearleft":
                 //set the position according to name, and then slide in accordingly
-                characterTransform.position = stageLeft.position;
-                characterTransform.DOLocalMove(destination.position, 1f, true);
+                characterTransform.localPosition = offStageLeft.localPosition;
+                characterTransform.DOLocalMove(destination.localPosition, 10f * Time.deltaTime, false);
                 break;
             case "appearright":
-                characterTransform.position = stageRight.position;
-                characterTransform.DOLocalMove(destination.position, 1f, true);
+                characterTransform.localPosition = offStageRight.localPosition;
+                Debug.Log(characterTransform.localPosition + " " + offStageRight.localPosition);
+                characterTransform.DOLocalMove(destination.localPosition, 10f * Time.deltaTime, false);
+
                 break;
             case "fastappearleft":
-                characterTransform.position = stageLeft.position;
-                characterTransform.DOLocalMove(destination.position, 0.5f, true);
+                characterTransform.localPosition = offStageLeft.localPosition;
+                characterTransform.DOLocalMove(destination.localPosition, 0.5f * Time.deltaTime, false);
                 break;
             case "fastappearright":
-                characterTransform.position = stageRight.position;
-                characterTransform.DOLocalMove(destination.position, 0.5f, true);
+                characterTransform.localPosition = offStageRight.localPosition;
+                characterTransform.DOLocalMove(destination.localPosition, 0.5f* Time.deltaTime, false);
                 break;
             case "fadein":
                 Debug.Log("fading in");
-                characterTransform.position = destination.position;
+                characterTransform.localPosition = destination.localPosition;
                 characterTransform.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
                 characterTransform.GetComponent<SpriteRenderer>().DOFade(1,0.5f);
                 break;
@@ -890,16 +958,16 @@ public class centralEventHandler : MonoBehaviour
         switch (movementType)
         {
             case "exitleft":
-                characterTransform.DOLocalMove(offStageLeft.position, 1f, true);
+                characterTransform.DOLocalMove(offStageLeft.position, 1f, false);
                 break;
             case "exitright":
-                characterTransform.DOLocalMove(offStageRight.position, 1f, true);
+                characterTransform.DOLocalMove(offStageRight.position, 1f, false);
                 break;
             case "fastexitleft":
-                characterTransform.DOLocalMove(offStageLeft.position, 0.5f, true);
+                characterTransform.DOLocalMove(offStageLeft.position, 0.5f, false);
                 break;
             case "fastexitright":
-                characterTransform.DOLocalMove(offStageRight.position, 0.5f, true);
+                characterTransform.DOLocalMove(offStageRight.position, 0.5f, false);
                 break;
             case "fadeout":
                 characterTransform.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
@@ -989,10 +1057,13 @@ public class centralEventHandler : MonoBehaviour
         switch (stateType)
         {
             case "flip":
+                characterTransform.GetComponent<SpriteRenderer>().flipX = true;
                 break;
             case "bounce":
                 break;
             case "shake":
+                Vector3 aimScale = characterTransform.localScale * 1.5f;
+                characterTransform.DOPunchScale(characterTransform.localScale, 1, 10, 1);
                 break;
             default:
                 break;
@@ -1004,11 +1075,93 @@ public class centralEventHandler : MonoBehaviour
         notebookEventSprite.sprite = spr;
     }
 
+
     //to make a character emote: 
     //#emote charactername emotion_type
 
     //to change a character state:
     //#state character state_type
+    public IEnumerator removeBackground()
+    {
+        if (eventBackground.isActiveAndEnabled)
+        {
+            float duration = 1f;
+            fadetoblackBG.gameObject.SetActive(true);
+            Color transparent = new Color(0, 0, 0, 0);
+            Color full = new Color(0, 0, 0, 1);
+
+            float time = 0;
+            fadetoblackBG.color = transparent;
+            while (time < duration)
+            {
+                fadetoblackBG.color = Color.Lerp(transparent, full, time / duration);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            fadetoblackBG.color = new Color(0, 0, 0, 1);
+            yield return new WaitForSeconds(0.5f);
+            eventBackground.gameObject.SetActive(false);
+            time = 0;
+            while (time < duration)
+            {
+                fadetoblackBG.color = Color.Lerp(full, transparent, time / duration);
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            fadetoblackBG.gameObject.SetActive(false);
+        }
+    }
+    public IEnumerator showbackground(Sprite bg, TextAsset inkJSON, bool isNotebookEvent)
+    {
+        /*
+        //fadetoblackBG.DOFade(255, 0.5f);
+        fadetoblackBG.DOFade(255, 2* Time.deltaTime);
+        Debug.Log("pre "+fadetoblackBG.color);
+        yield return new WaitForSeconds(2);
+        Debug.Log("post " + fadetoblackBG.color);
+        eventBackground.gameObject.SetActive(true);
+        eventBackground.sprite = bg;
+        fadetoblackBG.DOKill();
+        yield return new WaitForSeconds(2);
+        fadetoblackBG.DOKill();
+        fadetoblackBG.DOFade(0, 2* Time.deltaTime);
+        instance.startEvent(inkJSON, isNotebookEvent);
+        fadetoblackBG.gameObject.SetActive(false);
+        */
+        float duration = 1f;
+        eventBackground.sprite = bg;
+        eventBackground.gameObject.SetActive(false);
+        fadetoblackBG.gameObject.SetActive(true);
+        Color transparent = new Color(0, 0,0, 0);
+        Color full = new Color(0,0,0,1);
+
+        float time = 0;
+        fadetoblackBG.color = transparent;
+        while (time < duration)
+        {
+            fadetoblackBG.color = Color.Lerp(transparent, full, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        fadetoblackBG.color = new Color(0,0,0,1);
+        yield return new WaitForSeconds(0.5f);
+        eventBackground.gameObject.SetActive(true);
+        time = 0;
+        while (time < duration)
+        {
+            fadetoblackBG.color = Color.Lerp(full,transparent , time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadetoblackBG.gameObject.SetActive(false);
+
+        instance.startEvent(inkJSON, isNotebookEvent);
+
+    }
+
+
 }
 
 //list of objects

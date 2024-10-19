@@ -46,7 +46,6 @@ public class DialogueVariables
         }
     }
 
-    //this copies the variables from Ink to Unity -- You do not need to touch this
     private void VariablesToStory(Story story)
     {
         foreach (KeyValuePair<string, Ink.Runtime.Object> variable in variables)

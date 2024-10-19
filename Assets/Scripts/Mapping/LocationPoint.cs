@@ -34,6 +34,7 @@ public struct Road
     public LocationPoint origin;
     public string roadName;
     public bool endingRoad;//this wont have a destination
+    public Sprite backgroundImage;
 
     //the amount of events is chosen in the inspector
     public roadArchetype type;

@@ -1,6 +1,10 @@
 INCLUDE ../globals.ink
 EXTERNAL causeEvent(ID)
 
+
+
+The player 
+
 Oh no, I see something weird on the horizon #speaker: you  #spr: you #emotion:playerReact
 
 {

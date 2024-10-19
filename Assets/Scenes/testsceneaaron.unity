@@ -1583,6 +1583,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 0}
@@ -2203,6 +2204,7 @@ MonoBehaviour:
     origin: {fileID: 259188717}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 4900000, guid: 93aed15df80db5b4db1057cabf734901, type: 3}
@@ -2213,6 +2215,7 @@ MonoBehaviour:
     origin: {fileID: 259188717}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 4900000, guid: 93aed15df80db5b4db1057cabf734901, type: 3}
@@ -5144,6 +5147,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750769122}
   m_CullTransparentMesh: 1
+--- !u!1 &752582299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 752582300}
+  - component: {fileID: 752582302}
+  - component: {fileID: 752582303}
+  m_Layer: 5
+  m_Name: eventBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &752582300
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752582299}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1447024775}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &752582302
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752582299}
+  m_CullTransparentMesh: 1
+--- !u!212 &752582303
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752582299}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 8
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &753243152
 GameObject:
   m_ObjectHideFlags: 0
@@ -6551,6 +6651,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 0}
@@ -7073,6 +7174,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 0}
@@ -7315,6 +7417,7 @@ MonoBehaviour:
     origin: {fileID: 1113553828}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 1
     quest: {fileID: 4900000, guid: 4b169e4f0fb61544495d85593cd74e2f, type: 3}
@@ -7356,6 +7459,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 4900000, guid: 391213c38adb94b44b14cd3c9c42bff6, type: 3}
@@ -7366,6 +7470,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 4900000, guid: 391213c38adb94b44b14cd3c9c42bff6, type: 3}
@@ -8063,6 +8168,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 4900000, guid: dd39b44d7a53a03408865839de9755a3, type: 3}
@@ -8949,6 +9055,7 @@ RectTransform:
   - {fileID: 450184153}
   - {fileID: 948041799}
   - {fileID: 374507741}
+  - {fileID: 752582300}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9109,6 +9216,7 @@ MonoBehaviour:
   stageMidRight: {fileID: 962492004}
   stageRight: {fileID: 1599840216}
   offStageRight: {fileID: 1596106142}
+  eventBackground: {fileID: 752582303}
 --- !u!4 &1483669149
 Transform:
   m_ObjectHideFlags: 0
@@ -9383,6 +9491,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 4900000, guid: 7e06bf7e2e0179a41ba5bf4cef8a11e7, type: 3}
@@ -13708,6 +13817,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 4900000, guid: 391213c38adb94b44b14cd3c9c42bff6, type: 3}
@@ -13847,6 +13957,7 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
     notebookEvent: 0
     quest: {fileID: 0}

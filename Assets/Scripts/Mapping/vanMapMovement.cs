@@ -120,8 +120,10 @@ public class vanMapMovement : MonoBehaviour
         if(Random.value > 0f && !currentRoad.eventActivated) {
             currentRoad.eventActivated = true;
 			currentDistancePercent = 0.6f;
-			centralEventHandler.StartEvent(currentRoad.quest);
-			SaveManager.instance.save();
+			centralEventHandler.StartEvent(currentRoad.quest, currentRoad.notebookEvent, currentRoad.backgroundImage);
+            
+
+            SaveManager.instance.save();
 		}
         else {
 			transform.position = _destination.transform.position;

@@ -1,19 +1,20 @@
 INCLUDE ../globals.ink
 EXTERNAL causeEvent(ID)
 //spawn in player
-#enter you appearright l #spr you you
+#enter you appearleft ol #spr you you #speaker you
 My brother is dead
-
+#move you normal r
+I will collect data
 I must go out to the secret californian way 
 
     * [Go to Cali]
     -> calif
 ===calif ===
 
-#speaker: you #spr: you   #pos:left #emotion: playerReact
+#speaker you #move you l fast 
 Oh it is the famous gatorhead. Hi gatorhead.
 
-#speaker: gatorhead #spr: gatorhead # pos: right
+#enter gatorhead appearleft ol #speaker gatorhead #spr gatorhead gatorhead 
 Hi Oregon Trailer. Are you ready to Oregon trail? 
 
 #speaker: you #pos:left #spr: you 
