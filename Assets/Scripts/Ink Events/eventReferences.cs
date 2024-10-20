@@ -61,6 +61,10 @@ public class eventReferences : MonoBehaviour
                 break;
             case 9:
                 break;
+            case 12:
+                //lose 5 money
+                GameManager.addResource(3, -5);
+                break;
             default:
                 Debug.Log("EVENT DEFAULTED");
                 break;

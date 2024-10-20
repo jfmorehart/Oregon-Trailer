@@ -2353,7 +2353,9 @@ MonoBehaviour:
     origin: {fileID: 413118137}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: dd39b44d7a53a03408865839de9755a3, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -2362,7 +2364,9 @@ MonoBehaviour:
     origin: {fileID: 413118137}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: 99514872a40039c45b9ad2bb9adc220b, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -2553,7 +2557,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 0}
     nextQuestPercent: 0
     eventActivated: 0
@@ -3247,7 +3253,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: 99514872a40039c45b9ad2bb9adc220b, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -3488,7 +3496,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 0}
     nextQuestPercent: 0
     eventActivated: 0
@@ -4019,7 +4029,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: 26887c6b7379bb84b9ca4790e8ed19dd, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -4463,6 +4475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inkJson: {fileID: 4900000, guid: d31a82440ab4a58468915cb8f6559f24, type: 3}
   resourceJSON: {fileID: 4900000, guid: d29a4ea9a64d1df4b8109b27879150d5, type: 3}
+  notebookJSON: {fileID: 0}
   protAllEvents:
   - {fileID: 4900000, guid: d29a4ea9a64d1df4b8109b27879150d5, type: 3}
   - {fileID: 4900000, guid: 26480eaf086322d4bb1a9db454f5beb7, type: 3}
@@ -6143,7 +6156,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 0}
     nextQuestPercent: 0
     eventActivated: 0
@@ -7483,7 +7498,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: dd39b44d7a53a03408865839de9755a3, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -8100,7 +8117,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: 7e06bf7e2e0179a41ba5bf4cef8a11e7, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -9666,7 +9685,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: 4c6d79010d87ba843ba6c7245a04ffe8, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -9675,7 +9696,9 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: 7e06bf7e2e0179a41ba5bf4cef8a11e7, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -10634,7 +10657,9 @@ MonoBehaviour:
     origin: {fileID: 1958441603}
     roadName: 
     endingRoad: 0
+    backgroundImage: {fileID: 0}
     type: 0
+    notebookEvent: 0
     quest: {fileID: 4900000, guid: 99514872a40039c45b9ad2bb9adc220b, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
@@ -11232,11 +11257,41 @@ MonoBehaviour:
   EventParent: {fileID: 1696383281}
   DescriptionText: {fileID: 1962887436}
   pressContinueText: {fileID: 1361487578}
+  notebookParent: {fileID: 0}
+  notebookDescriptionText: {fileID: 0}
+  notebookButtonObjects: []
+  notebookButtonScripts: []
   buttonObjects:
   - {fileID: 1059093626}
   - {fileID: 1370581414}
   - {fileID: 1648714840}
   - {fileID: 243598745}
+  globalsInkFile:
+    inkAsset: {fileID: 0}
+    jsonAssetDirectory: {fileID: 0}
+    jsonAsset: {fileID: 0}
+    unhandledCompileErrors: []
+    recursiveIncludeErrorPaths: []
+    errors: []
+    warnings: []
+    todos: []
+    masterInkAssets: []
+    localIncludePaths: []
+    includes: []
+  displayName: {fileID: 0}
+  typingSpeed: 0.04
+  notebookEventSprite: {fileID: 0}
+  stageCharacters: []
+  offStageLeft: {fileID: 0}
+  stageLeft: {fileID: 0}
+  stageMidLeft: {fileID: 0}
+  stageMiddle: {fileID: 0}
+  stageMidRight: {fileID: 0}
+  stageRight: {fileID: 0}
+  offStageRight: {fileID: 0}
+  eventBackground: {fileID: 0}
+  fadetoblackBG: {fileID: 0}
+  mc: {fileID: 0}
 --- !u!4 &2052259375
 Transform:
   m_ObjectHideFlags: 0
@@ -11264,6 +11319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f88ea169e4dfae408cc59c4f126bbeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpriteProt: {fileID: 0}
+  notebooksprites: []
 --- !u!1 &2064630955
 GameObject:
   m_ObjectHideFlags: 0
