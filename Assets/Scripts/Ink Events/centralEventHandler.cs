@@ -360,8 +360,9 @@ public class centralEventHandler : MonoBehaviour
             notebookParent.SetActive(true);
             playingNotebookOnlyEvent = true;
         }
-        instance.passInCharacterStats();
+
         currentStory.BindExternalFunction("causeEvent", (int eventID) => { eventReferences.instance.eventDesignator(eventID); });
+        instance.passInCharacterStats();
         dialogueVariables.StartListening(currentStory);
         continueStory();
         GameManager.eventPassedIn();
@@ -374,6 +375,7 @@ public class centralEventHandler : MonoBehaviour
         //Debug.Log("Checking if can continue story");
         if (currentStory.canContinue)
         {
+            skippingthrough = false;
             passInCharacterStats();
             if (displayLineCoroutine != null)
             {
@@ -383,11 +385,11 @@ public class centralEventHandler : MonoBehaviour
 
             //we now use a typewriter effect
             //DescriptionText.text = currentStory.Continue();
-            handleTags(currentStory.currentTags);
+
             handleNotebookEvent();
 
             displayLineCoroutine = StartCoroutine(displayLine(currentStory.Continue()));
-
+            handleTags(currentStory.currentTags);
             Debug.Log("story can continue - updating choices");
 
         }
@@ -472,6 +474,9 @@ public class centralEventHandler : MonoBehaviour
             sr.transform.position = StageCharacterFinalDestination[sr].position;
         }
     }
+
+    bool skippingthrough = false;
+
     private IEnumerator displayLine(string line)
     {
         //handleNotebookEvent();
@@ -487,12 +492,8 @@ public class centralEventHandler : MonoBehaviour
             foreach (char letter in line.ToCharArray())
             {
 
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    DescriptionText.text = line;
-                    notebookDescriptionText.text = line;
-                    break;
-                }
+                //if ((Input.GetKeyDown(KeyCode.Space) && !skippingthrough )|| (Input.GetKeyDown(KeyCode.Mouse0) && !skippingthrough))
+
 
                 if (isAddingRichTag || letter == '<')
                 {
@@ -512,13 +513,22 @@ public class centralEventHandler : MonoBehaviour
                     notebookDescriptionText.text += letter;
                     yield return new WaitForSeconds(typingSpeed);
                 }
-
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                DescriptionText.text = line;
+                notebookDescriptionText.text = line;
+                //skippingthrough = true;
+                Debug.Log("Skipping throguh text");
+                break;
             }
+        }
             pressContinueText.gameObject.SetActive(true);
             displayChoices();
             
             canContinueToNextLine = true;
         
+
+
     }
     private void hideChoices()
     {
@@ -915,6 +925,7 @@ public class centralEventHandler : MonoBehaviour
         }
     }
 
+    //#enter charactername entrance_type stage_destination
     private void doEntranceMovement(Transform characterTransform, string movementType, Transform destination)
     {
         movementType = movementType.ToLower();
@@ -924,21 +935,21 @@ public class centralEventHandler : MonoBehaviour
             case "appearleft":
                 //set the position according to name, and then slide in accordingly
                 characterTransform.localPosition = offStageLeft.localPosition;
-                characterTransform.DOLocalMove(destination.localPosition, 10f * Time.deltaTime, false);
+                characterTransform.DOLocalMove(destination.localPosition, 2, false).SetEase(Ease.Linear);
                 break;
             case "appearright":
                 characterTransform.localPosition = offStageRight.localPosition;
                 Debug.Log(characterTransform.localPosition + " " + offStageRight.localPosition);
-                characterTransform.DOLocalMove(destination.localPosition, 10f * Time.deltaTime, false);
+                characterTransform.DOLocalMove(destination.localPosition, 2, false).SetEase(Ease.Linear);
 
                 break;
             case "fastappearleft":
                 characterTransform.localPosition = offStageLeft.localPosition;
-                characterTransform.DOLocalMove(destination.localPosition, 0.5f * Time.deltaTime, false);
+                characterTransform.DOLocalMove(destination.localPosition, 0.5f, false).SetEase(Ease.Linear);
                 break;
             case "fastappearright":
                 characterTransform.localPosition = offStageRight.localPosition;
-                characterTransform.DOLocalMove(destination.localPosition, 0.5f* Time.deltaTime, false);
+                characterTransform.DOLocalMove(destination.localPosition, 0.5f, false).SetEase(Ease.Linear);//inoutquad, outquad, InQuart
                 break;
             case "fadein":
                 Debug.Log("fading in");
@@ -1057,7 +1068,7 @@ public class centralEventHandler : MonoBehaviour
         switch (stateType)
         {
             case "flip":
-                characterTransform.GetComponent<SpriteRenderer>().flipX = true;
+                characterTransform.GetComponent<SpriteRenderer>().flipX = !characterTransform.GetComponent<SpriteRenderer>().flipX;
                 break;
             case "bounce":
                 break;
