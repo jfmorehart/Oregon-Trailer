@@ -1,4 +1,7 @@
+INCLUDE ../globals.ink
 -> main
+
+{ player_name = "" : ->main | -> alreadyChose}
 
 === main ===
 Which pokemon do you choose?
@@ -11,4 +14,10 @@ Which pokemon do you choose?
         
 === chosen(pokemon) ===
 You chose {pokemon}!
+~player_name = pokemon
+
+-> END
+=== alreadyChose===
+You already chose {player_name}
+
 -> END

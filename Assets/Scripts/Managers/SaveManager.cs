@@ -69,7 +69,7 @@ public class SaveManager : MonoBehaviour
         _roadList.Clear();
         triggerQuestTest.instance.createRoadDictionary();
         Dictionary<int, LocationPoint> dict = triggerQuestTest.RoadDict;
-        Debug.Log("Dict length:" + dict.Count);
+        //Debug.Log("Dict length:" + dict.Count);
         //loop through the locations
         for (int i = 0; i < dict.Count; i++)
         {
@@ -81,7 +81,7 @@ public class SaveManager : MonoBehaviour
                 rsi.originNum = i;
                 if (!rsi.endingRoad)
                 {
-                    Debug.Log(rsi.originNum + lp.transform.name + " is ending road " + lp.roadConnection.endingRoad);
+                    //Debug.Log(rsi.originNum + lp.transform.name + " is ending road " + lp.roadConnection.endingRoad);
                     rsi.destinationNum = lp.roadConnection.Destination.ID;
                 }
                 else
@@ -107,7 +107,7 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        Debug.Log(_money + " " + _gas + " " + _roadList.Count + " " + dict[VanMapDestinationID].transform.name);
+        //Debug.Log(_money + " " + _gas + " " + _roadList.Count + " " + dict[VanMapDestinationID].transform.name);
     }
 
 
