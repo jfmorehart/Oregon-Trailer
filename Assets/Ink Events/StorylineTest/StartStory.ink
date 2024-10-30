@@ -16,7 +16,7 @@ Oh it is the famous gatorhead. Hi gatorhead.
 
 #enter gatorhead appearleft ol #speaker gatorhead #spr gatorhead gatorhead 
 Hi Oregon Trailer. Are you ready to Oregon trail? 
-
+#move gatorhead normal r
 #speaker: you #pos:left #spr: you 
 Oregon.
     * [Bring Gatorhead]

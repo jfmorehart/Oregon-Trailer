@@ -117,7 +117,8 @@ public class vanMapMovement : MonoBehaviour
     }
     public void NextDestination() {
 
-        if(Random.value > 0f && !currentRoad.eventActivated) {
+        Destroy(GameObject.Find("SignPrefab"));
+		if (Random.value > 0f && !currentRoad.eventActivated && currentRoad.quest != null) {
             currentRoad.eventActivated = true;
 			currentDistancePercent = 0.6f;
 			centralEventHandler.StartEvent(currentRoad.quest, currentRoad.notebookEvent, currentRoad.backgroundImage);

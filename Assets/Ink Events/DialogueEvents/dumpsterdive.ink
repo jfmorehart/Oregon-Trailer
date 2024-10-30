@@ -4,14 +4,30 @@ INCLUDE ../globals.ink
 -> dumpsterdive
 
 == dumpsterdive ==
-
+#speaker ''
 The only reason why you’re stopping by this dumpster is because there was a trash pileup in your van, and Leslie had been complaining about it for the past several minutes.
+
+#enter leslie appearfastright or
+#spr leslie you
 As you get out of the van, trash bag in hand, you notice that one of the dumpsters is open, the other is closed pretty tight, but there is the corner of what seems to be a magazine stuck under the lid.
 
+#move leslie normal right
+
+#enter lady normal ol
+#spr lady lady
 <b>Leslie</b>: Hurry uuuuup, the smell from the dumpsters is arguably worse! Ugh! //blue
+
+
+
+#move lady normal l
 <b>Lady</b>: Before you do that, could you please get that magazine for me? It looks different from the ones I have! //pink
+
+
+//#emote leslie pop
 <b>Leslie</b>: Why is that important anyway? Don’t you have a lot of them already? //blue
+//#emote lady pop
 <b>Lady</b>: Because I’m asking <i>nicely</i>. You could do that for a change, Leslie. //pink
+//#emote leslie pop
 <b>Leslie</b>: What I could <i>also</i> do is tell Gator here to <i>please</i> throw you in the <i>dumpster</i>. //blue
 
 Gatorhead looks in your direction, shaking his head. He does not want to be involved this time.
@@ -24,7 +40,9 @@ You throw the trash in the open container and make your way towards the van, com
 Lady is already staring you down, with killer intent.
 
 <b>Leslie</b>: You pissed the little one off. //blue
+#exit lady exitleft
 <b>Lady</b>: <b><i>You shut up.</i></b> //pink
+#move leslie normal ol
 <b>Leslie</b>: Alright, alright… let’s go, before <i>Lady</i> is the one to throw your body in a dump. //blue
 
 -> END
