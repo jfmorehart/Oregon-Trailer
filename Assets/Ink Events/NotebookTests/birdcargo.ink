@@ -8,27 +8,29 @@ INCLUDE ../globals.ink
 
 Finding a warehouse by the side of the highway is kind of like a jackpot. Your party also agrees. Who knows what you could find in there! 
 
-So, you all go out to investigate, after having Gatorhead break down the door, of course. You are all met with the sight of a bunch of crates, some opened and some not. Time to look around.
+So, you all go out to investigate, after having Gatorhead break down the door, of course. You are all met with the sight of a bunch of crates, some stacked on top of one another and some scattered across the floor. 
+There’s a crate immediately to your left that’s half opened. As you’re about to head for it, Leslie bumps against a tower of crates, which sends one of them spilling over right in front of you.
 
-* [ Look at Crate to the Left ] ->left
-* [ Look at Crate to the Right ] ->right
+* [ Look at Crate ] ->left
+* [ Look at Spillage ] ->right
 
 == left ==
-You dig around, and what you find is a triangular, metallic object.
+You dig your hand around, and what you find among the package filling is a triangular, metallic object. 
 It has a few small nuts and bolts, an opening that looks like a mouth, but nothing other than that. Is this scrap?
 
 -> group
 
 == right ==
-You dig around, and what you find is a flat, misshapen metallic object.
-It has a few dents, a few nuts and bolts, and a hook that would probably connect it to something else.
+You crouch down next to the spillage, and start to look for anything particularly shiny and interesting among more regular-looking trinkets. 
+Eventually, what you find is a flat, misshapen metallic object. It has a few dents, some nuts and bolts, and a hook that would probably connect this object to another. 
 There’s another one just like it at the bottom of the crate. Nothing else other than that. Is this scrap?
 
 -> group
 
 == group ==
-Eventually your party members are also questioning their findings.
-Apparently, Leslie found something that looked like a small, spherical metal head. Lady found two thinner, stick-like pieces of metal. Gatorhead found a bigger version of what Leslie described, but instead with two hooks at the sides, and a few holes.
+At the same time, your party members are also questioning their findings.
+Apparently, Leslie found something that looked like a small, spherical metal head. Lady found two thinner, stick-like pieces of metal. 
+Gatorhead found a bigger version of what Leslie described, but instead with two hooks at the sides, and a few holes.
 You come together, and the pieces reveal… a bird?
 You can hear Gatorhead swear under his breath.
 
