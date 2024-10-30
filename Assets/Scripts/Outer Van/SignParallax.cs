@@ -47,6 +47,7 @@ public class SignParallax : BackgroundObjectParallax
     public void chooseSecondRoad()
     {
         vanMapMovement.instance.setDestination(r2.Destination);
+        //vanMapMovement.instance.setOrigin(r2.de)
         //Debug.Log("VanChosen");
         directionChosen = true;
 

@@ -108,8 +108,9 @@ public class centralEventHandler : MonoBehaviour
 
 
     private void Start()
-    {   
-        if(CurrentGame.activeParty == null)
+    {
+
+		if (CurrentGame.activeParty == null)
             CurrentGame.NewParty(new Character(mc));
 
         DOTween.Init();
@@ -195,7 +196,7 @@ public class centralEventHandler : MonoBehaviour
     }
     public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false, Sprite bgSprite = null)
     {
-	    Debug.Log(inkJSON);
+		Debug.Log(inkJSON);
         if (bgSprite == null)
         {
             instance.startEvent(inkJSON, isNoteBookEvent);
@@ -285,7 +286,7 @@ public class centralEventHandler : MonoBehaviour
                     //#spr charactername image_name
                     if (splitTag.Length == 3)
                         changeSprite(splitTag[1], splitTag[2]);
-                    if(playingNotebookOnlyEvent || shouldShowNotebook)
+                    else if(playingNotebookOnlyEvent || shouldShowNotebook)
                     {
                         notebookEventSprite.sprite = Resources.Load<Sprite>("Sprites/" + splitTag[1]);
                     }
@@ -346,6 +347,7 @@ public class centralEventHandler : MonoBehaviour
 		//if there is no option present, display just the text
 		//setting the currentStory is necessary whenever starting a new dialogue event.
 		Debug.Log("notebook event = " + notebookEvent);
+
 		if (notebookEvent == false)
         {
             shouldShowNotebook = false;
@@ -782,7 +784,7 @@ public class centralEventHandler : MonoBehaviour
         //changes the sprite in the notebook event
         var spr = Resources.Load<Sprite>("Sprites/" + spriteName);
         notebookEventSprite.sprite = spr;
-    }
+	}
 
     private void moveCharacter(string characterName, string movementType, string stagePosition)
     {

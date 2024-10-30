@@ -117,7 +117,11 @@ public class vanMapMovement : MonoBehaviour
     }
     public void NextDestination() {
 
+
+        //i know this is fucked
         Destroy(GameObject.Find("SignPrefab"));
+		Destroy(GameObject.Find("SignPrefab(Clone)"));
+
 		if (Random.value > 0f && !currentRoad.eventActivated && currentRoad.quest != null) {
             currentRoad.eventActivated = true;
 			currentDistancePercent = 0.6f;
