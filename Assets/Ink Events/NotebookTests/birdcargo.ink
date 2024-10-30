@@ -48,10 +48,10 @@ Eventually, you pull out a flat, rectangular object from a crate in the back of 
 
 <b> [ Item Received: Keycard. Provides access to a secret location. ] </b>
 
-/*{ has_keycard == false:
+{ has_keycard == false:
 
-                        ~ has_keycard = true
-}*/
+~ has_keycard = true
+}
 
 -> leave
 

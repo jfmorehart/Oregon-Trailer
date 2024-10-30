@@ -10,7 +10,15 @@ The building’s door, however, is locked. There is a card reader next to it, wi
 
 * [ Give Up ] -> leave
 * [ Force Your Way Through It ] -> bestrong
-* [ Use Cardreader ] -> keycard
+* [ Use Cardreader ] -> keycardcheck
+
+== keycardcheck ==
+{ has_keycard == true:
+
+-> keycard
+-else:
+->nokeycard
+}
 
 == leave ==
 Try as you may, you cannot, for the life of you, get any kind of look inside the building. 
@@ -19,9 +27,17 @@ You drag your way to the van, throwing frustrated glances back at the structure,
 -> END
 
 == keycard ==
-You don't have access to the card reader, silly! No such item is in your inventory :)
+~player_charisma ++
+You remember that you found a keycard in the old warehouse from some stops ago. Your teammates look impressed with you, and it makes you feel good.
+When you pull the keycard out and scan it on the card reader, Gatorhead lets out a ‘brrr.’ 
+The door opens unceremoniously, and your teammates soon start coughing from the dust buildup coming from inside.
 
--> END
+-> inside
+
+== nokeycard ==
+You reach out to the cardreader, scanning it, analyzing it... but you don't have a keycard. A sigh of frustration escapes you. Of course. You must have missed it somewhere.
+It doesn't matter now.
+-> leave
 
 == bestrong ==
 //skill check for strength/fitness here

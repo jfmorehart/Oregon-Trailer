@@ -37,7 +37,8 @@ You look back to your party members. Lady is shaking her head. Gatorhead on the 
 
 == awake ==
 ~ player_charisma ++
-You crack your knuckles, and ignore the guy as he asks what you're about to do. You kneel against the fainted guy and ready your hand. You don't know it, but Gatorhead and Leslie are cheering, for whatever reason.
+You crack your knuckles, and ignore the guy as he asks what you're about to do. You kneel against the fainted guy and ready your hand. 
+You don't know it, but Gatorhead and Leslie are cheering, for whatever reason.
 <b><i>SLAP!!</b></i> It even echoes. You're awfully proud of that slap.
 
 The guy wakes up, startled.
@@ -46,7 +47,9 @@ The guy wakes up, startled.
 "The heat, bro... It got me..."
 "It got got you. For real."
 
-What even is happening? You step back as they get up. You finally note their clothing. Cropped jerseys with huge numbers at the front, short shorts... These are SADsOP members. But judging by the lack of any other signifier, they could be pledges. Or wannabes really.
+What even is happening? You step back as they get up. 
+You finally note their clothing. Cropped jerseys with huge numbers at the front, short shorts... These are SADsOP members. 
+But judging by the lack of any other signifier, they could be pledges. Or wannabes really.
 
 The one - who has just awoken - salutes you.
 "Thanks, dude. For not driving over us and stuff."
@@ -73,11 +76,13 @@ You go back to the van, and you brief your teammates. Lady doesn't seem exactly 
 You ready your hands and fists, and as much as the guy can yell at you asking what you're doing, he cannot stop what's coming.
 You ready for a good slap square on the cheek.
 But somehow, you miss. Horribly. And you slap the other guy. Centrifugal force wasn't working with you here.
-The guy is <i>pissed.</i> He punches you right back, square on the nose. You fall back, and that's all Gatorhead needs to run outside and drag you out of there. Swears and yells are exchanged, which in turn wake the fainted up. He starts yelling incoherent stuff soon after, but it's well into getaway drive that you hear a <b>"FUCKING IDIOTS! WE'LL TELL OUR BIGS FOR THIS! YOU'LL PAAAA A A A A A A Y-"</b>
+The guy is <i>pissed.</i> He punches you right back, square on the nose. You fall back, and that's all Gatorhead needs to run outside and drag you out of there. 
+Swears and yells are exchanged, which in turn wake the fainted up. He starts yelling incoherent stuff soon after, but it's well into getaway drive that you hear a <b>"FUCKING IDIOTS! WE'LL TELL OUR BIGS FOR THIS! YOU'LL PAAAA A A A A A A Y-"</b>
 -> END
 
 == stay ==
-The guy's still yelling, but you're not moving a muscle. Eventually, he gets irritated enough to come all the way to your van, banging on the window repeatedly. Lady stares you down, really trying to get you not to help them, for whatever reason. And you might oblige, before Leslie loudly whispers that cracks in the glass are starting to show.
+The guy's still yelling, but you're not moving a muscle. Eventually, he gets irritated enough to come all the way to your van, banging on the window repeatedly. 
+Lady stares you down, really trying to get you not to help them, for whatever reason. And you might oblige, before Leslie loudly whispers that cracks in the glass are starting to show.
 
 * [ Don't Open Window ] -> noglass
 * [ Open Window ] -> window
