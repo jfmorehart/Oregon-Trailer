@@ -498,7 +498,7 @@ public class centralEventHandler : MonoBehaviour
         DescriptionText.fontSize = sz;
 
 
-            DescriptionText.text = "";
+            notebookDescriptionText.text = "";
             pressContinueText.gameObject.SetActive(false);
             canContinueToNextLine = false;
             hideChoices();
