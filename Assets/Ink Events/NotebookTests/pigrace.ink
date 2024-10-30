@@ -1,6 +1,10 @@
 INCLUDE ../globals.ink
 EXTERNAL causeEvent(ID)
 
+VAR roo = 1
+VAR bee = 2
+VAR too = 3
+
 -> race
 
 ==race==
@@ -19,6 +23,21 @@ The stranger also gives you a description of each hog:
         -> betBeebee
     *[Bet on Toot]
         -> betToot
+
+~ temp bet = RANDOM(1, 3)
+
+{ bet == roo:
+                -> betRoo 
+}
+
+{ bet == bee:
+
+                -> betBeebee
+}
+
+{ bet == too:
+                -> betToot
+}
 
 == betRoo ==
 The race begins! You watch as Roo zips past the two others before stopping, as predicted. It is distracted by some shiny trinkets that some stranger has dropped not far from it. 

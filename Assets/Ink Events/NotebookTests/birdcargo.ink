@@ -1,5 +1,5 @@
-EXTERNAL causeEvent(ID)
 INCLUDE ../globals.ink
+EXTERNAL causeEvent(ID)
 
 -> birdcargo
 
@@ -47,6 +47,11 @@ You decide to stay and look some more through the crates. The others half-hearte
 Eventually, you pull out a flat, rectangular object from a crate in the back of the room. It reads: <b>B1RDM4N_0956…</b> and a series of numbers. The chip on the back tells you that it’s readable.
 
 <b> [ Item Received: Keycard. Provides access to a secret location. ] </b>
+
+/*{ has_keycard == false:
+
+                        ~ has_keycard = true
+}*/
 
 -> leave
 
