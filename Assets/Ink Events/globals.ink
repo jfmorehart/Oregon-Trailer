@@ -18,6 +18,8 @@ VAR player_gumption = 0
 
 VAR testValue = 0
 
+VAR has_keycard = false
+
 == function setTestValue(value)==
 ~ testValue = value
 

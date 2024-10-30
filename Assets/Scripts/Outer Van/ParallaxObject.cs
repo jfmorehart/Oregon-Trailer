@@ -34,7 +34,8 @@ public class ParallaxObject : MonoBehaviour
 
 		GetComponent<SpriteRenderer>().sortingOrder = Mathf.CeilToInt(-100f * height);
 	}
-	// Update is called once per frame
+
+
 	void Update()
     {
 		
