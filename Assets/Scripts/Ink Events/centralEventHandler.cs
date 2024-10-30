@@ -109,7 +109,8 @@ public class centralEventHandler : MonoBehaviour
 
     private void Start()
     {
-        if(CurrentGame.activeParty.members == null)
+
+		if (CurrentGame.activeParty == null)
             CurrentGame.NewParty(new Character(mc));
 
         DOTween.Init();
@@ -195,6 +196,7 @@ public class centralEventHandler : MonoBehaviour
     }
     public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false, Sprite bgSprite = null)
     {
+		Debug.Log(inkJSON);
         if (bgSprite == null)
         {
             instance.startEvent(inkJSON, isNoteBookEvent);
@@ -284,7 +286,7 @@ public class centralEventHandler : MonoBehaviour
                     //#spr charactername image_name
                     if (splitTag.Length == 3)
                         changeSprite(splitTag[1], splitTag[2]);
-                    if(playingNotebookOnlyEvent || shouldShowNotebook)
+                    else if(playingNotebookOnlyEvent || shouldShowNotebook)
                     {
                         notebookEventSprite.sprite = Resources.Load<Sprite>("Sprites/" + splitTag[1]);
                     }
@@ -341,16 +343,20 @@ public class centralEventHandler : MonoBehaviour
     }
     private void startEvent(TextAsset inkJSON, bool notebookEvent = false)
     {
-        //takes in the ink's json file.
-        //if there is no option present, display just the text
-        //setting the currentStory is necessary whenever starting a new dialogue event.
-
-        if (notebookEvent == false)
+		//takes in the ink's json file.
+		//if there is no option present, display just the text
+		//setting the currentStory is necessary whenever starting a new dialogue event.
+		Debug.Log("notebook event = " + notebookEvent);
+        displayName.text = "";
+		if (notebookEvent == false)
         {
+            shouldShowNotebook = false;
+            playingNotebookOnlyEvent = false;
+
             currentStory = new Story(inkJSON.text);
             eventPlaying = true;
             EventParent.SetActive(true);
-            notebookParent.SetActive(true);
+            //notebookParent.SetActive(true);
             //currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => GameManager.addResource(resourceID, amount));
         }
         else
@@ -481,7 +487,17 @@ public class centralEventHandler : MonoBehaviour
     {
         //handleNotebookEvent();
         skipmovement();
-            notebookDescriptionText.text = "";
+
+        DescriptionText.text = line;
+		DescriptionText.enableAutoSizing = true;
+        yield return null;
+		float sz = DescriptionText.fontSize;
+        DescriptionText.alignment = TextAlignmentOptions.Left;
+        DescriptionText.text = "";
+        DescriptionText.enableAutoSizing = false;
+        DescriptionText.fontSize = sz;
+
+
             DescriptionText.text = "";
             pressContinueText.gameObject.SetActive(false);
             canContinueToNextLine = false;
@@ -768,7 +784,7 @@ public class centralEventHandler : MonoBehaviour
         //changes the sprite in the notebook event
         var spr = Resources.Load<Sprite>("Sprites/" + spriteName);
         notebookEventSprite.sprite = spr;
-    }
+	}
 
     private void moveCharacter(string characterName, string movementType, string stagePosition)
     {
@@ -1226,7 +1242,7 @@ move to stagePosition
 #move character_name stage_position fast/normal
 
 Text:
-Pop in - similar to “STOP THE VAN”
+Pop in - similar to ï¿½STOP THE VANï¿½
 Shake - make the text jitter a bit, still comes it normal typewriter 
 Small - make the text a bit smaller
 Big - make the text big

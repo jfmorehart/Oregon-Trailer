@@ -37,16 +37,22 @@ public class SignParallax : BackgroundObjectParallax
     }
     public void chooseFirstRoad()
     {
-        //gives the direction to the vanManager
-        vanMapMovement.instance.setDestination(r1.Destination);
-        //Debug.Log("THIS anChosen");
-        directionChosen = true;
+		Debug.Log("1st road");
+		//gives the direction to the vanManager
+		vanMapMovement.instance.setDestination(r1.Destination);
+		vanMapMovement.instance.setOrigin(r1);
+		//Debug.Log("THIS anChosen");
+		directionChosen = true;
         GameManager.startVan();
 
 	}
     public void chooseSecondRoad()
     {
+        Debug.Log("2nd road");
+        vanMapMovement.instance.setOrigin(r2);
         vanMapMovement.instance.setDestination(r2.Destination);
+        Debug.Log("setting origin to: " + r2.quest);
+        //vanMapMovement.instance.setOrigin(r2.de)
         //Debug.Log("VanChosen");
         directionChosen = true;
 

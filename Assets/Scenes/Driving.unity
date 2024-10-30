@@ -1691,9 +1691,9 @@ RectTransform:
   - {fileID: 1651996753}
   m_Father: {fileID: 51579949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -169.56}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219331527
@@ -1753,7 +1753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1969,9 +1969,9 @@ RectTransform:
   - {fileID: 940122875}
   m_Father: {fileID: 51579949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -16.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &254027521
@@ -2031,7 +2031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2520,10 +2520,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 29.5
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2685,7 +2685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 105}
+  m_AnchoredPosition: {x: 0, y: 17}
   m_SizeDelta: {x: 882.04, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &400115373
@@ -2777,10 +2777,10 @@ MonoBehaviour:
     origin: {fileID: 413118137}
     roadName: 
     endingRoad: 0
-    backgroundImage: {fileID: 0}
+    backgroundImage: {fileID: 21300000, guid: 4e64c44bfd1fc1a489c476aaa18302b6, type: 3}
     type: 0
-    notebookEvent: 0
-    quest: {fileID: 4900000, guid: dd39b44d7a53a03408865839de9755a3, type: 3}
+    notebookEvent: 1
+    quest: {fileID: 4900000, guid: a685cc2a4bfcba148b422d4c4e263318, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
   secondRoadConnection:
@@ -2788,10 +2788,10 @@ MonoBehaviour:
     origin: {fileID: 413118137}
     roadName: 
     endingRoad: 0
-    backgroundImage: {fileID: 0}
+    backgroundImage: {fileID: 21300000, guid: 640b2236940a42d42b9d0866d8a6107f, type: 3}
     type: 0
     notebookEvent: 0
-    quest: {fileID: 4900000, guid: 99514872a40039c45b9ad2bb9adc220b, type: 3}
+    quest: {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!212 &413118138
@@ -2863,7 +2863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &431181733
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3317,9 +3317,9 @@ RectTransform:
   - {fileID: 593446078}
   m_Father: {fileID: 51579949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -118.54}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &546500895
@@ -3379,7 +3379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3604,8 +3604,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4845,10 +4845,10 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
-    backgroundImage: {fileID: 0}
+    backgroundImage: {fileID: 21300000, guid: 640b2236940a42d42b9d0866d8a6107f, type: 3}
     type: 0
     notebookEvent: 1
-    quest: {fileID: 4900000, guid: a685cc2a4bfcba148b422d4c4e263318, type: 3}
+    quest: {fileID: 4900000, guid: 07e1ba23b76d9ce48976626dd8b4c0b9, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!212 &770952556
@@ -5189,7 +5189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0012392998, y: -17.99997}
+  m_AnchoredPosition: {x: 0.0012392998, y: -80}
   m_SizeDelta: {x: 882.04, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863740060
@@ -5410,7 +5410,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5821,8 +5821,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7810,6 +7810,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1730216551}
   - {fileID: 902395913}
   - {fileID: 51579949}
   - {fileID: 431181733}
@@ -7827,7 +7828,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151763129}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -7840,7 +7841,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: aa765e262841c498da39be023be8da9c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8577,10 +8578,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 29.5
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -9067,10 +9068,10 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
-    backgroundImage: {fileID: 0}
+    backgroundImage: {fileID: 21300000, guid: 0447ed770ff246f4fbe9dcfaee47da3e, type: 3}
     type: 0
     notebookEvent: 0
-    quest: {fileID: 4900000, guid: dd39b44d7a53a03408865839de9755a3, type: 3}
+    quest: {fileID: 4900000, guid: 0f6720aed97f12444a5d8dfbb1006bca, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!212 &1382310056
@@ -10417,10 +10418,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 29.5
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -10660,9 +10661,9 @@ RectTransform:
   - {fileID: 2046732456}
   m_Father: {fileID: 51579949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -67.520004}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 230, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1630206160
@@ -10722,7 +10723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.1764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11120,8 +11121,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -11743,10 +11744,10 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
-    backgroundImage: {fileID: 0}
+    backgroundImage: {fileID: 21300000, guid: 4e64c44bfd1fc1a489c476aaa18302b6, type: 3}
     type: 0
     notebookEvent: 0
-    quest: {fileID: 4900000, guid: 4c6d79010d87ba843ba6c7245a04ffe8, type: 3}
+    quest: {fileID: 4900000, guid: 1b3742eadef2a2b4cbd82a102bfcbf58, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
   secondRoadConnection:
@@ -11754,10 +11755,10 @@ MonoBehaviour:
     origin: {fileID: 0}
     roadName: 
     endingRoad: 0
-    backgroundImage: {fileID: 0}
+    backgroundImage: {fileID: 21300000, guid: 0447ed770ff246f4fbe9dcfaee47da3e, type: 3}
     type: 0
     notebookEvent: 0
-    quest: {fileID: 4900000, guid: 7e06bf7e2e0179a41ba5bf4cef8a11e7, type: 3}
+    quest: {fileID: 4900000, guid: f9aed07e4a3f003489813d97d5207559, type: 3}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!212 &1714625859
@@ -11812,6 +11813,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1730216550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1730216551}
+  - component: {fileID: 1730216553}
+  - component: {fileID: 1730216552}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1730216551
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730216550}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 8.095541, y: 8.095541, z: 51.529743}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1151763130}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 204, y: -129}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1730216552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730216550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: aa765e262841c498da39be023be8da9c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1730216553
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730216550}
+  m_CullTransparentMesh: 1
 --- !u!1 &1737285398
 GameObject:
   m_ObjectHideFlags: 0
@@ -12034,7 +12110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1788565261
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12837,8 +12913,8 @@ MonoBehaviour:
     endingRoad: 0
     backgroundImage: {fileID: 21300000, guid: 640b2236940a42d42b9d0866d8a6107f, type: 3}
     type: 0
-    notebookEvent: 1
-    quest: {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
+    notebookEvent: 0
+    quest: {fileID: 0}
     nextQuestPercent: 0
     eventActivated: 0
 --- !u!1 &1962887434
@@ -13395,10 +13471,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 29.5
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -13543,8 +13619,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
