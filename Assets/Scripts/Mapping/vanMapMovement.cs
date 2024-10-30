@@ -135,6 +135,11 @@ public class vanMapMovement : MonoBehaviour
             //loadedBackInFromCombat = false;
             _destination.becomeOrigin();
 
+         //   if(_destination is turnPoint) { 
+	        //    setDestination((_destination as turnPoint).roadConnection
+	        //}
+   
+
 			if (currentRoad.endingRoad)
 			{
 				GameManager.instance.endPrototype();

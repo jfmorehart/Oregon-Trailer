@@ -347,7 +347,7 @@ public class centralEventHandler : MonoBehaviour
 		//if there is no option present, display just the text
 		//setting the currentStory is necessary whenever starting a new dialogue event.
 		Debug.Log("notebook event = " + notebookEvent);
-
+        displayName.text = "";
 		if (notebookEvent == false)
         {
             shouldShowNotebook = false;
