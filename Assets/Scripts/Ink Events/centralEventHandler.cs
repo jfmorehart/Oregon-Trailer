@@ -7,7 +7,6 @@ using Ink;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
-using Ink.UnityIntegration;
 using DG.Tweening;
 using System;
 
@@ -42,8 +41,10 @@ public class centralEventHandler : MonoBehaviour
     private bool eventPlaying = true;
     public static bool EventPlaying => instance.eventPlaying;
 
+
     [SerializeField]
-    private InkFile globalsInkFile;
+    private TextAsset loadGlobalsJSON;
+
     private DialogueVariables dialogueVariables;
     [SerializeField]
     TextMeshProUGUI displayName;
@@ -103,7 +104,7 @@ public class centralEventHandler : MonoBehaviour
 
         EventParent.transform.localPosition = new Vector2(0, -158.67f);//the clutter of the scene is driving me insane
 
-        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
+        dialogueVariables = new DialogueVariables(loadGlobalsJSON);
     }
 
 
