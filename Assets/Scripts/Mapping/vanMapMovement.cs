@@ -117,7 +117,12 @@ public class vanMapMovement : MonoBehaviour
     }
     public void NextDestination() {
 
-        if(Random.value > 0f && !currentRoad.eventActivated) {
+
+        //i know this is fucked
+        Destroy(GameObject.Find("SignPrefab"));
+		Destroy(GameObject.Find("SignPrefab(Clone)"));
+
+		if (Random.value > 0f && !currentRoad.eventActivated && currentRoad.quest != null) {
             currentRoad.eventActivated = true;
 			currentDistancePercent = 0.6f;
 			centralEventHandler.StartEvent(currentRoad.quest, currentRoad.notebookEvent, currentRoad.backgroundImage);
@@ -129,6 +134,11 @@ public class vanMapMovement : MonoBehaviour
 			transform.position = _destination.transform.position;
             //loadedBackInFromCombat = false;
             _destination.becomeOrigin();
+
+         //   if(_destination is turnPoint) { 
+	        //    setDestination((_destination as turnPoint).roadConnection
+	        //}
+   
 
 			if (currentRoad.endingRoad)
 			{
