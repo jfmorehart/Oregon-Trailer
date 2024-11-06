@@ -9,7 +9,8 @@ public class MouseDriving : MonoBehaviour
 
 	[SerializeField]
     float acceleration, topSpeed, drag, turnRate, sway, deadzone, swayfreq, swayamp, rotationDrag, velConservation;
-	Rigidbody2D rb;
+	public static Rigidbody2D rb;
+
 
 	private void Awake()
 	{
@@ -34,6 +35,14 @@ public class MouseDriving : MonoBehaviour
 			{   
 				//Accelerate
 				rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
+			}
+		}
+		if (Input.GetMouseButton(1))
+		{
+			if (rb.velocity.magnitude < topSpeed)
+			{
+				//Accelerate
+				rb.AddForce(acceleration * Time.fixedDeltaTime * -transform.right);
 			}
 		}
 		//how much do we need to turn?
