@@ -206,8 +206,15 @@ public class centralEventHandler : MonoBehaviour
         {
             instance.StartCoroutine(instance.showbackground(bgSprite, inkJSON, isNoteBookEvent));
         }
-        GameManager.eventPassedIn();
-        UIManager.endMapScreen();
+        if (GameManager.instance != null)
+        {
+            GameManager.eventPassedIn();
+        }
+        if (UIManager.instance != null)
+        {
+            UIManager.endMapScreen();
+        }
+        
     }
 
     private void passInCharacterStats()
@@ -372,9 +379,19 @@ public class centralEventHandler : MonoBehaviour
         instance.passInCharacterStats();
         dialogueVariables.StartListening(currentStory);
         continueStory();
-        GameManager.eventPassedIn();
-        UIManager.endMapScreen();
-
+        if (GameManager.instance != null)
+        {
+            GameManager.eventPassedIn();
+        }
+        if (UIManager.instance != null)
+        {
+            UIManager.endMapScreen();
+        }
+        
+        if(MouseDriving.instance != null)
+        {
+            MouseDriving.instance.canMove = false;
+        }
     }
 
     private void continueStory()
@@ -474,7 +491,7 @@ public class centralEventHandler : MonoBehaviour
     }
     private void skipmovement()
     {
-        Debug.Log("skippinmg movement");
+        //Debug.Log("skippinmg movement");
         foreach (SpriteRenderer sr in stageCharacters)
         {
             sr.DOKill();
@@ -497,44 +514,43 @@ public class centralEventHandler : MonoBehaviour
         DescriptionText.text = "";
         DescriptionText.enableAutoSizing = false;
         DescriptionText.fontSize = sz;
+        
+        notebookDescriptionText.text = "";
+        pressContinueText.gameObject.SetActive(false);
+        canContinueToNextLine = false;
+        hideChoices();
+        hideChoicesNotebook();
+        //display each letter one at a time
+        bool isAddingRichTag = false;
 
+        float skipTimer = 0;
 
-            notebookDescriptionText.text = "";
-            pressContinueText.gameObject.SetActive(false);
-            canContinueToNextLine = false;
-            hideChoices();
-            hideChoicesNotebook();
-            //display each letter one at a time
-            bool isAddingRichTag = false;
-            foreach (char letter in line.ToCharArray())
+        foreach (char letter in line.ToCharArray())
+        {
+            if (isAddingRichTag || letter == '<')
+            {
+                //remove the entire rich tag 
+                isAddingRichTag = true;
+                DescriptionText.text += letter;
+                notebookDescriptionText.text += letter;
+                if (letter == '>')
+                {
+                    isAddingRichTag = false;
+                }
+            }
+            else
+            {
+                //add normally
+                DescriptionText.text += letter;
+                notebookDescriptionText.text += letter;
+                yield return new WaitForSeconds(typingSpeed);
+            }
+            if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))) //&& skipTimer > 0.5f)
             {
 
-                //if ((Input.GetKeyDown(KeyCode.Space) && !skippingthrough )|| (Input.GetKeyDown(KeyCode.Mouse0) && !skippingthrough))
-
-
-                if (isAddingRichTag || letter == '<')
-                {
-                    //remove the entire rich tag 
-                    isAddingRichTag = true;
-                    DescriptionText.text += letter;
-                    notebookDescriptionText.text += letter;
-                    if (letter == '>')
-                    {
-                        isAddingRichTag = false;
-                    }
-                }
-                else
-                {
-                    //add normally
-                    DescriptionText.text += letter;
-                    notebookDescriptionText.text += letter;
-                    yield return new WaitForSeconds(typingSpeed);
-                }
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
-            {
                 DescriptionText.text = line;
                 notebookDescriptionText.text = line;
-                //skippingthrough = true;
+                skippingthrough = true;
                 Debug.Log("Skipping throguh text");
                 break;
             }
@@ -600,7 +616,7 @@ public class centralEventHandler : MonoBehaviour
         }
     }
 
-    
+
     private void exitEvent()
     {
         eventPlaying = false;
@@ -622,7 +638,15 @@ public class centralEventHandler : MonoBehaviour
         StartCoroutine(removeBackground());
         Debug.Log("event Exited");
         resetStage();
-        GameManager.eventOver();
+        if (GameManager.instance != null)
+        {
+            GameManager.eventOver();
+        }
+
+        if (MouseDriving.instance != null)
+        {
+            MouseDriving.instance.canMove = true;
+        }
     }
 
     //all choices when listeners are removed, should have a single listener to 

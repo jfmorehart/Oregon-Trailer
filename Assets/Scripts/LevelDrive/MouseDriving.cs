@@ -10,12 +10,14 @@ public class MouseDriving : MonoBehaviour
 	[SerializeField]
     float acceleration, topSpeed, drag, turnRate, sway, deadzone, swayfreq, swayamp, rotationDrag, velConservation;
 	public static Rigidbody2D rb;
-
-
+    public static MouseDriving instance;
+    public bool canMove = true;
 	private void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		vanTransform = transform;
+        instance = this;
+        canMove = true;
 	}
 
 	private void FixedUpdate()
@@ -28,23 +30,27 @@ public class MouseDriving : MonoBehaviour
 		Vector2 delta = mousePos - (Vector2)transform.position;
 		delta.Normalize();
 
-		//gas?
-		if (Input.GetMouseButton(0))
-		{
-			if (rb.velocity.magnitude < topSpeed)
-			{   
-				//Accelerate
-				rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
-			}
-		}
-		if (Input.GetMouseButton(1))
-		{
-			if (rb.velocity.magnitude < topSpeed)
-			{
-				//Accelerate
-				rb.AddForce(acceleration * Time.fixedDeltaTime * -transform.right);
-			}
-		}
+
+        //gas?
+        if (canMove) {
+            if (Input.GetMouseButton(0))
+            {
+                if (rb.velocity.magnitude < topSpeed)
+                {
+                    //Accelerate
+                    rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
+                }
+            }
+            if (Input.GetMouseButton(1))
+            {
+                if (rb.velocity.magnitude < topSpeed)
+                {
+                    //Accelerate
+                    rb.AddForce(acceleration * Time.fixedDeltaTime * -transform.right);
+                }
+            }
+        }
+
 		//how much do we need to turn?
 		float theta = Vector2.SignedAngle(transform.right, delta);
 		//Debug.Log(theta);
