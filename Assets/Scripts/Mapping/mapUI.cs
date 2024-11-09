@@ -42,6 +42,22 @@ public class mapUI : MonoBehaviour
         {
             transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.InBounce);
             isActivated = true;
+            if (MouseDriving.instance != null)
+                MouseDriving.instance.canMove = false;
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M)) {
+            Debug.Log("Map buttpon pressed");
+            if (IsActivated)
+            {
+                pullDown();
+            }
+            else
+            {
+                popUp();
+            }
         }
     }
 
@@ -53,7 +69,9 @@ public class mapUI : MonoBehaviour
         {
             isActivated = false;
             transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InBack);
-            
+
+            if (MouseDriving.instance != null)
+                MouseDriving.instance.canMove = false;
         }
     }
 }
