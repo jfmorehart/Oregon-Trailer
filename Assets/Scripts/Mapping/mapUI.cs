@@ -44,6 +44,20 @@ public class mapUI : MonoBehaviour
             isActivated = true;
         }
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M)) {
+            Debug.Log("Map buttpon pressed");
+            if (IsActivated)
+            {
+                pullDown();
+            }
+            else
+            {
+                popUp();
+            }
+        }
+    }
 
 
 
@@ -53,7 +67,7 @@ public class mapUI : MonoBehaviour
         {
             isActivated = false;
             transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InBack);
-            
+
         }
     }
 }
