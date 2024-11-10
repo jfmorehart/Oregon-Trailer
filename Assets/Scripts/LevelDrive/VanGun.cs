@@ -14,6 +14,7 @@ public class VanGun : MonoBehaviour
 	public float damage;
 
 	public KeyCode fireButton;
+	public Transform aimPoint;
 
 	private void Awake()
 	{
@@ -23,18 +24,21 @@ public class VanGun : MonoBehaviour
 	{
 		if (Input.GetKey(fireButton))
 		{
-			if(Time.time - lastFire > rechamberTime) {
-				lastFire = Time.time;
-				Shoot();
-			}
+			TryShoot();
 		}
 	}
-
+	public void TryShoot() {
+		if (Time.time - lastFire > rechamberTime)
+		{
+			lastFire = Time.time;
+			Shoot();
+		}
+	}
 	void Shoot() {
 		Vector2 aim = transform.parent.transform.right + Random.Range(-1, 1f) * spread * transform.parent.transform.up;
 		PooledObject p = Pool.bullets.GetObject();
 		p.transform.localScale = Vector3.one * bulletScale;
-		p.Fire(transform.position, aim, rb.velocity);
+		p.Fire(aimPoint.position, aim, rb.velocity);
 		p.GetComponent<Bullet>().damage = damage;
 		rb.AddForce(-aim * knockbackForce);
     }

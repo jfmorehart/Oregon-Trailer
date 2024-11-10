@@ -13,7 +13,7 @@ public class Bullet : PooledObject
 
 	public float speed;
 	float startTime;
-	float lifeTime = 3;
+	float lifeTime = 1;
 
 	[HideInInspector]
 	public float damage;
@@ -34,7 +34,7 @@ public class Bullet : PooledObject
 	}
 
 	public override void Fire(Vector2 startpos, Vector2 dir, Vector2 initvel) {
-		Camera.main.GetComponent<LevelCamera>().Shake(1);
+		Camera.main.GetComponent<LevelCamera>().Shake(1, transform.position);
 		flying = true;
 		transform.position = startpos;
 		tren.Clear();
@@ -60,7 +60,8 @@ public class Bullet : PooledObject
 		List<RaycastHit2D> hit = new();
 		if(Physics2D.Raycast(transform.position, -vel, filter2D, hit, -vel.magnitude * Time.deltaTime * 2) > 0) {
 			foreach(RaycastHit2D h in hit) {
-				if (h.collider.gameObject.CompareTag("Player")) continue;
+				//if (h.collider.gameObject.CompareTag("Player")) continue;
+				//if (Time.time - startTime < 0.05f) return;
 				Pool.smokes.GetObject().Fire(transform.position, Vector2.zero, Vector2.zero);
 				Hide();
 

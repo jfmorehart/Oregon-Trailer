@@ -13,12 +13,6 @@ public class MouseDriving : Drivable
 		base.Awake();
 		vanTransform = transform;
 	}
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.R)) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		}
-	}
 
 	protected override void FixedUpdate()
 	{
