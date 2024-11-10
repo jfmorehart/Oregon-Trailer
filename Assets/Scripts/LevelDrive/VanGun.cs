@@ -11,6 +11,7 @@ public class VanGun : MonoBehaviour
 	float lastFire;
 	public float knockbackForce;
 	public float bulletScale;
+	public float damage;
 
 	public KeyCode fireButton;
 
@@ -30,6 +31,7 @@ public class VanGun : MonoBehaviour
 		PooledObject p = Pool.bullets.GetObject();
 		p.transform.localScale = Vector3.one * bulletScale;
 		p.Fire(transform.position, aim, MouseDriving.rb.velocity);
+		p.GetComponent<Bullet>().damage = damage;
 		MouseDriving.rb.AddForce(-aim * knockbackForce);
     }
 }

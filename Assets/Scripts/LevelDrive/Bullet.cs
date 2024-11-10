@@ -15,6 +15,9 @@ public class Bullet : PooledObject
 	float startTime;
 	float lifeTime = 3;
 
+	[HideInInspector]
+	public float damage;
+
 	private void Awake()
 	{
 		tren = GetComponent<TrailRenderer>();
@@ -60,6 +63,10 @@ public class Bullet : PooledObject
 				if (h.collider.gameObject.CompareTag("Player")) continue;
 				Pool.smokes.GetObject().Fire(transform.position, Vector2.zero, Vector2.zero);
 				Hide();
+
+				if(h.collider.TryGetComponent(out Breakable br)) {
+					br.Damage(damage);
+				}
 				return;
 			} 
 		}

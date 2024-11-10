@@ -20,6 +20,7 @@ public class HealthBar : MonoBehaviour
     {
 		p1 = new Vector3(-(back.localScale.x * 0.499f), 0, 0);
 
+		if (hp > maxHp) maxHp = hp;
 		float percentHp = (Mathf.Max(0, hp)) / (maxHp + 0.01f);
 		Vector3 pos = Vector3.Lerp(p1, Vector3.zero, percentHp);
 		Vector3 scale = Vector3.one;

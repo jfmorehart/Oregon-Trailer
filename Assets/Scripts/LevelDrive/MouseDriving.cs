@@ -6,16 +6,20 @@ public class MouseDriving : MonoBehaviour
 {
 	public static Transform vanTransform;
     Vector2 mousePos;
+	Breakable breaker;
 
 	[SerializeField]
     float acceleration, topSpeed, drag, turnRate, sway, deadzone, swayfreq, swayamp, rotationDrag, velConservation;
 	public static Rigidbody2D rb;
 
+	public float collisionDamage;
 
 	private void Awake()
 	{
+		breaker = GetComponent<Breakable>();
 		rb = GetComponent<Rigidbody2D>();
 		vanTransform = transform;
+		breaker.bar.maxHp = breaker.hp;
 	}
 
 	private void FixedUpdate()
@@ -84,5 +88,16 @@ public class MouseDriving : MonoBehaviour
 
 		//add some back in to preserve momentum in new direction
 		rb.velocity += Time.fixedDeltaTime * rotationThisFrame * velConservation * (Vector2)transform.right;
+	}
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.collider.TryGetComponent(out Breakable br)) {
+			Debug.Log("smack " + rb.velocity.magnitude);
+			if(rb.velocity.magnitude > 1) {
+				br.Damage(collisionDamage);
+				breaker.Damage(collisionDamage * 0.5f);
+				Pool.smokes.GetObject().Fire(collision.contacts[0].point, Vector2.zero, Vector2.zero);
+			}
+		}
 	}
 }
