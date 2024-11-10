@@ -42,8 +42,6 @@ public class mapUI : MonoBehaviour
         {
             transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.InBounce);
             isActivated = true;
-            if (MouseDriving.instance != null)
-                MouseDriving.instance.canMove = false;
         }
     }
     private void Update()
@@ -70,8 +68,6 @@ public class mapUI : MonoBehaviour
             isActivated = false;
             transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InBack);
 
-            if (MouseDriving.instance != null)
-                MouseDriving.instance.canMove = false;
         }
     }
 }

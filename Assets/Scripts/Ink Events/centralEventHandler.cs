@@ -387,11 +387,8 @@ public class centralEventHandler : MonoBehaviour
         {
             UIManager.endMapScreen();
         }
-        
-        if(MouseDriving.instance != null)
-        {
-            MouseDriving.instance.canMove = false;
-        }
+        Time.timeScale = 0;
+
     }
 
     private void continueStory()
@@ -543,7 +540,7 @@ public class centralEventHandler : MonoBehaviour
                 //add normally
                 DescriptionText.text += letter;
                 notebookDescriptionText.text += letter;
-                yield return new WaitForSeconds(typingSpeed);
+                yield return new WaitForSecondsRealtime(typingSpeed);
             }
             if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))) //&& skipTimer > 0.5f)
             {
@@ -642,11 +639,7 @@ public class centralEventHandler : MonoBehaviour
         {
             GameManager.eventOver();
         }
-
-        if (MouseDriving.instance != null)
-        {
-            MouseDriving.instance.canMove = true;
-        }
+        Time.timeScale = 1;
     }
 
     //all choices when listeners are removed, should have a single listener to 
