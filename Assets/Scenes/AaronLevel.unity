@@ -2653,11 +2653,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481327616}
   m_CullTransparentMesh: 1
+--- !u!1 &496603006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8247330647811089443, guid: 12ae95fffb807ab449ccc67d9f1c6f03, type: 3}
+  m_PrefabInstance: {fileID: 1231067614591232557}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &496603008 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2007083488930051416, guid: 12ae95fffb807ab449ccc67d9f1c6f03, type: 3}
   m_PrefabInstance: {fileID: 1231067614591232557}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &496603012
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496603006}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &499220118
 GameObject:
   m_ObjectHideFlags: 0
@@ -4523,6 +4573,7 @@ MonoBehaviour:
   bulletScale: 0.5
   damage: 8
   fireButton: 101
+  aimPoint: {fileID: 0}
 --- !u!212 &873544062
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7250,6 +7301,7 @@ MonoBehaviour:
   bulletScale: 0
   damage: 1
   fireButton: 32
+  aimPoint: {fileID: 0}
 --- !u!212 &1396736078
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8125,6 +8177,7 @@ MonoBehaviour:
   shakeFreq: 2
   shakeDecay: 1
   shake: {x: 0, y: 0}
+  shakeDistMult: 0
 --- !u!81 &1533380930
 AudioListener:
   m_ObjectHideFlags: 0
@@ -9255,6 +9308,7 @@ MonoBehaviour:
   bulletScale: 0
   damage: 1
   fireButton: 32
+  aimPoint: {fileID: 0}
 --- !u!212 &1744064210
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12227,6 +12281,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3256937518715035021, guid: 12ae95fffb807ab449ccc67d9f1c6f03, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399866519488356895, guid: 12ae95fffb807ab449ccc67d9f1c6f03, type: 3}
+      propertyPath: quest
+      value: 
+      objectReference: {fileID: 4900000, guid: 65f894a69d11be74194712fa8df4657f, type: 3}
     - target: {fileID: 8247330647811089443, guid: 12ae95fffb807ab449ccc67d9f1c6f03, type: 3}
       propertyPath: m_Name
       value: MiniQuestPoint
@@ -12234,7 +12296,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8247330647811089443, guid: 12ae95fffb807ab449ccc67d9f1c6f03, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 496603012}
   m_SourcePrefab: {fileID: 100100000, guid: 12ae95fffb807ab449ccc67d9f1c6f03, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
