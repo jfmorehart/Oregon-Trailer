@@ -6,18 +6,20 @@ public class MouseDriving : MonoBehaviour
 {
 	public static Transform vanTransform;
     Vector2 mousePos;
+	Breakable breaker;
 
 	[SerializeField]
     float acceleration, topSpeed, drag, turnRate, sway, deadzone, swayfreq, swayamp, rotationDrag, velConservation;
 	public static Rigidbody2D rb;
-    public static MouseDriving instance;
-    public bool canMove = true;
+
+	public float collisionDamage;
+
 	private void Awake()
 	{
+		breaker = GetComponent<Breakable>();
 		rb = GetComponent<Rigidbody2D>();
 		vanTransform = transform;
-        instance = this;
-        canMove = true;
+		breaker.bar.maxHp = breaker.hp;
 	}
 
 	private void FixedUpdate()
@@ -30,27 +32,23 @@ public class MouseDriving : MonoBehaviour
 		Vector2 delta = mousePos - (Vector2)transform.position;
 		delta.Normalize();
 
-
-        //gas?
-        if (canMove) {
-            if (Input.GetMouseButton(0))
-            {
-                if (rb.velocity.magnitude < topSpeed)
-                {
-                    //Accelerate
-                    rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
-                }
-            }
-            if (Input.GetMouseButton(1))
-            {
-                if (rb.velocity.magnitude < topSpeed)
-                {
-                    //Accelerate
-                    rb.AddForce(acceleration * Time.fixedDeltaTime * -transform.right);
-                }
-            }
-        }
-
+		//gas?
+		if (Input.GetMouseButton(0))
+		{
+			if (rb.velocity.magnitude < topSpeed)
+			{   
+				//Accelerate
+				rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
+			}
+		}
+		if (Input.GetMouseButton(1))
+		{
+			if (rb.velocity.magnitude < topSpeed)
+			{
+				//Accelerate
+				rb.AddForce(acceleration * Time.fixedDeltaTime * -transform.right);
+			}
+		}
 		//how much do we need to turn?
 		float theta = Vector2.SignedAngle(transform.right, delta);
 		//Debug.Log(theta);
@@ -90,5 +88,16 @@ public class MouseDriving : MonoBehaviour
 
 		//add some back in to preserve momentum in new direction
 		rb.velocity += Time.fixedDeltaTime * rotationThisFrame * velConservation * (Vector2)transform.right;
+	}
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.collider.TryGetComponent(out Breakable br)) {
+			Debug.Log("smack " + rb.velocity.magnitude);
+			if(rb.velocity.magnitude > 1) {
+				br.Damage(collisionDamage);
+				breaker.Damage(collisionDamage * 0.5f);
+				Pool.smokes.GetObject().Fire(collision.contacts[0].point, Vector2.zero, Vector2.zero);
+			}
+		}
 	}
 }
