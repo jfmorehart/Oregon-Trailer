@@ -11,15 +11,14 @@ public class QuestPoint : MonoBehaviour
     //interaction distance 
     [SerializeField]
     float interactionDistance = 5;
+    [SerializeField]
+    Transform interactionPoint;
 
     private bool isDiscovered = false;
-
+    public bool IsDiscovered => isDiscovered;
     //notebook quest
     [SerializeField]
     TextAsset quest;
-
-    [SerializeField]
-    Transform playerTransform;
 
     [SerializeField]
     private Sprite markerSprite;
@@ -29,7 +28,10 @@ public class QuestPoint : MonoBehaviour
     private void Awake()
     {
         //find the player, or get a reference from some manager at some point
-        //playerTransform = transform.Find("Van");
+        if (interactionPoint == null)
+        {
+            interactionPoint = transform;
+        }
     }
 
     // Start is called before the first frame update
@@ -39,26 +41,23 @@ public class QuestPoint : MonoBehaviour
         {
             Debug.LogError("Quest is not set on questpoint script: " + name);
         }
+        //playerTransform = MouseDriving.vanTransform;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (!isDiscovered)
-        {            
+
+        if (isDiscovered)
+        {
             //check to see if the player is close enough to discover this attraction
             //we should probably add new ways for the player to discover things, like by going through a collider at some particular place
-           
-        }
-        else
-        {
-            //show on UI
 
         }
+
         //if we are close enough to interact and we press E, give quest
-        if (checkDistance() && !activated)
+        if (checkInteractionDistance() && !activated)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -71,20 +70,26 @@ public class QuestPoint : MonoBehaviour
             isDiscovered = true;
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
+
+    //talks with child detection points
+    public void getDiscovered()
     {
-        if (!isDiscovered && collision.CompareTag("Player"))
-        {
-            isDiscovered = true;
-        }
+        isDiscovered = true;
     }
 
-    bool checkDistance()
+    //returns true if player is less than interaction distance away
+    bool checkInteractionDistance()
     {
-        if (Vector2.Distance(playerTransform.position, transform.position) < interactionDistance)
+        if (Vector2.Distance(MouseDriving.vanTransform.position, interactionPoint.position) < interactionDistance)
             return true;
         return false;
-        
-    }
 
+    }
+    bool checkDetectionDistance()
+    {
+        if (Vector2.Distance(MouseDriving.vanTransform.position, interactionPoint.position) < interactionDistance)
+            return true;
+        return false;
+
+    }
 }
