@@ -1,14 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelCamera : MonoBehaviour
 {
 	public float shakestr, shakeAmp, shakeFreq, shakeDecay;
 	public Vector2 shake;
-    // Update is called once per frame
-    void FixedUpdate()
+
+	// Update is called once per frame
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+	}
+	void FixedUpdate()
     {
+		if (MouseDriving.vanTransform == null) return;
 		transform.position = MouseDriving.vanTransform.position - Vector3.forward;
 		Vector3 pos = transform.position - (Vector3)shake;
 
