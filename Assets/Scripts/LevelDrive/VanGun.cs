@@ -6,7 +6,7 @@ public class VanGun : MonoBehaviour
 {
 
 	public float rechamberTime = 0.1f;
-
+	Rigidbody2D rb;
 	public float spread;
 	float lastFire;
 	public float knockbackForce;
@@ -15,6 +15,10 @@ public class VanGun : MonoBehaviour
 
 	public KeyCode fireButton;
 
+	private void Awake()
+	{
+		rb = transform.parent.GetComponent<Rigidbody2D>();
+	}
 	private void Update()
 	{
 		if (Input.GetKey(fireButton))
@@ -30,8 +34,8 @@ public class VanGun : MonoBehaviour
 		Vector2 aim = transform.parent.transform.right + Random.Range(-1, 1f) * spread * transform.parent.transform.up;
 		PooledObject p = Pool.bullets.GetObject();
 		p.transform.localScale = Vector3.one * bulletScale;
-		p.Fire(transform.position, aim, MouseDriving.rb.velocity);
+		p.Fire(transform.position, aim, rb.velocity);
 		p.GetComponent<Bullet>().damage = damage;
-		MouseDriving.rb.AddForce(-aim * knockbackForce);
+		rb.AddForce(-aim * knockbackForce);
     }
 }
