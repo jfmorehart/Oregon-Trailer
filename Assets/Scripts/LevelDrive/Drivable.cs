@@ -19,13 +19,16 @@ public class Drivable : MonoBehaviour
 	}
 	protected virtual void FixedUpdate()
 	{
-		
+		_rb.velocity *= 1 - Time.fixedDeltaTime * drag;
 	}
-	protected void DriveTowards(Vector2 point) {
+	protected float ThetaToPoint(Vector2 point) {
 		Vector2 delta = point - (Vector2)transform.position;
 		delta.Normalize();
 		float theta = Vector2.SignedAngle(transform.right, delta);
-		DrivingLogic(theta);
+		return theta;
+	}
+	protected void DriveTowards(Vector2 point) {
+		DrivingLogic(ThetaToPoint(point));
 	}
 	protected void DrivingLogic(float theta)
 	{
@@ -63,8 +66,6 @@ public class Drivable : MonoBehaviour
 
 		transform.Rotate(Vector3.forward, sway);
 		//rotationThisFrame += sway; //maybe dont count the swaying
-
-		_rb.velocity *= 1 - Time.fixedDeltaTime * drag;
 
 		rotationThisFrame = Mathf.Abs(rotationThisFrame);
 		//remove some velocity for turning drag

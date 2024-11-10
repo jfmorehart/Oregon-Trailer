@@ -13,7 +13,7 @@ public class Bullet : PooledObject
 
 	public float speed;
 	float startTime;
-	float lifeTime = 3;
+	float lifeTime = 1;
 
 	[HideInInspector]
 	public float damage;
@@ -34,7 +34,7 @@ public class Bullet : PooledObject
 	}
 
 	public override void Fire(Vector2 startpos, Vector2 dir, Vector2 initvel) {
-		Camera.main.GetComponent<LevelCamera>().Shake(1);
+		Camera.main.GetComponent<LevelCamera>().Shake(1, transform.position);
 		flying = true;
 		transform.position = startpos;
 		tren.Clear();

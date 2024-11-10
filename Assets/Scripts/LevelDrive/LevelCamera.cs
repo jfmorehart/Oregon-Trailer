@@ -7,6 +7,7 @@ public class LevelCamera : MonoBehaviour
 {
 	public float shakestr, shakeAmp, shakeFreq, shakeDecay;
 	public Vector2 shake;
+	public float shakeDistMult;
 
 	// Update is called once per frame
 	private void Update()
@@ -29,7 +30,10 @@ public class LevelCamera : MonoBehaviour
 		if (shakestr < 0.05f) shakestr = 0;
 	}
 
-	public void Shake(float amt) {
+	public void Shake(float amt, Vector2 pos) {
+		float dist = (pos - (Vector2)transform.position).magnitude;
+		float lterm = shakeDistMult / Mathf.Pow(dist, 2);
+		amt = Mathf.Lerp(0, amt, lterm);
 		shakestr += amt;
     }
 }
