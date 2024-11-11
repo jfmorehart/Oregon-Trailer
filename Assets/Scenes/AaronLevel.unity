@@ -7558,6 +7558,72 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1134472830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1134472832}
+  - component: {fileID: 1134472831}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1134472831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134472830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9d42b552ef60e4f8c26182e24cc941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fuelAmount: 100
+  _fuelDrainRate: 5
+  _foodAmount: 50
+  _vanRunning: 1
+  _vanSpeed: 1
+  _vanMPH: 0
+  _milesTraveledToday: 0
+  _totalMilesTravelled: 0
+  _vanPushSpeed: 2
+  _vanMaxSpeed: 60
+  outsideVanScreenCam: {fileID: 0}
+  insideVanScreenCam: {fileID: 0}
+  mapScreenCam: {fileID: 0}
+  timeTicking: 1
+  _dayCount: 1
+  _timePerDay: 240
+  _currentTime: 0
+  roadSignSpawn: {x: 0, y: 0}
+  roadSignPrefab: {fileID: 0}
+  youDiedObj: {fileID: 0}
+  careAboutPlayerDeath: 0
+  endGameIMG: {fileID: 0}
+--- !u!4 &1134472832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134472830}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1134615512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14365,6 +14431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2103889702}
   - component: {fileID: 2103889701}
+  - component: {fileID: 2103889703}
   m_Layer: 0
   m_Name: Central Event Handler
   m_TagString: Untagged
@@ -14435,6 +14502,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2103889703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103889700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f88ea169e4dfae408cc59c4f126bbeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpriteProt: {fileID: 0}
+  notebooksprites: []
 --- !u!1 &2104896530
 GameObject:
   m_ObjectHideFlags: 0
@@ -14728,3 +14809,4 @@ SceneRoots:
   - {fileID: 2051364542}
   - {fileID: 1469866379}
   - {fileID: 868331093}
+  - {fileID: 1134472832}
