@@ -13,40 +13,31 @@ You see a couple of worn-down dumpsters by the side of the road: one of them ope
 Come to think of it, you could throw some trash away while you’re at it. The van hasn’t been smelling the best. 
 You can also see the edge of a magazine that peeks out of the closed dumpster.
 
-Choice:
-* [ Throw Trash; Open Dumpster ] -> open
-* [ Pull Out Magazine; Closed Dumpster ] -> closed
+* [ Throw Trash in Open Dumpster ] -> open
+* [ Pull Out Magazine from Closed Dumpster ] -> closed
 
 == open ==
 You throw your trash away and return to the van, which already feels a bit better to lounge in (without worrying about the smell).
 -> END
 
 == closed ==
-You nearly rip the magazine as you try to pull it out. It’s quite old, but you can tell there is a fashionable model on the front. Someone could make use of this.
+You nearly rip the magazine as you try to pull it out. It looks quite old, but you can tell it was a fashion magazine by the model posing on the front. Someone could make use of this.
 
 The closed dumpster remains closed shut, but maybe it could be open. And maybe you can open it.
 
-* [ Try to Open Closed Dumpster ] -> attempt
-[ Throw Trash; Open Dumpster ] -> open
+* [ Throw Trash; Open Dumpster ] -> open
+* [ Try to Open Closed Dumpster (Constitution > 2) ] -> attempt
+
+/*{player_constitution > 2: (this is for making the choice appear or disappear)
+
+* [ Try to Open Closed Dumpster (Constitution > 2) ] -> attempt
+}*/
 
 == attempt ==
 //(skill check, if constitution > 2, open, if constitution =< 2, fail)
-{ player_constitution > 2:
-
--> success
-
-- else:
-
--> fail
-}
-
-== success ==
 The lid falls off with a clunk. You don’t need to dig too much through the dumpster, thankfully, for you to uncover an old bobble-head figurine. It has a baseball cap, but instead of a baseball bat, this one has a gun.
 
--> open
-
-== fail ==
-Try as you might, you can’t open it. You hurt your fingers in the process. It’s no use.
+//<b>[ Item Acquired: Gun-toting Bobblehead ]</b>
 
 -> open
 
