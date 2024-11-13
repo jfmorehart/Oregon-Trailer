@@ -25,7 +25,7 @@ public class LevelCamera : MonoBehaviour
 
 		shake = shakestr * new Vector3(shakeAmp * (Mathf.PerlinNoise1D(Time.time * shakeFreq) - 0.5f), shakeAmp * (Mathf.PerlinNoise1D(Time.time * shakeFreq + 1) - 0.5f));
 		shake *= Camera.main.orthographicSize;
-		transform.position = pos + (Vector3)shake;
+		//transform.position = pos + (Vector3)shake;
 		shakestr *= 1 - Time.fixedDeltaTime * shakeDecay;
 		if (shakestr < 0.05f) shakestr = 0;
 	}

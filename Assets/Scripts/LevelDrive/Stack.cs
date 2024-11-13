@@ -27,7 +27,7 @@ public class Stack : MonoBehaviour
 		for (int i = 0; i < stack.Length; i++)
 		{
 			float offset = i * maxOffset * (1 / (float)stack.Length);
-			offset *= transform.localScale.x;
+			//offset *= transform.localScale.magnitude;
 			float distancePercent = length / (float)maxOffsetRange;
 			stack[i].position = delta.normalized * Mathf.Lerp(0, offset, distancePercent);
 			stack[i].position += transform.position;

@@ -15,13 +15,13 @@ public class HealthBar : MonoBehaviour
 	private void Start()
 	{
 		hp = maxHp;
-		offset = transform.position - transform.root.transform.position;
+		offset = transform.position - transform.parent.transform.position;
 	}
 	// Update is called once per frame
 	void Update()
     {
 		transform.eulerAngles = new Vector3(0, 0, 0);
-		transform.position = transform.root.transform.position + offset;
+		transform.position = transform.parent.transform.position + offset;
 		p1 = new Vector3(-(back.localScale.x * 0.499f), 0, 0);
 
 		if (hp > maxHp) maxHp = hp;
