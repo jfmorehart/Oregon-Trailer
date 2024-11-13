@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
     {
         //set the current screen - probably have additional screen for initial cutscene?
         //setScreen(gameScreens.outsideVanScreen);
-        startSequence();
+        //startSequence();
     }
 
     private void startSequence()
