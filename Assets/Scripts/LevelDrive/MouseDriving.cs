@@ -45,6 +45,7 @@ public class MouseDriving : Drivable
 		Debug.Log(collision.collider.tag);
 		if (collision.collider.CompareTag("Finish")) {
 			if (MapManager.instance != null) {
+				Debug.Log("finished scene");
 				MapManager.playerArrived();
 			}
 			else {

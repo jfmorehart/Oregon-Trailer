@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Drivable : MonoBehaviour
 {
+	public static bool cars_paused;
+
 	[SerializeField]
 	protected float acceleration, topSpeed, drag, turnRate, sway, deadzone, swayfreq, swayamp, rotationDrag, velConservation;
 	public Rigidbody2D _rb;

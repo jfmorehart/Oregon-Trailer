@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
 {
@@ -83,9 +84,11 @@ public class MapManager : MonoBehaviour
             Debug.LogError("MapManager is null");
             return;
         }
-        instance.tlu.unloadLevel();
-        //make the previous node stop blinking, 
-        instance.playersCurrentNode.goDark();
+		//instance.tlu.unloadLevel();
+		SceneManager.LoadScene("AaronLevel");
+
+		//make the previous node stop blinking, 
+		instance.playersCurrentNode.goDark();
         //change the color of the current node
         instance.playerDestinationNode.goBright();
 
@@ -101,6 +104,8 @@ public class MapManager : MonoBehaviour
 
         //set the player's position
         mapPlayer.instance.setPosition(instance.playersCurrentNode);
+
+        mapUI.instance.instantPopUp();
 
         instance.nextNodeBlink();
 
@@ -128,6 +133,7 @@ public class MapManager : MonoBehaviour
     //called when the player clicks on a map node
     public static void playerTraveling(MapNode destNode)
     {
+        Debug.Log("travelling now");
         instance.playerDestinationNode = destNode;
         instance.forbidDestinationChoice();
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TempLevelUnloader : MonoBehaviour
 {
@@ -10,11 +11,15 @@ public class TempLevelUnloader : MonoBehaviour
 
     public void unloadLevel()
     {
-        level.SetActive(false);
+		Debug.Log("unloadLevel");
+		SceneManager.LoadScene("AaronLevel");
+        //level.SetActive(false);
     }
     
     public void loadLevel()
     {
-        level.SetActive(true);
+        Debug.Log("loadLevel");
+        SceneManager.LoadScene("Level");
+        //level.SetActive(true);
     }
 }

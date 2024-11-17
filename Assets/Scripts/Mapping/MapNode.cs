@@ -194,18 +194,18 @@ public class MapNode : MonoBehaviour
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit.collider == null)
-            {
-                return;
-            }
-            Debug.Log("Player Chose " + hit.collider.gameObject.name + " -- " + gameObject.name);
-            if (hit.collider.gameObject == gameObject )
-            {
-                MapManager.playerTraveling(this);
-                Debug.Log("Player chose " + transform.name);
-                //go into driving scene
-            }
+            Collider2D[] hits = Physics2D.OverlapPointAll(Input.mousePosition);
+               
+            foreach(Collider2D hit in hits) {
+                Debug.Log("hit " + hit.gameObject.name);
+				if (hit.gameObject == gameObject)
+				{
+					MapManager.playerTraveling(this);
+					Debug.Log("Player chose " + transform.name);
+					//go into driving scene
+				}
+			}
+
         }
     }
     
