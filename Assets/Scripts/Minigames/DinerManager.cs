@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DinerManager : MonoBehaviour
 {
-
+    [SerializeField]
     GameObject DinerObj;
 
     public static DinerManager instance;
@@ -24,12 +24,35 @@ public class DinerManager : MonoBehaviour
     public void displayDiner()
     {
         DinerObj.SetActive(true);
-
     }
+
     public void hideDiner()
     {
         DinerObj.SetActive(false);
+
+        //communicate with map manager to display the map
+        MapManager.instance.nodeActivityDone();
     }
+
+    public void getGasButton()
+    {
+        if (MapManager.instance.money >= 2)
+        {
+            MapManager.instance.increaseGas();
+            MapManager.instance.money -= 2;
+        }
+    }
+
+    public void getFoodButton()
+    {
+        if (MapManager.instance.money >= 2)
+        {
+            MapManager.instance.increaseFood();
+            MapManager.instance.money -= 2;
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,4 +64,7 @@ public class DinerManager : MonoBehaviour
     {
         
     }
+
+    
+
 }

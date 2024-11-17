@@ -83,10 +83,6 @@ public class MapNode : MonoBehaviour
         }
 
         sr = GetComponent<Image>();
-
-    }
-    private void Start()
-    {
         goDark();
     }
 
@@ -106,10 +102,14 @@ public class MapNode : MonoBehaviour
         //start the event that is here
         //listen out for when the event is done
         //once the event is done, we start the activity
-        
+
         //do fade to black
         //unload the driving level
 
+        if (EndingRoad)
+        {
+            MapManager.instance.doEnding();
+        }
 
         if(locationEvent != null)
             centralEventHandler.StartEvent(locationEvent, doActivity);
@@ -126,38 +126,42 @@ public class MapNode : MonoBehaviour
         {
             case activity.Diner:
                 //display diner screen
-
+                DinerManager.instance.displayDiner();
                 break;
             case activity.Hunt:
                 //display hunt screen
-
+                HuntManager.instance.displayHunt();
                 break;
             default:
                 break;
         }
     }
 
-    public void activityDone()
-    {
 
-    }
     //cause the point to flash
     
     public void destinationFlash()
     {
         Debug.Log(transform.name  + "Flashing ");
+        sr.color = Color.red;
     }
+    
+
     public void potentialPointFlash()
     {
         //go between white and grey
+        sr.color = Color.blue;
     }
     public void goDark()
     {
+        //Debug.Log("Grey");
         sr.color = Color.gray;
+        StopAllCoroutines();
     }
     public void goBright()
     {
         sr.color = Color.white;
+        StopAllCoroutines();
     }
 
 
@@ -167,14 +171,19 @@ public class MapNode : MonoBehaviour
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
-            RaycastHit2D hit = Physics2D.Raycast(Input.mousePosition, Vector2.zero);
-            if (hit.collider.gameObject == gameObject)
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider == null)
+            {
+                return;
+            }
+            Debug.Log("Player Chose " + hit.collider.gameObject.name + " -- " + gameObject.name);
+            if (hit.collider.gameObject == gameObject )
             {
                 MapManager.playerTraveling(this);
+                Debug.Log("Player chose " + transform.name);
                 //go into driving scene
             }
         }
-
     }
     
     

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HuntManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject huntScene;
     public static HuntManager instance;
     private void Awake()
     {
@@ -17,14 +19,20 @@ public class HuntManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-    void Start()
+
+
+    public void displayHunt()
     {
-        
+        huntScene.SetActive(true);
+
+    }
+    public void hideHunt()
+    {
+        huntScene.SetActive(false);
+
+        //communicate with map manager to display the map
+        MapManager.instance.nodeActivityDone();
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

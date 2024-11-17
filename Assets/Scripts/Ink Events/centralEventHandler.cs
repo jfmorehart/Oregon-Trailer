@@ -538,7 +538,6 @@ public class centralEventHandler : MonoBehaviour
         //display each letter one at a time
         bool isAddingRichTag = false;
 
-        float skipTimer = 0;
 
         foreach (char letter in line.ToCharArray())
         {
@@ -659,9 +658,11 @@ public class centralEventHandler : MonoBehaviour
         }
         Time.timeScale = 1;
 
-
-        eventOverAction?.Invoke();
-        eventOverAction -= nodeCalling.doActivity;
+        if (nodeCalling != null)
+        {
+            eventOverAction?.Invoke();
+            eventOverAction -= nodeCalling.doActivity;
+        }
         nodeCalling = null;
     }
 
