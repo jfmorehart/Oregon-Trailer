@@ -12,6 +12,7 @@ public class Chunk : MonoBehaviour
 
 	private void Awake()
 	{
-		dimensions = transform.GetChild(1).transform.localScale;
+		dimensions = transform.Find("back").transform.localScale;
+		//dimensions = transform.GetChild(1).transform.localScale;
 	}
 }

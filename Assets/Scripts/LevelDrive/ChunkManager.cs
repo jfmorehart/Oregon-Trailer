@@ -43,8 +43,9 @@ public class ChunkManager : MonoBehaviour
 
             //Aligning levels
 			levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
-			Transform road = toSpawn.transform.GetChild(0);
-            Vector2 startpos = road.position + 0.5f * road.localScale.x * road.right;
+            //Transform road = toSpawn.transform.GetChild(0);
+            //Vector2 startpos = road.position + 0.5f * road.localScale.x * road.right;
+            Vector2 startpos = toSpawn.transform.Find("road_start_point").position;
             float startRoadY = startpos.y;
 
             float yDiff = lastRoadY - startRoadY;
@@ -52,9 +53,10 @@ public class ChunkManager : MonoBehaviour
 			toSpawn.transform.position = new Vector3(levelLengthSoFar, yDiff, 0);
             levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
 
-            road = toSpawn.transform.GetChild(0);
-            Vector2 endpos = road.position - 0.5f * road.localScale.x * road.right;
-            lastRoadY = endpos.y;
+            //road = toSpawn.transform.GetChild(0);
+            //Vector2 endpos = road.position - 0.5f * road.localScale.x * road.right;
+            Vector2 endpos = toSpawn.transform.Find("road_end_point").position;
+			lastRoadY = endpos.y;
 
 			////boundaries
 			//Debug.Log(i + " diff = " + yDiff);
