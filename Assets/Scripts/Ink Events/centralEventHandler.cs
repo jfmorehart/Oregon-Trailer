@@ -89,6 +89,11 @@ public class centralEventHandler : MonoBehaviour
     [SerializeField]
     CharacterBase mc;
 
+
+    //handling when information should be passed back to the mapNode that this event is at
+    public Action eventOverAction;
+    public MapNode nodeCalling = null;
+
     private void Awake()
     {
         //set the options based on the 
@@ -194,6 +199,13 @@ public class centralEventHandler : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         continueStory();
+    }
+    //start a dialogue event from the map node
+    public static void StartEvent(TextAsset inkJSON, Action activityFinishedAction)
+    {
+        instance.eventOverAction += activityFinishedAction;
+        instance.nodeCalling = (MapNode) activityFinishedAction.Target;
+        StartEvent(inkJSON);
     }
     public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false, Sprite bgSprite = null)
     {
@@ -387,7 +399,13 @@ public class centralEventHandler : MonoBehaviour
         {
             UIManager.endMapScreen();
         }
-        Time.timeScale = 0;
+
+
+        //if this is a dialogue event, we cant have time set to 0
+        if (notebookEvent)
+        {
+            Time.timeScale = 0;
+        }
 
     }
 
@@ -640,6 +658,11 @@ public class centralEventHandler : MonoBehaviour
             GameManager.eventOver();
         }
         Time.timeScale = 1;
+
+
+        eventOverAction?.Invoke();
+        eventOverAction -= nodeCalling.doActivity;
+        nodeCalling = null;
     }
 
     //all choices when listeners are removed, should have a single listener to 

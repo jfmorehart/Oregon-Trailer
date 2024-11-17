@@ -21,6 +21,10 @@ public class mapUI : MonoBehaviour
 
     Tween popUpTween, pullDownTween;
 
+    //controlled by the mapmanager
+    public bool ShouldBeInteractedWith = false;
+
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -46,6 +50,10 @@ public class mapUI : MonoBehaviour
     }
     private void Update()
     {
+        if (!ShouldBeInteractedWith)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.M)) {
             Debug.Log("Map buttpon pressed");
             if (IsActivated)
@@ -69,5 +77,13 @@ public class mapUI : MonoBehaviour
             transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InBack);
 
         }
+    }
+    public void instantPullDown()
+    {
+        transform.position = startPosition;
+    }
+    public void instantPopUp()
+    {
+        transform.position = endPosition;
     }
 }
