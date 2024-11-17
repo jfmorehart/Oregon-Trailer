@@ -12,7 +12,7 @@ public class MapManager : MonoBehaviour
     public int fuel = 5;
     public int money = 10;
     public int food = 5;
-    public int vanHealth ;//this should track to whatever the health of the van is in driving scenes
+    public int vanHealth ;//this should track to whatever the health of the van is in driving scenes 
     public static MapManager instance;
     
     //keep track of what node the player is currently at
@@ -61,10 +61,11 @@ public class MapManager : MonoBehaviour
 
         moneyText.text = money.ToString();
         FuelText.text = fuel.ToString();
-        mapUI.instance.ShouldBeInteractedWith = true;
+        mapUI.instance.ShouldBeInteractedWith = false;
         tlu.unloadLevel();
         mapUI.instance.instantPopUp();
         allowDestinationChoice();
+
     }
 
 
@@ -90,6 +91,9 @@ public class MapManager : MonoBehaviour
 
         //remove fuel
         instance.fuel--;
+
+        instance.moneyText.text = instance.money.ToString();
+        instance.FuelText.text = instance.fuel.ToString();
 
         //handle the nodeswitch
         instance.playersCurrentNode = instance.playerDestinationNode;
@@ -191,6 +195,9 @@ public class MapManager : MonoBehaviour
             playerDiedScreen.SetActive(true);
         }
         allowDestinationChoice();
+
+        instance.moneyText.text = instance.money.ToString();
+        instance.FuelText.text = instance.fuel.ToString();
     }
 
     public void doEnding()

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DinerManager : MonoBehaviour
 {
     [SerializeField]
     GameObject DinerObj;
+    [SerializeField]
+    TextMeshProUGUI stats;
 
     public static DinerManager instance;
     private void Awake()
@@ -24,6 +27,7 @@ public class DinerManager : MonoBehaviour
     public void displayDiner()
     {
         DinerObj.SetActive(true);
+        updateStatsButton();
     }
 
     public void hideDiner()
@@ -41,6 +45,7 @@ public class DinerManager : MonoBehaviour
             MapManager.instance.increaseGas();
             MapManager.instance.money -= 2;
         }
+        updateStatsButton(); 
     }
 
     public void getFoodButton()
@@ -50,13 +55,18 @@ public class DinerManager : MonoBehaviour
             MapManager.instance.increaseFood();
             MapManager.instance.money -= 2;
         }
+        updateStatsButton();
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        updateStatsButton();   
+    }
+    void updateStatsButton()
+    {
+        stats.text = "Stats:\n\tMoney: "+ MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel; ;
     }
 
     // Update is called once per frame

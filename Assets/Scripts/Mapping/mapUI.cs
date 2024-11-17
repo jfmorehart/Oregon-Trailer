@@ -80,10 +80,14 @@ public class mapUI : MonoBehaviour
     }
     public void instantPullDown()
     {
-        transform.position = startPosition;
+        transform.localPosition = startPosition;
+        DOTween.KillAll();
+        Debug.Log("pulling down to " + startPosition);
     }
     public void instantPopUp()
     {
-        transform.position = endPosition;
+        transform.localPosition = endPosition;
+        DOTween.KillAll();
+        Debug.Log("poppung up to " + endPosition);
     }
 }

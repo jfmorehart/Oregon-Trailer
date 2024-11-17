@@ -59,6 +59,7 @@ public class MapNode : MonoBehaviour
     private bool _endingRoad = false;
     public bool EndingRoad => _endingRoad;
 
+    //dictates if this point should track player clicks
     public bool playerCanChoose = false;
 
     public void Awake()
@@ -72,7 +73,7 @@ public class MapNode : MonoBehaviour
         {
             for (int i = 0; i < Roads.Length; i++)
             {
-                RoadPath r = Roads[i];
+                RoadPath r = Roads[i]; 
                 //default length should be 5
                 if (Roads[i].roadLength == 0)
                     r.roadLength = 5;
@@ -83,6 +84,28 @@ public class MapNode : MonoBehaviour
         }
 
         sr = GetComponent<Image>();
+        int rn = Random.Range(0,100);
+
+        _nodeIconRenderer.gameObject.SetActive(true);
+        if (rn>=75)
+        {
+            switch (LocationActivity)
+            {
+                case activity.Diner:
+                    _nodeIconRenderer.sprite = gasIcon;
+                    break;
+                case activity.Hunt:
+                    _nodeIconRenderer.sprite = combatIcon;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            _nodeIconRenderer.sprite = unknownIcon;
+        }
+
         goDark();
     }
 
