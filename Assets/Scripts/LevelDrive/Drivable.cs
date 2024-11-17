@@ -75,7 +75,7 @@ public class Drivable : MonoBehaviour
 		_rb.velocity += Time.fixedDeltaTime * rotationThisFrame * velConservation * (Vector2)transform.right;
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	public virtual void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{

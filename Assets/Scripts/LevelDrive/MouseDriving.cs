@@ -39,4 +39,18 @@ public class MouseDriving : Drivable
 		}
 		DriveTowards(mousePos);
 	}
+	public override void OnCollisionEnter2D(Collision2D collision)
+	{
+		base.OnCollisionEnter2D(collision);
+		Debug.Log(collision.collider.tag);
+		if (collision.collider.CompareTag("Finish")) {
+			if (MapManager.instance != null) {
+				MapManager.playerArrived();
+			}
+			else {
+				Debug.LogError("no mapmanger instance, cannot unload level");
+			}
+
+		}
+	}
 }
