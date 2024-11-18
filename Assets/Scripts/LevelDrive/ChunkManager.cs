@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ChunkManager : MonoBehaviour
 {
+    public static ChunkManager instance;
     public int levelSize;
     public Chunk[] level;
     public Chunk[] chunkBag;
@@ -17,13 +18,19 @@ public class ChunkManager : MonoBehaviour
         GenerateLevel();
     }
 
-    void GenerateLevel()
+    public void DestroyLevel() {
+		if (level != null)
+		{
+			for (int i = 0; i < level.Length; i++)
+			{
+				Destroy(level[i]);
+			}
+		}
+	}
+    public void GenerateLevel()
     {
-        if(level != null) { 
-	        for(int i = 0; i < level.Length; i++) {
-                Destroy(level[i]);
-	        }
-	    }
+        DestroyLevel();
+
         level = new Chunk[levelSize];
         float levelLengthSoFar = 0;
         float lastRoadY = 0;
