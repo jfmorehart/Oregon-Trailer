@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Drivable : MonoBehaviour
 {
+	public static bool cars_paused;
+
 	[SerializeField]
 	protected float acceleration, topSpeed, drag, turnRate, sway, deadzone, swayfreq, swayamp, rotationDrag, velConservation;
 	public Rigidbody2D _rb;
@@ -75,7 +77,7 @@ public class Drivable : MonoBehaviour
 		_rb.velocity += Time.fixedDeltaTime * rotationThisFrame * velConservation * (Vector2)transform.right;
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	public virtual void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
