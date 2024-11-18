@@ -91,7 +91,7 @@ public class centralEventHandler : MonoBehaviour
 
 
     //handling when information should be passed back to the mapNode that this event is at
-    public Action eventOverAction;
+    public Action eventOverAction = null;
     public MapNode nodeCalling = null;
 
     private void Awake()
@@ -110,6 +110,7 @@ public class centralEventHandler : MonoBehaviour
         EventParent.transform.localPosition = new Vector2(0, -158.67f);//the clutter of the scene is driving me insane
 
         dialogueVariables = new DialogueVariables(loadGlobalsJSON);
+        eventOverAction = null;
     }
 
 
@@ -203,9 +204,24 @@ public class centralEventHandler : MonoBehaviour
     //start a dialogue event from the map node
     public static void StartEvent(TextAsset inkJSON, Action activityFinishedAction)
     {
+        if (activityFinishedAction.Target == null)
+        {
+            Debug.Log("Target is null");
+        }
+        else if (activityFinishedAction == null)
+        {
+            Debug.Log("Activity finished action is null");
+        }
+        if (instance == null) Debug.Log("Instance is null");
+        if (instance.eventOverAction == null) Debug.Log("action is null");
         instance.eventOverAction += activityFinishedAction;
         instance.nodeCalling = (MapNode) activityFinishedAction.Target;
         StartEvent(inkJSON);
+
+        instance.eventBackground.gameObject.SetActive(true);
+
+        //StartCoroutine(showbackground(null, inkJSON, false));
+
     }
     public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false, Sprite bgSprite = null)
     {
@@ -406,7 +422,12 @@ public class centralEventHandler : MonoBehaviour
         {
             Time.timeScale = 0;
         }
+        else
+        {
+            //eventBackground.gameObject.SetActive(true);
+        }
 
+        
     }
 
     private void continueStory()
@@ -664,6 +685,8 @@ public class centralEventHandler : MonoBehaviour
             eventOverAction -= nodeCalling.doActivity;
         }
         nodeCalling = null;
+
+        eventBackground.gameObject.SetActive(false);
     }
 
     //all choices when listeners are removed, should have a single listener to 

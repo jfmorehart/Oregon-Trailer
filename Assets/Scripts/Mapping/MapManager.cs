@@ -30,8 +30,6 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI FuelText, moneyText;
     [SerializeField]
-    TempLevelUnloader tlu;
-    [SerializeField]
     GameObject endingScreen;
     [SerializeField]
     GameObject playerDiedScreen;
@@ -63,7 +61,6 @@ public class MapManager : MonoBehaviour
         moneyText.text = money.ToString();
         FuelText.text = fuel.ToString();
         mapUI.instance.ShouldBeInteractedWith = false;
-        tlu.unloadLevel();
         mapUI.instance.instantPopUp();
         allowDestinationChoice();
 
@@ -84,8 +81,8 @@ public class MapManager : MonoBehaviour
             Debug.LogError("MapManager is null");
             return;
         }
-		//instance.tlu.unloadLevel();
-		SceneManager.LoadScene("AaronLevel");
+        //instance.tlu.unloadLevel();
+        //SceneManager.LoadScene("AaronLevel");
 
 		//make the previous node stop blinking, 
 		instance.playersCurrentNode.goDark();
@@ -111,6 +108,7 @@ public class MapManager : MonoBehaviour
 
         //we dont show this screen until the map node event is done
         instance.playersCurrentNode.LocationReached();
+        ChunkManager.instance.DestroyLevel();
 
         //we allow the destination choice if the activity has been done
         //allowDestinationChoice();
@@ -133,6 +131,7 @@ public class MapManager : MonoBehaviour
     //called when the player clicks on a map node
     public static void playerTraveling(MapNode destNode)
     {
+
         Debug.Log("travelling now");
         instance.playerDestinationNode = destNode;
         instance.forbidDestinationChoice();
@@ -148,10 +147,11 @@ public class MapManager : MonoBehaviour
         }
 
         //player should be travelling now
-        instance.tlu.loadLevel();
+        ChunkManager.instance.GenerateLevel();
 
         //lower the map
         mapUI.instance.instantPullDown();
+        mapUI.instance.ShouldBeInteractedWith = true;
     }
 
     public static void allowDestinationChoice()
@@ -201,7 +201,6 @@ public class MapManager : MonoBehaviour
             playerDiedScreen.SetActive(true);
         }
         allowDestinationChoice();
-
         instance.moneyText.text = instance.money.ToString();
         instance.FuelText.text = instance.fuel.ToString();
     }

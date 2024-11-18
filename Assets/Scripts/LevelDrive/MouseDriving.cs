@@ -42,7 +42,7 @@ public class MouseDriving : Drivable
 	public override void OnCollisionEnter2D(Collision2D collision)
 	{
 		base.OnCollisionEnter2D(collision);
-		Debug.Log(collision.collider.tag);
+		//Debug.Log(collision.collider.tag);
 		if (collision.collider.CompareTag("Finish")) {
 			if (MapManager.instance != null) {
 				Debug.Log("finished scene");

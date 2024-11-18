@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -194,18 +195,18 @@ public class MapNode : MonoBehaviour
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
-            Collider2D[] hits = Physics2D.OverlapPointAll(Input.mousePosition);
-               
-            foreach(Collider2D hit in hits) {
-                Debug.Log("hit " + hit.gameObject.name);
-				if (hit.gameObject == gameObject)
-				{
-					MapManager.playerTraveling(this);
-					Debug.Log("Player chose " + transform.name);
-					//go into driving scene
-				}
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero );
+            if (hit.collider == null)
+            {
+                Debug.Log("Player Hit Nothing");
+                return;
+            }
+			if (hit.collider.gameObject == gameObject)
+			{
+				MapManager.playerTraveling(this);
+				Debug.Log("Player chose " + transform.name);
+				//go into driving scene
 			}
-
         }
     }
     
