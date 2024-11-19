@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ChunkManager : MonoBehaviour
 {
+    public static ChunkManager instance;
     public int levelSize;
     public Chunk[] level;
     public Chunk[] chunkBag;
@@ -13,25 +14,60 @@ public class ChunkManager : MonoBehaviour
     public GameObject boundaryStack;
     public GameObject endHouse;
 
-    void Start() {
-        GenerateLevel();
+    GameObject spawnedEndHouse = null;
+
+    [SerializeField]
+    private GameObject VanObj;
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
-    void GenerateLevel()
+    void Start() {
+        //GenerateLevel();
+    }
+
+    public void DestroyLevel() {
+		if (level != null)
+		{
+            Debug.Log("LevelDestroyingSelf");
+			for (int i = 0; i < level.Length; i++)
+			{
+                if (level[i] != null)
+                {
+                    Destroy(level[i].gameObject);
+                }
+            }
+
+            if (MouseDriving.vanTransform != null)
+            {
+                Destroy(MouseDriving.vanTransform.gameObject);
+
+            }
+		}
+        level = null;
+	}
+    public void GenerateLevel()
     {
-        if(level != null) { 
-	        for(int i = 0; i < level.Length; i++) {
-                Destroy(level[i]);
-	        }
-	    }
+        DestroyLevel();
+
         level = new Chunk[levelSize];
         float levelLengthSoFar = 0;
         float lastRoadY = 0;
-        
-        for(int i= 0; i < levelSize; i++) {
+        //the van is not rotated in the prefab
+        Instantiate( VanObj, Vector2.zero, Quaternion.Euler(0,0, 180));
+        for (int i= 0; i < levelSize; i++) {
             Chunk toSpawn = chunkBag[Random.Range(0, chunkBag.Length)]; //prefab
             toSpawn = Instantiate(toSpawn, transform); //new instance
-
+            level[i] = toSpawn;
             //Enemy spawn system, not very good
             int overSpawn = toSpawn.enemies.Count - enemySpawnsRemaining;
 			for (int e = 0; e < overSpawn ; e++)
@@ -67,14 +103,22 @@ public class ChunkManager : MonoBehaviour
 			//boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, -toSpawn.dimensions.y * 0.5f + yDiff);
 			//boundary.transform.localScale = new Vector3(1, yDiff, 1);
 		}
-	    Instantiate(endHouse, new Vector3(levelLengthSoFar, lastRoadY, 0), Quaternion.identity, transform); //new instance
-	}
+
+        if (spawnedEndHouse == null)
+        {
+            spawnedEndHouse = Instantiate(endHouse, new Vector3(levelLengthSoFar, lastRoadY, 0), Quaternion.identity, transform); //new instance
+        }
+        else
+        {
+            spawnedEndHouse.transform.position = new Vector3(levelLengthSoFar, lastRoadY, 0);
+        }
+    }
 
 	// Update is called once per frame
 	void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) {
-            GenerateLevel();
+            //GenerateLevel();
 	    }
     }
 }
