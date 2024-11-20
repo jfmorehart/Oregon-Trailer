@@ -14,7 +14,7 @@ public class LevelCamera : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 	}
 	void FixedUpdate()

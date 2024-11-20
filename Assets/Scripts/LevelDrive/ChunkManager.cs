@@ -68,17 +68,35 @@ public class ChunkManager : MonoBehaviour
             Chunk toSpawn = chunkBag[Random.Range(0, chunkBag.Length)]; //prefab
             toSpawn = Instantiate(toSpawn, transform); //new instance
             level[i] = toSpawn;
-            //Enemy spawn system, not very good
-            int overSpawn = toSpawn.enemies.Count - enemySpawnsRemaining;
-			for (int e = 0; e < overSpawn ; e++)
-			{
-				Destroy(toSpawn.enemies[0].gameObject);
-				toSpawn.enemies.RemoveAt(0);
-			}
-			enemySpawnsRemaining -= toSpawn.enemies.Count;
+
+            //DO NOT SPAWN ENEMIES IN THE FIRST CHUNK
+            if (i != 0 && toSpawn.enemies.Count > 0)
+            {
+                //Enemy spawn system, not very good
+
+                int overSpawn = toSpawn.enemies.Count - enemySpawnsRemaining;
+                for (int e = 0; e < overSpawn; e++)
+                {
+                    Destroy(toSpawn.enemies[0].gameObject);
+                    toSpawn.enemies.RemoveAt(0);
+                }
+                enemySpawnsRemaining -= toSpawn.enemies.Count;
+
+            }
+            else
+            {
+                int overSpawn = toSpawn.enemies.Count;
+                for (int e = 0; e < overSpawn; e++)
+                {
+                    Destroy(toSpawn.enemies[0].gameObject);
+                    toSpawn.enemies.RemoveAt(0);
+                }
+                enemySpawnsRemaining -= toSpawn.enemies.Count;
+
+            }
 
             //Aligning levels
-			levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
+            levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
             //Transform road = toSpawn.transform.GetChild(0);
             //Vector2 startpos = road.position + 0.5f * road.localScale.x * road.right;
             Vector2 startpos = toSpawn.transform.Find("road_start_point").position;

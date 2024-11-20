@@ -40,6 +40,7 @@ public class MapNode : MonoBehaviour
     [SerializeField]
     private TextAsset locationEvent;
     
+    private Sprite _eventBackground;
 
     public enum activity
     {
@@ -116,7 +117,6 @@ public class MapNode : MonoBehaviour
         {
             checkIfChosen();
         }
-
     }
 
 
@@ -129,14 +129,13 @@ public class MapNode : MonoBehaviour
 
         //do fade to black
         //unload the driving level
-
+        Debug.Log("Location Reached");
         if (EndingRoad)
         {
             MapManager.instance.doEnding();
         }
-
         if(locationEvent != null)
-            centralEventHandler.StartEvent(locationEvent, doActivity);
+            centralEventHandler.StartEvent(locationEvent, doActivity, _eventBackground);
         else
         {
             doActivity();

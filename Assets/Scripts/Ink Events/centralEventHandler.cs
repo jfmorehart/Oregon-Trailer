@@ -107,7 +107,7 @@ public class centralEventHandler : MonoBehaviour
             instance = this;
         }
 
-        EventParent.transform.localPosition = new Vector2(0, -158.67f);//the clutter of the scene is driving me insane
+        EventParent.transform.localPosition = new Vector3(0, -140, -200);//the clutter of the scene is driving me insane
 
         dialogueVariables = new DialogueVariables(loadGlobalsJSON);
         eventOverAction = null;
@@ -202,7 +202,9 @@ public class centralEventHandler : MonoBehaviour
         continueStory();
     }
     //start a dialogue event from the map node
-    public static void StartEvent(TextAsset inkJSON, Action activityFinishedAction)
+    //11/18/2024, this is the most updated as of right now -
+    //used from MapNode script to start a scene
+    public static void StartEvent(TextAsset inkJSON, Action activityFinishedAction, Sprite bgSprite)
     {
         if (activityFinishedAction.Target == null)
         {
@@ -216,13 +218,20 @@ public class centralEventHandler : MonoBehaviour
         if (instance.eventOverAction == null) Debug.Log("action is null");
         instance.eventOverAction += activityFinishedAction;
         instance.nodeCalling = (MapNode) activityFinishedAction.Target;
-        StartEvent(inkJSON);
+        //StartEvent(inkJSON);
 
+        //instance.eventBackground.gameObject.SetActive(true);
+        Debug.Log("Show background called");
+        //instance.showbackground(null, inkJSON, false);
+
+        instance.eventBackground.sprite = bgSprite;
         instance.eventBackground.gameObject.SetActive(true);
 
-        //StartCoroutine(showbackground(null, inkJSON, false));
+        instance.startEvent(inkJSON, false);
 
     }
+
+
     public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false, Sprite bgSprite = null)
     {
 		Debug.Log(inkJSON);
@@ -232,7 +241,7 @@ public class centralEventHandler : MonoBehaviour
         }
         else
         {
-            instance.StartCoroutine(instance.showbackground(bgSprite, inkJSON, isNoteBookEvent));
+            instance.StartCoroutine(instance.showbackgroundAndFade(bgSprite, inkJSON, isNoteBookEvent));
         }
         if (GameManager.instance != null)
         {
@@ -686,7 +695,8 @@ public class centralEventHandler : MonoBehaviour
         }
         nodeCalling = null;
 
-        eventBackground.gameObject.SetActive(false);
+        removeBackground();
+
     }
 
     //all choices when listeners are removed, should have a single listener to 
@@ -958,9 +968,9 @@ public class centralEventHandler : MonoBehaviour
     private void doMoveToPosition(Transform characterTransform, Transform stagePosition, string movementType)
     {
         if(movementType == "fast")
-            characterTransform.DOMove(stagePosition.position, 0.5f, false);
+            characterTransform.DOMove(stagePosition.position, 0.5f, false).SetUpdate(true);
         else if(movementType == "normal")
-            characterTransform.DOMove(stagePosition.position, 1f, false);
+            characterTransform.DOMove(stagePosition.position, 1f, false).SetUpdate(true);
 
         //move the dictionary value
         StageCharacterFinalDestination[characterTransform.GetComponent<SpriteRenderer>()] = stagePosition;
@@ -1016,27 +1026,27 @@ public class centralEventHandler : MonoBehaviour
             case "appearleft":
                 //set the position according to name, and then slide in accordingly
                 characterTransform.localPosition = offStageLeft.localPosition;
-                characterTransform.DOLocalMove(destination.localPosition, 2, false).SetEase(Ease.Linear);
+                characterTransform.DOLocalMove(destination.localPosition, 2, false).SetEase(Ease.Linear).SetUpdate(true);
                 break;
             case "appearright":
                 characterTransform.localPosition = offStageRight.localPosition;
                 Debug.Log(characterTransform.localPosition + " " + offStageRight.localPosition);
-                characterTransform.DOLocalMove(destination.localPosition, 2, false).SetEase(Ease.Linear);
+                characterTransform.DOLocalMove(destination.localPosition, 2, false).SetEase(Ease.Linear).SetUpdate(true);
 
                 break;
             case "fastappearleft":
                 characterTransform.localPosition = offStageLeft.localPosition;
-                characterTransform.DOLocalMove(destination.localPosition, 0.5f, false).SetEase(Ease.Linear);
+                characterTransform.DOLocalMove(destination.localPosition, 0.5f, false).SetEase(Ease.Linear).SetUpdate(true);
                 break;
             case "fastappearright":
                 characterTransform.localPosition = offStageRight.localPosition;
-                characterTransform.DOLocalMove(destination.localPosition, 0.5f, false).SetEase(Ease.Linear);//inoutquad, outquad, InQuart
+                characterTransform.DOLocalMove(destination.localPosition, 0.5f, false).SetEase(Ease.Linear).SetUpdate(true); ;//inoutquad, outquad, InQuart
                 break;
             case "fadein":
                 Debug.Log("fading in");
                 characterTransform.localPosition = destination.localPosition;
                 characterTransform.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
-                characterTransform.GetComponent<SpriteRenderer>().DOFade(1,0.5f);
+                characterTransform.GetComponent<SpriteRenderer>().DOFade(1,0.5f).SetUpdate(true);
                 break;
             default:
                 break;
@@ -1050,16 +1060,16 @@ public class centralEventHandler : MonoBehaviour
         switch (movementType)
         {
             case "exitleft":
-                characterTransform.DOLocalMove(offStageLeft.position, 1f, false);
+                characterTransform.DOLocalMove(offStageLeft.position, 1f, false).SetUpdate(true);
                 break;
             case "exitright":
-                characterTransform.DOLocalMove(offStageRight.position, 1f, false);
+                characterTransform.DOLocalMove(offStageRight.position, 1f, false).SetUpdate(true);
                 break;
             case "fastexitleft":
-                characterTransform.DOLocalMove(offStageLeft.position, 0.5f, false);
+                characterTransform.DOLocalMove(offStageLeft.position, 0.5f, false).SetUpdate(true);
                 break;
             case "fastexitright":
-                characterTransform.DOLocalMove(offStageRight.position, 0.5f, false);
+                characterTransform.DOLocalMove(offStageRight.position, 0.5f, false).SetUpdate(true);
                 break;
             case "fadeout":
                 characterTransform.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
@@ -1108,7 +1118,7 @@ public class centralEventHandler : MonoBehaviour
         {
             case "pop":
                 Vector3 aimScale= characterTransform.localScale * 1.5f;
-                characterTransform.DOPunchScale(characterTransform.localScale, 1, 10, 1);
+                characterTransform.DOPunchScale(characterTransform.localScale, 1, 10, 1).SetUpdate(true);
                 break;
             default:
                 Debug.LogWarning("EmoteType is note available");
@@ -1155,7 +1165,7 @@ public class centralEventHandler : MonoBehaviour
                 break;
             case "shake":
                 Vector3 aimScale = characterTransform.localScale * 1.5f;
-                characterTransform.DOPunchScale(characterTransform.localScale, 1, 10, 1);
+                characterTransform.DOPunchScale(characterTransform.localScale, 1, 10, 1).SetUpdate(true);
                 break;
             default:
                 break;
@@ -1204,29 +1214,24 @@ public class centralEventHandler : MonoBehaviour
             fadetoblackBG.gameObject.SetActive(false);
         }
     }
-    public IEnumerator showbackground(Sprite bg, TextAsset inkJSON, bool isNotebookEvent)
+
+
+    //this is called when the player reaches a map node
+    //a fade to black isnt needed just the bg
+    public IEnumerator showbackground(Sprite bg, TextAsset inkJSON)
     {
-        /*
-        //fadetoblackBG.DOFade(255, 0.5f);
-        fadetoblackBG.DOFade(255, 2* Time.deltaTime);
-        Debug.Log("pre "+fadetoblackBG.color);
-        yield return new WaitForSeconds(2);
-        Debug.Log("post " + fadetoblackBG.color);
-        eventBackground.gameObject.SetActive(true);
-        eventBackground.sprite = bg;
-        fadetoblackBG.DOKill();
-        yield return new WaitForSeconds(2);
-        fadetoblackBG.DOKill();
-        fadetoblackBG.DOFade(0, 2* Time.deltaTime);
-        instance.startEvent(inkJSON, isNotebookEvent);
-        fadetoblackBG.gameObject.SetActive(false);
-        */
+        yield return null;
+    }
+    public IEnumerator showbackgroundAndFade(Sprite bg, TextAsset inkJSON, bool isNotebookEvent)
+    {
+        Debug.Log("showing backgrnd");
         float duration = 1f;
         eventBackground.sprite = bg;
         eventBackground.gameObject.SetActive(false);
         fadetoblackBG.gameObject.SetActive(true);
         Color transparent = new Color(0, 0,0, 0);
         Color full = new Color(0,0,0,1);
+        Debug.Log("showing backgrnd2");
 
         float time = 0;
         fadetoblackBG.color = transparent;
@@ -1234,10 +1239,14 @@ public class centralEventHandler : MonoBehaviour
         {
             fadetoblackBG.color = Color.Lerp(transparent, full, time / duration);
             time += Time.deltaTime;
+            Debug.Log("showing backgrnd3");
             yield return null;
         }
+        Debug.Log("showing backgrnd4");
+
         fadetoblackBG.color = new Color(0,0,0,1);
         yield return new WaitForSeconds(0.5f);
+        Debug.Log("showing backgrnd4");
         eventBackground.gameObject.SetActive(true);
         time = 0;
         while (time < duration)
