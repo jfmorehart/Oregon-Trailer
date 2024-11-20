@@ -83,6 +83,12 @@ public class eventReferences : MonoBehaviour
             case 13:
                 GameManager.addResource(3, -15);
                 break;
+            case 14:
+                GameManager.addResource(3, 10);
+                break;
+            case 15:
+                GameManager.addResource(3, 15);
+                break;
             default:
                 Debug.Log("EVENT DEFAULTED");
                 break;

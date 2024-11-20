@@ -7,7 +7,6 @@ using Ink;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
-using Ink.UnityIntegration;
 using DG.Tweening;
 using System;
 
@@ -42,8 +41,10 @@ public class centralEventHandler : MonoBehaviour
     private bool eventPlaying = true;
     public static bool EventPlaying => instance.eventPlaying;
 
+
     [SerializeField]
-    private InkFile globalsInkFile;
+    private TextAsset loadGlobalsJSON;
+
     private DialogueVariables dialogueVariables;
     [SerializeField]
     TextMeshProUGUI displayName;
@@ -88,6 +89,11 @@ public class centralEventHandler : MonoBehaviour
     [SerializeField]
     CharacterBase mc;
 
+
+    //handling when information should be passed back to the mapNode that this event is at
+    public Action eventOverAction = null;
+    public MapNode nodeCalling = null;
+
     private void Awake()
     {
         //set the options based on the 
@@ -103,7 +109,8 @@ public class centralEventHandler : MonoBehaviour
 
         EventParent.transform.localPosition = new Vector2(0, -158.67f);//the clutter of the scene is driving me insane
 
-        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
+        dialogueVariables = new DialogueVariables(loadGlobalsJSON);
+        eventOverAction = null;
     }
 
 
@@ -194,6 +201,28 @@ public class centralEventHandler : MonoBehaviour
         yield return new WaitForEndOfFrame();
         continueStory();
     }
+    //start a dialogue event from the map node
+    public static void StartEvent(TextAsset inkJSON, Action activityFinishedAction)
+    {
+        if (activityFinishedAction.Target == null)
+        {
+            Debug.Log("Target is null");
+        }
+        else if (activityFinishedAction == null)
+        {
+            Debug.Log("Activity finished action is null");
+        }
+        if (instance == null) Debug.Log("Instance is null");
+        if (instance.eventOverAction == null) Debug.Log("action is null");
+        instance.eventOverAction += activityFinishedAction;
+        instance.nodeCalling = (MapNode) activityFinishedAction.Target;
+        StartEvent(inkJSON);
+
+        instance.eventBackground.gameObject.SetActive(true);
+
+        //StartCoroutine(showbackground(null, inkJSON, false));
+
+    }
     public static void StartEvent(TextAsset inkJSON, bool isNoteBookEvent = false, Sprite bgSprite = null)
     {
 		Debug.Log(inkJSON);
@@ -205,8 +234,15 @@ public class centralEventHandler : MonoBehaviour
         {
             instance.StartCoroutine(instance.showbackground(bgSprite, inkJSON, isNoteBookEvent));
         }
-        GameManager.eventPassedIn();
-        UIManager.endMapScreen();
+        if (GameManager.instance != null)
+        {
+            GameManager.eventPassedIn();
+        }
+        if (UIManager.instance != null)
+        {
+            UIManager.endMapScreen();
+        }
+        
     }
 
     private void passInCharacterStats()
@@ -371,9 +407,27 @@ public class centralEventHandler : MonoBehaviour
         instance.passInCharacterStats();
         dialogueVariables.StartListening(currentStory);
         continueStory();
-        GameManager.eventPassedIn();
-        UIManager.endMapScreen();
+        if (GameManager.instance != null)
+        {
+            GameManager.eventPassedIn();
+        }
+        if (UIManager.instance != null)
+        {
+            UIManager.endMapScreen();
+        }
 
+
+        //if this is a dialogue event, we cant have time set to 0
+        if (notebookEvent)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            //eventBackground.gameObject.SetActive(true);
+        }
+
+        
     }
 
     private void continueStory()
@@ -473,7 +527,7 @@ public class centralEventHandler : MonoBehaviour
     }
     private void skipmovement()
     {
-        Debug.Log("skippinmg movement");
+        //Debug.Log("skippinmg movement");
         foreach (SpriteRenderer sr in stageCharacters)
         {
             sr.DOKill();
@@ -496,44 +550,42 @@ public class centralEventHandler : MonoBehaviour
         DescriptionText.text = "";
         DescriptionText.enableAutoSizing = false;
         DescriptionText.fontSize = sz;
+        
+        notebookDescriptionText.text = "";
+        pressContinueText.gameObject.SetActive(false);
+        canContinueToNextLine = false;
+        hideChoices();
+        hideChoicesNotebook();
+        //display each letter one at a time
+        bool isAddingRichTag = false;
 
 
-            DescriptionText.text = "";
-            pressContinueText.gameObject.SetActive(false);
-            canContinueToNextLine = false;
-            hideChoices();
-            hideChoicesNotebook();
-            //display each letter one at a time
-            bool isAddingRichTag = false;
-            foreach (char letter in line.ToCharArray())
+        foreach (char letter in line.ToCharArray())
+        {
+            if (isAddingRichTag || letter == '<')
+            {
+                //remove the entire rich tag 
+                isAddingRichTag = true;
+                DescriptionText.text += letter;
+                notebookDescriptionText.text += letter;
+                if (letter == '>')
+                {
+                    isAddingRichTag = false;
+                }
+            }
+            else
+            {
+                //add normally
+                DescriptionText.text += letter;
+                notebookDescriptionText.text += letter;
+                yield return new WaitForSecondsRealtime(typingSpeed);
+            }
+            if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))) //&& skipTimer > 0.5f)
             {
 
-                //if ((Input.GetKeyDown(KeyCode.Space) && !skippingthrough )|| (Input.GetKeyDown(KeyCode.Mouse0) && !skippingthrough))
-
-
-                if (isAddingRichTag || letter == '<')
-                {
-                    //remove the entire rich tag 
-                    isAddingRichTag = true;
-                    DescriptionText.text += letter;
-                    notebookDescriptionText.text += letter;
-                    if (letter == '>')
-                    {
-                        isAddingRichTag = false;
-                    }
-                }
-                else
-                {
-                    //add normally
-                    DescriptionText.text += letter;
-                    notebookDescriptionText.text += letter;
-                    yield return new WaitForSeconds(typingSpeed);
-                }
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
-            {
                 DescriptionText.text = line;
                 notebookDescriptionText.text = line;
-                //skippingthrough = true;
+                skippingthrough = true;
                 Debug.Log("Skipping throguh text");
                 break;
             }
@@ -599,7 +651,7 @@ public class centralEventHandler : MonoBehaviour
         }
     }
 
-    
+
     private void exitEvent()
     {
         eventPlaying = false;
@@ -621,7 +673,20 @@ public class centralEventHandler : MonoBehaviour
         StartCoroutine(removeBackground());
         Debug.Log("event Exited");
         resetStage();
-        GameManager.eventOver();
+        if (GameManager.instance != null)
+        {
+            GameManager.eventOver();
+        }
+        Time.timeScale = 1;
+
+        if (nodeCalling != null)
+        {
+            eventOverAction?.Invoke();
+            eventOverAction -= nodeCalling.doActivity;
+        }
+        nodeCalling = null;
+
+        eventBackground.gameObject.SetActive(false);
     }
 
     //all choices when listeners are removed, should have a single listener to 

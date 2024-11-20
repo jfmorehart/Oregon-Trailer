@@ -7,12 +7,10 @@ using System.IO;
 public class DialogueVariables
 {
     public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
-    public DialogueVariables(string globalFilesPath)
+    public DialogueVariables(TextAsset loadGlobalsJSON)
     {
         //compile the story
-        string filecontents = File.ReadAllText(globalFilesPath);
-        Ink.Compiler compiler = new Ink.Compiler(filecontents);
-        Story globalVariableStory = compiler.Compile();
+        Story globalVariableStory = new Story(loadGlobalsJSON.text);
 
         //initialize the story
         variables = new Dictionary<string, Ink.Runtime.Object>();
