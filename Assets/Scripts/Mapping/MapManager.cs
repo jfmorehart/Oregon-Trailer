@@ -92,7 +92,11 @@ public class MapManager : MonoBehaviour
         //change the color of the current node
         instance.playerDestinationNode.goBright();
         */
+        
+        
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
+        
+
 
     }
 
@@ -232,6 +236,11 @@ public class MapManager : MonoBehaviour
     //activity is finished, display map again and allow the player to choose where to go
     public void nodeActivityDone()
     {
+        if (playersCurrentNode.EndingRoad)
+        {
+            doEnding();
+            return;
+        }
         mapUI.instance.instantPopUp();
 
         if (fuel <= 0)
