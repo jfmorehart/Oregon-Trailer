@@ -130,10 +130,6 @@ public class MapNode : MonoBehaviour
         //do fade to black
         //unload the driving level
         Debug.Log("Location Reached");
-        if (EndingRoad)
-        {
-            MapManager.instance.doEnding();
-        }
         if(locationEvent != null)
             centralEventHandler.StartEvent(locationEvent, doActivity, _eventBackground);
         else
@@ -208,9 +204,6 @@ public class MapNode : MonoBehaviour
 			}
         }
     }
-    
-    
-
 }
 
 [System.Serializable]
