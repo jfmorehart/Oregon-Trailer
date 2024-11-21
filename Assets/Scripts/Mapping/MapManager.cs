@@ -92,7 +92,11 @@ public class MapManager : MonoBehaviour
         //change the color of the current node
         instance.playerDestinationNode.goBright();
         */
+        
+        
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
+        
+
 
     }
 
@@ -104,7 +108,7 @@ public class MapManager : MonoBehaviour
         playersCurrentNode.goDark();
         Debug.Log("D2");
         //change the color of the current node
-        playerDestinationNode.goBright();
+        playerDestinationNode.goBright();   
         Debug.Log("D3");
 
         //remove fuel
@@ -232,6 +236,11 @@ public class MapManager : MonoBehaviour
     //activity is finished, display map again and allow the player to choose where to go
     public void nodeActivityDone()
     {
+        if (playersCurrentNode.EndingRoad)
+        {
+            doEnding();
+            return;
+        }
         mapUI.instance.instantPopUp();
 
         if (fuel <= 0)

@@ -42,6 +42,8 @@ public class MapNode : MonoBehaviour
     
     private Sprite _eventBackground;
 
+    List<MapNode> nodesThisReveals = new List<MapNode>();
+
     public enum activity
     {
         Diner,
@@ -79,6 +81,8 @@ public class MapNode : MonoBehaviour
                 //default length should be 5
                 if (Roads[i].roadLength == 0)
                     r.roadLength = 5;
+                if (r.fuelCost == 0)
+                    r.fuelCost = 1;
 
                 if (r.Destination == null)
                     Debug.LogError("The destination is not set on roadPath: " + transform.name);
@@ -130,10 +134,6 @@ public class MapNode : MonoBehaviour
         //do fade to black
         //unload the driving level
         Debug.Log("Location Reached");
-        if (EndingRoad)
-        {
-            MapManager.instance.doEnding();
-        }
         if(locationEvent != null)
             centralEventHandler.StartEvent(locationEvent, doActivity, _eventBackground);
         else
@@ -208,8 +208,20 @@ public class MapNode : MonoBehaviour
 			}
         }
     }
-    
-    
+
+    private void OnDrawGizmos()
+    {
+        if (Roads.Length > 0)
+        {
+            foreach (RoadPath r in Roads)
+            {
+                if (r.Destination != null)
+                {
+                    Gizmos.DrawLine(transform.position, r.Destination.transform.position);
+                }
+            }
+        }
+    }
 
 }
 
@@ -218,6 +230,7 @@ public struct RoadPath
 {
     public MapNode Destination;
     public int roadLength;
+    public int fuelCost;
 
     //cycle through these and assign these to the appropriate points driving segments
     public TextAsset[] forcedQuests;
