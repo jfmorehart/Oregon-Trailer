@@ -108,7 +108,7 @@ public class MapManager : MonoBehaviour
         playersCurrentNode.goDark();
         Debug.Log("D2");
         //change the color of the current node
-        playerDestinationNode.goBright();
+        playerDestinationNode.goBright();   
         Debug.Log("D3");
 
         //remove fuel
