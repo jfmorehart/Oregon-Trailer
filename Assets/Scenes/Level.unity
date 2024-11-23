@@ -8094,6 +8094,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2083490869}
     m_Modifications:
     - target: {fileID: 568230886528477332, guid: 2c66066001a099c48806d31388ce5bf6, type: 3}
+      propertyPath: _nodeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 568230886528477332, guid: 2c66066001a099c48806d31388ce5bf6, type: 3}
       propertyPath: locationEvent
       value: 
       objectReference: {fileID: 4900000, guid: 3a31f84e5128c4b4b8e5a1999579ef15, type: 3}
@@ -8103,7 +8107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 568230886528477332, guid: 2c66066001a099c48806d31388ce5bf6, type: 3}
       propertyPath: _locationActivity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 568230886528477332, guid: 2c66066001a099c48806d31388ce5bf6, type: 3}
       propertyPath: Roads.Array.data[0].roadLength
@@ -9906,14 +9910,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f7b9bb18c7a4f2e479bf02ebc2b020e3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
