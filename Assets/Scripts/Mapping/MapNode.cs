@@ -170,10 +170,10 @@ public class MapNode : MonoBehaviour
     }
     
 
-    public void potentialPointFlash()
+    public void potentialPointFlash() //changed the color from blue to white to better suit the UI mockup
     {
         //go between white and grey
-        sr.color = Color.blue;
+        sr.color = Color.white;
     }
     public void goDark()
     {
