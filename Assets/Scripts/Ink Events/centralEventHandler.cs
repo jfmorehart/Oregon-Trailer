@@ -253,7 +253,13 @@ public class centralEventHandler : MonoBehaviour
         }
         
     }
+    private void passInFactionRelationships()
+    {
+        callInkFunction("setFratRelationship", FactionManager.instance.getRelationship(faction.Frat));
+        callInkFunction("setRebelsRelationship", FactionManager.instance.getRelationship(faction.Rebels));
+        callInkFunction("setNeutralsRelationship", FactionManager.instance.getRelationship(faction.Neutral));
 
+    }
     private void passInCharacterStats()
     {
         //throw new NotImplementedException();
@@ -402,7 +408,9 @@ public class centralEventHandler : MonoBehaviour
             eventPlaying = true;
             EventParent.SetActive(true);
             //notebookParent.SetActive(true);
+            //currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => MapManager.instance.addResource(resourceID, amount));
             //currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => GameManager.addResource(resourceID, amount));
+
         }
         else
         {
@@ -411,9 +419,13 @@ public class centralEventHandler : MonoBehaviour
             notebookParent.SetActive(true);
             playingNotebookOnlyEvent = true;
         }
-
+        currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => MapManager.instance.addResource(resourceID, amount));
         currentStory.BindExternalFunction("causeEvent", (int eventID) => { eventReferences.instance.eventDesignator(eventID); });
+        currentStory.BindExternalFunction("changeRelationship", (int ID, int amnt) => { FactionManager.instance.changeRelationship(ID, amnt); });
+            
         instance.passInCharacterStats();
+        instance.passInFactionRelationships();
+
         dialogueVariables.StartListening(currentStory);
         continueStory();
         if (GameManager.instance != null)
@@ -435,8 +447,6 @@ public class centralEventHandler : MonoBehaviour
         {
             //eventBackground.gameObject.SetActive(true);
         }
-
-        
     }
 
     private void continueStory()

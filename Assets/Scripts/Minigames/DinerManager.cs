@@ -6,10 +6,18 @@ using TMPro;
 public class DinerManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject DinerObj;
+    GameObject DinerOutsideScreen;
+    [SerializeField]
+    GameObject dinerDeniedScreen;
+    [SerializeField]
+    GameObject dinerInside;
+
+
     [SerializeField]
     TextMeshProUGUI stats;
-
+    [SerializeField]
+    TextMeshProUGUI titleText;
+    faction owningFaction;
     public static DinerManager instance;
     private void Awake()
     {
@@ -26,14 +34,23 @@ public class DinerManager : MonoBehaviour
 
     public void displayDiner()
     {
-        DinerObj.SetActive(true);
+        DinerOutsideScreen.SetActive(true);
+        owningFaction = faction.Neutral;
+        updateStatsButton();
+        titleText.text = " faction owner: " + owningFaction.ToString();
+    }
+    public void displayDiner(faction f)
+    {
+        DinerOutsideScreen.SetActive(true);
+        owningFaction = f;
         updateStatsButton();
     }
 
     public void hideDiner()
     {
-        DinerObj.SetActive(false);
-
+        DinerOutsideScreen.SetActive(false);
+        dinerDeniedScreen.SetActive(false);
+        dinerInside.SetActive(false);
         //communicate with map manager to display the map
         MapManager.instance.nodeActivityDone();
     }
@@ -59,6 +76,25 @@ public class DinerManager : MonoBehaviour
     }
 
 
+    public void goInsideDiner()
+    {
+        //if faction is hostile 
+        if (FactionManager.instance.getRelationship(owningFaction) < 0)
+        {
+            //display denied screen
+            displayDeniedScreenButton();
+        }
+        else
+        {
+            //display entered screen
+            dinerInside.SetActive(true);
+        }
+    }
+    public void displayDeniedScreenButton()
+    {
+        dinerDeniedScreen.SetActive(true);
+        dinerInside.SetActive(false);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -66,7 +102,7 @@ public class DinerManager : MonoBehaviour
     }
     void updateStatsButton()
     {
-        stats.text = "Stats:\n\tMoney: "+ MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel; ;
+        stats.text = "Stats:\n\tMoney: " + MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel;
     }
 
     // Update is called once per frame

@@ -336,5 +336,43 @@ public class MapManager : MonoBehaviour
         //PlayerChanges();
     }
 
+    public void setResource(int resourceID, int amount)
+    {
+        switch (resourceID)
+        {
+            case 1://fuel
+                fuel = amount;
+                break;
+            case 2://food
+                food = amount;
+                break;
+            case 3://money
+                money = amount;
+                break;
+            case 4:
+            default:
+                Debug.Log("Resource ID not recognized");
+                break;
+        }
+    }
 
+    public void addResource(int resourceID, int amount)
+    {
+        switch (resourceID)
+        {
+            case 1://fuel
+                fuel += amount;
+                break;
+            case 2://food
+                food += amount;
+                break;
+            case 3://money
+                money += amount;
+                break;
+            case 4:
+            default:
+                Debug.Log("Resource ID not recognized");
+                break;
+        }
+    }
 }

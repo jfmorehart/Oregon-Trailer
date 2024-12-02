@@ -49,14 +49,7 @@ public class MapNode : MonoBehaviour
         Diner,
         Hunt,
     }
-    public enum faction
-    {
-        Neutral, 
-        Frat,
-        Rebels,
-        Gamblers,
-        SunCult
-    }
+
 
     //connections to the next nodes
     public RoadPath[] Roads;
