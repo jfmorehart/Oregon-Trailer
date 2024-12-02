@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
@@ -15,7 +15,8 @@ public class MapManager : MonoBehaviour
     public int food = 5;
     public int vanHealth ;//this should track to whatever the health of the van is in driving scenes 
     public static MapManager instance;
-    
+
+    private MapNode startingNode;
     //keep track of what node the player is currently at
     [SerializeField]
     MapNode playersCurrentNode;
@@ -30,16 +31,15 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI FuelText, moneyText;
     [SerializeField]
-    TempLevelUnloader tlu;
-    [SerializeField]
     GameObject endingScreen;
     [SerializeField]
     GameObject playerDiedScreen;
-
-
+    [SerializeField]
+    private Image fadeToBlackBG;
 
     private void Awake()
     {
+        
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -49,6 +49,7 @@ public class MapManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        startingNode = playersCurrentNode;
     }
 
     private void Start()
@@ -63,7 +64,6 @@ public class MapManager : MonoBehaviour
         moneyText.text = money.ToString();
         FuelText.text = fuel.ToString();
         mapUI.instance.ShouldBeInteractedWith = false;
-        tlu.unloadLevel();
         mapUI.instance.instantPopUp();
         allowDestinationChoice();
 
@@ -84,38 +84,62 @@ public class MapManager : MonoBehaviour
             Debug.LogError("MapManager is null");
             return;
         }
-		//instance.tlu.unloadLevel();
-		SceneManager.LoadScene("AaronLevel");
 
-		//make the previous node stop blinking, 
-		instance.playersCurrentNode.goDark();
+        //fade to black atp
+        /*
+                //make the previous node stop blinking, 
+        instance.playersCurrentNode.goDark();
         //change the color of the current node
         instance.playerDestinationNode.goBright();
+        */
+        
+        
+        instance.StartCoroutine(instance.fadeToBlackHandleMovement());
+        
+
+
+    }
+
+    private void HandleMovement()
+    {
+
+        Debug.Log("D1");
+        //make the previous node stop blinking, 
+        playersCurrentNode.goDark();
+        Debug.Log("D2");
+        //change the color of the current node
+        playerDestinationNode.goBright();   
+        Debug.Log("D3");
 
         //remove fuel
-        instance.fuel--;
+        fuel--;
 
-        instance.moneyText.text = instance.money.ToString();
-        instance.FuelText.text = instance.fuel.ToString();
+        moneyText.text = instance.money.ToString();
+        FuelText.text = instance.fuel.ToString();
 
+        Debug.Log("D4");
         //handle the nodeswitch
-        instance.playersCurrentNode = instance.playerDestinationNode;
-        instance.playerDestinationNode = null;
+        playersCurrentNode = instance.playerDestinationNode;
+        playerDestinationNode = null;
+        Debug.Log("D5");
 
-        //set the player's position
+        //set the player's position to the new node
         mapPlayer.instance.setPosition(instance.playersCurrentNode);
 
-        mapUI.instance.instantPopUp();
+        Debug.Log("D6");
 
-        instance.nextNodeBlink();
+        mapUI.instance.instantPopUp();
+        playersCurrentNode.LocationReached();
+        Debug.Log("D7");
+
+        nextNodeBlink();
 
         //we dont show this screen until the map node event is done
-        instance.playersCurrentNode.LocationReached();
-
+        ChunkManager.instance.DestroyLevel();
+        Debug.Log("D8");
         //we allow the destination choice if the activity has been done
         //allowDestinationChoice();
     }
-
 
     private void nextNodeBlink()
     {
@@ -133,6 +157,7 @@ public class MapManager : MonoBehaviour
     //called when the player clicks on a map node
     public static void playerTraveling(MapNode destNode)
     {
+
         Debug.Log("travelling now");
         instance.playerDestinationNode = destNode;
         instance.forbidDestinationChoice();
@@ -148,10 +173,11 @@ public class MapManager : MonoBehaviour
         }
 
         //player should be travelling now
-        instance.tlu.loadLevel();
+        ChunkManager.instance.GenerateLevel();
 
         //lower the map
         mapUI.instance.instantPullDown();
+        mapUI.instance.ShouldBeInteractedWith = true;
     }
 
     public static void allowDestinationChoice()
@@ -188,12 +214,33 @@ public class MapManager : MonoBehaviour
         {
             playerArrived();
         }
+        Restart();
     }
+
+    public void Restart()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            //reset the player to be at the first point
+            mapPlayer.instance.setPosition(playersCurrentNode);
+
+            //fade to black
+            StartCoroutine(fadeToBlackResetPosition());
+
+        }
+    }
+
+
 
 
     //activity is finished, display map again and allow the player to choose where to go
     public void nodeActivityDone()
     {
+        if (playersCurrentNode.EndingRoad)
+        {
+            doEnding();
+            return;
+        }
         mapUI.instance.instantPopUp();
 
         if (fuel <= 0)
@@ -201,7 +248,6 @@ public class MapManager : MonoBehaviour
             playerDiedScreen.SetActive(true);
         }
         allowDestinationChoice();
-
         instance.moneyText.text = instance.money.ToString();
         instance.FuelText.text = instance.fuel.ToString();
     }
@@ -220,4 +266,75 @@ public class MapManager : MonoBehaviour
     {
         food += 2;
     }
+
+    public IEnumerator fadeToBlackHandleMovement()
+    {
+        //probably more efficient to move this to a dedicated fade to black obj but whatever
+        float duration = 1f;
+        fadeToBlackBG.gameObject.SetActive(true);
+        Color transparent = new Color(0, 0, 0, 0);
+        Color full = new Color(0, 0, 0, 1);
+        float time = 0;
+        fadeToBlackBG.color = transparent;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.color = new Color(0, 0, 0, 1);
+
+        //when the screen is black we now show the node stuff
+        HandleMovement();
+        yield return new WaitForSeconds(0.5f);
+        time = 0;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(full, transparent, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.gameObject.SetActive(false);
+
+        //PlayerChanges();
+    }
+
+    public IEnumerator fadeToBlackResetPosition()
+    {
+        //probably more efficient to move this to a dedicated fade to black obj but whatever
+        float duration = 1f;
+        fadeToBlackBG.gameObject.SetActive(true);
+        Color transparent = new Color(0, 0, 0, 0);
+        Color full = new Color(0, 0, 0, 1);
+        float time = 0;
+        fadeToBlackBG.color = transparent;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.color = new Color(0, 0, 0, 1);
+
+        //when the screen is black we now show the node stuff
+        ChunkManager.instance.DestroyLevel();
+        nodeActivityDone();
+        yield return new WaitForSeconds(0.5f);
+        time = 0;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(full, transparent, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.gameObject.SetActive(false);
+
+        //PlayerChanges();
+    }
+
+
 }

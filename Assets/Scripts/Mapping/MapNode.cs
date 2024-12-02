@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -39,6 +40,9 @@ public class MapNode : MonoBehaviour
     [SerializeField]
     private TextAsset locationEvent;
     
+    private Sprite _eventBackground;
+
+    List<MapNode> nodesThisReveals = new List<MapNode>();
 
     public enum activity
     {
@@ -77,6 +81,8 @@ public class MapNode : MonoBehaviour
                 //default length should be 5
                 if (Roads[i].roadLength == 0)
                     r.roadLength = 5;
+                if (r.fuelCost == 0)
+                    r.fuelCost = 1;
 
                 if (r.Destination == null)
                     Debug.LogError("The destination is not set on roadPath: " + transform.name);
@@ -115,7 +121,6 @@ public class MapNode : MonoBehaviour
         {
             checkIfChosen();
         }
-
     }
 
 
@@ -128,14 +133,9 @@ public class MapNode : MonoBehaviour
 
         //do fade to black
         //unload the driving level
-
-        if (EndingRoad)
-        {
-            MapManager.instance.doEnding();
-        }
-
+        Debug.Log("Location Reached");
         if(locationEvent != null)
-            centralEventHandler.StartEvent(locationEvent, doActivity);
+            centralEventHandler.StartEvent(locationEvent, doActivity, _eventBackground);
         else
         {
             doActivity();
@@ -170,10 +170,10 @@ public class MapNode : MonoBehaviour
     }
     
 
-    public void potentialPointFlash()
+    public void potentialPointFlash() //changed the color from blue to white to better suit the UI mockup
     {
         //go between white and grey
-        sr.color = Color.blue;
+        sr.color = Color.white;
     }
     public void goDark()
     {
@@ -194,22 +194,34 @@ public class MapNode : MonoBehaviour
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
-            Collider2D[] hits = Physics2D.OverlapPointAll(Input.mousePosition);
-               
-            foreach(Collider2D hit in hits) {
-                Debug.Log("hit " + hit.gameObject.name);
-				if (hit.gameObject == gameObject)
-				{
-					MapManager.playerTraveling(this);
-					Debug.Log("Player chose " + transform.name);
-					//go into driving scene
-				}
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero );
+            if (hit.collider == null)
+            {
+                Debug.Log("Player Hit Nothing");
+                return;
+            }
+			if (hit.collider.gameObject == gameObject)
+			{
+				MapManager.playerTraveling(this);
+				Debug.Log("Player chose " + transform.name);
+				//go into driving scene
 			}
-
         }
     }
-    
-    
+
+    private void OnDrawGizmos()
+    {
+        if (Roads.Length > 0)
+        {
+            foreach (RoadPath r in Roads)
+            {
+                if (r.Destination != null)
+                {
+                    Gizmos.DrawLine(transform.position, r.Destination.transform.position);
+                }
+            }
+        }
+    }
 
 }
 
@@ -218,6 +230,7 @@ public struct RoadPath
 {
     public MapNode Destination;
     public int roadLength;
+    public int fuelCost;
 
     //cycle through these and assign these to the appropriate points driving segments
     public TextAsset[] forcedQuests;
