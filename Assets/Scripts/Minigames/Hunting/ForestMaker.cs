@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
 public class ForestMaker : MonoBehaviour
 {
@@ -16,9 +18,11 @@ public class ForestMaker : MonoBehaviour
 	public float spawn_distance = 100;
 	public float vision_length = 200;
 
-	public float hunter_speed = 20;
+	public float hunter_speed = 30;
 
 	public float noiseAmt = 0;
+
+	public Action<float> makeNoise;
 
 	private void Awake()
 	{
@@ -30,10 +34,18 @@ public class ForestMaker : MonoBehaviour
 		if (Input.GetKey(KeyCode.W)) {
 			hunter_position += Time.deltaTime * hunter_speed;
 		}
+		if (Input.GetKey(KeyCode.R))
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
 		//if (Input.GetKey(KeyCode.S))
 		//{
 		//	hunter_position -= Time.deltaTime * hunter_speed;
 		//}
 	}
+
+	public void MakeNoise(float amt) {
+		makeNoise?.Invoke(amt);
+    }
 
 }
