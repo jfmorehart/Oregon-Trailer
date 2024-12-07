@@ -18,6 +18,10 @@ public class Drivable : MonoBehaviour
 	public float collisionDamage;
 	Breakable breaker;
 
+	public GameObject scrapPrefab;
+
+	public int pickupValue; //currency im carrying
+
 	//lists all of the stuff we're currently driving on
 	//will modify the tire performance
 	public List<TerrainModifier> terrainModifiers = new List<TerrainModifier>();
@@ -26,6 +30,17 @@ public class Drivable : MonoBehaviour
 		_rb = GetComponent<Rigidbody2D>();
 		breaker = GetComponent<Breakable>();
 		breaker.bar.maxHp = breaker.hp;
+		breaker.onKill += OnKill;
+	}
+
+	void OnKill()
+	{ 
+		breaker.onKill -= OnKill;
+		for (int i = 0; i < pickupValue; i++)
+		{
+			GameObject go = Instantiate(scrapPrefab, transform.position, transform.rotation, Pool.instance.transform);
+			go.GetComponent<Rigidbody2D>().velocity = _rb.velocity + Random.insideUnitCircle * 4;
+		}
 	}
 	protected virtual void FixedUpdate()
 	{
@@ -118,6 +133,7 @@ public class Drivable : MonoBehaviour
 				Pool.smokes.GetObject().Fire(collision.contacts[0].point, Vector2.zero, Vector2.zero);
 			}
 		}
+
 		//if (collision.collider.TryGetComponent(out TerrainModifier tm))
 		//{
 		//	terrainModifiers.Add(tm);
@@ -130,6 +146,11 @@ public class Drivable : MonoBehaviour
         {
             terrainModifiers.Add(tm);
         }
+
+		if(collision.TryGetComponent(out Pickup pi))
+		{
+			pickupValue	+= pi.Collect();
+		}
     }
     public virtual void OnTriggerExit2D(UnityEngine.Collider2D collision)
     {
