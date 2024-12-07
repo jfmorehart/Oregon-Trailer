@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
   m_FlipX: 0
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.9528302, g: 0.6253257, b: 0.24719654, a: 1}
   m_FlipX: 0
@@ -707,7 +707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f2cd821da6c48aa9f909ba2d11a121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 1400
+  baseAcceleration: 1400
+  acceleration: 0
   topSpeed: 20
   drag: 0.7
   turnRate: 300
@@ -718,7 +719,11 @@ MonoBehaviour:
   rotationDrag: 0.3
   velConservation: 0.5
   _rb: {fileID: 0}
+  boostStr: 0
+  boostLength: 0
+  boostCooldown: 0
   collisionDamage: 5
+  terrainModifiers: []
   spawnChancePercent: 0.3
   fireTheta: 20
   fireRange: 20
@@ -1191,7 +1196,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.5283019, g: 0.05233179, b: 0.0867317, a: 1}
   m_FlipX: 0
