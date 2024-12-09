@@ -8,18 +8,50 @@ public class MouseDriving : Drivable
 	public static Transform vanTransform;
     Vector2 mousePos;
 
+	//ill replace these with a base class or interface or smth
+	public VanGun TankGun;
+	public OilBarrel barrel;
+
 	protected override void Awake()
 	{
 		base.Awake();
 		vanTransform = transform;
 	}
 
-	protected override void FixedUpdate()
+    private void Update()
+    {
+		//frame-input goes in update
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ActivateUpgrade(UpgradeManager.instance.q_upgrade);   
+		}
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+			ActivateUpgrade(UpgradeManager.instance.e_upgrade);
+        }
+    }
+	void ActivateUpgrade(Upgrade up)
 	{
+		switch (up)
+		{
+			case Upgrade.Booster:
+                TryStartBoost();
+				break;
+			case Upgrade.OilBarrel:
+				barrel.TryShoot();
+				break;
+			case Upgrade.TankGun:
+				TankGun.TryShoot();
+				break;
+        }
+	}
+    protected override void FixedUpdate()
+	{
+		base.FixedUpdate();
 		//where are we going?
 		mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		
-
+		//held input can live in fixedupdate
 		//gas?
 		if (Input.GetMouseButton(0))
 		{
@@ -37,8 +69,8 @@ public class MouseDriving : Drivable
 				_rb.AddForce(acceleration * Time.fixedDeltaTime * -transform.right);
 			}
 		}
-		DriveTowards(mousePos);
-	}
+        DriveTowards(mousePos);
+    }
 	public override void OnCollisionEnter2D(Collision2D collision)
 	{
 		base.OnCollisionEnter2D(collision);
