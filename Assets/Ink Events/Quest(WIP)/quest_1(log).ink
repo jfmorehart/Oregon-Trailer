@@ -4,7 +4,7 @@ INCLUDE ../globals.ink
 -> log
 
 == log ==
-Trees aren't very common on this part of the journey, and especially not lone <i>tree logs</i>. This log has been cast to the side, tied by a rope that's cut on the other end. 
+Trees aren't very common on this part of the journey, and especially not lone <i>tree logs</i>. This one in particular has been cast to the side, tied by a rope that's cut on the other end. 
 
 //stage tags!
 #enter gatorhead fastappearleft ml
@@ -25,7 +25,7 @@ Trees aren't very common on this part of the journey, and especially not lone <i
 
 == helifts ==
 #emote gatorhead pop
-<b>Gatorhead</b>: WOOHOO! SHINIES-
+<b>Gatorhead</b>: WOOHOO! I SEE SOMETHING SHINY-
 
 -> discovery
 
@@ -37,12 +37,12 @@ Trees aren't very common on this part of the journey, and especially not lone <i
 
 == discovery ==
 #spr gatorhead gatorhead
-But there are no "shinies." Indeed, what slowly rolls out of the log as it shifts to one side is-
+But there are no "shinies." What slowly rolls out of the log as it shifts to one side is-
 
 #spr gatorhead gatorhead_qmark
 <color=\#3d7524>... What's a grenade doing here?</color>
 
-It's pinned.
+It's pinned. On its side, there's a worn-out label, with the name scratched out.
 
 <color=\#3d7524>... You want it?</color>
 
