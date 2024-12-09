@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class Breakable : MonoBehaviour
 {
     public float hp;
     public HealthBar bar;
+    public Action onKill;
 
 	private void Awake()
 	{
@@ -23,6 +25,7 @@ public class Breakable : MonoBehaviour
     }
 
     public void Kill() {
+        onKill?.Invoke();
         Destroy(gameObject);
     }
 }

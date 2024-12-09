@@ -41,7 +41,7 @@ He shuffles in his sleep, knocking one of the cans over. You can see the edge of
 Shuffling back in your original position, you almost knock a beer can over yourself. The man shuffles in his sleep, turning to his side. 
 Under him, you notice a slip of paper. One of its corners is caught on his backside.
 
-<color=\#3d7524>C'mooon... you don't need to risk our skin for a piece of paper...</color>
+<color=\#3d7524>C'mooon... we don't need to risk our skin for a piece of paper...</color>
 
 * [ Take Paper ] -> take
 * [ Leave ] -> nopaper
