@@ -57,7 +57,7 @@ public class MapManager : MonoBehaviour
         //start player off at location
         //play starting cutscene if there is one
         mapPlayer.instance.setPosition(playersCurrentNode);
-
+        playersCurrentNode.goBright();
         //for now do the activity or let the player choose where to go
         //playersCurrentNode.LocationReached();
 

@@ -88,6 +88,6 @@ public class mapUI : MonoBehaviour
     {
         transform.localPosition = endPosition;
         DOTween.KillAll();
-        Debug.Log("poppung up to " + endPosition);
+        Debug.Log("popping up to " + endPosition);
     }
 }

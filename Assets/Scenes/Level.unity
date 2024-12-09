@@ -2783,6 +2783,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430760477}
   m_CullTransparentMesh: 1
+--- !u!114 &466894361 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4796321939234964014, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
+  m_PrefabInstance: {fileID: 1240049176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &475249740
 GameObject:
   m_ObjectHideFlags: 0
@@ -8245,6 +8256,18 @@ PrefabInstance:
       propertyPath: locationEvent
       value: 
       objectReference: {fileID: 4900000, guid: 52b0df7aac814614c8672b4f28d98cc0, type: 3}
+    - target: {fileID: 1539246802093593528, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
+      propertyPath: Roads.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539246802093593528, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
+      propertyPath: Roads.Array.data[0].Destination
+      value: 
+      objectReference: {fileID: 466894361}
+    - target: {fileID: 1539246802093593528, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
+      propertyPath: Roads.Array.data[1].Destination
+      value: 
+      objectReference: {fileID: 1332473888}
     - target: {fileID: 1620355353413476824, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
       propertyPath: m_Color.b
       value: 0.61960787
@@ -8337,6 +8360,10 @@ PrefabInstance:
       propertyPath: locationEvent
       value: 
       objectReference: {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
+    - target: {fileID: 3048259363169445923, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
+      propertyPath: Roads.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3048259363169445923, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
       propertyPath: _locationActivity
       value: 1
@@ -8497,6 +8524,10 @@ PrefabInstance:
       propertyPath: locationEvent
       value: 
       objectReference: {fileID: 4900000, guid: 2939cee8380839f46aaa3a04c2277583, type: 3}
+    - target: {fileID: 4796321939234964014, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
+      propertyPath: Roads.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4796321939234964014, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
       propertyPath: Roads.Array.data[0].Destination
       value: 
@@ -8903,6 +8934,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313836232}
   m_CullTransparentMesh: 1
+--- !u!114 &1332473888 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3048259363169445923, guid: c808ec3297ea6034a967c79b472adc1a, type: 3}
+  m_PrefabInstance: {fileID: 1240049176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1334381766
 GameObject:
   m_ObjectHideFlags: 0
@@ -13090,8 +13132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a72279c8c9b78040855b35937e80edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DinerObj: {fileID: 2087803249}
+  DinerOutsideScreen: {fileID: 0}
+  dinerDeniedScreen: {fileID: 0}
+  dinerInside: {fileID: 0}
   stats: {fileID: 44138701}
+  titleText: {fileID: 0}
 --- !u!1 &2143381814
 GameObject:
   m_ObjectHideFlags: 0

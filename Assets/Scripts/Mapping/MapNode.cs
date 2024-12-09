@@ -159,7 +159,35 @@ public class MapNode : MonoBehaviour
     public void destinationFlash()
     {
         Debug.Log(transform.name  + "Flashing ");
-        sr.color = Color.red;
+        StartCoroutine(destinationflashroutine());
+        //sr.color = Color.red;
+
+    }
+    //maybe change this to sine wave?
+    private IEnumerator destinationflashroutine()
+    {
+        Color startColor = Color.white;
+        Color blinkColor = new Color((float)222 / 255, (float)209 / 255, (float)209 / 255); 
+        float timer = 0;
+        float duration = 1.5f;
+        sr.color = startColor;
+        while (timer < duration)
+        {
+            sr.color = Color.Lerp(startColor, blinkColor, timer/duration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        sr.color = blinkColor;
+        timer = 0;
+        while (timer < duration)
+        {
+            Debug.Log(sr.color);
+            sr.color = Color.Lerp(blinkColor, startColor, timer / duration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        sr.color = startColor;
+        StartCoroutine(destinationflashroutine());
     }
     
 
@@ -167,6 +195,7 @@ public class MapNode : MonoBehaviour
     {
         //go between white and grey
         sr.color = Color.white;
+        StartCoroutine(destinationflashroutine());
     }
     public void goDark()
     {

@@ -87,9 +87,6 @@ public class FactionManager : MonoBehaviour
         }
         return 0;
     }
-
-    
-
 }
 public enum faction
 {
