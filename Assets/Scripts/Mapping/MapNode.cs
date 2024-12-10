@@ -21,7 +21,7 @@ public class MapNode : MonoBehaviour
     private Image _nodeIconRenderer;
     [SerializeField]
     private Image sr;
-    
+    BoxCollider2D _boxCollider;
 
     //we can probably store these somewhere else to not clutter inspector
     [SerializeField]
@@ -83,6 +83,7 @@ public class MapNode : MonoBehaviour
         }
 
         sr = GetComponent<Image>();
+        _boxCollider = GetComponent<BoxCollider2D>();
         int rn = Random.Range(0,100);
 
         _nodeIconRenderer.gameObject.SetActive(true);
@@ -113,6 +114,14 @@ public class MapNode : MonoBehaviour
         if (!MapManager.PlayerInTransit)
         {
             checkIfChosen();
+        }
+
+        if (!playerCanChoose)
+        {
+            if (_boxCollider.isActiveAndEnabled)
+            {
+                _boxCollider.enabled = false;
+            }
         }
     }
 
@@ -160,8 +169,6 @@ public class MapNode : MonoBehaviour
     {
         Debug.Log(transform.name  + "Flashing ");
         StartCoroutine(destinationflashroutine());
-        //sr.color = Color.red;
-
     }
     //maybe change this to sine wave?
     private IEnumerator destinationflashroutine()
@@ -181,7 +188,6 @@ public class MapNode : MonoBehaviour
         timer = 0;
         while (timer < duration)
         {
-            Debug.Log(sr.color);
             sr.color = Color.Lerp(blinkColor, startColor, timer / duration);
             timer += Time.deltaTime;
             yield return null;
@@ -216,6 +222,11 @@ public class MapNode : MonoBehaviour
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
+            if (!_boxCollider.isActiveAndEnabled)
+            {
+                _boxCollider.enabled = true;
+                Debug.Log("Collider is not active enable now");
+            }
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero );
             if (hit.collider == null)
             {

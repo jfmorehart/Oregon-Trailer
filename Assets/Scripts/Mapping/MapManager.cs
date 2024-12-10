@@ -99,8 +99,14 @@ public class MapManager : MonoBehaviour
 
 
     }
-
+    
     private void HandleMovement()
+    {
+        StartCoroutine(handleMovementRoutine());
+    }
+
+        //this is the previous handlemovement script, as some aspect of it was just off
+    private void HandleMovementDeprecated()
     {
 
         Debug.Log("D1");
@@ -139,6 +145,51 @@ public class MapManager : MonoBehaviour
         Debug.Log("D8");
         //we allow the destination choice if the activity has been done
         //allowDestinationChoice();
+    }
+    //literally only private because there seems to be a delay when calling things,
+    //as before, D7 would be called, the D8, then D1, then D2
+    private IEnumerator handleMovementRoutine()
+    {
+        Debug.Log("D1");
+        //make the previous node stop blinking, 
+        playersCurrentNode.goDark();
+        Debug.Log("D2");
+        //change the color of the current node
+        playerDestinationNode.goBright();
+        Debug.Log("D3");
+
+        //this is here because the above nodes are replaced before it can communicate
+        yield return new WaitForSeconds(0.2f);
+        //remove fuel
+        fuel--;
+
+        moneyText.text = instance.money.ToString();
+        FuelText.text = instance.fuel.ToString();
+        yield return new WaitForEndOfFrame();
+
+        Debug.Log("D4");
+        //handle the nodeswitch
+        playersCurrentNode = instance.playerDestinationNode;
+        playerDestinationNode = null;
+        Debug.Log("D5");
+        yield return new WaitForEndOfFrame();
+
+        //set the player's position to the new node
+        mapPlayer.instance.setPosition(instance.playersCurrentNode);
+
+        Debug.Log("D6");
+        yield return new WaitForEndOfFrame();
+
+        mapUI.instance.instantPopUp();
+        playersCurrentNode.LocationReached();
+        Debug.Log("D7");
+
+        nextNodeBlink();
+
+        //we dont show this screen until the map node event is done
+        ChunkManager.instance.DestroyLevel();
+        Debug.Log("D8");
+
     }
 
     private void nextNodeBlink()

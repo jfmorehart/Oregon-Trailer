@@ -16,6 +16,9 @@ public class DinerManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI stats;
     [SerializeField]
+    TextMeshProUGUI insideStats;
+
+    [SerializeField]
     TextMeshProUGUI titleText;
     faction owningFaction;
     public static DinerManager instance;
@@ -37,7 +40,7 @@ public class DinerManager : MonoBehaviour
         DinerOutsideScreen.SetActive(true);
         owningFaction = faction.Neutral;
         updateStatsButton();
-        titleText.text = " faction owner: " + owningFaction.ToString();
+        titleText.text = "'s Diner" + owningFaction.ToString();
     }
     public void displayDiner(faction f)
     {
@@ -103,6 +106,7 @@ public class DinerManager : MonoBehaviour
     void updateStatsButton()
     {
         stats.text = "Stats:\n\tMoney: " + MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel;
+        insideStats.text = "Stats:\n\tMoney: " + MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel;
     }
 
     // Update is called once per frame
