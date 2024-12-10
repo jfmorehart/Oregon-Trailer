@@ -214,14 +214,27 @@ public class MapManager : MonoBehaviour
         instance.forbidDestinationChoice();
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);
 
-        //turn the other nodes dark again
-        for (int i = 0; i < instance.playersCurrentNode.Roads.Length; i++)
+        instance.StartCoroutine(instance.PlayerTraveling(destNode));
+    }
+
+    //should generalize this by taking in a certain action
+    private IEnumerator PlayerTraveling(MapNode destNode)
+    {
+        float duration = 1f;
+        fadeToBlackBG.gameObject.SetActive(true);
+        Color transparent = new Color(0, 0, 0, 0);
+        Color full = new Color(0, 0, 0, 1);
+        float time = 0;
+        fadeToBlackBG.color = transparent;
+        while (time < duration)
         {
-            if (instance.playersCurrentNode.Roads[i].Destination!= destNode)
-            {
-                instance.playersCurrentNode.Roads[i].Destination.goDark();
-            }
+            fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
+            time += Time.deltaTime;
+            yield return null;
         }
+
+        fadeToBlackBG.color = new Color(0, 0, 0, 1);
+
 
         //player should be travelling now
         ChunkManager.instance.GenerateLevel();
@@ -229,6 +242,29 @@ public class MapManager : MonoBehaviour
         //lower the map
         mapUI.instance.instantPullDown();
         mapUI.instance.ShouldBeInteractedWith = true;
+
+
+        yield return new WaitForSeconds(0.5f);
+        time = 0;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(full, transparent, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.gameObject.SetActive(false);
+        yield return new WaitForEndOfFrame();
+
+        //turn the other nodes dark again
+        for (int i = 0; i < instance.playersCurrentNode.Roads.Length; i++)
+        {
+            if (instance.playersCurrentNode.Roads[i].Destination != destNode)
+            {
+                instance.playersCurrentNode.Roads[i].Destination.goDark();
+            }
+        }
+
     }
 
     public static void allowDestinationChoice()

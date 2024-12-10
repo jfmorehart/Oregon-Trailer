@@ -40,7 +40,7 @@ public class DinerManager : MonoBehaviour
         DinerOutsideScreen.SetActive(true);
         owningFaction = faction.Neutral;
         updateStatsButton();
-        titleText.text = "'s Diner" + owningFaction.ToString();
+        titleText.text = owningFaction.ToString()+"'s Diner";
     }
     public void displayDiner(faction f)
     {
