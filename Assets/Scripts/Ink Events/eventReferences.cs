@@ -45,27 +45,27 @@ public class eventReferences : MonoBehaviour
                 break;
             case 3:
                 //remove 10 fuel
-                GameManager.addResource(1, -10);
+                MapManager.instance.addResource(1, -10);
                 break;
             case 4:
                 //remove 10 rations
-                GameManager.addResource(2, -10);
+                MapManager.instance.addResource(2, -10);
                 break;
             case 5:
                 //add 10 fuel
-                GameManager.addResource(1, 10);
+                MapManager.instance.addResource(1, 10);
                 break;
             case 6:
                 //add 10 rations
-                GameManager.addResource(2, 10);
+                MapManager.instance.addResource(2, 10);
                 break;
             case 7:
                 //add 10000 money
-                GameManager.addResource(3, 10000);
+                MapManager.instance.addResource(3, 10000);
                 break;
             case 8:
                 //lose 900 money
-                GameManager.addResource(3, -900);
+                MapManager.instance.addResource(3, -900);
                 break;
             case 9:
                 testInkVariables.instance.UpdateChoice();
@@ -78,16 +78,20 @@ public class eventReferences : MonoBehaviour
                 centralEventHandler.instance.displayNotebookImage(notebooksprites[1]);
                 break;
             case 12:
-                GameManager.addResource(3, -5);
+                //lose 5 currency
+                MapManager.instance.addResource(3, -5);
                 break;
             case 13:
-                GameManager.addResource(3, -15);
+                //lose 10 currency
+                MapManager.instance.addResource(3, -10);
                 break;
             case 14:
-                GameManager.addResource(3, 10);
+                //add 10 currency
+                MapManager.instance.addResource(3, 10);
                 break;
             case 15:
-                GameManager.addResource(3, 15);
+                //add 5 currency
+                MapManager.instance.addResource(3, 5);
                 break;
             default:
                 Debug.Log("EVENT DEFAULTED");
@@ -99,51 +103,6 @@ public class eventReferences : MonoBehaviour
     {
         Debug.Log("Adding something");
         StartCoroutine(eventDesRoutine(ID));
-        /*
-        switch (ID)
-        {
-            case 0:
-                testEvent();
-                break;
-            case 1:
-                testEvent2();
-                break;
-            case 2:
-                //enter jack's fight scene
-                SaveManager.instance.simpleSave();
-                CombatantsStatic.LoadCombat(null);
-                break;
-            case 3:
-                //remove 10 fuel
-                GameManager.addResource(1, -10);
-                break;
-            case 4:
-                //remove 10 rations
-                GameManager.addResource(2, -10);
-                break;
-            case 5:
-                //add 10 fuel
-                GameManager.addResource(1, 10);
-                break;
-            case 6:
-                //add 10 rations
-                GameManager.addResource(2, 10);
-                break;
-            case 7:
-                //add 10000 money
-                GameManager.addResource(3, 10000);
-                break;
-            case 8:
-                //lose 900 money
-                GameManager.addResource(3, -900);
-                break;
-            case 9:
-                testInkVariables.instance.UpdateChoice();
-                break;
-            default:
-                Debug.Log("EVENT DEFAULTED");
-                break;
-        }*/
     }
 
 
