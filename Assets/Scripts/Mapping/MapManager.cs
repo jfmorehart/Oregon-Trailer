@@ -57,7 +57,7 @@ public class MapManager : MonoBehaviour
         //start player off at location
         //play starting cutscene if there is one
         mapPlayer.instance.setPosition(playersCurrentNode);
-
+        playersCurrentNode.goBright();
         //for now do the activity or let the player choose where to go
         //playersCurrentNode.LocationReached();
 
@@ -99,8 +99,14 @@ public class MapManager : MonoBehaviour
 
 
     }
-
+    
     private void HandleMovement()
+    {
+        StartCoroutine(handleMovementRoutine());
+    }
+
+        //this is the previous handlemovement script, as some aspect of it was just off
+    private void HandleMovementDeprecated()
     {
 
         Debug.Log("D1");
@@ -140,6 +146,51 @@ public class MapManager : MonoBehaviour
         //we allow the destination choice if the activity has been done
         //allowDestinationChoice();
     }
+    //literally only private because there seems to be a delay when calling things,
+    //as before, D7 would be called, the D8, then D1, then D2
+    private IEnumerator handleMovementRoutine()
+    {
+        Debug.Log("D1");
+        //make the previous node stop blinking, 
+        playersCurrentNode.goDark();
+        Debug.Log("D2");
+        //change the color of the current node
+        playerDestinationNode.goBright();
+        Debug.Log("D3");
+
+        //this is here because the above nodes are replaced before it can communicate
+        yield return new WaitForSeconds(0.2f);
+        //remove fuel
+        fuel--;
+
+        moneyText.text = instance.money.ToString();
+        FuelText.text = instance.fuel.ToString();
+        yield return new WaitForEndOfFrame();
+
+        Debug.Log("D4");
+        //handle the nodeswitch
+        playersCurrentNode = instance.playerDestinationNode;
+        playerDestinationNode = null;
+        Debug.Log("D5");
+        yield return new WaitForEndOfFrame();
+
+        //set the player's position to the new node
+        mapPlayer.instance.setPosition(instance.playersCurrentNode);
+
+        Debug.Log("D6");
+        yield return new WaitForEndOfFrame();
+
+        mapUI.instance.instantPopUp();
+        playersCurrentNode.LocationReached();
+        Debug.Log("D7");
+
+        nextNodeBlink();
+
+        //we dont show this screen until the map node event is done
+        ChunkManager.instance.DestroyLevel();
+        Debug.Log("D8");
+
+    }
 
     private void nextNodeBlink()
     {
@@ -163,14 +214,27 @@ public class MapManager : MonoBehaviour
         instance.forbidDestinationChoice();
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);
 
-        //turn the other nodes dark again
-        for (int i = 0; i < instance.playersCurrentNode.Roads.Length; i++)
+        instance.StartCoroutine(instance.PlayerTraveling(destNode));
+    }
+
+    //should generalize this by taking in a certain action
+    private IEnumerator PlayerTraveling(MapNode destNode)
+    {
+        float duration = 1f;
+        fadeToBlackBG.gameObject.SetActive(true);
+        Color transparent = new Color(0, 0, 0, 0);
+        Color full = new Color(0, 0, 0, 1);
+        float time = 0;
+        fadeToBlackBG.color = transparent;
+        while (time < duration)
         {
-            if (instance.playersCurrentNode.Roads[i].Destination!= destNode)
-            {
-                instance.playersCurrentNode.Roads[i].Destination.goDark();
-            }
+            fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
+            time += Time.deltaTime;
+            yield return null;
         }
+
+        fadeToBlackBG.color = new Color(0, 0, 0, 1);
+
 
         //player should be travelling now
         ChunkManager.instance.GenerateLevel();
@@ -178,6 +242,29 @@ public class MapManager : MonoBehaviour
         //lower the map
         mapUI.instance.instantPullDown();
         mapUI.instance.ShouldBeInteractedWith = true;
+
+
+        yield return new WaitForSeconds(0.5f);
+        time = 0;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(full, transparent, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.gameObject.SetActive(false);
+        yield return new WaitForEndOfFrame();
+
+        //turn the other nodes dark again
+        for (int i = 0; i < instance.playersCurrentNode.Roads.Length; i++)
+        {
+            if (instance.playersCurrentNode.Roads[i].Destination != destNode)
+            {
+                instance.playersCurrentNode.Roads[i].Destination.goDark();
+            }
+        }
+
     }
 
     public static void allowDestinationChoice()
@@ -336,5 +423,43 @@ public class MapManager : MonoBehaviour
         //PlayerChanges();
     }
 
+    public void setResource(int resourceID, int amount)
+    {
+        switch (resourceID)
+        {
+            case 1://fuel
+                fuel = amount;
+                break;
+            case 2://food
+                food = amount;
+                break;
+            case 3://money
+                money = amount;
+                break;
+            case 4:
+            default:
+                Debug.Log("Resource ID not recognized");
+                break;
+        }
+    }
 
+    public void addResource(int resourceID, int amount)
+    {
+        switch (resourceID)
+        {
+            case 1://fuel
+                fuel += amount;
+                break;
+            case 2://food
+                food += amount;
+                break;
+            case 3://money
+                money += amount;
+                break;
+            case 4:
+            default:
+                Debug.Log("Resource ID not recognized");
+                break;
+        }
+    }
 }
