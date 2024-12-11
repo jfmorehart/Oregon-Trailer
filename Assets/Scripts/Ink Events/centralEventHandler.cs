@@ -253,11 +253,13 @@ public class centralEventHandler : MonoBehaviour
         }
         
     }
+
+    //this is not working for right now
     private void passInFactionRelationships()
     {
-        callInkFunction("setFratRelationship", FactionManager.instance.getRelationship(faction.Frat));
         callInkFunction("setRebelsRelationship", FactionManager.instance.getRelationship(faction.Rebels));
         callInkFunction("setNeutralsRelationship", FactionManager.instance.getRelationship(faction.Neutral));
+        callInkFunction("setFratRelationship", 0);//FactionManager.instance.getRelationship(faction.Frat));
 
     }
     private void passInCharacterStats()
@@ -424,7 +426,7 @@ public class centralEventHandler : MonoBehaviour
         currentStory.BindExternalFunction("changeRelationship", (int ID, int amnt) => { FactionManager.instance.changeRelationship(ID, amnt); });
             
         instance.passInCharacterStats();
-        instance.passInFactionRelationships();
+        //instance.passInFactionRelationships();
 
         dialogueVariables.StartListening(currentStory);
         continueStory();

@@ -37,6 +37,9 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private Image fadeToBlackBG;
 
+    //whether we are finished loading the level ( this makes the exit not get touched twice)
+    bool levelEnding = false;
+
     private void Awake()
     {
         
@@ -56,7 +59,7 @@ public class MapManager : MonoBehaviour
     {
         //start player off at location
         //play starting cutscene if there is one
-        mapPlayer.instance.setPosition(playersCurrentNode);
+        mapPlayer.instance.setPositionStrict(playersCurrentNode);
         playersCurrentNode.goBright();
         //for now do the activity or let the player choose where to go
         //playersCurrentNode.LocationReached();
@@ -102,7 +105,8 @@ public class MapManager : MonoBehaviour
     
     private void HandleMovement()
     {
-        StartCoroutine(handleMovementRoutine());
+        if(!levelEnding)
+            StartCoroutine(handleMovementRoutine());
     }
 
         //this is the previous handlemovement script, as some aspect of it was just off
@@ -148,8 +152,10 @@ public class MapManager : MonoBehaviour
     }
     //literally only private because there seems to be a delay when calling things,
     //as before, D7 would be called, the D8, then D1, then D2
+    
     private IEnumerator handleMovementRoutine()
     {
+        levelEnding = true;
         Debug.Log("D1");
         //make the previous node stop blinking, 
         playersCurrentNode.goDark();
@@ -190,10 +196,14 @@ public class MapManager : MonoBehaviour
         ChunkManager.instance.DestroyLevel();
         Debug.Log("D8");
 
+        //make this false when the level is already destroyed now so it doesnt get called twice
+        levelEnding = false;
+
     }
 
     private void nextNodeBlink()
     {
+        
         //cause the next nodes to blink
         if (!playersCurrentNode.EndingRoad)
         {

@@ -15,8 +15,11 @@ public class MapNode : MonoBehaviour
 
     [SerializeField]
     private Transform _vanPosition;
-    [SerializeField]
+    
     public Transform VanPosition => _vanPosition;
+    //difference between this position and the other 
+    public float vanPositionDifference { get { return VanPosition.position.y - transform.position.y; } }
+
     [SerializeField]
     private Image _nodeIconRenderer;
     [SerializeField]

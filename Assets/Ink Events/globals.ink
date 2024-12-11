@@ -35,26 +35,26 @@ VAR has_keycard = false
 == function setSamInParty(value)==
 ~ has_Sam = value
 
-== function setCharisma(value)
+== function setCharisma(value)==
 ~ player_constitution = value
 
-== function setWisdom(value)
+== function setWisdom(value)==
 ~ player_wisdom = value
 
-== function setConstitution(value)
+== function setConstitution(value)==
 ~ player_constitution = value
 
-== function setMoxie(value)
+== function setMoxie(value)==
 ~ player_moxie = value
 
-== function setGumption(value)
+== function setGumption(value)==
 ~ player_gumption = value
 
-== function setFratRelationship(value)
+== function setFratRelationship(value)==
 ~ frat_relationship = value
 
-== function setRebelsRelationship(value)
+== function setRebelsRelationship(value)==
 ~ rebels_relationship = value
 
-== function setNeutralsRelationship(value)
+== function setNeutralsRelationship(value)==
 ~ neutrals_relationship = value
