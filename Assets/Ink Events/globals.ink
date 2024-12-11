@@ -24,6 +24,10 @@ VAR rebels_relationship = 0
 VAR testValue = 0
 
 VAR has_keycard = false
+VAR has_grenade = false
+
+== function setGrenade(value) ==
+~ has_grenade = value
 
 == function setTestValue(value)==
 ~ testValue = value
