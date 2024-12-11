@@ -48,7 +48,9 @@ public class centralEventHandler : MonoBehaviour
     private DialogueVariables dialogueVariables;
     [SerializeField]
     TextMeshProUGUI displayName;
-    [SerializeField]
+
+    public GameObject displayNameBackground; //the background image of the display text
+    
     private float typingSpeed = 0.04f;
 
     private Coroutine displayLineCoroutine;
@@ -387,6 +389,7 @@ public class centralEventHandler : MonoBehaviour
                     break;
                 case SPEAKER_TAG:
                     displayName.text = splitTag[1];
+                    displayNameBackground.GetComponent<Image>().color = new Color(1, 1, 1, 1f); //open up the background
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + actionType + " -- "+ tag);
@@ -401,6 +404,7 @@ public class centralEventHandler : MonoBehaviour
 		//setting the currentStory is necessary whenever starting a new dialogue event.
 		Debug.Log("notebook event = " + notebookEvent);
         displayName.text = "";
+        displayNameBackground.GetComponent<Image>().color = new Color(1, 1, 1, 0f); //open up the background
 		if (notebookEvent == false)
         {
             shouldShowNotebook = false;
@@ -681,6 +685,7 @@ public class centralEventHandler : MonoBehaviour
         notebookDescriptionText.text = "";
         DescriptionText.text = "";
         displayName.text = "";
+        displayNameBackground.GetComponent<Image>().color = new Color(1, 1, 1, 0f); //open up the background
         dialogueVariables.StopListening(currentStory);
         //remove text and listeners from each button
         for (int i = 0; i < buttonObjects.Count; i++)
