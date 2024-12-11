@@ -24,10 +24,13 @@ VAR rebels_relationship = 0
 VAR testValue = 0
 
 VAR has_keycard = false
+VAR has_grenade = false
 
 == function setTestValue(value)==
 ~ testValue = value
 
+== function setGrenade(value) ==
+~ has_grenade = value
 
 == function setGatorHeadInParty(value)==
 ~ has_GatorHead = value

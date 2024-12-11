@@ -19,23 +19,47 @@ SADsOP men are kind of scary when you're not mentally prepared for it. It's best
 == approach ==
 You slow the van down next to them. Stuck in their little spat, they don't notice you.
 
+#enter fratbro1 fastappearleft ml
+#spr fratbro1 fratbro1
 <color=\#BE3D3D>Why are we playing with this stupid ball, bro? This is <b>so</b> boring...</color>
+#enter fratbro2 fastappearright mr
 <color=\#C6713F>Bros, bros, it's not even SADURDAY, like... we can try new stuff... this is all we have-</color>
 <color=\#7C1313>But the grenade <i>falls</i> better. It <i>fits</i> better in our hands, dude! It doesn't... float away!</color>
 <color=\#BE3D3D>Yea... how can we play Hot Grenade without a grenade?</color>
 
 ... They use a grenade for a ball?
 
-/*if you have the grenade, you get this line:
+{
+    - has_grenade == true:
+    -> toldya
+    - else:
+    -> caught
+
+}
+    
+== toldya ==
 The grenade under the log, the "Grenade Football" flyer... it's all coming together.
 <color=\#3d7524>Told ya. Plus... only the SADsOP weirdos would use a grenade for a ball.</color>*/
+-> caught
 
+== caught ==
 <color=\#BE3D3D>Yo, what are you staring at us for?</color>
 <color=\#7C1313>Yea! Are you laughin' at us?</color>
 
 //if you have the grenade, you get the below choice, but for now ill just provide it
+{ 
+    - has_grenade == true :
+    -> choices
+    - else:
+    -> choice
+}
+
+== choices ==
 * [ Give Grenade ] -> give
 * [ Drive Off ] -> drive
+
+== choice ==
+* [ Escape ] -> drive
 
 == drive ==
 You've been spotted eavesdropping. You have nothing to offer, so you hit the gas.

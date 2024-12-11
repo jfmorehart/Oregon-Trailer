@@ -50,15 +50,21 @@ It's pinned. On its side, there's a worn-out label, with the name scratched out.
 * [ Leave It ] -> escape
 
 == take ==
+~ setGrenade(true)
 <b>[ Item Acquired: ... Grenade? ]</b>
 #spr gatorhead gatorhead
 #exit gatorhead exitleft
 Gatorhead nods and holds the grenade. You need to find a place to put this in. You're thinking about it as you head back.
 
--> END
+-> conclusion
 
 == escape ==
 #exit gatorhead exitleft
-Yeah, no. Who knows who left this here. Could be a SADsOP guy... because how would a grenade find its way inside a leftover log?
+Yeah, no. Who knows who left this here. 
+
+-> conclusion
+
+== conclusion ==
+Could be a SADsOP guy that did this... because how would a grenade find its way inside a leftover log?
 
 -> END
