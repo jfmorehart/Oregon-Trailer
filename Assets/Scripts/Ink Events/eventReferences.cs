@@ -78,16 +78,20 @@ public class eventReferences : MonoBehaviour
                 centralEventHandler.instance.displayNotebookImage(notebooksprites[1]);
                 break;
             case 12:
+                //lose 5 currency
                 MapManager.instance.addResource(3, -5);
                 break;
             case 13:
-                MapManager.instance.addResource(3, -15);
+                //lose 10 currency
+                MapManager.instance.addResource(3, -10);
                 break;
             case 14:
+                //add 10 currency
                 MapManager.instance.addResource(3, 10);
                 break;
             case 15:
-                MapManager.instance.addResource(3, 15);
+                //add 5 currency
+                MapManager.instance.addResource(3, 5);
                 break;
             default:
                 Debug.Log("EVENT DEFAULTED");
