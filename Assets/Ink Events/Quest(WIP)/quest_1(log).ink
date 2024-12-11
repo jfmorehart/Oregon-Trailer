@@ -10,7 +10,7 @@ Trees aren't very common on this part of the journey, and especially not lone <i
 #enter gatorhead fastappearleft ml
 #spr gatorhead gatorhead
 #speaker gatorhead
-<color=\#3d7524>Want me to lift it? Maybe there's shinies underneath.</color>
+<color=\#3d7524>Want me to lift it? Maybe there's shiny stuff underneath.</color>
 
 * [ Let Him ] -> helifts
 * [ Lift It Yourself (Fitness > 4) ] -> youlift
@@ -25,7 +25,7 @@ Trees aren't very common on this part of the journey, and especially not lone <i
 
 == helifts ==
 #emote gatorhead pop
-<b>Gatorhead</b>: WOOHOO! I SEE SOMETHING SHINY-
+<b>Gatorhead</b>: WOOHOO! I WAS RIGHT, LOOK-
 
 -> discovery
 
@@ -37,7 +37,7 @@ Trees aren't very common on this part of the journey, and especially not lone <i
 
 == discovery ==
 #spr gatorhead gatorhead
-But there are no "shinies." What slowly rolls out of the log as it shifts to one side is-
+But there are no "shiny stuff," at least not what Gatorhead wants. What slowly rolls out of the log as it shifts to one side is-
 
 #spr gatorhead gatorhead_qmark
 <color=\#3d7524>... What's a grenade doing here?</color>
@@ -50,6 +50,7 @@ It's pinned. On its side, there's a worn-out label, with the name scratched out.
 * [ Leave It ] -> escape
 
 == take ==
+
 <b>[ Item Acquired: ... Grenade? ]</b>
 #spr gatorhead gatorhead
 #exit gatorhead exitleft

@@ -28,7 +28,6 @@ VAR has_keycard = false
 == function setTestValue(value)==
 ~ testValue = value
 
-
 == function setGatorHeadInParty(value)==
 ~ has_GatorHead = value
 
