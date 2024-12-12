@@ -25,7 +25,8 @@ Trees aren't very common on this part of the journey, and especially not lone <i
 
 == helifts ==
 #emote gatorhead pop
-<b>Gatorhead</b>: WOOHOO! I SEE SOMETHING SHINY-
+#speaker gatorhead
+<color=\#3d7524>WOOHOO! I SEE SOMETHING SHINY-
 
 -> discovery
 
@@ -70,7 +71,7 @@ Could be a SADsOP guy that did this... because how would a grenade find its way 
 #enter leslie appearright mr
 #spr leslie leslie
 <color=\#2673B6>Big man, give the grenade to me, you're holding it like a hot potato.</color>
-#enter gatorhead appearleft ml
+//#enter gatorhead appearleft ml
 #spr gatorhead gatorhead_qmark
 <color=\#3d7524>Ain't it one?</color>
 #exit gatorhead exitleft
