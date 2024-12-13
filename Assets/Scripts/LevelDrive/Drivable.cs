@@ -12,6 +12,12 @@ public class Drivable : MonoBehaviour
 	public Rigidbody2D _rb;
 
 	bool boostActive;
+
+	public bool boostActiveReference
+	{
+		get{return boostActive;}
+	}
+
 	public float boostStr, boostLength, boostCooldown;
 	float lastBoostTime, boostRemaining;
 
