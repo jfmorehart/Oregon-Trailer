@@ -408,7 +408,7 @@ public class centralEventHandler : MonoBehaviour
 		//setting the currentStory is necessary whenever starting a new dialogue event.
 		Debug.Log("notebook event = " + notebookEvent);
         displayName.text = "";
-        displayNameBackground.GetComponent<Image>().color = new Color(204, 80, 117, 0f); //open up the background
+        displayNameBackground.GetComponent<Image>().color = new Color((float)204 / 255, (float)80 / 255, (float)117 / 255, 0f); //open up the background
 		if (notebookEvent == false)
         {
             shouldShowNotebook = false;
@@ -691,7 +691,7 @@ public class centralEventHandler : MonoBehaviour
         notebookDescriptionText.text = "";
         DescriptionText.text = "";
         displayName.text = "";
-        displayNameBackground.GetComponent<Image>().color = new Color(204, 80, 117, 0f); //open up the background
+        displayNameBackground.GetComponent<Image>().color = new Color((float)204 / 255, (float)80 / 255, (float) 117 / 255, 0f); //open up the background
         dialogueVariables.StopListening(currentStory);
         //remove text and listeners from each button
         for (int i = 0; i < buttonObjects.Count; i++)
