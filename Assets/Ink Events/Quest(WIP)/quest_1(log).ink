@@ -70,11 +70,13 @@ Could be a SADsOP guy that did this... because how would a grenade find its way 
 
 #enter leslie appearright mr
 #spr leslie leslie
+#speaker leslie
 <color=\#2673B6>Big man, give the grenade to me, you're holding it like a hot potato.</color>
 //#enter gatorhead appearleft ml
 #spr gatorhead gatorhead_qmark
+#speaker gatorhead
 <color=\#3d7524>Ain't it one?</color>
 #exit gatorhead exitleft
 #exit leslie exitright
 
--> END
+-> END 
