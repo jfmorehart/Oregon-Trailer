@@ -15,13 +15,16 @@ public class MapNode : MonoBehaviour
 
     [SerializeField]
     private Transform _vanPosition;
-    [SerializeField]
+    
     public Transform VanPosition => _vanPosition;
+    //difference between this position and the other 
+    public float vanPositionDifference { get { return VanPosition.position.y - transform.position.y; } }
+
     [SerializeField]
     private Image _nodeIconRenderer;
     [SerializeField]
     private Image sr;
-    
+    BoxCollider2D _boxCollider;
 
     //we can probably store these somewhere else to not clutter inspector
     [SerializeField]
@@ -49,14 +52,7 @@ public class MapNode : MonoBehaviour
         Diner,
         Hunt,
     }
-    public enum faction
-    {
-        Neutral, 
-        Frat,
-        Rebels,
-        Gamblers,
-        SunCult
-    }
+
 
     //connections to the next nodes
     public RoadPath[] Roads;
@@ -90,6 +86,7 @@ public class MapNode : MonoBehaviour
         }
 
         sr = GetComponent<Image>();
+        _boxCollider = GetComponent<BoxCollider2D>();
         int rn = Random.Range(0,100);
 
         _nodeIconRenderer.gameObject.SetActive(true);
@@ -120,6 +117,14 @@ public class MapNode : MonoBehaviour
         if (!MapManager.PlayerInTransit)
         {
             checkIfChosen();
+        }
+
+        if (!playerCanChoose)
+        {
+            if (_boxCollider.isActiveAndEnabled)
+            {
+                _boxCollider.enabled = false;
+            }
         }
     }
 
@@ -166,7 +171,32 @@ public class MapNode : MonoBehaviour
     public void destinationFlash()
     {
         Debug.Log(transform.name  + "Flashing ");
-        sr.color = Color.red;
+        StartCoroutine(destinationflashroutine());
+    }
+    //maybe change this to sine wave?
+    private IEnumerator destinationflashroutine()
+    {
+        Color startColor = Color.white;
+        Color blinkColor = new Color((float)222 / 255, (float)209 / 255, (float)209 / 255); 
+        float timer = 0;
+        float duration = 1.5f;
+        sr.color = startColor;
+        while (timer < duration)
+        {
+            sr.color = Color.Lerp(startColor, blinkColor, timer/duration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        sr.color = blinkColor;
+        timer = 0;
+        while (timer < duration)
+        {
+            sr.color = Color.Lerp(blinkColor, startColor, timer / duration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        sr.color = startColor;
+        StartCoroutine(destinationflashroutine());
     }
     
 
@@ -174,6 +204,7 @@ public class MapNode : MonoBehaviour
     {
         //go between white and grey
         sr.color = Color.white;
+        StartCoroutine(destinationflashroutine());
     }
     public void goDark()
     {
@@ -194,6 +225,11 @@ public class MapNode : MonoBehaviour
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
+            if (!_boxCollider.isActiveAndEnabled)
+            {
+                _boxCollider.enabled = true;
+                Debug.Log("Collider is not active enable now");
+            }
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero );
             if (hit.collider == null)
             {

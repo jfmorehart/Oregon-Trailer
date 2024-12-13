@@ -6,7 +6,7 @@ INCLUDE ../globals.ink
 == drunk ==
 There's some guy sitting by the edge of the highway, arms crossed to his chest. There's a couple cans of beer laying beside him. They're seemingly empty. He however, seems to be unconscious.
 
-<b>Drunk</b>: ZZZZZZZZZ
+<color=\#520A0A>ZZZZZZZZZ</color>
 
 * [ Approach ] -> approach
 * [ Keep Driving ] -> leave
@@ -17,25 +17,32 @@ There's some guy sitting by the edge of the highway, arms crossed to his chest. 
 == approach ==
 Small crop top, big pants, accessories that you'd only see on a gun-toting frat boy...
 
+#enter gatorhead appearleft ml
+#spr gatorhead gatorhead
 <color=\#3d7524>SADsOP.</color>
 
-<b>Drunk</b>: <i>ZZZZZZZZZZZZZ</i> (He seems to be snoring louder?)
+<color=\#520A0A><i>ZZZZZZZZZZZZZ</i> (He seems to be snoring louder?)</color>
 
 He shuffles in his sleep, knocking one of the cans over. You can see the edge of a laminated, minuscule stamp peek out from the can's top.
 
 <color=\#3d7524>... Steal 'em.</color>
 
-<b>Drunk</b>: <i>ZZZZZZZZZZZZZZZZZZZ</i>
+<color=\#520A0A><i>ZZZZZZZZZZZZZZZZZZZ</i></color>
 
+#state gatorhead flip
+#state gatorhead flip
 <color=\#3d7524>The guy <i>is</i> asleep, anyway.</color>
 
-* [ Steal Stamps (++ Gatorhead) ] -> steal
-* [ Wake Up ] -> wake
+* [ Steal Stamps ] -> steal
+* [ Try to Wake Up ] -> wake
 * [ Leave ] -> nosteal
 
 == steal ==
+~causeEvent(15)
 <b>[ Resource Gained: +5 Currency ]</b>
 
+#spr gatorhead gatorhead_laugh
+#state gatorhead bounce
 <color=\#3d7524><i>Score. Hel-</i></color>
 
 Shuffling back in your original position, you almost knock a beer can over yourself. The man shuffles in his sleep, turning to his side. 
@@ -50,18 +57,28 @@ Under him, you notice a slip of paper. One of its corners is caught on his backs
 == wake ==
 The drunk man takes a while to wake up, waving a hand in front of their face as if you're a fly.
 
-<b>Drunk</b>: Ughhhghhghgh... just leave.... alone.... too warm....
+<color=\#520A0A>Ughhhghhghgh... just leave.... alone....</color>
 
-* [ Steal Stamps (++ Gatorhead) ] -> steal
+<color=\#3d7524>What are you doing, man...</color>
+
+* [ Steal Stamps ] -> steal
 * [ Leave ] -> escape
 
 == take ==
 You carefully try to take the piece of paper away from the sleeping drunk. It is a flyer for a "Grenade Football," held at "Dalton's" every "SAD-DUR-DAY."
 "BRING YOU'RE OWN GRENADE OR U CANT JOIN!!!"
 
-//if you have the grenade, you get this line:
-//<color=\#3d7524>Oh shit. That grenade we got earlier? Place your bet, I think it's connected.</color>
+{ 
+    - has_grenade == true:
+    -> extraline
+    - has_grenade == false:
+    -> continuous
+}
+== extraline ==
+<color=\#3d7524>Oh shit! That grenade we got earlier? Place your bets, <i>I</i> think it's the same guys.</color>
+-> continuous
 
+== continuous ==
 However, you can't read for much longer, as you see the stranger is about to wake up - and he does, startled.
 
 <b>Drunk</b>: Ugh... huh.... hey. <i>HEY!</i>

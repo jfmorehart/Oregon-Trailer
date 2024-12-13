@@ -7,6 +7,7 @@ public class MouseDriving : Drivable
 {
 	public static Transform vanTransform;
     Vector2 mousePos;
+	bool levelFinished = false;
 
 	//ill replace these with a base class or interface or smth
 	public VanGun TankGun;
@@ -29,6 +30,10 @@ public class MouseDriving : Drivable
         {
 			ActivateUpgrade(UpgradeManager.instance.e_upgrade);
         }
+		if (Input.GetKeyDown(KeyCode.L))
+		{
+			transform.position = new Vector2(ChunkManager.instance.transform.Find("goal(Clone)").position.x, ChunkManager.instance.transform.Find("goal(Clone)").position.y + 4);
+		}
     }
 	void ActivateUpgrade(Upgrade up)
 	{
@@ -75,10 +80,11 @@ public class MouseDriving : Drivable
 	{
 		base.OnCollisionEnter2D(collision);
 		//Debug.Log(collision.collider.tag);
-		if (collision.collider.CompareTag("Finish")) {
+		if (collision.collider.CompareTag("Finish") && !levelFinished) {
 			if (MapManager.instance != null) {
 				Debug.Log("finished scene");
 				MapManager.playerArrived();
+				levelFinished = true;
 			}
 			else {
 				Debug.LogError("no mapmanger instance, cannot unload level");

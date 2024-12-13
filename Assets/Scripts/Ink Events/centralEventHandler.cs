@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using DG.Tweening;
 using System;
+using System.Diagnostics.Tracing;
 
 public class centralEventHandler : MonoBehaviour
 {
@@ -48,7 +49,9 @@ public class centralEventHandler : MonoBehaviour
     private DialogueVariables dialogueVariables;
     [SerializeField]
     TextMeshProUGUI displayName;
-    [SerializeField]
+
+    public GameObject displayNameBackground; //the background image of the display text
+    
     private float typingSpeed = 0.04f;
 
     private Coroutine displayLineCoroutine;
@@ -78,11 +81,11 @@ public class centralEventHandler : MonoBehaviour
 
     [Header("Stage")]
     [SerializeField]
-    List<SpriteRenderer> stageCharacters = new List<SpriteRenderer>();
+    List<Image> stageCharacters = new List<Image>();
     private const string BLANK_CHARACTER_NAME = "temp";//the name each character sprite renderer resets to 
     [SerializeField]
     Transform offStageLeft, stageLeft, stageMidLeft, stageMiddle, stageMidRight, stageRight, offStageRight;
-    Dictionary<SpriteRenderer, Transform> StageCharacterFinalDestination = new Dictionary<SpriteRenderer, Transform>();
+    Dictionary<Image, Transform> StageCharacterFinalDestination = new Dictionary<Image, Transform>();
     [SerializeField]
     Image eventBackground, fadetoblackBG;
 
@@ -108,6 +111,7 @@ public class centralEventHandler : MonoBehaviour
         }
 
         EventParent.transform.localPosition = new Vector3(0, -140, -200);//the clutter of the scene is driving me insane
+        eventBackground.transform.position = Vector3.zero;
 
         dialogueVariables = new DialogueVariables(loadGlobalsJSON);
         eventOverAction = null;
@@ -155,11 +159,11 @@ public class centralEventHandler : MonoBehaviour
         //clearScreen
         eventPlaying = false;
         EventParent.SetActive(false);
-
+        eventBackground.gameObject.SetActive(false);
         Debug.Log("EVentParent Start Sequence Finished");
 
         //add each to the dictionary
-        foreach (SpriteRenderer sr in stageCharacters)
+        foreach (Image sr in stageCharacters)
         {
             sr.transform.position = offStageLeft.position;
             StageCharacterFinalDestination.Add(sr, offStageLeft);
@@ -224,7 +228,9 @@ public class centralEventHandler : MonoBehaviour
         Debug.Log("Show background called");
         //instance.showbackground(null, inkJSON, false);
 
-        instance.eventBackground.sprite = bgSprite;
+        //eventBackground.gameObject.SetActive(false);
+        //we dont need to hcange the sprite for rn
+        //instance.eventBackground.sprite = bgSprite;
         instance.eventBackground.gameObject.SetActive(true);
 
         instance.startEvent(inkJSON, false);
@@ -254,6 +260,14 @@ public class centralEventHandler : MonoBehaviour
         
     }
 
+    //this is not working for right now
+    private void passInFactionRelationships()
+    {
+        callInkFunction("setRebelsRelationship", FactionManager.instance.getRelationship(faction.Rebels));
+        callInkFunction("setNeutralsRelationship", FactionManager.instance.getRelationship(faction.Neutral));
+        callInkFunction("setFratRelationship", 0);//FactionManager.instance.getRelationship(faction.Frat));
+
+    }
     private void passInCharacterStats()
     {
         //throw new NotImplementedException();
@@ -379,6 +393,7 @@ public class centralEventHandler : MonoBehaviour
                     break;
                 case SPEAKER_TAG:
                     displayName.text = splitTag[1];
+                    displayNameBackground.GetComponent<Image>().color = new Color(displayNameBackground.GetComponent<Image>().color.r, displayNameBackground.GetComponent<Image>().color.g, displayNameBackground.GetComponent<Image>().color.b, 1f); //open up the background
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + actionType + " -- "+ tag);
@@ -393,6 +408,7 @@ public class centralEventHandler : MonoBehaviour
 		//setting the currentStory is necessary whenever starting a new dialogue event.
 		Debug.Log("notebook event = " + notebookEvent);
         displayName.text = "";
+        displayNameBackground.GetComponent<Image>().color = new Color((float)204 / 255, (float)80 / 255, (float)117 / 255, 0f); //open up the background
 		if (notebookEvent == false)
         {
             shouldShowNotebook = false;
@@ -402,7 +418,9 @@ public class centralEventHandler : MonoBehaviour
             eventPlaying = true;
             EventParent.SetActive(true);
             //notebookParent.SetActive(true);
+            //currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => MapManager.instance.addResource(resourceID, amount));
             //currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => GameManager.addResource(resourceID, amount));
+
         }
         else
         {
@@ -411,9 +429,13 @@ public class centralEventHandler : MonoBehaviour
             notebookParent.SetActive(true);
             playingNotebookOnlyEvent = true;
         }
-
+        currentStory.BindExternalFunction("giveResource", (int resourceID, int amount) => MapManager.instance.addResource(resourceID, amount));
         currentStory.BindExternalFunction("causeEvent", (int eventID) => { eventReferences.instance.eventDesignator(eventID); });
+        currentStory.BindExternalFunction("changeRelationship", (int ID, int amnt) => { FactionManager.instance.changeRelationship(ID, amnt); });
+            
         instance.passInCharacterStats();
+        //instance.passInFactionRelationships();
+
         dialogueVariables.StartListening(currentStory);
         continueStory();
         if (GameManager.instance != null)
@@ -435,8 +457,6 @@ public class centralEventHandler : MonoBehaviour
         {
             //eventBackground.gameObject.SetActive(true);
         }
-
-        
     }
 
     private void continueStory()
@@ -479,11 +499,13 @@ public class centralEventHandler : MonoBehaviour
             //set the notebook to be active and disable regular textbox
             notebookParent.SetActive(true);
             EventParent.SetActive(false);
+            eventBackground.gameObject.SetActive(true);
         }
         else
         {
             notebookParent.SetActive(false);
             EventParent.SetActive(true);
+            eventBackground.gameObject.SetActive(true);
         }
 
     }
@@ -537,7 +559,7 @@ public class centralEventHandler : MonoBehaviour
     private void skipmovement()
     {
         //Debug.Log("skippinmg movement");
-        foreach (SpriteRenderer sr in stageCharacters)
+        foreach (Image sr in stageCharacters)
         {
             sr.DOKill();
             sr.transform.position = StageCharacterFinalDestination[sr].position;
@@ -669,6 +691,7 @@ public class centralEventHandler : MonoBehaviour
         notebookDescriptionText.text = "";
         DescriptionText.text = "";
         displayName.text = "";
+        displayNameBackground.GetComponent<Image>().color = new Color((float)204 / 255, (float)80 / 255, (float) 117 / 255, 0f); //open up the background
         dialogueVariables.StopListening(currentStory);
         //remove text and listeners from each button
         for (int i = 0; i < buttonObjects.Count; i++)
@@ -794,7 +817,7 @@ public class centralEventHandler : MonoBehaviour
     {
         //instantiates character
         
-        SpriteRenderer refChar = null;
+        Image refChar = null;
 
         for (int i = 0; i < stageCharacters.Count; i++)
         {
@@ -818,7 +841,7 @@ public class centralEventHandler : MonoBehaviour
     private void exitCharacter(string characterName, string movementType)
     {
         //instantiates character
-        SpriteRenderer refChar = null;
+        Image refChar = null;
 
         for (int i = 0; i < stageCharacters.Count; i++)
         {
@@ -839,7 +862,7 @@ public class centralEventHandler : MonoBehaviour
     }
     public void changeSprite(string characterName, string spriteName)
     {
-        SpriteRenderer refChar = null;
+        Image refChar = null;
         for (int i = 0; i < stageCharacters.Count; i++)
         {
             if (refChar != null)
@@ -863,7 +886,7 @@ public class centralEventHandler : MonoBehaviour
 
     private void moveCharacter(string characterName, string movementType, string stagePosition)
     {
-        SpriteRenderer refChar = null;
+        Image refChar = null;
         //check through each position in our spriterenderer list, check the character names
         //if any match the character name present, have a reference to that character
         //if reference character is null, then we just take whatever character is available
@@ -900,7 +923,7 @@ public class centralEventHandler : MonoBehaviour
 
     public void moveCharacter(string characterName, float movementAmount, string leftOrRight)
     {
-        SpriteRenderer refChar = null;
+        Image refChar = null;
         //check through each position in our spriterenderer list, check the character names
         //if any match the character name present, have a reference to that character
         //if reference character is null, then we just take whatever character is available
@@ -931,22 +954,25 @@ public class centralEventHandler : MonoBehaviour
     {
         //teleport each character off screen - reset sprites for each
         //check their transform names and see if any have been set, if 
-        foreach (SpriteRenderer sr in stageCharacters)
+        foreach (Image sr in stageCharacters)
         {
             sr.DOKill();
             sr.name = BLANK_CHARACTER_NAME;
             sr.transform.localPosition = offStageRight.localPosition;
             sr.sprite = null;
-            sr.flipX = false;
+            sr.rectTransform.rotation = Quaternion.Euler( new Vector3(0,0,0)) ;
+            
         }
     }
 
-    private IEnumerator resetCharacter(SpriteRenderer sr)
+    private IEnumerator resetCharacter(Image sr)
     {
         yield return new WaitForSeconds(1);
         sr.name = BLANK_CHARACTER_NAME;
         sr.transform.localPosition = offStageRight.localPosition;
         sr.sprite = null;
+        sr.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
     }
 
 
@@ -973,7 +999,7 @@ public class centralEventHandler : MonoBehaviour
             characterTransform.DOMove(stagePosition.position, 1f, false).SetUpdate(true);
 
         //move the dictionary value
-        StageCharacterFinalDestination[characterTransform.GetComponent<SpriteRenderer>()] = stagePosition;
+        StageCharacterFinalDestination[characterTransform.GetComponent<Image>()] = stagePosition;
     }
 
     //when the player presses continue,
@@ -1052,7 +1078,7 @@ public class centralEventHandler : MonoBehaviour
                 break;
         }
         //set the characters dictionary value
-        StageCharacterFinalDestination[characterTransform.GetComponent<SpriteRenderer>()] = destination;
+        StageCharacterFinalDestination[characterTransform.GetComponent<Image>()] = destination;
 
     }
     private void doExitMovement(Transform characterTransform, string movementType)
@@ -1072,21 +1098,21 @@ public class centralEventHandler : MonoBehaviour
                 characterTransform.DOLocalMove(offStageRight.position, 0.5f, false).SetUpdate(true);
                 break;
             case "fadeout":
-                characterTransform.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
+                characterTransform.GetComponent<Image>().DOFade(0, 0.5f);
                 break;
             default:
                 break;
         }
 
         //set the final destination to off stage right no matter the move
-        StageCharacterFinalDestination[characterTransform.GetComponent<SpriteRenderer>()] = offStageRight;
+        StageCharacterFinalDestination[characterTransform.GetComponent<Image>()] = offStageRight;
 
-        StartCoroutine(resetCharacter(characterTransform.GetComponent<SpriteRenderer>()));
+        StartCoroutine(resetCharacter(characterTransform.GetComponent<Image>()));
     }
 
     private void characterEmote(string characterName, string emotionType)
     {
-        SpriteRenderer refChar = null;
+        Image refChar = null;
         //check through each position in our spriterenderer list, check the character names
         //if any match the character name present, have a reference to that character
         //if reference character is null, then we just take whatever character is available
@@ -1108,9 +1134,9 @@ public class centralEventHandler : MonoBehaviour
             }
         }
 
-        doEmote(refChar.transform, emotionType);
+        doEmote(refChar.rectTransform, emotionType);
     }
-    private void doEmote(Transform characterTransform, string emotionType)
+    private void doEmote(RectTransform characterTransform, string emotionType)
     {
         //Pop - little scale up effect to create a pop - pop
         emotionType = emotionType.ToLower();
@@ -1128,7 +1154,7 @@ public class centralEventHandler : MonoBehaviour
     }
     private void characterState(string characterName, string stateType)
     {
-        SpriteRenderer refChar = null;
+        Image refChar = null;
         //check through each position in our spriterenderer list, check the character names
         //if any match the character name present, have a reference to that character
         //if reference character is null, then we just take whatever character is available
@@ -1151,15 +1177,24 @@ public class centralEventHandler : MonoBehaviour
         }
 
         //parse movement
-        doState(refChar.transform, stateType);
+        doState(refChar.rectTransform, stateType);
     }
-    private void doState(Transform characterTransform, string stateType)
+    private void doState(RectTransform characterTransform, string stateType)
     {
         stateType = stateType.ToLower();
         switch (stateType)
         {
             case "flip":
-                characterTransform.GetComponent<SpriteRenderer>().flipX = !characterTransform.GetComponent<SpriteRenderer>().flipX;
+                //characterTransform.GetComponent<SpriteRenderer>().flipX = !characterTransform.GetComponent<SpriteRenderer>().flipX;
+                
+                if (characterTransform.rotation == Quaternion.Euler(new Vector3(0,0,0)))
+                {
+                    characterTransform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                }
+                else
+                {
+                    characterTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                }
                 break;
             case "bounce":
                 break;
@@ -1226,7 +1261,7 @@ public class centralEventHandler : MonoBehaviour
     {
         Debug.Log("showing backgrnd");
         float duration = 1f;
-        eventBackground.sprite = bg;
+        //eventBackground.sprite = bg;
         eventBackground.gameObject.SetActive(false);
         fadetoblackBG.gameObject.SetActive(true);
         Color transparent = new Color(0, 0,0, 0);

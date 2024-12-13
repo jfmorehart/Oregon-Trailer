@@ -16,13 +16,21 @@ VAR player_charisma = 0
 VAR player_moxie = 0
 VAR player_gumption = 0
 
+VAR neutrals_relationship = 0
+VAR frat_relationship = 0
+VAR rebels_relationship = 0
+
+
 VAR testValue = 0
 
 VAR has_keycard = false
+VAR has_grenade = false
+
+== function setGrenade(value) ==
+~ has_grenade = value
 
 == function setTestValue(value)==
 ~ testValue = value
-
 
 == function setGatorHeadInParty(value)==
 ~ has_GatorHead = value
@@ -30,17 +38,26 @@ VAR has_keycard = false
 == function setSamInParty(value)==
 ~ has_Sam = value
 
-== function setCharisma(value)
+== function setCharisma(value)==
 ~ player_constitution = value
 
-== function setWisdom(value)
+== function setWisdom(value)==
 ~ player_wisdom = value
 
-== function setConstitution(value)
+== function setConstitution(value)==
 ~ player_constitution = value
 
-== function setMoxie(value)
+== function setMoxie(value)==
 ~ player_moxie = value
 
-== function setGumption(value)
+== function setGumption(value)==
 ~ player_gumption = value
+
+== function setFratRelationship(value)==
+~ frat_relationship = value
+
+== function setRebelsRelationship(value)==
+~ rebels_relationship = value
+
+== function setNeutralsRelationship(value)==
+~ neutrals_relationship = value
