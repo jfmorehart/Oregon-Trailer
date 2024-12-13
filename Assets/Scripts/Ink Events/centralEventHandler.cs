@@ -957,11 +957,18 @@ public class centralEventHandler : MonoBehaviour
         foreach (Image sr in stageCharacters)
         {
             sr.DOKill();
+            sr.transform.DOKill();
+        }
+        foreach (Image sr in stageCharacters)
+        {
+            sr.transform.position = offStageRight.position;
+            sr.DOKill();
+            sr.transform.DOKill();
             sr.name = BLANK_CHARACTER_NAME;
-            sr.transform.localPosition = offStageRight.localPosition;
+            StageCharacterFinalDestination[sr] = offStageRight;
+            Debug.Log("Moving to offstage position " + offStageRight.position + " - " + sr.transform.position);
             sr.sprite = null;
             sr.rectTransform.rotation = Quaternion.Euler( new Vector3(0,0,0)) ;
-            
         }
     }
 
