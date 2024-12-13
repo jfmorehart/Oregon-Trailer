@@ -7,6 +7,7 @@ INCLUDE ../globals.ink
 There's a lot of shouting coming from a trio of men passing a beach ball around. They're shouting and cheering, even though the beach ball is floating very slowly in the air, from one pair of hands to another.
 
 They stop at one point, however, and let the ball fall right between them. You can't really hear what they're saying, but the cheerful shouting soon turns into a <i>shouting match.</i>
+~ has_grenade = true
 
 * [ See What The Problem Is ] -> approach
 * [ Leave ] -> leave
