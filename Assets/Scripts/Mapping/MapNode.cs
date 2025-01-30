@@ -62,6 +62,8 @@ public class MapNode : MonoBehaviour
     //dictates if this point should track player clicks
     public bool playerCanChoose = false;
 
+    public List<TextAsset> inNodeQuests = new List<TextAsset>();
+
     public void Awake()
     {
         //quickly loop through roads and make sure everything is properly set up
@@ -110,6 +112,11 @@ public class MapNode : MonoBehaviour
         }
 
         goDark();
+    }
+
+    public void setEndingNode(bool val)
+    {
+        _endingRoad = val;
     }
 
     private void Update()

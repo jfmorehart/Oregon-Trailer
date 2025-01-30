@@ -9,6 +9,9 @@ public class ChunkManager : MonoBehaviour
     public int levelSize;
     public Chunk[] level;
     public Chunk[] chunkBag;
+    public Chunk[] QuestChunkBag;
+    public List<TextAsset> Quests;
+
     public int enemySpawnsRemaining;
 
     public GameObject boundaryStack;
@@ -33,6 +36,12 @@ public class ChunkManager : MonoBehaviour
 
     void Start() {
         //GenerateLevel();
+    }
+
+
+    public void giveQuests(List<TextAsset> questsToSpawn)
+    {
+        Quests = questsToSpawn;
     }
 
     public void DestroyLevel() {
@@ -63,12 +72,46 @@ public class ChunkManager : MonoBehaviour
         float levelLengthSoFar = 0;
         float lastRoadY = 0;
         //the van is not rotated in the prefab
+
+        //pick out which chunks to spawn quests at
+        if (Quests.Count > levelSize)
+        {
+            Debug.Log("Too many quests to spawn compared to level size");
+            return;
+        }
+
+        List<int> chunksToSpawnQuestsAt = new List<int>();
+        while (chunksToSpawnQuestsAt.Count < Quests.Count) 
+        {
+            //never spawn it at the first chunk
+            int x = Random.Range(1, Quests.Count);
+            if (!chunksToSpawnQuestsAt.Contains(x))
+            {
+                chunksToSpawnQuestsAt.Add(x);
+            }
+        }
+
         Instantiate( VanObj, Vector2.zero, Quaternion.Euler(0,0, 180));
         for (int i= 0; i < levelSize; i++) {
-            Chunk toSpawn = chunkBag[Random.Range(0, chunkBag.Length)]; //prefab
+
+            Chunk toSpawn;  //prefab
+
+            if (chunksToSpawnQuestsAt.Contains(i))
+            {
+                toSpawn = QuestChunkBag[Random.Range(0, QuestChunkBag.Length)];
+                toSpawn.setQuest(Quests[0]);
+                Quests.RemoveAt(0);
+            }
+            else
+                toSpawn = chunkBag[Random.Range(0, chunkBag.Length)];
+
+
             toSpawn = Instantiate(toSpawn, transform); //new instance
             level[i] = toSpawn;
+            
+            
 
+            
             //DO NOT SPAWN ENEMIES IN THE FIRST CHUNK
             if (i != 0 && toSpawn.enemies.Count > 0)
             {

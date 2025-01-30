@@ -40,6 +40,16 @@ public class MapManager : MonoBehaviour
     //whether we are finished loading the level ( this makes the exit not get touched twice)
     bool levelEnding = false;
 
+    [Header("Node Generation")]
+    MapNode BlankNode;
+    [SerializeField]
+    Transform mapParent;
+
+    float nodeYModifier = 1;
+    float nodeXModifier = 1;
+    new List<TextAsset> questsToGen = new List<TextAsset>();
+
+
     private void Awake()
     {
         
@@ -79,6 +89,117 @@ public class MapManager : MonoBehaviour
     //set the players current node to the destination node
     //change the location of the player on the map
     //do whatever activity is at the map node
+
+    
+    //try to spawn the generated events in order
+    public void generateMap(Level levelToGen)
+    {
+        if (levelToGen.MapToGenerate != null)
+        {
+
+        }
+        else
+        {
+            
+        }
+    }
+
+
+    //this generates a field of nodes
+    private void buildNodes(int nodesToGen = 10)
+    {
+        //we want there to be sufficient options
+        int depth = Random.Range((int)(nodesToGen * 0.75f), nodesToGen);
+        bool[,] positions = new bool[depth,3];
+        Dictionary<Vector2, MapNode> dict = new Dictionary<Vector2,MapNode>();
+        //should this use dictionaries instead?
+        List < MapNode> nodes = new List < MapNode>();
+
+
+
+
+        for (int i = 0; i < depth; i++)
+        {
+            //dict.Add(i, new List<MapNode>());
+            //loop through this once
+            //assure that there is at least one node in each spot in depth
+            MapNode mn = Instantiate(BlankNode, mapParent);
+            int yposition = Random.Range(0,4);
+            mn.transform.localPosition = new Vector3(depth, yposition, 0);
+            positions[i, yposition] = true;
+            nodes.Add(mn);
+            dict.Add(new Vector2(i, yposition),mn);
+            nodesToGen--;
+            if (i == depth - 1)
+                mn.setEndingNode(true);
+            //dict.Values;
+        }
+
+        while (nodesToGen > 0)
+        {
+            //choose a random node and random position starting from the second node. 
+            //loop through
+            for (int i = 1; i < depth; i++)
+            {
+                //give it a 50% chance to generate in a random position in a node
+                int ypos = Random.Range(0, 4);
+                MapNode mn = Instantiate(BlankNode, mapParent);
+                if (!positions[i,ypos])
+                {
+                    mn.transform.localPosition = new Vector3(depth, ypos, 0);
+                    nodes.Add(mn);
+                    positions[i, ypos] = true;
+                    dict.Add(new Vector2(i, ypos),mn);
+
+                    nodesToGen--;
+                    if (i == depth - 1)
+                        mn.setEndingNode(true);
+                }
+            }
+        }
+
+        //make connections between nodes
+        //if this is not the nodes on depth, then this should have at least one road connection
+        for (int i = 0; i < depth-1; i++)
+        {
+            MapNode mn = nodes[i];
+            if (mn.Roads.Length == 0)
+            {
+                List<MapNode> nextnodes = new List<MapNode>();
+                //get node at next position
+                for(int j = 0; j < 3; j++)
+                {
+                    if (!positions[i+1, j])
+                    {
+                        //this works the same as try get with dict functions
+                        nextnodes.Add(dict[new Vector2(i + j, j)]);
+                    }
+
+                }
+
+                MapNode destinationpath = nextnodes[Random.Range(0, nextnodes.Count)];
+                mn.Roads[0] = new RoadPath() { roadLength = 10, Destination = destinationpath};
+
+                int genSecondRoad = Random.Range(0, 100);
+
+                if (genSecondRoad > 60 && nextnodes.Count > 1)
+                {
+                    MapNode secondDest = nextnodes[Random.Range(0, nextnodes.Count)];
+                    while (mn.Roads[0].Destination == secondDest)
+                    {
+                        secondDest = nextnodes[Random.Range(0, nextnodes.Count)];
+                    }
+                    mn.Roads[1] = new RoadPath() { roadLength = 10, Destination = secondDest};
+                }
+            }
+        }
+
+        //TODO: hand out quests
+
+
+
+    }
+
 
     public static void playerArrived()
     {
@@ -247,6 +368,7 @@ public class MapManager : MonoBehaviour
 
 
         //player should be travelling now
+        ChunkManager.instance.giveQuests(destNode.inNodeQuests);
         ChunkManager.instance.GenerateLevel();
 
         //lower the map
@@ -472,4 +594,5 @@ public class MapManager : MonoBehaviour
                 break;
         }
     }
+
 }
