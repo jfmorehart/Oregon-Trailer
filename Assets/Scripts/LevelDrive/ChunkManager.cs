@@ -34,15 +34,12 @@ public class ChunkManager : MonoBehaviour
         }
     }
 
-    void Start() {
-        //GenerateLevel();
-    }
-
-
-    public void giveQuests(List<TextAsset> questsToSpawn)
+    void Start() 
     {
-        Quests = questsToSpawn;
+        
     }
+
+
 
     public void DestroyLevel() {
 		if (level != null)
@@ -64,6 +61,14 @@ public class ChunkManager : MonoBehaviour
 		}
         level = null;
 	}
+
+    public void GenerateLevel(List<TextAsset> questsToSpawn)
+    {
+        Quests = questsToSpawn;
+        Debug.Log("Generating Level Request");
+        GenerateLevel();
+    }
+
     public void GenerateLevel()
     {
         DestroyLevel();
@@ -81,21 +86,35 @@ public class ChunkManager : MonoBehaviour
         }
 
         List<int> chunksToSpawnQuestsAt = new List<int>();
-        while (chunksToSpawnQuestsAt.Count < Quests.Count) 
+        Debug.Log("chunk list size" + chunksToSpawnQuestsAt.Count);
+        Debug.Log("Questsize" + Quests.Count);
+        int internalcount = 0;
+
+        //chooses which chunk index each quest should be spawned at
+        for (int i = 0; i < Quests.Count; i++)
         {
-            //never spawn it at the first chunk
-            int x = Random.Range(1, Quests.Count);
-            if (!chunksToSpawnQuestsAt.Contains(x))
+            int x = Random.Range(1, levelSize);
+            Debug.Log("gen num: " + x);
+
+            while (chunksToSpawnQuestsAt.Contains(x))
             {
-                chunksToSpawnQuestsAt.Add(x);
+                x = Random.Range(1,levelSize);
+
+                Debug.Log("repeat number found - new num "+ x);
             }
+            chunksToSpawnQuestsAt.Add(x);
+
         }
+        
+
+        Debug.Log("crAC " + Quests.Count + " " + chunksToSpawnQuestsAt.Count);
 
         Instantiate( VanObj, Vector2.zero, Quaternion.Euler(0,0, 180));
         for (int i= 0; i < levelSize; i++) {
 
             Chunk toSpawn;  //prefab
 
+            //this is slow but we can change chunkstospawnquestat to a hashset or something soon
             if (chunksToSpawnQuestsAt.Contains(i))
             {
                 toSpawn = QuestChunkBag[Random.Range(0, QuestChunkBag.Length)];
@@ -154,16 +173,17 @@ public class ChunkManager : MonoBehaviour
             //Vector2 endpos = road.position - 0.5f * road.localScale.x * road.right;
             Vector2 endpos = toSpawn.transform.Find("road_end_point").position;
 			lastRoadY = endpos.y;
+            Debug.Log(lastRoadY);
 
-			////boundaries
-			//Debug.Log(i + " diff = " + yDiff);
-			//GameObject boundary = Instantiate(boundaryStack, transform);
-			//boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, toSpawn.dimensions.y * 0.5f + yDiff);
-			//boundary.transform.localScale = new Vector3(1, yDiff, 1);
-			//boundary = Instantiate(boundaryStack, transform);
-			//boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, -toSpawn.dimensions.y * 0.5f + yDiff);
-			//boundary.transform.localScale = new Vector3(1, yDiff, 1);
-		}
+            ////boundaries
+            //Debug.Log(i + " diff = " + yDiff);
+            //GameObject boundary = Instantiate(boundaryStack, transform);
+            //boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, toSpawn.dimensions.y * 0.5f + yDiff);
+            //boundary.transform.localScale = new Vector3(1, yDiff, 1);
+            //boundary = Instantiate(boundaryStack, transform);
+            //boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, -toSpawn.dimensions.y * 0.5f + yDiff);
+            //boundary.transform.localScale = new Vector3(1, yDiff, 1);
+        }
 
         if (spawnedEndHouse == null)
         {

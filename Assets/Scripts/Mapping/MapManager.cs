@@ -45,8 +45,11 @@ public class MapManager : MonoBehaviour
     bool generateFromList = true;
     [SerializeField]
     private List<GameObject> possibleMaps = new List<GameObject>();
+    private Transform currentMap;
+
     private int mapIndex = 0;
     [Header("Node Generation")]
+    [SerializeField]
     MapNode BlankNode;
     [SerializeField]
     Transform mapParent;
@@ -114,12 +117,18 @@ public class MapManager : MonoBehaviour
     //try to spawn the generated events in order
     public void generateMap(GameObject map = null) 
     {
+        Debug.Log("Private");
         if (map != null)
         {
+            Debug.Log("Historians");
+            if(currentMap != null)
+                Destroy(currentMap.gameObject);
             GameObject instantiatedMap = Instantiate(map, mapParent);
             levelPrefabVariableHolder levelvariables = instantiatedMap.GetComponent<levelPrefabVariableHolder>();
+            currentMap = instantiatedMap.transform;
 
-            
+
+            Debug.Log("growing");
 
             startingNode = levelvariables.firstNode;
 
@@ -133,6 +142,7 @@ public class MapManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("HORSI");
             buildNodes(Random.Range(minNodesToGen, maxNodesToGen));
         }
     }
@@ -141,7 +151,7 @@ public class MapManager : MonoBehaviour
     //this generates a field of nodes
     private void buildNodes(int nodesToGen = 10)
     {
-        Debug.Log("Attempting to build procedural nodes");
+        Debug.Log("Attempting to build procedural nodes - SHOULD NOT BE HAPPENING NOW");
 
         //we want there to be sufficient options
         int depth = Random.Range((int)(nodesToGen * 0.75f), nodesToGen);
@@ -405,10 +415,10 @@ public class MapManager : MonoBehaviour
         //player should be travelling now
         
 
-        ChunkManager.instance.giveQuests(playersCurrentNode.getQuestList(destNode));
+        ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(destNode));
 
 
-        ChunkManager.instance.GenerateLevel();
+        //ChunkManager.instance.GenerateLevel();
 
         //lower the map
         mapUI.instance.instantPullDown();
@@ -505,7 +515,7 @@ public class MapManager : MonoBehaviour
             else
             {
                 //otherwise we can generate the next map
-                generateMap();
+                generateNextMap();
             }
             return;
         }

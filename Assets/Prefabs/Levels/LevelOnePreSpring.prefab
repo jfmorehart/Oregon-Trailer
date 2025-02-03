@@ -124,7 +124,6 @@ MonoBehaviour:
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &6956862121618044831
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -594,7 +593,6 @@ MonoBehaviour:
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &5553195847953049460
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1089,7 +1087,6 @@ MonoBehaviour:
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &703374454104476564
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1259,7 +1256,6 @@ MonoBehaviour:
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &8510704414916060268
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1424,12 +1420,14 @@ MonoBehaviour:
   locationEvent: {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
   Roads:
   - Destination: {fileID: 3887565813131658656}
-    roadLength: 5
+    roadLength: 8
     fuelCost: 0
-    forcedQuests: []
+    forcedQuests:
+    - {fileID: 4900000, guid: bf6a29d04a41afb4488187965ef07bb1, type: 3}
+    - {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
+    - {fileID: 4900000, guid: 92521641c44e8bf4eb9e8ac66bef8057, type: 3}
     forcedSections: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &4016977494354260348
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1889,7 +1887,6 @@ MonoBehaviour:
   locationEvent: {fileID: 4900000, guid: 35954ec0206b46f449efa692594cb002, type: 3}
   Roads: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &5277209695902083202
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2064,7 +2061,6 @@ MonoBehaviour:
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &8304196930501625407
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2239,7 +2235,6 @@ MonoBehaviour:
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &7199411293398969069
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2589,7 +2584,6 @@ MonoBehaviour:
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &8945143433513987597
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2754,7 +2748,6 @@ MonoBehaviour:
   locationEvent: {fileID: 4900000, guid: 2939cee8380839f46aaa3a04c2277583, type: 3}
   Roads: []
   playerCanChoose: 0
-  inNodeQuests: []
 --- !u!61 &3947005036255230702
 BoxCollider2D:
   m_ObjectHideFlags: 0
