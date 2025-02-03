@@ -25,7 +25,7 @@ public class mapPlayer : MonoBehaviour
         if(dest == null)
             transform.position = origin.VanPosition.position;
         else
-            transform.position = Vector2.Lerp(origin.transform.position, dest.transform.position, 0.5f);
+            transform.position = Vector2.Lerp(origin.transform.localPosition, dest.transform.localPosition, 0.5f);
     }
 
     //this is called from the MapManager

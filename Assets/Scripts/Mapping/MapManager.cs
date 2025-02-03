@@ -40,11 +40,18 @@ public class MapManager : MonoBehaviour
     //whether we are finished loading the level ( this makes the exit not get touched twice)
     bool levelEnding = false;
 
+    [Header("Map Generation")]
+    [SerializeField]
+    bool generateFromList = true;
+    [SerializeField]
+    private List<GameObject> possibleMaps = new List<GameObject>();
+    private int mapIndex = 0;
     [Header("Node Generation")]
     MapNode BlankNode;
     [SerializeField]
     Transform mapParent;
-
+    int maxNodesToGen = 20;
+    int minNodesToGen = 10;
     float nodeYModifier = 1;
     float nodeXModifier = 1;
     new List<TextAsset> questsToGen = new List<TextAsset>();
@@ -67,6 +74,9 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
+
+        generateNextMap();
+
         //start player off at location
         //play starting cutscene if there is one
         mapPlayer.instance.setPositionStrict(playersCurrentNode);
@@ -90,17 +100,40 @@ public class MapManager : MonoBehaviour
     //change the location of the player on the map
     //do whatever activity is at the map node
 
+    public void generateNextMap()
+    {
+        //needlessly complicated - simplify and combine with other function
+        if (mapIndex < possibleMaps.Count)
+        {
+            generateMap(possibleMaps[mapIndex]);
+            Debug.Log("Generating Map from list of maps - Map at index " + mapIndex);
+            mapIndex++;
+        }
+    }
     
     //try to spawn the generated events in order
-    public void generateMap(Level levelToGen)
+    public void generateMap(GameObject map = null) 
     {
-        if (levelToGen.MapToGenerate != null)
+        if (map != null)
         {
+            GameObject instantiatedMap = Instantiate(map, mapParent);
+            levelPrefabVariableHolder levelvariables = instantiatedMap.GetComponent<levelPrefabVariableHolder>();
 
+            
+
+            startingNode = levelvariables.firstNode;
+
+            playersCurrentNode = levelvariables.firstNode;
+            mapPlayer.instance.setPositionStrict(playersCurrentNode);
+            playersCurrentNode.goBright();
+
+            mapUI.instance.ShouldBeInteractedWith = false;
+            mapUI.instance.instantPopUp();
+            allowDestinationChoice();
         }
         else
         {
-            
+            buildNodes(Random.Range(minNodesToGen, maxNodesToGen));
         }
     }
 
@@ -108,6 +141,8 @@ public class MapManager : MonoBehaviour
     //this generates a field of nodes
     private void buildNodes(int nodesToGen = 10)
     {
+        Debug.Log("Attempting to build procedural nodes");
+
         //we want there to be sufficient options
         int depth = Random.Range((int)(nodesToGen * 0.75f), nodesToGen);
         bool[,] positions = new bool[depth,3];
@@ -368,7 +403,11 @@ public class MapManager : MonoBehaviour
 
 
         //player should be travelling now
-        ChunkManager.instance.giveQuests(destNode.inNodeQuests);
+        
+
+        ChunkManager.instance.giveQuests(playersCurrentNode.getQuestList(destNode));
+
+
         ChunkManager.instance.GenerateLevel();
 
         //lower the map
@@ -457,7 +496,17 @@ public class MapManager : MonoBehaviour
     {
         if (playersCurrentNode.EndingRoad)
         {
-            doEnding();
+            //dont add one to the index because we automatically add one anytime we generate a level
+            if (possibleMaps.Count < mapIndex)
+            {
+                //we have reached the end - if we are on the proc gen mode,  then automatically generate another map
+                doEnding();
+            }
+            else
+            {
+                //otherwise we can generate the next map
+                generateMap();
+            }
             return;
         }
         mapUI.instance.instantPopUp();
