@@ -1839,37 +1839,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 321963185}
   m_CullTransparentMesh: 1
---- !u!1 &323669279
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 323669280}
-  m_Layer: 0
-  m_Name: Map Generator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &323669280
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323669279}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.379526, y: -28.82278, z: 2942.837}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &327296214
 GameObject:
   m_ObjectHideFlags: 0
@@ -13709,8 +13678,10 @@ MonoBehaviour:
   fadeToBlackBG: {fileID: 210996198}
   generateFromList: 1
   possibleMaps:
+  - {fileID: 1093908184206508639, guid: 2764a84c751df574094c02ff789269cb, type: 3}
   - {fileID: 2073662174532714207, guid: c5f12b02a33c8734093e723254424998, type: 3}
   - {fileID: 8867212999980797458, guid: fb605b1c9f9f56548b8a7b84d6600c01, type: 3}
+  BlankNode: {fileID: 0}
   mapParent: {fileID: 7099460009247853159}
 --- !u!224 &3444643092268457638
 RectTransform:
@@ -13832,7 +13803,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7099460009247853159}
   m_Layer: 0
-  m_Name: MapUI and Map
+  m_Name: MapUI and Map (place map here)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14936,4 +14907,3 @@ SceneRoots:
   - {fileID: 4482465674392866831}
   - {fileID: 224616943024363442}
   - {fileID: 693655841}
-  - {fileID: 323669280}
