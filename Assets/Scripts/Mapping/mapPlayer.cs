@@ -25,7 +25,7 @@ public class mapPlayer : MonoBehaviour
         if(dest == null)
             transform.position = origin.VanPosition.position;
         else
-            transform.position = Vector2.Lerp(origin.transform.position, dest.transform.position, 0.5f);
+            transform.position = Vector2.Lerp(origin.transform.localPosition, dest.transform.position, 0.5f);
     }
 
     //this is called from the MapManager
@@ -45,7 +45,7 @@ public class mapPlayer : MonoBehaviour
         {
             //otherwise go to next mid point
             //transform.position = Vector2.Lerp(origin.transform.position, destination.transform.position, 0.5f);
-            Vector2 dvanpos = new Vector2(destination.transform.localPosition.x, destination.transform.localPosition.y + 40);
+            Vector2 dvanpos = new Vector2(destination.transform.position.x, destination.transform.position.y + 40);
 
             StartCoroutine(setPositionRoutine(Vector2.Lerp(origin.transform.localPosition, dvanpos, 0.5f)));
         }

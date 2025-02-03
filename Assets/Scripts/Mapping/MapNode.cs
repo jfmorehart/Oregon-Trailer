@@ -62,6 +62,8 @@ public class MapNode : MonoBehaviour
     //dictates if this point should track player clicks
     public bool playerCanChoose = false;
 
+    //public List<TextAsset> inNodeQuests = new List<TextAsset>();
+
     public void Awake()
     {
         //quickly loop through roads and make sure everything is properly set up
@@ -110,6 +112,11 @@ public class MapNode : MonoBehaviour
         }
 
         goDark();
+    }
+
+    public void setEndingNode(bool val)
+    {
+        _endingRoad = val;
     }
 
     private void Update()
@@ -167,7 +174,6 @@ public class MapNode : MonoBehaviour
 
 
     //cause the point to flash
-    
     public void destinationFlash()
     {
         Debug.Log(transform.name  + "Flashing ");
@@ -259,6 +265,25 @@ public class MapNode : MonoBehaviour
         }
     }
 
+
+    //give the 
+    public List<TextAsset> getQuestList(MapNode destination)
+    {
+        //check to see which
+
+        for (int i = 0; i < Roads.Length; i++)
+        {
+            if (Roads[i].Destination == destination)
+            {
+                return new List<TextAsset>(Roads[i].forcedQuests);
+            }
+        }
+
+
+        //mapnode is not found
+        Debug.Log("Destination is not Found - returning null");
+        return null;
+    }
 }
 
 [System.Serializable]

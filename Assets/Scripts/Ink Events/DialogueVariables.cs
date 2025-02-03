@@ -36,7 +36,11 @@ public class DialogueVariables
 
     private void VariableChange(string name, Ink.Runtime.Object value)
     {
-        Debug.Log("Variable changed: " + name + " = " + value);
+        //Debug.Log("Variable changed: " + name + " = " + value);
+        if (name == "has_grenade")
+        {
+            Debug.Log("has_grenade has been set to " + value);
+        }
         if (variables.ContainsKey(name))
         {
             variables.Remove(name);
