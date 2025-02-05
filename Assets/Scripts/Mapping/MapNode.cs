@@ -275,7 +275,8 @@ public class MapNode : MonoBehaviour
         {
             if (Roads[i].Destination == destination)
             {
-                return new List<TextAsset>(Roads[i].forcedQuests);
+                MapManager.instance.playersNewPath = Roads[i];
+				return new List<TextAsset>(Roads[i].forcedQuests);
             }
         }
 
@@ -292,10 +293,18 @@ public struct RoadPath
     public MapNode Destination;
     public int roadLength;
     public int fuelCost;
-
+    public BiomeType type; //determines the chunkbag for randomized sections
     //cycle through these and assign these to the appropriate points driving segments
     public TextAsset[] forcedQuests;
-    //any sections in the actual road that should always appear at some point 
-    public GameObject[] forcedSections;
 
+    //any sections in the actual road that should always appear at some point 
+    public Chunk[] forcedSections;
+
+}
+[System.Serializable]
+public enum BiomeType { 
+    None,
+    Desert,
+    Canyon, 
+    Forest
 }

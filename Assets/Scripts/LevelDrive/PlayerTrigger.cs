@@ -10,7 +10,7 @@ public class PlayerTrigger : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.CompareTag("Player") && Time.timeSinceLevelLoad > 0.05f) {
+		if (collision.CompareTag("Player")) {
 			onTrigger?.Invoke();
 			Debug.Log("invoked!");
 		}
