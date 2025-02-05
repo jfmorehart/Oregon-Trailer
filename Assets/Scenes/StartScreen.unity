@@ -758,7 +758,6 @@ GameObject:
   - component: {fileID: 307990212}
   - component: {fileID: 307990211}
   - component: {fileID: 307990210}
-  - component: {fileID: 307990209}
   m_Layer: 5
   m_Name: Settings Button
   m_TagString: Untagged
@@ -786,19 +785,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &307990209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 307990207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f3a6042e9a404f75b33f9773be9c2e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: Level
 --- !u!114 &307990210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,9 +829,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 307990209}
-        m_TargetAssemblyTypeName: ChnageScene, Assembly-CSharp
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 1381099909}
+        m_TargetAssemblyTypeName: SettingsStart, Assembly-CSharp
+        m_MethodName: OpenSettingsAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1109,7 +1095,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 335140034}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1381099909}
+        m_TargetAssemblyTypeName: SettingsStart, Assembly-CSharp
+        m_MethodName: OpenSettingsAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &335140034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2177,7 +2175,6 @@ GameObject:
   - component: {fileID: 656338605}
   - component: {fileID: 656338604}
   - component: {fileID: 656338603}
-  - component: {fileID: 656338602}
   m_Layer: 5
   m_Name: Load button
   m_TagString: Untagged
@@ -2205,19 +2202,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &656338602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656338600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f3a6042e9a404f75b33f9773be9c2e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: Level
 --- !u!114 &656338603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2262,9 +2246,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 656338602}
-        m_TargetAssemblyTypeName: ChnageScene, Assembly-CSharp
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 1381099909}
+        m_TargetAssemblyTypeName: SettingsStart, Assembly-CSharp
+        m_MethodName: OpenSettingsLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2830,7 +2814,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 736280642}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1381099909}
+        m_TargetAssemblyTypeName: SettingsStart, Assembly-CSharp
+        m_MethodName: CloseSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &736280642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3268,7 +3264,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1014833920}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1381099909}
+        m_TargetAssemblyTypeName: SettingsStart, Assembly-CSharp
+        m_MethodName: OpenSettingsLoad
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1014833920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3569,7 +3577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1229691170
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3593,7 +3601,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -2}
+  m_AnchoredPosition: {x: 0, y: -2}
   m_SizeDelta: {x: 25.94, y: 41.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1229691171
@@ -3945,6 +3953,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351839354}
   m_CullTransparentMesh: 1
+--- !u!1 &1381099908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1381099910}
+  - component: {fileID: 1381099909}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1381099909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381099908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7877083c236ff4a9cbc656f94a74e569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings: {fileID: 1229691169}
+  AudioSettings: {fileID: 259602747}
+  LoadSettings: {fileID: 729759579}
+--- !u!4 &1381099910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381099908}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.015192277, y: -0.10188634, z: -1.0308125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427083204
 GameObject:
   m_ObjectHideFlags: 0
@@ -4840,7 +4895,7 @@ GameObject:
   - component: {fileID: 1693842796}
   - component: {fileID: 1693842795}
   - component: {fileID: 1693842794}
-  - component: {fileID: 1693842793}
+  - component: {fileID: 1693842797}
   m_Layer: 5
   m_Name: Exit button
   m_TagString: Untagged
@@ -4868,19 +4923,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1693842793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1693842791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f3a6042e9a404f75b33f9773be9c2e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: Level
 --- !u!114 &1693842794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4925,9 +4967,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1693842793}
-        m_TargetAssemblyTypeName: ChnageScene, Assembly-CSharp
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 1693842797}
+        m_TargetAssemblyTypeName: QuitGame, Assembly-CSharp
+        m_MethodName: QuitTheGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4975,6 +5017,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693842791}
   m_CullTransparentMesh: 1
+--- !u!114 &1693842797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693842791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898693f1b992644e28aef6c1770f9b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1782078565
 GameObject:
   m_ObjectHideFlags: 0
@@ -5759,3 +5813,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1981106533}
   - {fileID: 2126203004}
+  - {fileID: 1381099910}
