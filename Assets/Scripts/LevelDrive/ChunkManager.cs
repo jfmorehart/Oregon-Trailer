@@ -11,6 +11,9 @@ public class ChunkManager : MonoBehaviour
     public int levelSize;
     public Chunk[] level;
     public Chunk[] chunkBag;
+    public Chunk[] QuestChunkBag;
+    public List<TextAsset> Quests;
+
     public int enemySpawnsRemaining;
 
     public GameObject boundaryStack;
@@ -37,6 +40,8 @@ public class ChunkManager : MonoBehaviour
         if(generateOnStart) GenerateLevel();
 	}
 
+
+
     public void DestroyLevel() {
 		if (level != null)
 		{
@@ -57,6 +62,14 @@ public class ChunkManager : MonoBehaviour
 		}
         level = null;
 	}
+
+    public void GenerateLevel(List<TextAsset> questsToSpawn)
+    {
+        Quests = questsToSpawn;
+        Debug.Log("Generating Level Request");
+        GenerateLevel();
+    }
+
     public void GenerateLevel()
     {
         DestroyLevel();
@@ -65,12 +78,60 @@ public class ChunkManager : MonoBehaviour
         float levelLengthSoFar = 0;
         float lastRoadY = 0;
         //the van is not rotated in the prefab
+
+        //pick out which chunks to spawn quests at
+        if (Quests.Count > levelSize)
+        {
+            Debug.Log("Too many quests to spawn compared to level size");
+            return;
+        }
+
+        List<int> chunksToSpawnQuestsAt = new List<int>();
+        Debug.Log("chunk list size" + chunksToSpawnQuestsAt.Count);
+        Debug.Log("Questsize" + Quests.Count);
+        int internalcount = 0;
+
+        //chooses which chunk index each quest should be spawned at
+        for (int i = 0; i < Quests.Count; i++)
+        {
+            int x = Random.Range(1, levelSize);
+            Debug.Log("gen num: " + x);
+
+            while (chunksToSpawnQuestsAt.Contains(x))
+            {
+                x = Random.Range(1,levelSize);
+
+                Debug.Log("repeat number found - new num "+ x);
+            }
+            chunksToSpawnQuestsAt.Add(x);
+
+        }
+        
+
+        Debug.Log("crAC " + Quests.Count + " " + chunksToSpawnQuestsAt.Count);
+
         Instantiate( VanObj, Vector2.zero, Quaternion.Euler(0,0, 180));
         for (int i= 0; i < levelSize; i++) {
-            Chunk toSpawn = chunkBag[Random.Range(0, chunkBag.Length)]; //prefab
+
+            Chunk toSpawn;  //prefab
+
+            //this is slow but we can change chunkstospawnquestat to a hashset or something soon
+            if (chunksToSpawnQuestsAt.Contains(i))
+            {
+                toSpawn = QuestChunkBag[Random.Range(0, QuestChunkBag.Length)];
+                toSpawn.setQuest(Quests[0]);
+                Quests.RemoveAt(0);
+            }
+            else
+                toSpawn = chunkBag[Random.Range(0, chunkBag.Length)];
+
+
             toSpawn = Instantiate(toSpawn, transform); //new instance
             level[i] = toSpawn;
+            
+            
 
+            
             //DO NOT SPAWN ENEMIES IN THE FIRST CHUNK
             if (i != 0 && toSpawn.enemies.Count > 0)
             {
@@ -113,16 +174,17 @@ public class ChunkManager : MonoBehaviour
             //Vector2 endpos = road.position - 0.5f * road.localScale.x * road.right;
             Vector2 endpos = toSpawn.transform.Find("road_end_point").position;
 			lastRoadY = endpos.y;
+            Debug.Log(lastRoadY);
 
-			////boundaries
-			//Debug.Log(i + " diff = " + yDiff);
-			//GameObject boundary = Instantiate(boundaryStack, transform);
-			//boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, toSpawn.dimensions.y * 0.5f + yDiff);
-			//boundary.transform.localScale = new Vector3(1, yDiff, 1);
-			//boundary = Instantiate(boundaryStack, transform);
-			//boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, -toSpawn.dimensions.y * 0.5f + yDiff);
-			//boundary.transform.localScale = new Vector3(1, yDiff, 1);
-		}
+            ////boundaries
+            //Debug.Log(i + " diff = " + yDiff);
+            //GameObject boundary = Instantiate(boundaryStack, transform);
+            //boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, toSpawn.dimensions.y * 0.5f + yDiff);
+            //boundary.transform.localScale = new Vector3(1, yDiff, 1);
+            //boundary = Instantiate(boundaryStack, transform);
+            //boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, -toSpawn.dimensions.y * 0.5f + yDiff);
+            //boundary.transform.localScale = new Vector3(1, yDiff, 1);
+        }
 
         if (spawnedEndHouse == null)
         {

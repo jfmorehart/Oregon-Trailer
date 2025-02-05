@@ -18,7 +18,7 @@ public class QuestPoint : MonoBehaviour
     public bool IsDiscovered => isDiscovered;
     //notebook quest
     [SerializeField]
-    TextAsset quest;
+    public TextAsset quest;
 
     [SerializeField]
     private Sprite markerSprite;
