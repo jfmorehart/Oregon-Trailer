@@ -29,6 +29,10 @@ public class mapUI : MonoBehaviour
 
     bool thisCausedPause = false;
 
+    [Header("Menu Transforms")]
+    [SerializeField]
+    Transform mainmapicons;
+
     private void Awake()
     {
         if (instance != null && instance != this)
