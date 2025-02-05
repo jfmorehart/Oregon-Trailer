@@ -6,9 +6,16 @@ using UnityEngine;
 public class ChunkManager : MonoBehaviour
 {
     public static ChunkManager instance;
+    public bool test_autoGenerate = false;
+    public bool singleChunkMode;
+
     public int levelSize;
     public Chunk[] level;
     public Chunk[] chunkBag;
+
+    [SerializeField]
+    public ChunkBiome[] environment_chunkBags;
+
     public Chunk[] QuestChunkBag;
     public List<TextAsset> Quests;
 
@@ -34,12 +41,9 @@ public class ChunkManager : MonoBehaviour
         }
     }
 
-    void Start() 
-    {
-        
-    }
-
-
+    void Start() {
+        if(test_autoGenerate) RandomGenerateLevel();
+	}
 
     public void DestroyLevel() {
 		if (level != null)
@@ -62,20 +66,29 @@ public class ChunkManager : MonoBehaviour
         level = null;
 	}
 
+    public RoadPath path;
     public void GenerateLevel(List<TextAsset> questsToSpawn)
     {
         Quests = questsToSpawn;
         Debug.Log("Generating Level Request");
-        GenerateLevel();
+        if (MapManager.instance.playersCurrentNode.Roads.Length < 1) {
+
+            Debug.LogError("Level Request Denied: No road info set in currentNode!");
+            return;
+	    }
+        path = MapManager.instance.playersNewPath;
+        Debug.Log("path:" + path);
+        levelSize = path.roadLength;
+        singleChunkMode = levelSize == 1;
+        //feed chunkbag from BiomeType enum
+        chunkBag = environment_chunkBags[(int)path.type].chunks;
+
+        RandomGenerateLevel();
     }
 
-    public void GenerateLevel()
+    public void RandomGenerateLevel()
     {
         DestroyLevel();
-
-        level = new Chunk[levelSize];
-        float levelLengthSoFar = 0;
-        float lastRoadY = 0;
         //the van is not rotated in the prefab
 
         //pick out which chunks to spawn quests at
@@ -88,7 +101,6 @@ public class ChunkManager : MonoBehaviour
         List<int> chunksToSpawnQuestsAt = new List<int>();
         Debug.Log("chunk list size" + chunksToSpawnQuestsAt.Count);
         Debug.Log("Questsize" + Quests.Count);
-        int internalcount = 0;
 
         //chooses which chunk index each quest should be spawned at
         for (int i = 0; i < Quests.Count; i++)
@@ -105,96 +117,121 @@ public class ChunkManager : MonoBehaviour
             chunksToSpawnQuestsAt.Add(x);
 
         }
-        
 
         Debug.Log("crAC " + Quests.Count + " " + chunksToSpawnQuestsAt.Count);
 
         Instantiate( VanObj, Vector2.zero, Quaternion.Euler(0,0, 180));
-        for (int i= 0; i < levelSize; i++) {
 
-            Chunk toSpawn;  //prefab
+		level = new Chunk[levelSize];
+
+		GenerationLoop(chunksToSpawnQuestsAt);
+
+		Vector2 endpos = level[levelSize-1].transform.Find("road_end_point").position;
+		if (spawnedEndHouse == null)
+        {
+            spawnedEndHouse = Instantiate(endHouse, endpos, Quaternion.identity, transform); //new instance
+        }
+        else
+        {
+            spawnedEndHouse.transform.position = endpos; ;
+        }
+    }
+
+    void GenerationLoop(List<int> questChunks) {
+
+		float levelLengthSoFar = 0;
+		float lastRoadY = 0;
+
+		for (int i = 0; i < levelSize; i++)
+		{
+			Chunk toSpawn;  //prefab
 
             //this is slow but we can change chunkstospawnquestat to a hashset or something soon
-            if (chunksToSpawnQuestsAt.Contains(i))
+            if(path.forcedSections != null) {
+				if (path.forcedSections.Length > i)
+				{
+					toSpawn = path.forcedSections[i];
+                }
+                else {
+					toSpawn = chunkBag[Random.Range(0, chunkBag.Length)];
+				}
+			}
+            else if (questChunks.Contains(i))
             {
                 toSpawn = QuestChunkBag[Random.Range(0, QuestChunkBag.Length)];
                 toSpawn.setQuest(Quests[0]);
                 Quests.RemoveAt(0);
             }
             else
-                toSpawn = chunkBag[Random.Range(0, chunkBag.Length)];
-
-
-            toSpawn = Instantiate(toSpawn, transform); //new instance
-            level[i] = toSpawn;
-            
-            
-
-            
-            //DO NOT SPAWN ENEMIES IN THE FIRST CHUNK
-            if (i != 0 && toSpawn.enemies.Count > 0)
             {
-                //Enemy spawn system, not very good
+				toSpawn = chunkBag[Random.Range(0, chunkBag.Length)];
+			}
+		
 
-                int overSpawn = toSpawn.enemies.Count - enemySpawnsRemaining;
-                for (int e = 0; e < overSpawn; e++)
-                {
-                    Destroy(toSpawn.enemies[0].gameObject);
-                    toSpawn.enemies.RemoveAt(0);
-                }
-                enemySpawnsRemaining -= toSpawn.enemies.Count;
 
-            }
-            else
-            {
-                int overSpawn = toSpawn.enemies.Count;
-                for (int e = 0; e < overSpawn; e++)
-                {
-                    Destroy(toSpawn.enemies[0].gameObject);
-                    toSpawn.enemies.RemoveAt(0);
-                }
-                enemySpawnsRemaining -= toSpawn.enemies.Count;
+			//Actually Spawn level
+			toSpawn = Instantiate(toSpawn, transform); //new instance
+			level[i] = toSpawn;
 
-            }
+			RemoveEnemies(i);
 
-            //Aligning levels
-            levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
-            //Transform road = toSpawn.transform.GetChild(0);
-            //Vector2 startpos = road.position + 0.5f * road.localScale.x * road.right;
-            Vector2 startpos = toSpawn.transform.Find("road_start_point").position;
-            float startRoadY = startpos.y;
+			//Aligning levels!
 
-            float yDiff = lastRoadY - startRoadY;
+			//negative length of level
+			levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
+			Vector2 startpos = toSpawn.transform.Find("road_start_point").position;
+			float startRoadY = startpos.y;
 
+			//Y displacement to correct for
+			float yDiff = lastRoadY - startRoadY;
+
+			//fix!
 			toSpawn.transform.position = new Vector3(levelLengthSoFar, yDiff, 0);
-            levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
+			levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
 
-            //road = toSpawn.transform.GetChild(0);
-            //Vector2 endpos = road.position - 0.5f * road.localScale.x * road.right;
-            Vector2 endpos = toSpawn.transform.Find("road_end_point").position;
+			//Save endpoint for next iteration of loop
+			Vector2 endpos = toSpawn.transform.Find("road_end_point").position;
 			lastRoadY = endpos.y;
-            Debug.Log(lastRoadY);
 
-            ////boundaries
-            //Debug.Log(i + " diff = " + yDiff);
-            //GameObject boundary = Instantiate(boundaryStack, transform);
-            //boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, toSpawn.dimensions.y * 0.5f + yDiff);
-            //boundary.transform.localScale = new Vector3(1, yDiff, 1);
-            //boundary = Instantiate(boundaryStack, transform);
-            //boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, -toSpawn.dimensions.y * 0.5f + yDiff);
-            //boundary.transform.localScale = new Vector3(1, yDiff, 1);
-        }
+			////boundaries
+			//Debug.Log(i + " diff = " + yDiff);
+			//GameObject boundary = Instantiate(boundaryStack, transform);
+			//boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, toSpawn.dimensions.y * 0.5f + yDiff);
+			//boundary.transform.localScale = new Vector3(1, yDiff, 1);
+			//boundary = Instantiate(boundaryStack, transform);
+			//boundary.transform.position = new Vector3(levelLengthSoFar + toSpawn.dimensions.x * 0.5f, -toSpawn.dimensions.y * 0.5f + yDiff);
+			//boundary.transform.localScale = new Vector3(1, yDiff, 1);
+		}
+	}
+    void RemoveEnemies(int i) {
+        Chunk toSpawn = level[i];
+        if (singleChunkMode) return;
+		//DO NOT SPAWN ENEMIES IN THE FIRST CHUNK
+		if (i != 0 && toSpawn.enemies.Count > 0)
+		{
+			//Destroy Extras
+			int overSpawn = toSpawn.enemies.Count - enemySpawnsRemaining;
+			for (int e = 0; e < overSpawn; e++)
+			{
+				Destroy(toSpawn.enemies[0].gameObject);
+				toSpawn.enemies.RemoveAt(0);
+			}
+			enemySpawnsRemaining -= toSpawn.enemies.Count;
+			//the length of the list of toSpawn enemies is the number 'spawned' (not destroyed)
+		}
+		else
+		{
+			//Delete all enemies
+			int overSpawn = toSpawn.enemies.Count;
+			for (int e = 0; e < overSpawn; e++)
+			{
+				Destroy(toSpawn.enemies[0].gameObject);
+				toSpawn.enemies.RemoveAt(0);
+			}
+			enemySpawnsRemaining -= toSpawn.enemies.Count;
 
-        if (spawnedEndHouse == null)
-        {
-            spawnedEndHouse = Instantiate(endHouse, new Vector3(levelLengthSoFar, lastRoadY, 0), Quaternion.identity, transform); //new instance
-        }
-        else
-        {
-            spawnedEndHouse.transform.position = new Vector3(levelLengthSoFar, lastRoadY, 0);
-        }
-    }
-
+		}
+	}
 	// Update is called once per frame
 	void Update()
     {

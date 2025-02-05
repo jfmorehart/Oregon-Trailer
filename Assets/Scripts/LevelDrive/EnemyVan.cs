@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemyVan : Drivable
 {
 	public float spawnChancePercent = 0.3f;
+	public bool angry = true;
+	bool activated; //has seen player
 
 	public float fireTheta;
 	public float fireRange = 20;
@@ -13,8 +15,13 @@ public class EnemyVan : Drivable
 
 	protected override void Awake()
 	{
+		if(TryGetComponent<Breakable>(out Breakable br)) {
+			br.onShot += GetMad;
+		}
 
-		if (transform.parent.TryGetComponent(out Chunk boss))
+		if(transform.parent == null) { 
+	
+		}else if (transform.parent.TryGetComponent(out Chunk boss))
 		{
 			if (Random.Range(0, 1f) > spawnChancePercent * boss.enemySpawnMultiplier)
 			{
@@ -45,19 +52,31 @@ public class EnemyVan : Drivable
 	{
 		base.FixedUpdate();
 
-		if(MouseDriving.vanTransform == null) {
+		if (angry && activated) {
+			ChasePlayer();
+		}
+
+	}
+	public void GetMad() {
+		angry = true;
+    }
+	protected void ChasePlayer() {
+		if (MouseDriving.vanTransform == null)
+		{
 			DrivingLogic(0);
 			return;
 		}
 		Vector2 delta = (Vector2)MouseDriving.vanTransform.position - (Vector2)transform.position;
 		if (delta.magnitude > fireRange * 1.5f) return;
 		float thetaToPlayer = Vector2.SignedAngle(transform.right, delta.normalized);
-		if (Mathf.Abs(thetaToPlayer) < fireTheta && delta.magnitude < fireRange) {
+		if (Mathf.Abs(thetaToPlayer) < fireTheta && delta.magnitude < fireRange)
+		{
 			Fire();
 		}
 		DrivingLogic(thetaToPlayer);
 
-		if(_rb.velocity.magnitude < 0.3f) {
+		if (_rb.velocity.magnitude < 0.3f)
+		{
 			Fire();
 		}
 		_rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);

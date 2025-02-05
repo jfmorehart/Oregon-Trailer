@@ -18,8 +18,9 @@ public class MapManager : MonoBehaviour
 
     private MapNode startingNode;
     //keep track of what node the player is currently at
-    [SerializeField]
-    MapNode playersCurrentNode;
+    public MapNode playersCurrentNode;
+    public RoadPath playersNewPath;
+
     [SerializeField]
     MapNode playerDestinationNode;
 
