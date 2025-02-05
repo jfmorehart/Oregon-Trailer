@@ -121,6 +121,7 @@ MonoBehaviour:
   - Destination: {fileID: 7992614690188206669}
     roadLength: 3
     fuelCost: 0
+    type: 0
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
@@ -496,11 +497,13 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   Roads:
   - Destination: {fileID: 2639149355170188748}
-    roadLength: 9
+    roadLength: 1
     fuelCost: 0
+    type: 0
     forcedQuests:
     - {fileID: 4900000, guid: 4b169e4f0fb61544495d85593cd74e2f, type: 3}
-    forcedSections: []
+    forcedSections:
+    - {fileID: -623503267821811247, guid: 8eb13b3c65014486bb04af969cecc660, type: 3}
   playerCanChoose: 0
 --- !u!61 &8816584094802163877
 BoxCollider2D:
@@ -813,11 +816,13 @@ MonoBehaviour:
   - Destination: {fileID: 6067868605474996304}
     roadLength: 3
     fuelCost: 0
+    type: 0
     forcedQuests: []
     forcedSections: []
   - Destination: {fileID: 2868613727306110689}
     roadLength: 3
     fuelCost: 0
+    type: 0
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
@@ -1186,6 +1191,7 @@ MonoBehaviour:
   - Destination: {fileID: 7992614690188206669}
     roadLength: 2
     fuelCost: 0
+    type: 0
     forcedQuests: []
     forcedSections: []
   playerCanChoose: 0
