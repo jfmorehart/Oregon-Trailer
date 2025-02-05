@@ -36,8 +36,13 @@ public class InLevelCarSlider : MonoBehaviour
 
     public void startLevel()
     {
+        Debug.Log("LevelStartRoutine");
         //records the player's start position
         van = GameObject.Find("Van(Clone)");
+        if (van == null)
+        {
+            Debug.Log("Van is not Found");
+        }
         endingHouse = GameObject.Find("goal(Clone)");
         maxDistance = Vector2.Distance(van.transform.position, endingHouse.transform.position);
         leveldistancetext.SetActive(true);
@@ -70,6 +75,7 @@ public class InLevelCarSlider : MonoBehaviour
 
     public void levelDone()
     {
+        Debug.Log("Level Done Routine");
         van = null;
         endingHouse = null;
         maxDistance = 10000;

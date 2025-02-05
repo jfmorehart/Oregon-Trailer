@@ -265,8 +265,8 @@ public class MapManager : MonoBehaviour
         
         
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
-
-        InLevelCarSlider.instance.levelDone();
+        
+        //InLevelCarSlider.instance.levelDone();
 
     }
     
@@ -446,7 +446,8 @@ public class MapManager : MonoBehaviour
                 instance.playersCurrentNode.Roads[i].Destination.goDark();
             }
         }
-        InLevelCarSlider.instance.startLevel();
+
+        //InLevelCarSlider.instance.startLevel();
     }
 
     public static void allowDestinationChoice()
@@ -496,7 +497,7 @@ public class MapManager : MonoBehaviour
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
 
-            InLevelCarSlider.instance.levelDone();
+            //InLevelCarSlider.instance.levelDone();
         }
     }
 

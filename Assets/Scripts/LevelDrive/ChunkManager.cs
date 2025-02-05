@@ -94,7 +94,7 @@ public class ChunkManager : MonoBehaviour
         //pick out which chunks to spawn quests at
         if (Quests.Count > levelSize)
         {
-            Debug.Log("Too many quests to spawn compared to level size");
+            Debug.LogError("Too many quests to spawn compared to level size");
             return;
         }
 
