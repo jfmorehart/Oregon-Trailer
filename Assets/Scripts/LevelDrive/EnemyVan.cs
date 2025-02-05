@@ -7,7 +7,6 @@ public class EnemyVan : Drivable
 {
 	public float spawnChancePercent = 0.3f;
 	public bool angry = true;
-	bool activated; //has seen player
 
 	public float fireTheta;
 	public float fireRange = 20;
@@ -52,7 +51,7 @@ public class EnemyVan : Drivable
 	{
 		base.FixedUpdate();
 
-		if (angry && activated) {
+		if (angry) {
 			ChasePlayer();
 		}
 
