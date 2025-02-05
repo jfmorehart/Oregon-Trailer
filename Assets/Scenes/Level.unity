@@ -14317,6 +14317,7 @@ GameObject:
   - component: {fileID: 2012167996}
   - component: {fileID: 2012167998}
   - component: {fileID: 2012167997}
+  - component: {fileID: 2012167999}
   m_Layer: 5
   m_Name: Driving UI MOM
   m_TagString: Untagged
@@ -14384,6 +14385,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012167995}
   m_CullTransparentMesh: 1
+--- !u!114 &2012167999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012167995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74574b339e05def46aab67585e00f365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelcompleteslider: {fileID: 217725882}
+  leveldistancetext: {fileID: 243672297}
 --- !u!1 &2020826713
 GameObject:
   m_ObjectHideFlags: 0
@@ -15635,8 +15650,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -12.7400055, y: 0}
-  m_SizeDelta: {x: -5.49, y: 20}
+  m_AnchoredPosition: {x: 10.49, y: 0}
+  m_SizeDelta: {x: 40.98, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2143345178
 MonoBehaviour:
