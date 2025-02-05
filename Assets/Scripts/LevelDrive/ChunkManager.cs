@@ -6,6 +6,8 @@ using UnityEngine;
 public class ChunkManager : MonoBehaviour
 {
     public static ChunkManager instance;
+    public bool generateOnStart = false;
+
     public int levelSize;
     public Chunk[] level;
     public Chunk[] chunkBag;
@@ -32,8 +34,8 @@ public class ChunkManager : MonoBehaviour
     }
 
     void Start() {
-        //GenerateLevel();
-    }
+        if(generateOnStart) GenerateLevel();
+	}
 
     public void DestroyLevel() {
 		if (level != null)
