@@ -217,10 +217,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generateOnStart: 1
-  levelSize: 5
+  singleChunkMode: 1
+  levelSize: 1
   level: []
   chunkBag:
   - {fileID: 2460533215672483101, guid: 6b851ddad4c9241e2a4f669781ccb021, type: 3}
+  QuestChunkBag: []
+  Quests: []
   enemySpawnsRemaining: 100
   boundaryStack: {fileID: 770879436162116754, guid: cb6b897ca3aa24ff48282a688d7f1b0a, type: 3}
   endHouse: {fileID: 1790104061774785256, guid: 2d20434a7ac6243ed94158615f444895, type: 3}
@@ -260,7 +263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1546591658
 SpriteRenderer:
   m_ObjectHideFlags: 0

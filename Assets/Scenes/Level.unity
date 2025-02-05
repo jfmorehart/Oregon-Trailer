@@ -2708,6 +2708,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 319ec7a1a75244b51864d66eba919d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  test_autoGenerate: 0
+  singleChunkMode: 0
   levelSize: 5
   level: []
   chunkBag:
@@ -2715,6 +2717,22 @@ MonoBehaviour:
   - {fileID: -2800348910684745525, guid: 83153d47d63954f08be9e45b0e171959, type: 3}
   - {fileID: 2460533215672483101, guid: d82903715c0e44b0c85cc9b2eddbe1a0, type: 3}
   - {fileID: 2460533215672483101, guid: 5fee3bf16ae954f43a32b6bb61631544, type: 3}
+  environment_chunkBags:
+  - name: Default
+    chunks:
+    - {fileID: -623503267821811247, guid: 99f03507dc9a347a0bcfa2ff23b17526, type: 3}
+    - {fileID: -2800348910684745525, guid: 83153d47d63954f08be9e45b0e171959, type: 3}
+    - {fileID: 2460533215672483101, guid: d82903715c0e44b0c85cc9b2eddbe1a0, type: 3}
+    - {fileID: 2460533215672483101, guid: 5fee3bf16ae954f43a32b6bb61631544, type: 3}
+  - name: Desert
+    chunks:
+    - {fileID: -623503267821811247, guid: 99f03507dc9a347a0bcfa2ff23b17526, type: 3}
+  - name: Canyon
+    chunks:
+    - {fileID: -2800348910684745525, guid: 83153d47d63954f08be9e45b0e171959, type: 3}
+  - name: Forest
+    chunks:
+    - {fileID: 2460533215672483101, guid: 5fee3bf16ae954f43a32b6bb61631544, type: 3}
   QuestChunkBag:
   - {fileID: 1283691004698788421, guid: 0e59fcdd397f1e044b76bc82ee067d68, type: 3}
   - {fileID: 6147711309994676318, guid: 1c26bf187251d814682b2862367967fd, type: 3}
@@ -2723,6 +2741,13 @@ MonoBehaviour:
   boundaryStack: {fileID: 770879436162116754, guid: cb6b897ca3aa24ff48282a688d7f1b0a, type: 3}
   endHouse: {fileID: 1790104061774785256, guid: 2d20434a7ac6243ed94158615f444895, type: 3}
   VanObj: {fileID: 7847132893973158458, guid: cc0695d72bb974d8fa3cc7eb19f7f79f, type: 3}
+  path:
+    Destination: {fileID: 0}
+    roadLength: 0
+    fuelCost: 0
+    type: 0
+    forcedQuests: []
+    forcedSections: []
 --- !u!4 &317608256
 Transform:
   m_ObjectHideFlags: 0
@@ -18452,6 +18477,13 @@ MonoBehaviour:
   food: 5
   vanHealth: 0
   playersCurrentNode: {fileID: 0}
+  playersNewPath:
+    Destination: {fileID: 0}
+    roadLength: 0
+    fuelCost: 0
+    type: 0
+    forcedQuests: []
+    forcedSections: []
   playerDestinationNode: {fileID: 0}
   _playerInTransit: 0
   FuelText: {fileID: 7423430584643723051}
@@ -18523,71 +18555,6 @@ RectTransform:
   m_AnchoredPosition: {x: -113.4, y: -21.9}
   m_SizeDelta: {x: 90.21, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &4482465674392866831
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3716948885124198830, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: lifeTime
-      value: 99999
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.50859797
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7853812644917230725, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8084398597279682095, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_Name
-      value: OilSlick
-      objectReference: {fileID: 0}
-    - target: {fileID: 8084398597279682095, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3b6723a74beea2b499b8de4c828f9636, type: 3}
 --- !u!1 &5207321309196476294
 GameObject:
   m_ObjectHideFlags: 0
@@ -18979,5 +18946,4 @@ SceneRoots:
   - {fileID: 1618040846}
   - {fileID: 2050603850}
   - {fileID: 519462665}
-  - {fileID: 4482465674392866831}
   - {fileID: 693655841}
