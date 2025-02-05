@@ -56,8 +56,8 @@ public class Drivable : MonoBehaviour
 		{
 			boostRemaining -= Time.fixedDeltaTime;
 			_rb.AddForce(boostStr * Time.fixedDeltaTime * transform.right);
-			Debug.Log(boostRemaining);
-			Debug.Log("adding force");
+			//Debug.Log(boostRemaining);
+			//Debug.Log("adding force");
 			if (boostRemaining < 0)
 			{
 				boostActive = false;
@@ -68,7 +68,7 @@ public class Drivable : MonoBehaviour
 	{
 		if (Time.time - lastBoostTime > boostCooldown)
 		{
-			Debug.Log("boosting");
+			//Debug.Log("boosting");
 			lastBoostTime = Time.time;
 			boostActive = true;
 			boostRemaining = boostLength;
