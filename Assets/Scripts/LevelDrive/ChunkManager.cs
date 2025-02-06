@@ -99,8 +99,8 @@ public class ChunkManager : MonoBehaviour
         }
 
         List<int> chunksToSpawnQuestsAt = new List<int>();
-        Debug.Log("chunk list size" + chunksToSpawnQuestsAt.Count);
-        Debug.Log("Questsize" + Quests.Count);
+        //Debug.Log("chunk list size" + chunksToSpawnQuestsAt.Count);
+        //Debug.Log("Questsize" + Quests.Count);
 
         //chooses which chunk index each quest should be spawned at
         for (int i = 0; i < Quests.Count; i++)
@@ -117,8 +117,6 @@ public class ChunkManager : MonoBehaviour
             chunksToSpawnQuestsAt.Add(x);
 
         }
-
-        Debug.Log("crAC " + Quests.Count + " " + chunksToSpawnQuestsAt.Count);
 
         Instantiate( VanObj, Vector2.zero, Quaternion.Euler(0,0, 180));
 

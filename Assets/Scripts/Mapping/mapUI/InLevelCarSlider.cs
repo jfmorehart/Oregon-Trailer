@@ -61,7 +61,7 @@ public class InLevelCarSlider : MonoBehaviour
             //RN
             //
             
-            float vanDistancePercent = (maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance;
+            float vanDistancePercent = Mathf.Clamp((maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance, 0, 100);
 
             levelcompleteslider.value = vanDistancePercent;
         }
