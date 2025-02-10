@@ -147,5 +147,7 @@ public class mapPlayer : MonoBehaviour
     }
 
 
-
+    //find the position on screen of destination point(s)
+    //set the origin position and destination position
+    //make the van move to the position needed
 }
