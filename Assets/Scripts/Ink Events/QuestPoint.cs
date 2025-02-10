@@ -80,16 +80,11 @@ public class QuestPoint : MonoBehaviour
     //returns true if player is less than interaction distance away
     bool checkInteractionDistance()
     {
-        if (Vector2.Distance(MouseDriving.vanTransform.position, interactionPoint.position) < interactionDistance)
-            return true;
-        return false;
-
+        return Vector2.Distance(MouseDriving.vanTransform.position, interactionPoint.position) < interactionDistance;
     }
     bool checkDetectionDistance()
     {
-        if (Vector2.Distance(MouseDriving.vanTransform.position, interactionPoint.position) < interactionDistance)
-            return true;
-        return false;
+        return (Vector2.Distance(MouseDriving.vanTransform.position, interactionPoint.position) < interactionDistance);
 
     }
 }
