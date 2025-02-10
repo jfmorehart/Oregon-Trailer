@@ -47,7 +47,7 @@ public class MapArrowUI : MonoBehaviour
             for (int i = 0; i < points.Count; i++)
             {
                 //find the closest point
-                if (Vector2.Distance(van.transform.position, points[i].transform.position) < Vector2.Distance(van.transform.position, nearestQuest))
+                if (Vector2.Distance(van.transform.position, points[i].transform.position) < Vector2.Distance(van.transform.position, nearestQuest.transform.position))
                 {
                     nearestQuest = points[i].transform;
                 }
