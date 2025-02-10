@@ -119,7 +119,7 @@ public class mapUI : MonoBehaviour
             {
                 thisCausedPause = false;
                 StartCoroutine(pauseRoutine(false));
-                Debug.Log("This caused pause unpausing");
+                //Debug.Log("This caused pause unpausing");
             }
 
         }
@@ -128,12 +128,12 @@ public class mapUI : MonoBehaviour
     {
         transform.localPosition = startPosition;
         DOTween.KillAll();
-        Debug.Log("pulling down to " + startPosition);
+        //Debug.Log("pulling down to " + startPosition);
     }
     public void instantPopUp()
     {
         transform.localPosition = endPosition;
         DOTween.KillAll();
-        Debug.Log("popping up to " + endPosition);
+        //Debug.Log("popping up to " + endPosition);
     }
 }

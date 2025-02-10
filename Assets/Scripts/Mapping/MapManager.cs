@@ -134,7 +134,7 @@ public class MapManager : MonoBehaviour
             startingNode = levelvariables.firstNode;
 
             playersCurrentNode = levelvariables.firstNode;
-            mapPlayer.instance.setPositionStrict(playersCurrentNode);
+            //mapPlayer.instance.setPositionStrict(playersCurrentNode);
             playersCurrentNode.goBright();
 
             mapUI.instance.ShouldBeInteractedWith = false;
@@ -266,7 +266,7 @@ public class MapManager : MonoBehaviour
         
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
         
-
+        InLevelCarSlider.instance.levelDone();
 
     }
     
@@ -424,6 +424,7 @@ public class MapManager : MonoBehaviour
         //lower the map
         mapUI.instance.instantPullDown();
         mapUI.instance.ShouldBeInteractedWith = true;
+        InLevelCarSlider.instance.startLevel();
 
 
         yield return new WaitForSeconds(0.5f);
@@ -496,6 +497,7 @@ public class MapManager : MonoBehaviour
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
 
+            InLevelCarSlider.instance.levelDone();
         }
     }
 
