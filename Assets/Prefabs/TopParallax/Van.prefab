@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4267841185676531063}
   m_Layer: 0
   m_Name: front wheel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 908416152002818025}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 3725858464314433335}
   m_Layer: 0
   m_Name: top
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 5919461320838924736}
   m_Layer: 0
   m_Name: van sprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 4209572359459934705}
   m_Layer: 0
   m_Name: back wheel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 6998309205209504449}
   m_Layer: 0
   m_Name: front wheel 2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1195,11 +1195,11 @@ MonoBehaviour:
   acceleration: 0
   topSpeed: 20
   drag: 0.7
-  turnRate: 450
+  turnRate: 150
   sway: 0
   deadzone: 0
-  swayfreq: 0.8
-  swayamp: 15
+  swayfreq: 0
+  swayamp: 0
   rotationDrag: 0.3
   velConservation: 0.5
   _rb: {fileID: 0}
@@ -1226,7 +1226,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 2
   m_LinearDrag: 0
-  m_AngularDrag: 1
+  m_AngularDrag: 10
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1311,7 +1311,7 @@ GameObject:
   - component: {fileID: 2191661276852158258}
   m_Layer: 0
   m_Name: back wheel 2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1508,7 +1508,7 @@ GameObject:
   - component: {fileID: 1561104249706468471}
   m_Layer: 0
   m_Name: glass
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1588,6 +1588,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5161448909287869332}
     m_Modifications:
+    - target: {fileID: 1389846193087308921, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_Name
+      value: Aim
+      objectReference: {fileID: 0}
+    - target: {fileID: 1389846193087308921, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1399100780447874224, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_SortingOrder
       value: 3
@@ -1596,13 +1604,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zooka
       objectReference: {fileID: 0}
+    - target: {fileID: 2322831378473544577, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894476967429788400, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.31895053
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894476967429788400, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.37209925
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894476967429788400, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.53154
+      objectReference: {fileID: 0}
     - target: {fileID: 4894476967429788400, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06
+      value: -0.0099999
       objectReference: {fileID: 0}
     - target: {fileID: 4894476967429788400, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.29
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 5144908925275891421, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_SortingOrder
@@ -1617,8 +1641,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: minrange
+      value: 3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: ignoreTag
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: fireButton
-      value: 0
+      value: 323
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: AimsAtMouse
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: bulletScale
@@ -1631,6 +1667,14 @@ PrefabInstance:
     - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: knockbackForce
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: minAngleDotProduct
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223857218143876736, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8233153979366932665, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_LocalScale.x
@@ -1842,6 +1886,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: oilbarrel
       objectReference: {fileID: 0}
+    - target: {fileID: 7614452810573006870, guid: e88001f8fc2be494c917bb7a1d2411f0, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1905,6 +1953,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 2322831378473544577, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4894476967429788400, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.08
@@ -1916,6 +1968,22 @@ PrefabInstance:
     - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: damage
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: ignoreTag
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: rechamberTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: knockbackForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: minAngleDotProduct
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6882772689464219319, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_IsActive
@@ -1985,6 +2053,10 @@ PrefabInstance:
     - target: {fileID: 2121830895326314144, guid: ffd0b24f1ae1b407e935353ebabe1a01, type: 3}
       propertyPath: m_Name
       value: HP
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121830895326314144, guid: ffd0b24f1ae1b407e935353ebabe1a01, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7188732877613100473, guid: ffd0b24f1ae1b407e935353ebabe1a01, type: 3}
       propertyPath: m_LocalScale.x
@@ -2137,6 +2209,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 2322831378473544577, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4894476967429788400, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -2152,6 +2228,30 @@ PrefabInstance:
     - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: damage
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: spread
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: fireDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: ignoreTag
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: rechamberTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: knockbackForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: minAngleDotProduct
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8233153979366932665, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: m_LocalPosition.x

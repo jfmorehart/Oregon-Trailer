@@ -91,9 +91,9 @@ public class Drivable : MonoBehaviour
 		//turn size
 		float turnAngle = turnRate * Time.fixedDeltaTime;
 		//gotta be moving to turn
-		turnAngle = Mathf.Lerp(0, turnAngle, _rb.velocity.magnitude / topSpeed);
+		turnAngle = turnAngle * Mathf.Min(1, _rb.velocity.magnitude / (topSpeed * 0.3f) );
 		//dont oversteer
-		turnAngle = Mathf.Min(Mathf.Abs(theta), turnAngle * TotalTerrainGrip());
+		//turnAngle = Mathf.Min(Mathf.Abs(theta), turnAngle * TotalTerrainGrip());
 
 		if (theta > deadzone)
 		{
@@ -105,6 +105,9 @@ public class Drivable : MonoBehaviour
 		{
 			transform.Rotate(Vector3.forward, -turnAngle);
 			rotationThisFrame -= turnAngle;
+		}
+		else {
+			transform.Rotate(Vector3.forward, theta * 0.5f);
 		}
 
 		//wiggle the car
@@ -131,7 +134,6 @@ public class Drivable : MonoBehaviour
 	{
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
-			Debug.Log("smack " + _rb.velocity.magnitude);
 			if (_rb.velocity.magnitude > 1)
 			{
 				br.Damage(collisionDamage);
@@ -160,7 +162,6 @@ public class Drivable : MonoBehaviour
     }
     public virtual void OnTriggerExit2D(UnityEngine.Collider2D collision)
     {
-		Debug.Log("Exit");
 		if (collision.TryGetComponent(out TerrainModifier tm))
 		{
 			terrainModifiers.Remove(tm);
