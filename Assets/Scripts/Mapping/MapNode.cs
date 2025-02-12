@@ -234,18 +234,18 @@ public class MapNode : MonoBehaviour
             if (!_boxCollider.isActiveAndEnabled)
             {
                 _boxCollider.enabled = true;
-                Debug.Log("Collider is not active enable now");
+                //Debug.Log("Collider is not active enable now");
             }
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero );
             if (hit.collider == null)
             {
-                Debug.Log("Player Hit Nothing");
+                //Debug.Log("Player Hit Nothing");
                 return;
             }
 			if (hit.collider.gameObject == gameObject)
 			{
 				MapManager.playerTraveling(this);
-				Debug.Log("Player chose " + transform.name);
+				//Debug.Log("Player chose " + transform.name);
 				//go into driving scene
 			}
         }

@@ -24,6 +24,7 @@ public class mapUI : MonoBehaviour
 
     Tween popUpTween, pullDownTween;
 
+
     //controlled by the mapmanager
     public bool ShouldBeInteractedWith = false;
 
@@ -31,8 +32,12 @@ public class mapUI : MonoBehaviour
 
     [Header("Menu Transforms")]
     [SerializeField]
-    Transform mainmapicons;
-
+    Transform topResources;
+    [SerializeField]
+    Transform CharacterScreen;
+    [SerializeField]
+    Vector2 characterScreenONScreenLocation, characterScreenOFFScreenLocation;
+    bool characterScreenActive = false;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -119,7 +124,7 @@ public class mapUI : MonoBehaviour
             {
                 thisCausedPause = false;
                 StartCoroutine(pauseRoutine(false));
-                Debug.Log("This caused pause unpausing");
+                //Debug.Log("This caused pause unpausing");
             }
 
         }
@@ -128,12 +133,34 @@ public class mapUI : MonoBehaviour
     {
         transform.localPosition = startPosition;
         DOTween.KillAll();
-        Debug.Log("pulling down to " + startPosition);
+        //Debug.Log("pulling down to " + startPosition);
     }
     public void instantPopUp()
     {
         transform.localPosition = endPosition;
         DOTween.KillAll();
-        Debug.Log("popping up to " + endPosition);
+        //Debug.Log("popping up to " + endPosition);
     }
+
+    public void characterScreenMove()
+    {
+        ShouldBeInteractedWith = false;
+        if (!characterScreenActive)
+        {
+
+            characterScreenActive = true;
+            DOTween.KillAll();
+            CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, 0.5f, false);
+            //StartCoroutine(MoveCharacterScreenRoutine());
+        }
+        else 
+        {
+            characterScreenActive = false;
+            DOTween.KillAll();
+
+            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false);
+        }
+    }
+
+
 }
