@@ -57,9 +57,9 @@ public class ChunkManager : MonoBehaviour
                 }
             }
 
-            if (MouseDriving.vanTransform != null)
+            if (PlayerVan.vanTransform != null)
             {
-                Destroy(MouseDriving.vanTransform.gameObject);
+                Destroy(PlayerVan.vanTransform.gameObject);
 
             }
 		}
