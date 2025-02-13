@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MouseDriving : Drivable
+public class PlayerVan : Drivable
 {
 	public static Transform vanTransform;
     Vector2 mousePos;
@@ -22,7 +22,11 @@ public class MouseDriving : Drivable
     private void Update()
     {
 		//frame-input goes in update
-        if (Input.GetKeyDown(KeyCode.Q))
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			//SceneManager.LoadScene(SceneManager.GetActiveScene)
+		}
+		if (Input.GetKeyDown(KeyCode.Q))
         {
             ActivateUpgrade(UpgradeManager.instance.q_upgrade);   
 		}
@@ -58,7 +62,7 @@ public class MouseDriving : Drivable
 		
 		//held input can live in fixedupdate
 		//gas?
-		if (Input.GetMouseButton(0))
+		if (Input.GetKey(KeyCode.W))
 		{
 			if (_rb.velocity.magnitude < topSpeed)
 			{   
@@ -66,7 +70,7 @@ public class MouseDriving : Drivable
 				_rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
 			}
 		}
-		if (Input.GetMouseButton(1))
+		if ((Input.GetKey(KeyCode.S)))
 		{
 			if (_rb.velocity.magnitude < topSpeed)
 			{
@@ -74,8 +78,18 @@ public class MouseDriving : Drivable
 				_rb.AddForce(acceleration * Time.fixedDeltaTime * -transform.right);
 			}
 		}
-        DriveTowards(mousePos);
-    }
+		bool forward = Vector2.Dot(transform.right, _rb.velocity) > 0;
+
+		if (Input.GetKey(KeyCode.A)){
+			//DriveTowards(transform.position + transform.up);
+			DrivingLogic(turnRate * (forward ? 1 : -1)); ;
+		}
+		if (Input.GetKey(KeyCode.D))
+		{
+			DrivingLogic(-turnRate * (forward ? 1 : -1));
+		}
+
+	}
 	public override void OnCollisionEnter2D(Collision2D collision)
 	{
 		base.OnCollisionEnter2D(collision);

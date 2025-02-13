@@ -10,12 +10,12 @@ public class SmartCar : Drivable
 		Debug.Log("drive!");
 
 
-		if (MouseDriving.vanTransform == null)
+		if (PlayerVan.vanTransform == null)
 		{
 			DrivingLogic(0);
 			return;
 		}else{
-			Vector2 delta = (Vector2)MouseDriving.vanTransform.position - (Vector2)transform.position;
+			Vector2 delta = (Vector2)PlayerVan.vanTransform.position - (Vector2)transform.position;
 			float thetaToPlayer = Vector2.SignedAngle(transform.right, delta.normalized);
 
 		

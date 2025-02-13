@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Bullet : PooledObject
 {
@@ -17,6 +18,10 @@ public class Bullet : PooledObject
 
 	[HideInInspector]
 	public float damage;
+
+	public float disabledStartTime;
+	public string ignoreTag;
+
 
 	private void Awake()
 	{
@@ -35,8 +40,10 @@ public class Bullet : PooledObject
 
 	public override void Fire(Vector2 startpos, Vector2 dir, Vector2 initvel) {
 		Camera.main.GetComponent<LevelCamera>().Shake(1, transform.position);
-		flying = true;
+		
 		transform.position = startpos;
+		flying = true;
+		Debug.Log("aim" + startpos);
 		tren.Clear();
 		tren.enabled = true;
 		ren.enabled = true;
@@ -62,9 +69,12 @@ public class Bullet : PooledObject
 			foreach(RaycastHit2D h in hit) {
 				//if (h.collider.gameObject.CompareTag("Player")) continue;
 				//if (Time.time - startTime < 0.05f) return;
+				if(h.collider.CompareTag(ignoreTag)){
+					return;
+				}
+
 				Pool.smokes.GetObject().Fire(transform.position, Vector2.zero, Vector2.zero);
 				Hide();
-
 				if(h.collider.TryGetComponent(out Breakable br)) {
 					br.Damage(damage);
 				}
