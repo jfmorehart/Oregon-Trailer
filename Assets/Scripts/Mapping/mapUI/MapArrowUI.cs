@@ -6,7 +6,7 @@ using UnityEngine;
 public class MapArrowUI : MonoBehaviour
 {
 
-    public static MapArrowUI instance;
+    public MapArrowUI instance;
     public Transform arrow;
     private GameObject van;
     private List<QuestPoint> points;
