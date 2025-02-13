@@ -152,14 +152,14 @@ public class mapUI : MonoBehaviour
 
     public void characterScreenMove()
     {
-        ShouldBeInteractedWith = false;
         if (currentScreen != mapScreens.character)
         {
-            currentScreen = mapScreens.character;
 
             DOTween.KillAll();
             CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
+            currentScreen = mapScreens.character;
+
         }
         else 
         {
