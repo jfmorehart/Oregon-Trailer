@@ -123,8 +123,12 @@ public class ChunkManager : MonoBehaviour
 		level = new Chunk[levelSize];
 
 		GenerationLoop(chunksToSpawnQuestsAt);
-
-		Vector2 endpos = level[levelSize-1].transform.Find("road_end_point").position;
+        Transform endpoint = level[levelSize - 1].transform.Find("road_end_point");
+        if(endpoint == null) {
+            Debug.LogError("level contains no endpoint!");
+            return;
+	    }
+	    Vector2 endpos = endpoint.position;
 		if (spawnedEndHouse == null)
         {
             spawnedEndHouse = Instantiate(endHouse, endpos, Quaternion.identity, transform); //new instance

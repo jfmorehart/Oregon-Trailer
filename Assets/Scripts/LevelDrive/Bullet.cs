@@ -69,8 +69,11 @@ public class Bullet : PooledObject
 			foreach(RaycastHit2D h in hit) {
 				//if (h.collider.gameObject.CompareTag("Player")) continue;
 				//if (Time.time - startTime < 0.05f) return;
-				if(h.collider.CompareTag(ignoreTag)){
-					return;
+				if(ignoreTag != "") {
+					if (h.collider.CompareTag(ignoreTag))
+					{
+						return;
+					}
 				}
 
 				Pool.smokes.GetObject().Fire(transform.position, Vector2.zero, Vector2.zero);
