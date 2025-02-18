@@ -401,6 +401,7 @@ public class MapManager : MonoBehaviour
     private IEnumerator PlayerTraveling(MapNode destNode)
     {
         float duration = 1f;
+        Debug.Log("Fading to black");
         fadeToBlackBG.gameObject.SetActive(true);
         Color transparent = new Color(0, 0, 0, 0);
         Color full = new Color(0, 0, 0, 1);
@@ -414,10 +415,11 @@ public class MapManager : MonoBehaviour
         }
 
         fadeToBlackBG.color = new Color(0, 0, 0, 1);
+        Debug.Log("fade to black complete");
 
 
         //player should be travelling now
-        
+
 
         ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(destNode));
 
