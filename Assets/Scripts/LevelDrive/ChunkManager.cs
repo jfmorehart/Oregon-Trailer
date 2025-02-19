@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -89,6 +90,13 @@ public class ChunkManager : MonoBehaviour
     public void RandomGenerateLevel()
     {
         DestroyLevel();
+
+        if (levelSize == 0)
+        {
+            levelSize = 5;
+        }
+        
+        
         //the van is not rotated in the prefab
 
         //pick out which chunks to spawn quests at
@@ -121,10 +129,14 @@ public class ChunkManager : MonoBehaviour
         Instantiate( VanObj, Vector2.zero, Quaternion.Euler(0,0, 180));
 
 		level = new Chunk[levelSize];
-
+        Debug.Log(level.GetLength(0));
 		GenerationLoop(chunksToSpawnQuestsAt);
-
-		Vector2 endpos = level[levelSize-1].transform.Find("road_end_point").position;
+        Transform endpoint = level[levelSize - 1].transform.Find("road_end_point");
+        if(endpoint == null) {
+            Debug.LogError("level contains no endpoint!");
+            return;
+	    }
+	    Vector2 endpos = endpoint.position;
 		if (spawnedEndHouse == null)
         {
             spawnedEndHouse = Instantiate(endHouse, endpos, Quaternion.identity, transform); //new instance

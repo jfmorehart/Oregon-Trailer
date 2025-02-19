@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InLevelCarSlider : MonoBehaviour
 {
@@ -12,11 +13,11 @@ public class InLevelCarSlider : MonoBehaviour
     [SerializeField]
     Scrollbar levelcompleteslider;
     [SerializeField]
-    GameObject leveldistancetext;
+    TMP_Text leveldistancetext;
     float maxDistance;
     public static InLevelCarSlider instance;
 
-
+    public Transform arrow;
 
     private void Awake()
     {
@@ -31,7 +32,7 @@ public class InLevelCarSlider : MonoBehaviour
         levelcompleteslider.value = 0;
         levelcompleteslider.interactable = false;
         levelcompleteslider.gameObject.SetActive(false);
-        leveldistancetext.SetActive(false);
+        leveldistancetext.gameObject.SetActive(false);
     }
 
     public void startLevel()
@@ -45,7 +46,7 @@ public class InLevelCarSlider : MonoBehaviour
         }
         endingHouse = GameObject.Find("goal(Clone)");
         maxDistance = Vector2.Distance(van.transform.position, endingHouse.transform.position);
-        leveldistancetext.SetActive(true);
+        leveldistancetext.gameObject.SetActive(true);
         levelcompleteslider.gameObject.SetActive(true);
     }
 
@@ -63,6 +64,7 @@ public class InLevelCarSlider : MonoBehaviour
             
             float vanDistancePercent = Mathf.Clamp((maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance, 0, 100);
 
+            leveldistancetext.text = ((int) Vector2.Distance(van.transform.position, endingHouse.transform.position)) + "M"; 
             levelcompleteslider.value = vanDistancePercent;
         }
         else
@@ -79,7 +81,11 @@ public class InLevelCarSlider : MonoBehaviour
         van = null;
         endingHouse = null;
         maxDistance = 10000;
-        leveldistancetext.SetActive(false);
+        leveldistancetext.gameObject.SetActive(false);
         levelcompleteslider.gameObject.SetActive(false);
     }
+
+
+
+
 }

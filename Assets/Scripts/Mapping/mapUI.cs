@@ -37,7 +37,15 @@ public class mapUI : MonoBehaviour
     Transform CharacterScreen;
     [SerializeField]
     Vector2 characterScreenONScreenLocation, characterScreenOFFScreenLocation;
-    bool characterScreenActive = false;
+    [SerializeField]
+    mapScreens currentScreen = mapScreens.map;
+    enum mapScreens
+    {
+        map,
+        character,
+        upgrade,
+
+    }
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -144,23 +152,28 @@ public class mapUI : MonoBehaviour
 
     public void characterScreenMove()
     {
-        ShouldBeInteractedWith = false;
-        if (!characterScreenActive)
+        if (currentScreen != mapScreens.character)
         {
 
-            characterScreenActive = true;
             DOTween.KillAll();
-            CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, 0.5f, false);
+            CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
+            currentScreen = mapScreens.character;
+
         }
         else 
         {
-            characterScreenActive = false;
             DOTween.KillAll();
 
-            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false);
+            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            currentScreen = mapScreens.map;
         }
     }
-
+    public void mapButton()
+    {
+        //move all other screens to another position
+        currentScreen = mapScreens.map;
+        CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+    }
 
 }

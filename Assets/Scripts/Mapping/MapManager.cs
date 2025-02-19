@@ -112,16 +112,17 @@ public class MapManager : MonoBehaviour
             generateMap(possibleMaps[mapIndex]);
             Debug.Log("Generating Map from list of maps - Map at index " + mapIndex);
             mapIndex++;
+
         }
     }
     
     //try to spawn the generated events in order
     public void generateMap(GameObject map = null) 
     {
-        Debug.Log("Private");
+        //Debug.Log("Private");
         if (map != null)
         {
-            Debug.Log("Historians");
+            //Debug.Log("Historians");
             if(currentMap != null)
                 Destroy(currentMap.gameObject);
             GameObject instantiatedMap = Instantiate(map, mapParent);
@@ -129,7 +130,7 @@ public class MapManager : MonoBehaviour
             currentMap = instantiatedMap.transform;
 
 
-            Debug.Log("growing");
+            //Debug.Log("growing");
 
             startingNode = levelvariables.firstNode;
 
@@ -140,10 +141,12 @@ public class MapManager : MonoBehaviour
             mapUI.instance.ShouldBeInteractedWith = false;
             mapUI.instance.instantPopUp();
             allowDestinationChoice();
+            mapPlayer.instance.setPositionStrict(playersCurrentNode);
+
         }
         else
         {
-            Debug.Log("HORSI");
+            //Debug.Log("HORSI");
             buildNodes(Random.Range(minNodesToGen, maxNodesToGen));
         }
     }
@@ -348,7 +351,7 @@ public class MapManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //set the player's position to the new node
-        mapPlayer.instance.setPosition(instance.playersCurrentNode);
+        mapPlayer.instance.setPositionStrict(instance.playersCurrentNode);
 
         Debug.Log("D6");
         yield return new WaitForEndOfFrame();
@@ -398,6 +401,7 @@ public class MapManager : MonoBehaviour
     private IEnumerator PlayerTraveling(MapNode destNode)
     {
         float duration = 1f;
+        Debug.Log("Fading to black");
         fadeToBlackBG.gameObject.SetActive(true);
         Color transparent = new Color(0, 0, 0, 0);
         Color full = new Color(0, 0, 0, 1);
@@ -411,10 +415,11 @@ public class MapManager : MonoBehaviour
         }
 
         fadeToBlackBG.color = new Color(0, 0, 0, 1);
+        Debug.Log("fade to black complete");
 
 
         //player should be travelling now
-        
+
 
         ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(destNode));
 
@@ -492,7 +497,7 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             //reset the player to be at the first point
-            mapPlayer.instance.setPosition(playersCurrentNode);
+            mapPlayer.instance.setPositionStrict(playersCurrentNode);
 
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
