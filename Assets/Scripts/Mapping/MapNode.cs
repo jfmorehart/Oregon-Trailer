@@ -51,6 +51,7 @@ public class MapNode : MonoBehaviour
     {
         Diner,
         Hunt,
+        Garage
     }
 
 
@@ -166,6 +167,10 @@ public class MapNode : MonoBehaviour
             case activity.Hunt:
                 //display hunt screen
                 HuntManager.instance.displayHunt();
+                break;
+            case activity.Garage:
+                //display garage screen
+                GarageManager.instance.displayDiner();
                 break;
             default:
                 break;
