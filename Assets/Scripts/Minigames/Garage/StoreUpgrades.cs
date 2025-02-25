@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StoreUpgrades : MonoBehaviour
 {
     Image img;
+    public string Name;
     public string desc;
     public int cost;
     public Upgrade upgrade;

@@ -170,7 +170,7 @@ public class MapNode : MonoBehaviour
                 break;
             case activity.Garage:
                 //display garage screen
-                GarageManager.instance.displayDiner();
+                ItemShop.instance.displayShop();
                 break;
             default:
                 break;

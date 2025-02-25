@@ -6,42 +6,108 @@ using UnityEngine.UI;
 
 public class ItemShop : MonoBehaviour
 {
+    public static ItemShop instance;
+    [SerializeField]
+    private GameObject itemshopScene;
 
-    public TMP_Text itemNameText;
-    public TMP_Text itemDescriptionText;
-    public TMP_Text itemCostText;
-    public Image itemImage;
+    //available upgrade
+    //bought upgrades
+    public List<StoreUpgrades> availableUpgrades = new List<StoreUpgrades>();
+    //public List<StoreUpgrades> obtainedUpgrades = new List<StoreUpgrades>();
 
-    public void showPurchaseMenu()
-    {
-
-    }
-    public void hidePurchaseMenu()
-    {
-    }
+    //little drop down that shows each of the drop downs that we should 
+    private StoreUpgrades SelectedUpgrade;
+    [SerializeField]
+    private GameObject ItemDescriptionPanel;
+    [SerializeField]
+    private TMP_Text ItemNameText;
+    [SerializeField]
+    private TMP_Text ItemDescriptionText;
+    [SerializeField]
+    private TMP_Text ItemCostText;
+    [SerializeField]
+    private Button itemBuyButton;
+    [SerializeField]
+    private Button stealButton;
     
-    public void itemSelect(StoreUpgrades upgrade)
+    private void Awake()
     {
-        switch (upgrade.upgrade)
+        if (instance != null && instance != this)
         {
-            case Upgrade.Booster:
-                break;
-            case Upgrade.OilBarrel:
-                break;
-            case Upgrade.TankGun:
+            Destroy(gameObject);
+        }
+        else if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+    private void Start()
+    {
+        ItemDescriptionPanel.SetActive(false);
+    }
 
-                break;
-            default:
-                Debug.Log("Invalid Item selected");
-                hidePurchaseMenu();
-                break;
+
+    public void displayShop()
+    {
+        itemshopScene.SetActive(true);
+    }
+
+    public void hideGarage()
+    {
+        //set the q and e upgrades appropriately
+        ItemDescriptionPanel.SetActive(false);
+        itemshopScene.SetActive(true);
+    }
+
+
+    //what you have got vs what you want to get
+    //lower tier stuff below
+
+    public void repairVan()
+    {
+        //repairs to full health, until we decide how it should work otherwise
+        if (MapManager.instance.BuyResource(50))
+            MapManager.instance.repairVan();
+
+    }
+
+
+    public void selectUpgrade(StoreUpgrades su)
+    {
+        ItemDescriptionPanel.SetActive(true);
+        SelectedUpgrade = su;
+        ItemCostText.text = "" + su.cost;
+        ItemDescriptionText.text = su.desc;
+        ItemNameText.text = su.Name;
+
+        if (MapManager.instance.Money > SelectedUpgrade.cost)
+        {
+            itemBuyButton.interactable = true;
+        }
+        else
+        {
+            itemBuyButton.interactable = false;
+        }
+
+    }
+
+    public void buyUpgrade()
+    {
+        if (SelectedUpgrade != null)
+        {
+            MapManager.instance.BuyResource(SelectedUpgrade.cost);
+            Upgrade boughtUpgrade = SelectedUpgrade.upgrade;
+            Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
+        }
+        else
+        {
+            Debug.Log("Should not have option to buy upgrade when player does not have enough money");
         }
     }
 
-
-    public void attemptPurchase()
+    public void stealButtonBehavior()
     {
-
+        Debug.Log("Behavior is not implemented");
     }
-
 }

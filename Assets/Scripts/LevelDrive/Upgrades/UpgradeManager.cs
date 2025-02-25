@@ -22,11 +22,17 @@ public class UpgradeManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        
     }
     // Update is called once per frame
     void Update()
     {
         q_upgrade = (Upgrade)qdrop.value;
         e_upgrade = (Upgrade)edrop.value;
+    }
+
+    public void AddOption(Upgrade upg)
+    {
+
     }
 }
