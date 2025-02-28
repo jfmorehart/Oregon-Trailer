@@ -6,7 +6,7 @@ using UnityEngine.UI;
 //added to store upgrades
 public class StoreUpgrades : MonoBehaviour
 {
-    Image img;
+    public Sprite img;
     public string Name;
     public string desc;
     public int cost;

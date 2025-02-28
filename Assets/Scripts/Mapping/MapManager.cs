@@ -496,6 +496,10 @@ public class MapManager : MonoBehaviour
         {
             playerArrived();
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            money += 1500;
+        }
         Restart();
     }
 

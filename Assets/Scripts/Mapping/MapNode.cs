@@ -29,6 +29,9 @@ public class MapNode : MonoBehaviour
     //we can probably store these somewhere else to not clutter inspector
     [SerializeField]
     private Sprite unknownIcon, gasIcon, dinerIcon, combatIcon;
+    [SerializeField]
+    private Sprite mechanicIcon;
+
 
     //should display exclamation point if this point is known
     [SerializeField]
@@ -102,6 +105,9 @@ public class MapNode : MonoBehaviour
                     break;
                 case activity.Hunt:
                     _nodeIconRenderer.sprite = combatIcon;
+                    break;
+                case activity.Garage:
+                    _nodeIconRenderer.sprite = mechanicIcon;
                     break;
                 default:
                     break;
@@ -302,6 +308,7 @@ public struct RoadPath
     //cycle through these and assign these to the appropriate points driving segments
     public TextAsset[] forcedQuests;
 
+    bool onlyForcedSections;
     //any sections in the actual road that should always appear at some point 
     public Chunk[] forcedSections;
 

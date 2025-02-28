@@ -26,6 +26,8 @@ public class ItemShop : MonoBehaviour
     [SerializeField]
     private TMP_Text ItemCostText;
     [SerializeField]
+    private Image ItemImage;
+    [SerializeField]
     private Button itemBuyButton;
     [SerializeField]
     private Button stealButton;
@@ -57,14 +59,15 @@ public class ItemShop : MonoBehaviour
     {
         //set the q and e upgrades appropriately
         ItemDescriptionPanel.SetActive(false);
-        itemshopScene.SetActive(true);
+        itemshopScene.SetActive(false);
+        MapManager.instance.nodeActivityDone();
     }
 
 
     //what you have got vs what you want to get
     //lower tier stuff below
 
-    public void repairVan()
+    public void repairVan() 
     {
         //repairs to full health, until we decide how it should work otherwise
         if (MapManager.instance.BuyResource(50))
@@ -72,7 +75,10 @@ public class ItemShop : MonoBehaviour
 
     }
 
-
+    public void closePanel()
+    {
+        ItemDescriptionPanel.gameObject.SetActive(false);
+    }
     public void selectUpgrade(StoreUpgrades su)
     {
         ItemDescriptionPanel.SetActive(true);
@@ -80,7 +86,7 @@ public class ItemShop : MonoBehaviour
         ItemCostText.text = "" + su.cost;
         ItemDescriptionText.text = su.desc;
         ItemNameText.text = su.Name;
-
+        ItemImage.sprite = su.img;
         if (MapManager.instance.Money > SelectedUpgrade.cost)
         {
             itemBuyButton.interactable = true;
@@ -98,6 +104,11 @@ public class ItemShop : MonoBehaviour
         {
             MapManager.instance.BuyResource(SelectedUpgrade.cost);
             Upgrade boughtUpgrade = SelectedUpgrade.upgrade;
+            Debug.Log("Bought Upgrade " + boughtUpgrade);
+
+            UpgradeManager.instance.AddOption(boughtUpgrade);
+            GarageManager.instance.addUpgrade(boughtUpgrade);
+            closePanel();
             Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
         }
         else
