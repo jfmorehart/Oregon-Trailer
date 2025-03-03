@@ -28,6 +28,16 @@ public class Drivable : MonoBehaviour
 
 	public int pickupValue; //currency im carrying
 
+	[Header("Sounds")]
+	//public float fadeOutTime;
+	//public bool fadingOut;
+	public OneShotSource enginesrc;
+	public OneShotSource roadSource;
+	public OneShotSource sandSource;
+	public Coroutine roadSandBlend;
+
+	float terrainGrip;
+
 	//lists all of the stuff we're currently driving on
 	//will modify the tire performance
 	public List<TerrainModifier> terrainModifiers = new List<TerrainModifier>();
@@ -37,6 +47,21 @@ public class Drivable : MonoBehaviour
 		breaker = GetComponent<Breakable>();
 		breaker.bar.maxHp = breaker.hp;
 		breaker.onKill += OnKill;
+	}
+
+	private void Start()
+	{
+		roadSource = SFX.GetOneShotSource().LoopFromPool(SFX.instance.road);
+		roadSource.Track(transform, 2, topSpeed);
+		roadSource.clipVolume = 0.4f;
+		sandSource = SFX.GetOneShotSource().LoopFromPool(SFX.instance.sand);
+		sandSource.Track(transform, 2, topSpeed);
+		sandSource.clipVolume = 0.4f;
+		enginesrc = SFX.GetOneShotSource();
+		enginesrc.exteralBlend = 0.2f;
+		enginesrc.blendDuration = 5;
+		enginesrc.LoopFromPool(SFX.instance.engine);
+		enginesrc.Track(transform, 2);
 	}
 
 	void OnKill()
@@ -50,8 +75,37 @@ public class Drivable : MonoBehaviour
 	}
 	protected virtual void FixedUpdate()
 	{
-		acceleration = baseAcceleration * TotalTerrainGrip();
+		//if (enginesrc == null)
+		//{
+		//	enginesrc = SFX.GetOneShotSource();
+		//	enginesrc.Play(SFX.RandomClip(SFX.instance.engine));
+		//	enginesrc.Track(transform, 2);
+		//	Debug.Log("set engine src");
+		//}
+		enginesrc.src.pitch = 1 + Mathf.Lerp(0f, 0.5f, _rb.velocity.magnitude / topSpeed);
+
+		float oldterrainGrip = terrainGrip;
+		terrainGrip = TotalTerrainGrip();
+		if (Mathf.Abs(terrainGrip - oldterrainGrip) > 0.3)
+		{
+
+			if (terrainGrip > 1.1)
+			{
+				Debug.Log("OnRoad");
+				roadSandBlend = SFX.LerpBlend(sandSource, roadSource, 1f, roadSandBlend);
+			}
+			else
+			{
+				Debug.Log("OnSand");
+				roadSandBlend = SFX.LerpBlend(roadSource, sandSource, 1f, roadSandBlend);
+			}
+
+			//}
+		}
+
+		acceleration = baseAcceleration * terrainGrip;
 		_rb.velocity *= 1 - Time.fixedDeltaTime * drag * TotalTerrainDrag();
+
 		if (boostActive)
 		{
 			boostRemaining -= Time.fixedDeltaTime;
