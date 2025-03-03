@@ -104,5 +104,9 @@ public class VanGun : MonoBehaviour
 		p.GetComponent<Bullet>().damage = damage;
 		p.GetComponent<Bullet>().ignoreTag = ignoreTag;
 		rb.AddForce(-aim * knockbackForce);
-    }
+
+		float strength = Mathf.Lerp(0.3f, 1, 1 - knockbackForce / 30f);
+		float falloff = SFX.Falloff(transform.position);
+		SFX.instance.shoot.PlaySoundAtPosition((Vector2)transform.position + aim, falloff * (0.8f + (strength * 0.2f)), strength, 0.1f);
+	}
 }

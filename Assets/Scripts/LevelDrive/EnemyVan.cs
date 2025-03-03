@@ -59,9 +59,9 @@ public class EnemyVan : Drivable
 		if (PlayerVan.vanTransform == null)
 		{
 			//DrivingLogic(0);
+			Debug.Log("null player");
 			return;
 		}
-		Debug.Log("isvis = " + ren.isVisible);
 		//if (!ren.isVisible && !spottedPlayer) {
 		//	//forget about them
 		//	return;
@@ -69,13 +69,13 @@ public class EnemyVan : Drivable
 
 		Vector2 delta = (Vector2)PlayerVan.vanTransform.position - (Vector2)transform.position;
 		float thetaToPlayer = Vector2.SignedAngle(transform.right, delta.normalized);
-
+		
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, delta.normalized, fireRange, enemyVisionMask);
 		float hitp = Vector2.Distance(hit.point, transform.position);
 		Debug.DrawRay(transform.position, delta.normalized * fireRange);
-		Debug.Log("hit " + hit.collider.gameObject.name);
 		if (hit) {
-			if (hit.collider.CompareTag("Player")) {
+			if (hit.collider.CompareTag("Player"))
+			{
 				spottedPlayer = true;
 				//can drive straight at them!
 				DrivingLogic(thetaToPlayer);
@@ -86,19 +86,20 @@ public class EnemyVan : Drivable
 					Fire();
 				}
 			}
-			else
+			else if (spottedPlayer)
 			{
 				float checkLen = Vector2.Distance(hit.point, transform.position);
-				checkLen = Mathf.Max(checkLen, minRayDistance);
+				float rangeExtension = 1 + _rb.velocity.magnitude / topSpeed;
+				checkLen = Mathf.Max(checkLen, minRayDistance * rangeExtension);
 				float raycastTries = 4;
-				float totalAngle = 90;
+				float totalAngle = 45;
 				float angle;
 				for (int i = 0; i < raycastTries; i++)
 				{
 					int sign = ((i % 2) == 0) ? 1 : -1;
 					//this will alternate right and left of the direction, looking for a gap
-					Debug.Log("thetatoplayer " + thetaToPlayer);
-					angle = thetaToPlayer + sign * (i / raycastTries) * totalAngle;
+					float forward = Mathf.Rad2Deg * Mathf.Atan2(transform.right.y, transform.right.x);
+					angle = thetaToPlayer * 0.25f + forward + sign * (i / raycastTries) * totalAngle;
 					delta = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle));
 
 					hit = Physics2D.Raycast(transform.position, delta.normalized, checkLen, enemyVisionMask);
@@ -106,13 +107,11 @@ public class EnemyVan : Drivable
 					if (hit)
 					{
 						Debug.DrawRay(transform.position, delta.normalized * hit.distance, Color.red, 1);
-						Debug.Log("subhit" + hit.collider.gameObject.name);
 						continue;
 					}
 					else
 					{
 						Debug.DrawRay(transform.position, delta.normalized * checkLen, Color.green, 1);
-						Debug.Log("missed - " + i + " " + delta.normalized * checkLen) ;
 						DriveTowards((Vector2)transform.position + delta.normalized * checkLen);
 						_rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
 						return;

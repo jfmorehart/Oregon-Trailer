@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class Bullet : PooledObject
 {
@@ -43,7 +42,6 @@ public class Bullet : PooledObject
 		
 		transform.position = startpos;
 		flying = true;
-		Debug.Log("aim" + startpos);
 		tren.Clear();
 		tren.enabled = true;
 		ren.enabled = true;
@@ -80,6 +78,12 @@ public class Bullet : PooledObject
 				Hide();
 				if(h.collider.TryGetComponent(out Breakable br)) {
 					br.Damage(damage);
+					if (h.collider.CompareTag("Enemy")) {
+						SFX.instance.carImpact.PlaySoundAtPosition(h.point, 1f);
+					}
+					else {
+						SFX.instance.rockImpact.PlaySoundAtPosition(h.point, 1f);
+					}
 				}
 				return;
 			} 
