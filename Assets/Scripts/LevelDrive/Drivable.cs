@@ -38,6 +38,8 @@ public class Drivable : MonoBehaviour
 
 	float terrainGrip;
 
+	bool turningLockout; //used while falling
+
 	//lists all of the stuff we're currently driving on
 	//will modify the tire performance
 	public List<TerrainModifier> terrainModifiers = new List<TerrainModifier>();
@@ -133,6 +135,8 @@ public class Drivable : MonoBehaviour
 	}
 	protected void DrivingLogic(float theta)
 	{
+		if (turningLockout) return;
+
 		transform.Rotate(Vector3.forward, -sway);
 
 		//undo previous frame's rotation
@@ -213,7 +217,30 @@ public class Drivable : MonoBehaviour
 		{
 			pickupValue	+= pi.Collect();
 		}
-    }
+
+		if (collision.gameObject.layer.Equals("Gap"))
+		{
+			StartCoroutine(nameof(Fall));
+		}
+	}
+	IEnumerator Fall() {
+
+		turningLockout = true;
+		float duration = 0.3f; 
+		float stime = Time.time;
+		Vector3 start_scale = transform.localScale;
+		for(int i = 0; i < 9999; i++) {
+
+			if(Time.time - stime < duration) {
+				transform.localScale = Vector3.Lerp(start_scale, Vector3.zero, (Time.time - stime) / duration);
+			}
+			else {
+				break;
+			}
+			yield return null;
+		}
+		breaker.Kill();
+	}
     public virtual void OnTriggerExit2D(UnityEngine.Collider2D collision)
     {
 		if (collision.TryGetComponent(out TerrainModifier tm))
