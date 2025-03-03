@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
-using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
-using UnityEngine.Android;
 
 public class mapUI : MonoBehaviour
 {
@@ -39,6 +36,12 @@ public class mapUI : MonoBehaviour
     Vector2 characterScreenONScreenLocation, characterScreenOFFScreenLocation;
     [SerializeField]
     mapScreens currentScreen = mapScreens.map;
+    [SerializeField]
+    Transform upgradeScreen;
+    [SerializeField]
+    Vector2 UpgradeScreenONScreenLocation, UpgradeScreenOFFScreenLocation;
+
+
     enum mapScreens
     {
         map,
@@ -155,17 +158,37 @@ public class mapUI : MonoBehaviour
         if (currentScreen != mapScreens.character)
         {
 
-            DOTween.KillAll();
+            //DOTween.KillAll();
             CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
             currentScreen = mapScreens.character;
 
         }
         else 
         {
-            DOTween.KillAll();
+            //DOTween.KillAll();
 
             CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            currentScreen = mapScreens.map;
+        }
+    }
+    public void upgradeScreenMove()
+    {
+        if (currentScreen != mapScreens.upgrade)
+        {
+            //upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            //DOTween.KillAll();
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            //StartCoroutine(MoveCharacterScreenRoutine());
+            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            currentScreen = mapScreens.upgrade;
+
+        }
+        else
+        {
+            //DOTween.KillAll();
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
             currentScreen = mapScreens.map;
         }
     }
@@ -174,6 +197,8 @@ public class mapUI : MonoBehaviour
         //move all other screens to another position
         currentScreen = mapScreens.map;
         CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+        upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+
     }
 
 }
