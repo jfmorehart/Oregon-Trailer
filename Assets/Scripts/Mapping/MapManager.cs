@@ -10,10 +10,17 @@ public class MapManager : MonoBehaviour
     //ideally we can start moving this to the gamemanager and just change how its percieved
 
     //for now we can keep track of the player's fuel and other bits here
-    public int fuel = 5;
-    public int money = 10;
-    public int food = 5;
-    public int vanHealth ;//this should track to whatever the health of the van is in driving scenes 
+    [SerializeField]
+    private int fuel = 5;
+    public int Fuel => fuel;
+    [SerializeField]
+    private int money = 10;
+    public int Money => money;
+    [SerializeField]
+    private int food = 5;
+    [SerializeField]
+    private int vanHealth = 100;//this should track to whatever the health of the van is in driving scenes 
+    private const int MAXHEALTH = 100; 
     public static MapManager instance;
 
     private MapNode startingNode;
@@ -489,6 +496,10 @@ public class MapManager : MonoBehaviour
         {
             playerArrived();
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            money += 1500;
+        }
         Restart();
     }
 
@@ -662,4 +673,25 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public bool BuyResource(int cost)
+    {
+        if (cost < money)
+        {
+            money -= cost;
+            return true;
+
+        }
+        else
+        {
+            Debug.Log("Not enough money");
+            return false;
+        }
+
+    }
+
+
+    public void repairVan()
+    {
+        vanHealth = MAXHEALTH;
+    }
 }

@@ -60,20 +60,20 @@ public class DinerManager : MonoBehaviour
 
     public void getGasButton()
     {
-        if (MapManager.instance.money >= 2)
+        if (MapManager.instance.Money >= 2)
         {
             MapManager.instance.increaseGas();
-            MapManager.instance.money -= 2;
+            MapManager.instance.BuyResource(2);
         }
         updateStatsButton(); 
     }
 
     public void getFoodButton()
     {
-        if (MapManager.instance.money >= 2)
+        if (MapManager.instance.Money >= 2)
         {
             MapManager.instance.increaseFood();
-            MapManager.instance.money -= 2;
+            MapManager.instance.BuyResource(2);
         }
         updateStatsButton();
     }
@@ -105,8 +105,8 @@ public class DinerManager : MonoBehaviour
     }
     void updateStatsButton()
     {
-        stats.text = "Stats:\n\tMoney: " + MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel;
-        insideStats.text = "Stats:\n\tMoney: " + MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel;
+        stats.text = "Stats:\n\tMoney: " + MapManager.instance.Money + "\n\tFuel: " + MapManager.instance.Money;
+        insideStats.text = "Stats:\n\tMoney: " + MapManager.instance.Fuel + "\n\tFuel: " + MapManager.instance.Fuel;
     }
 
     // Update is called once per frame
