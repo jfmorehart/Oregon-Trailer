@@ -347,8 +347,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7487495769997824258}
-  - {fileID: 6450197083082577836}
   - {fileID: 8004493448501979949}
   - {fileID: 2547931335030979472}
   - {fileID: 3207293672219563997}
@@ -401,6 +399,8 @@ Transform:
   - {fileID: 8847862656229289275}
   - {fileID: 3753963804237404233}
   - {fileID: 642623013509765178}
+  - {fileID: 7487495769997824258}
+  - {fileID: 6450197083082577836}
   - {fileID: 4992462716619879691}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -720,11 +720,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4992462716619879691}
+    m_TransformParent: {fileID: 4365532159524965043}
     m_Modifications:
     - target: {fileID: 3812144702098236635, guid: 006effd9e3658424d86ebc97ae1dc07b, type: 3}
       propertyPath: m_Name
       value: road_start_point
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812144702098236635, guid: 006effd9e3658424d86ebc97ae1dc07b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8077060062415649375, guid: 006effd9e3658424d86ebc97ae1dc07b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1230,11 +1234,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4992462716619879691}
+    m_TransformParent: {fileID: 4365532159524965043}
     m_Modifications:
     - target: {fileID: 3813802938381939259, guid: 11e32fc2536eb4979854908359d7795a, type: 3}
       propertyPath: m_Name
       value: road_end_point
+      objectReference: {fileID: 0}
+    - target: {fileID: 3813802938381939259, guid: 11e32fc2536eb4979854908359d7795a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8246858186504999334, guid: 11e32fc2536eb4979854908359d7795a, type: 3}
       propertyPath: m_LocalPosition.x
