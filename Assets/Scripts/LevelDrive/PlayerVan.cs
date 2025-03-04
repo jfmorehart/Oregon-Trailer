@@ -98,6 +98,7 @@ public class PlayerVan : Drivable
 			if (MapManager.instance != null) {
 				Debug.Log("finished scene");
 				MapManager.playerArrived();
+				levelEnding();
 				levelFinished = true;
 			}
 			else {
@@ -106,4 +107,11 @@ public class PlayerVan : Drivable
 
 		}
 	}
+    public void levelEnding()
+	{
+		//sends all necessary info to any necessary managers
+		MapManager.instance.AddMoney(pickupValue);
+
+	}
+
 }
