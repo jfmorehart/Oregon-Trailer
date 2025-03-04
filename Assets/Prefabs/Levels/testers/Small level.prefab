@@ -379,7 +379,7 @@ MonoBehaviour:
   combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
   mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
-  _locationActivity: 2
+  _locationActivity: 0
   _locationFaction: 0
   locationEvent: {fileID: 4900000, guid: 643ccb7c44a753247b5aa4616d615e46, type: 3}
   Roads:
@@ -387,7 +387,8 @@ MonoBehaviour:
     roadLength: 1
     fuelCost: 0
     type: 0
-    forcedQuests: []
+    forcedQuests:
+    - {fileID: 4900000, guid: 4b169e4f0fb61544495d85593cd74e2f, type: 3}
     forcedSections: []
   playerCanChoose: 0
 --- !u!61 &8816584094802163877
@@ -947,14 +948,11 @@ MonoBehaviour:
   locationEvent: {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
   Roads:
   - Destination: {fileID: 1746957742735081776}
-    roadLength: 4
+    roadLength: 6
     fuelCost: 0
     type: 1
-    forcedQuests:
-    - {fileID: 4900000, guid: 4b169e4f0fb61544495d85593cd74e2f, type: 3}
-    forcedSections:
-    - {fileID: -623503267821811247, guid: fb6dcf269f0d041e5a2ded69abd84150, type: 3}
-    - {fileID: -623503267821811247, guid: f4652325e197f4700bebf025cb915a55, type: 3}
+    forcedQuests: []
+    forcedSections: []
   playerCanChoose: 0
 --- !u!61 &5639762073956709512
 BoxCollider2D:
