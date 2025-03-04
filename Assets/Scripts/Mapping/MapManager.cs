@@ -280,6 +280,7 @@ public class MapManager : MonoBehaviour
 
     }
     
+
     private void HandleMovement()
     {
         if(!levelEnding)
@@ -498,7 +499,7 @@ public class MapManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            money += 1500;
+            //money += 1500;
         }
         Restart();
     }
@@ -689,6 +690,10 @@ public class MapManager : MonoBehaviour
 
     }
 
+    public void AddMoney(int m)
+    {
+        money += m;
+    }
 
     public void repairVan()
     {
