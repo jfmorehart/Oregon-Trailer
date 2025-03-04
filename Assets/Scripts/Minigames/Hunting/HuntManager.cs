@@ -23,8 +23,9 @@ public class HuntManager : MonoBehaviour
 
     public void displayHunt()
     {
-        huntScene.SetActive(true);
 
+        //huntScene.SetActive(true);
+        hideHunt();
     }
     public void hideHunt()
     {
