@@ -207,7 +207,7 @@ public class Drivable : MonoBehaviour
 	}
     public virtual void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
-		Debug.Log("Enter");
+		Debug.Log("Enter " + collision.gameObject.layer);
         if (collision.TryGetComponent(out TerrainModifier tm))
         {
             terrainModifiers.Add(tm);
@@ -218,13 +218,14 @@ public class Drivable : MonoBehaviour
 			pickupValue	+= pi.Collect();
 		}
 
-		if (collision.gameObject.layer.Equals("Gap"))
+		if (collision.gameObject.layer.Equals(8))
 		{
 			StartCoroutine(nameof(Fall));
 		}
 	}
 	IEnumerator Fall() {
 
+		Debug.Log("falling!");
 		turningLockout = true;
 		float duration = 0.3f; 
 		float stime = Time.time;

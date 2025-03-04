@@ -1177,6 +1177,7 @@ Transform:
   - {fileID: 1532761675204133300}
   - {fileID: 8245173818137526343}
   - {fileID: 9141890173617421474}
+  - {fileID: 3774163208573172553}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7223379206519165929
@@ -1209,6 +1210,9 @@ MonoBehaviour:
   collisionDamage: 2
   scrapPrefab: {fileID: 736508616175236411, guid: 0fed7bb8a1eab3648bc13f081f1d8395, type: 3}
   pickupValue: 1
+  enginesrc: {fileID: 0}
+  roadSource: {fileID: 0}
+  sandSource: {fileID: 0}
   terrainModifiers: []
   TankGun: {fileID: 6760162303511796599}
   barrel: {fileID: 6323132058727385068}
@@ -2305,4 +2309,86 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8233153979366932665, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
   m_PrefabInstance: {fileID: 7424042643558138125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8464199153771121965
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5161448909287869332}
+    m_Modifications:
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.46967
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.46967
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.46967
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237234080589463137, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: m_Name
+      value: Dust
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011684363079407448, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].time
+      value: 0.00000010081567
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011684363079407448, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].value
+      value: 0.3076919
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+--- !u!4 &3774163208573172553 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4690047361331410532, guid: 9e931f37adf8d45888000b58a97e423a, type: 3}
+  m_PrefabInstance: {fileID: 8464199153771121965}
   m_PrefabAsset: {fileID: 0}
