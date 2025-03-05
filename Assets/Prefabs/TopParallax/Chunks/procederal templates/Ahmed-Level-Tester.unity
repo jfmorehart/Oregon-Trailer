@@ -7751,7 +7751,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 580438699}
   m_OnClick:
     m_PersistentCalls:
@@ -25979,8 +25979,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e473e0c08b45a404e809a5090a3850a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuel: 100
-  money: 10
+  fuel: 10
+  money: 25
   food: 5
   vanHealth: 0
   playersCurrentNode: {fileID: 0}
@@ -26003,6 +26003,7 @@ MonoBehaviour:
   - {fileID: 1093908184206508639, guid: 994f78cfbffe84a90b2c1c6af10cf919, type: 3}
   BlankNode: {fileID: 0}
   mapParent: {fileID: 124225877}
+  skipmode: 1
 --- !u!224 &3444643092268457638
 RectTransform:
   m_ObjectHideFlags: 0

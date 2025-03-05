@@ -142,6 +142,7 @@ public class MapManager : MonoBehaviour
             startingNode = levelvariables.firstNode;
 
             playersCurrentNode = levelvariables.firstNode;
+            levelvariables.firstNode.playerCanChoose = false;
             //mapPlayer.instance.setPositionStrict(playersCurrentNode);
             playersCurrentNode.goBright();
 
@@ -153,8 +154,9 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            //Debug.Log("HORSI");
-            buildNodes(Random.Range(minNodesToGen, maxNodesToGen));
+            Debug.Log("Map is null after trying to generate");
+            //buildNodes(Random.Range(minNodesToGen, maxNodesToGen));
+            doEnding();
         }
     }
 
@@ -272,8 +274,8 @@ public class MapManager : MonoBehaviour
         //change the color of the current node
         instance.playerDestinationNode.goBright();
         */
-        
-        
+
+        instance.playersCurrentNode.playerCanChoose = false;
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
         
         InLevelCarSlider.instance.levelDone();
@@ -397,7 +399,7 @@ public class MapManager : MonoBehaviour
     public static void playerTraveling(MapNode destNode)
     {
 
-        Debug.Log("travelling now");
+        Debug.Log("travelling now to " + destNode.transform.name);
         instance.playerDestinationNode = destNode;
         instance.forbidDestinationChoice();
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);
@@ -408,6 +410,7 @@ public class MapManager : MonoBehaviour
     //should generalize this by taking in a certain action
     private IEnumerator PlayerTraveling(MapNode destNode)
     {
+        destNode.playerCanChoose = false;
         float duration = 1f;
         Debug.Log("Fading to black");
         fadeToBlackBG.gameObject.SetActive(true);
@@ -428,8 +431,8 @@ public class MapManager : MonoBehaviour
 
         //player should be travelling now
 
-
-        ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(destNode));
+        if(playersCurrentNode.getQuestList(destNode) != null)
+            ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(destNode));
 
 
         //ChunkManager.instance.GenerateLevel();
@@ -489,11 +492,12 @@ public class MapManager : MonoBehaviour
     }
 
 
-
+    [SerializeField]
+    bool skipmode = true;
     private void Update()
     {
         //testing stuff
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && skipmode)
         {
             playerArrived();
         }
@@ -527,14 +531,16 @@ public class MapManager : MonoBehaviour
         if (playersCurrentNode.EndingRoad)
         {
             //dont add one to the index because we automatically add one anytime we generate a level
-            if (possibleMaps.Count < mapIndex)
+            if (possibleMaps.Count - 1 < mapIndex)
             {
                 //we have reached the end - if we are on the proc gen mode,  then automatically generate another map
+                Debug.Log("Ending game");
                 doEnding();
             }
             else
             {
                 //otherwise we can generate the next map
+                Debug.Log("Generating next map");
                 generateNextMap();
             }
             return;
@@ -595,6 +601,13 @@ public class MapManager : MonoBehaviour
         }
 
         fadeToBlackBG.gameObject.SetActive(false);
+
+        //temp - destroy all scrap 
+        Pickup[] g = GameObject.FindObjectsOfType<Pickup>();
+        for (int i = 0; i < g.Length; i++)
+        {
+            Destroy(g[i].gameObject);
+        }
 
         //PlayerChanges();
     }
