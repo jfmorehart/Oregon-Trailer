@@ -128,7 +128,7 @@ public class MapNode : MonoBehaviour
 
     private void Update()
     {
-        if (!MapManager.PlayerInTransit)
+        if (!MapManager.PlayerInTransit && playerCanChoose)
         {
             checkIfChosen();
         }
@@ -256,7 +256,7 @@ public class MapNode : MonoBehaviour
 			if (hit.collider.gameObject == gameObject)
 			{
 				MapManager.playerTraveling(this);
-				//Debug.Log("Player chose " + transform.name);
+				Debug.Log("Player chose " + transform.name);
 				//go into driving scene
 			}
         }
@@ -287,7 +287,7 @@ public class MapNode : MonoBehaviour
             if (Roads[i].Destination == destination)
             {
                 MapManager.instance.playersNewPath = Roads[i];
-				return new List<TextAsset>(Roads[i].forcedQuests);
+				return (Roads[i].forcedQuests.Length ==0) ? new List<TextAsset>(): new List<TextAsset>(Roads[i].forcedQuests); 
             }
         }
 

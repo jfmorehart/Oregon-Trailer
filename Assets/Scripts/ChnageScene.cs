@@ -10,4 +10,10 @@ public class ChnageScene : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void ChangeSceneDemo()
+    {
+        SceneManager.LoadScene(1);
+
+    }
 }

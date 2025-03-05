@@ -95,12 +95,16 @@ public class ChunkManager : MonoBehaviour
         {
             levelSize = 5;
         }
-        
-        
-        //the van is not rotated in the prefab
 
+
+        //the van is not rotated in the prefab
+        if (Quests == null)
+        {
+            Debug.Log("Quests is null");
+            Quests = new List<TextAsset>();
+        }
         //pick out which chunks to spawn quests at
-        if (Quests.Count > levelSize)
+        if (Quests != null && Quests.Count > levelSize)
         {
             Debug.LogError("Too many quests to spawn compared to level size");
             return;
