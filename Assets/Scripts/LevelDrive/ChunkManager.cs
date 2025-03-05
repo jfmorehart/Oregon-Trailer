@@ -156,12 +156,13 @@ public class ChunkManager : MonoBehaviour
 		for (int i = 0; i < levelSize; i++)
 		{
 			Chunk toSpawn;  //prefab
-
+            bool removeEnemies = true;
             //this is slow but we can change chunkstospawnquestat to a hashset or something soon
             if(path.forcedSections != null) {
 				if (path.forcedSections.Length > i)
 				{
 					toSpawn = path.forcedSections[i];
+                    removeEnemies = false;
                 }
                 else {
 					toSpawn = chunkBag[Random.Range(0, chunkBag.Length)];
@@ -184,7 +185,8 @@ public class ChunkManager : MonoBehaviour
 			toSpawn = Instantiate(toSpawn, transform); //new instance
 			level[i] = toSpawn;
 
-			RemoveEnemies(i);
+            if(removeEnemies) RemoveEnemies(i);
+
 
 			//Aligning levels!
 
