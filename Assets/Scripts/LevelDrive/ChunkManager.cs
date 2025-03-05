@@ -126,8 +126,6 @@ public class ChunkManager : MonoBehaviour
 
         }
 
-        Instantiate( VanObj, Vector2.zero, Quaternion.Euler(0,0, 180));
-
 		level = new Chunk[levelSize];
         Debug.Log(level.GetLength(0));
 		GenerationLoop(chunksToSpawnQuestsAt);
@@ -145,12 +143,15 @@ public class ChunkManager : MonoBehaviour
         {
             spawnedEndHouse.transform.position = endpos; ;
         }
-    }
+
+		Vector2 firstStart = level[0].transform.Find("road_start_point").position;
+		Instantiate(VanObj, firstStart, Quaternion.Euler(0, 0, 180));
+	}
 
     void GenerationLoop(List<int> questChunks) {
 
 		float levelLengthSoFar = 0;
-		float lastRoadY = 0;
+		Vector2 lastRoadEnd = Vector2.zero;
 
 		for (int i = 0; i < levelSize; i++)
 		{
@@ -189,19 +190,20 @@ public class ChunkManager : MonoBehaviour
 
 			//negative length of level
 			levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
-			Vector2 startpos = toSpawn.transform.Find("road_start_point").position;
+            Transform startPoint = toSpawn.transform.Find("road_start_point");
+			Vector2 startpos = startPoint.position;
 			float startRoadY = startpos.y;
 
 			//Y displacement to correct for
-			float yDiff = lastRoadY - startRoadY;
+			float yDiff = lastRoadEnd.y - startRoadY;
 
 			//fix!
-			toSpawn.transform.position = new Vector3(levelLengthSoFar, yDiff, 0);
+			toSpawn.transform.position = new Vector3(lastRoadEnd.x - startPoint.localPosition.x, yDiff, 0);
 			levelLengthSoFar -= toSpawn.dimensions.x * 0.5f;
 
 			//Save endpoint for next iteration of loop
 			Vector2 endpos = toSpawn.transform.Find("road_end_point").position;
-			lastRoadY = endpos.y;
+            lastRoadEnd = endpos;
 
 			////boundaries
 			//Debug.Log(i + " diff = " + yDiff);

@@ -13,8 +13,12 @@ public class Chunk : MonoBehaviour
 
 	private void Awake()
 	{
-		dimensions = transform.Find("back").transform.localScale;
-		//dimensions = transform.GetChild(1).transform.localScale;
+		//dimensions = transform.Find("back").transform.localScale;
+		Transform roadstart = transform.Find("road_start_point");
+		Transform roadend = transform.Find("road_end_point");
+		dimensions.x = Mathf.Abs(roadstart.position.x - roadend.position.x);
+		dimensions.y = Mathf.Abs(roadstart.position.y - roadend.position.y);
+		//dimensions = transform.GetChild(1).transform.localScaae;
 	}
 
 	public void setQuest(TextAsset q)
