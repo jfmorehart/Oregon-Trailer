@@ -60,10 +60,11 @@ public class DinerManager : MonoBehaviour
 
     public void getGasButton()
     {
-        if (MapManager.instance.Money >= 2)
+        if (MapManager.instance.Money >=2)
         {
             MapManager.instance.increaseGas();
             MapManager.instance.BuyResource(2);
+            //MapManager.instance.BuyResource(2);
         }
         updateStatsButton(); 
     }
@@ -105,7 +106,7 @@ public class DinerManager : MonoBehaviour
     }
     void updateStatsButton()
     {
-        stats.text = "Stats:\n\tMoney: " + MapManager.instance.Money + "\n\tFuel: " + MapManager.instance.Money;
+        stats.text = "Stats:\n\tMoney: " + MapManager.instance.Money + "\n\tFuel: " + MapManager.instance.Fuel;
         insideStats.text = "Stats:\n\tMoney: " + MapManager.instance.Fuel + "\n\tFuel: " + MapManager.instance.Fuel;
     }
 

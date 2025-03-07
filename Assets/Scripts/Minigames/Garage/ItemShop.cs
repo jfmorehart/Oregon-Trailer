@@ -107,6 +107,7 @@ public class ItemShop : MonoBehaviour
             Debug.Log("Bought Upgrade " + boughtUpgrade);
 
             UpgradeManager.instance.AddOption(boughtUpgrade);
+            UpgradeManager.instance.e_upgrade = boughtUpgrade;
             GarageManager.instance.addUpgrade(boughtUpgrade);
             closePanel();
             Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);

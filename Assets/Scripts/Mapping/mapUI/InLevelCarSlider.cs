@@ -14,6 +14,8 @@ public class InLevelCarSlider : MonoBehaviour
     Scrollbar levelcompleteslider;
     [SerializeField]
     TMP_Text leveldistancetext;
+    [SerializeField]
+    TMP_Text levelRestartText;
     float maxDistance;
     public static InLevelCarSlider instance;
 
@@ -48,6 +50,7 @@ public class InLevelCarSlider : MonoBehaviour
         maxDistance = Vector2.Distance(van.transform.position, endingHouse.transform.position);
         leveldistancetext.gameObject.SetActive(true);
         levelcompleteslider.gameObject.SetActive(true);
+        levelRestartText.gameObject.SetActive(false);
     }
 
     void Update()
@@ -71,6 +74,7 @@ public class InLevelCarSlider : MonoBehaviour
         {
             //we must be in the other section of the game
             levelcompleteslider.value = 0;
+            levelRestartText.gameObject.SetActive(true);
         }
     }
 
@@ -83,6 +87,7 @@ public class InLevelCarSlider : MonoBehaviour
         maxDistance = 10000;
         leveldistancetext.gameObject.SetActive(false);
         levelcompleteslider.gameObject.SetActive(false);
+        levelRestartText.gameObject.SetActive(false);
     }
 
 
