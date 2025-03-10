@@ -108,7 +108,8 @@ public class mapUI : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.M)) {
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Escape))
+        {
 
             Debug.Log("Map buttpon pressed");
             if (IsActivated)

@@ -50,6 +50,9 @@ public class MapNode : MonoBehaviour
 
     List<MapNode> nodesThisReveals = new List<MapNode>();
 
+    [SerializeField]
+    LineRenderer lr;
+
     public enum activity
     {
         Diner,
@@ -96,28 +99,23 @@ public class MapNode : MonoBehaviour
         int rn = Random.Range(0,100);
 
         _nodeIconRenderer.gameObject.SetActive(true);
-        if (rn>=75)
+        
+        switch (LocationActivity)
         {
-            switch (LocationActivity)
-            {
-                case activity.Diner:
-                    _nodeIconRenderer.sprite = gasIcon;
-                    break;
-                case activity.Hunt:
-                    _nodeIconRenderer.sprite = combatIcon;
-                    break;
-                case activity.Garage:
-                    _nodeIconRenderer.sprite = mechanicIcon;
-                    break;
-                default:
-                    break;
-            }
+            case activity.Diner:
+                _nodeIconRenderer.sprite = gasIcon;
+                break;
+            case activity.Hunt:
+                _nodeIconRenderer.sprite = combatIcon;
+                break;
+            case activity.Garage:
+                _nodeIconRenderer.sprite = mechanicIcon;
+                break;
+            default:
+                break;
         }
-        else
-        {
-            _nodeIconRenderer.sprite = unknownIcon;
-        }
-
+        
+        generateLine();
         goDark();
     }
 
@@ -276,6 +274,16 @@ public class MapNode : MonoBehaviour
         }
     }
 
+    private void generateLine()
+    {
+        if (Roads.Length == 0)
+            return;
+        Debug.Log("Generating line");
+        lr.startColor = Color.red;
+        lr.endColor = Color.red;
+        lr.SetPosition(0, transform.position);
+        lr.SetPosition(1, Roads[0].Destination.transform.position);
+    }
 
     //give the 
     public List<TextAsset> getQuestList(MapNode destination)
@@ -311,6 +319,8 @@ public struct RoadPath
     bool onlyForcedSections;
     //any sections in the actual road that should always appear at some point 
     public Chunk[] forcedSections;
+
+
 
 }
 [System.Serializable]
