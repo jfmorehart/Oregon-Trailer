@@ -126,6 +126,8 @@ public class MapNode : MonoBehaviour
 
     private void Update()
     {
+        generateLine();
+
         if (!MapManager.PlayerInTransit && playerCanChoose)
         {
             checkIfChosen();
@@ -279,6 +281,11 @@ public class MapNode : MonoBehaviour
         if (Roads.Length == 0)
             return;
         Debug.Log("Generating line");
+
+        lr.sortingOrder = 1;
+        lr.material = new Material(Shader.Find("Sprites/Default"));
+        lr.material.color = Color.red;
+
         lr.startColor = Color.red;
         lr.endColor = Color.red;
         lr.SetPosition(0, transform.position);
