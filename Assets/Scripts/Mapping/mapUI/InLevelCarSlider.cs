@@ -57,14 +57,6 @@ public class InLevelCarSlider : MonoBehaviour
     {
         if (van != null)
         {
-            //accurate distances?
-            //check what node the player is currently on
-            //check the next chunk's beginning point
-            //OR
-            //divide the chunks 
-            //RN
-            //
-            
             float vanDistancePercent = Mathf.Clamp((maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance, 0, 100);
 
             leveldistancetext.text = ((int) Vector2.Distance(van.transform.position, endingHouse.transform.position)) + "M"; 
@@ -90,7 +82,7 @@ public class InLevelCarSlider : MonoBehaviour
         levelRestartText.gameObject.SetActive(false);
     }
 
-
+    
 
 
 }
