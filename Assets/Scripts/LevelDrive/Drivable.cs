@@ -11,6 +11,8 @@ public class Drivable : MonoBehaviour
 	protected float acceleration, topSpeed, drag, turnRate, sway, deadzone, swayfreq, swayamp, rotationDrag, velConservation;
 	public Rigidbody2D _rb;
 
+	public float slideCorrection;
+
 	bool boostActive;
 
 	public bool boostActiveReference
@@ -107,6 +109,10 @@ public class Drivable : MonoBehaviour
 
 		acceleration = baseAcceleration * terrainGrip;
 		_rb.velocity *= 1 - Time.fixedDeltaTime * drag * TotalTerrainDrag();
+		Vector3 across = Vector3.Cross(transform.right, transform.forward);
+		float slide = Vector2.Dot(across.normalized, _rb.velocity.normalized);
+		_rb.AddForce(-slide * _rb.velocity.magnitude * slideCorrection * TotalTerrainGrip() * Time.fixedDeltaTime * across);
+		Debug.DrawRay(transform.position, across);
 
 		if (boostActive)
 		{
@@ -252,8 +258,14 @@ public class Drivable : MonoBehaviour
 	protected float TotalTerrainDrag()
 	{
 		float total = 1;
+		int[] nodupe = new int[System.Enum.GetNames(typeof(TerrainModifier.NoDuplicate)).Length];
 		for (int i = 0; i < terrainModifiers.Count; i++)
 		{
+			//this ignores duplicates of any type except for 0 (none)
+			//this prevents stacking grip or drag modifiers when the player intersects multiple road segments
+			int type = (int)terrainModifiers[i].terrainType;
+			if (type != 0) nodupe[type]++;
+			if (nodupe[(int)terrainModifiers[i].terrainType] > 1) continue;
 			total *= terrainModifiers[i].dragModifier;
 		}
 		return total;
@@ -261,8 +273,14 @@ public class Drivable : MonoBehaviour
 	protected float TotalTerrainGrip()
 	{
 		float total = 1;
+		int[] nodupe = new int[System.Enum.GetNames(typeof(TerrainModifier.NoDuplicate)).Length];
 		for (int i = 0; i < terrainModifiers.Count; i++)
 		{
+			//this ignores duplicates of any type except for 0 (none)
+			//this prevents stacking grip or drag modifiers when the player intersects multiple road segments
+			int type = (int)terrainModifiers[i].terrainType;
+			if(type != 0) nodupe[type]++;
+			if (nodupe[(int)terrainModifiers[i].terrainType] > 1) continue;
 			total *= terrainModifiers[i].gripModifier;
 		}
 		return total;

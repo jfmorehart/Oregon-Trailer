@@ -1,11 +1,11 @@
-Shader "Unlit/DustParticle"
+Shader "Unlit/Stylized"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _col ("Color1", Color) = (1, 0, 0, 1)
-        _nscale("_nscale", Float)  = 0.4
-        _powmag("_powmag", Float) = 2
+        brite ("brite", Float) = 0.5
+        n1scale("n1scale", Float) = 1
+
     }
     SubShader
     {
@@ -16,7 +16,6 @@ Shader "Unlit/DustParticle"
         Cull Off Lighting Off ZWrite Off
 
         LOD 100
-
 
         Pass
         {
@@ -38,20 +37,17 @@ Shader "Unlit/DustParticle"
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
                 float4 vertex : SV_POSITION;
                 float2 worldUV : TEXCOORD1;
+                fixed4 color : COLOR;
             };
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float4 _col;
-            float _nscale;
-            float _powmag;
 
-            
+
             float rand (float2 uv) { 
-                return frac(sin(dot(uv.xy, float2(12.9898, 78.233))) * 43758.5453123);
+                return frac(sin(dot(uv.xy, float2(13.9898, 77.233))) * 43758.5453123);
             } 
              
 
@@ -87,28 +83,39 @@ Shader "Unlit/DustParticle"
 	            return round(uv * scale) / scale;
 	        }
 
+
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.worldUV = mul(unity_ObjectToWorld, v.vertex.xyz).xy -  _Time.z;
                 o.color = v.color;
-                o.worldUV = mul(unity_ObjectToWorld, v.vertex.xyz).xy;
                 return o;
             }
-
-
+            float brite;
+            float n1scale;
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float2 polar = 2 * (i.uv - 0.5);
-                float mag = 1 - length(polar);
-        
-                float2 scUV = i.uv;//scale2d(i.uv, 20);
-                mag *=  pow(fractal_noise(i.worldUV * _nscale + scUV * 2 + i.color.r - _Time.y), _powmag);
-                //float alpha = 0.5 * (1 -step(pow(rand(scUV) * mag, 0.5), 10));
-                float4 outColor = float4(_col.xyz, mag * i.color.a);
-                return outColor; 
+
+                float2 pol = (i.uv - 0.5) * 2;
+                float n1 = fractal_noise(i.worldUV * n1scale + _Time.y + pol);
+                float n2 = fractal_noise(i.worldUV * n1scale * 0.7 + _Time.z + pol);
+
+                float4 col = 0.15;
+                col += 0.1 *  length(pol + 0.1);
+                col.xyz *= brite;
+                //col.a += step(length(pol + n1 * 2), 0.5);
+
+                col.a *= fractal_noise(i.worldUV * 3);
+                col.a += pow(n1, 2);
+                col.a += pow(n2, 2);
+                //col.a *= pow(length(pol), 2);
+                col.a -= pow(length(pol), 2);
+                col.a *= 10;//fractal_noise(i.uv* 100);
+                col.a * i.color.a;
+                return col;
             }
             ENDCG
         }
