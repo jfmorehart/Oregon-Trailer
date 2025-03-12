@@ -62,11 +62,10 @@ public class EnemyVan : Drivable
 			Debug.Log("null player");
 			return;
 		}
-		if (!ren.isVisible && !spottedPlayer)
-		{
-			//forget about them
-			return;
-		}
+		//if (!ren.isVisible && !spottedPlayer) {
+		//	//forget about them
+		//	return;
+		//}
 
 		Vector2 delta = (Vector2)PlayerVan.vanTransform.position - (Vector2)transform.position;
 		float thetaToPlayer = Vector2.SignedAngle(transform.right, delta.normalized);

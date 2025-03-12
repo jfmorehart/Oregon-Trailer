@@ -41,12 +41,9 @@ public class VanGun : MonoBehaviour
 		{
 			TryShoot();
 		}
-		if (AimsAtMouse) {
-			Vector3 mpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			Vector2 delta = (mpos - transform.position).normalized;
-			transform.up = delta;
-		}
-
+		Vector3 mpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		Vector2 delta = (mpos - transform.position).normalized;
+		transform.up = delta;
 	}
 	public void TryShoot() {
 

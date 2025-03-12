@@ -4,8 +4,6 @@ Shader "Unlit/DustParticle"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _col ("Color1", Color) = (1, 0, 0, 1)
-        _nscale("_nscale", Float)  = 0.4
-        _powmag("_powmag", Float) = 2
     }
     SubShader
     {
@@ -17,6 +15,9 @@ Shader "Unlit/DustParticle"
 
         LOD 100
 
+        ZWrite Off
+
+        Cull Back
 
         Pass
         {
@@ -46,8 +47,6 @@ Shader "Unlit/DustParticle"
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float4 _col;
-            float _nscale;
-            float _powmag;
 
             
             float rand (float2 uv) { 
@@ -105,7 +104,7 @@ Shader "Unlit/DustParticle"
                 float mag = 1 - length(polar);
         
                 float2 scUV = i.uv;//scale2d(i.uv, 20);
-                mag *=  pow(fractal_noise(i.worldUV * _nscale + scUV * 2 + i.color.r - _Time.y), _powmag);
+                mag *=  pow(fractal_noise(i.worldUV * 0.4 + scUV * 2 + i.color.r - _Time.y), 2);
                 //float alpha = 0.5 * (1 -step(pow(rand(scUV) * mag, 0.5), 10));
                 float4 outColor = float4(_col.xyz, mag * i.color.a);
                 return outColor; 
