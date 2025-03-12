@@ -52,6 +52,7 @@ public class MapNode : MonoBehaviour
 
     [SerializeField]
     LineRenderer lr;
+    Material lrMat;
 
     public enum activity
     {
@@ -114,7 +115,7 @@ public class MapNode : MonoBehaviour
             default:
                 break;
         }
-        
+        lrMat = new Material(Shader.Find("Sprites/Default"));
         generateLine();
         goDark();
     }
@@ -126,7 +127,8 @@ public class MapNode : MonoBehaviour
 
     private void Update()
     {
-        generateLine();
+        if(mapUI.MapMoving)
+            generateLine();
 
         if (!MapManager.PlayerInTransit && playerCanChoose)
         {
@@ -281,9 +283,8 @@ public class MapNode : MonoBehaviour
         if (Roads.Length == 0)
             return;
         Debug.Log("Generating line");
-
-        lr.sortingOrder = 1;
-        lr.material = new Material(Shader.Find("Sprites/Default"));
+        
+        lr.sortingOrder = 8;
         lr.material.color = Color.red;
 
         lr.startColor = Color.red;

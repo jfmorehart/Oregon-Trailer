@@ -15,17 +15,22 @@ public class mapUI : MonoBehaviour
     private float pulldownDuration = 1f;
     [SerializeField]
     private float pullUpDuration = 0.5f;
+    [SerializeField]
+    private GameObject topResourcesCanvas;
+
 
     bool isActivated = false;
     public bool IsActivated => instance.isActivated;
 
     Tween popUpTween, pullDownTween;
-
-
+    bool mapMoving = false;
+    public static bool MapMoving => instance.mapMoving;
     //controlled by the mapmanager
     public bool ShouldBeInteractedWith = false;
 
     bool thisCausedPause = false;
+
+    bool mapBusy = false;
 
     [Header("Menu Transforms")]
     [SerializeField]
@@ -84,6 +89,7 @@ public class mapUI : MonoBehaviour
         Time.timeScale = (pausing) ? 1 : 0;
         float t = 0;
         float d = (pausing) ? 0.5f : 0.75f;
+        mapMoving = true;
         while (t < d)
         {
             if (pausing)
@@ -96,6 +102,7 @@ public class mapUI : MonoBehaviour
 
             }
             t += Time.unscaledDeltaTime;
+            mapBusy = true;
             yield return null;
         }
         Time.timeScale = (pausing) ? 0 : 1;
@@ -110,8 +117,6 @@ public class mapUI : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Escape))
         {
-
-            Debug.Log("Map buttpon pressed");
             if (IsActivated)
             {
                 pullDown();
@@ -121,6 +126,8 @@ public class mapUI : MonoBehaviour
                 popUp();
             }
         }
+        instance.topResourcesCanvas.transform.position = instance.transform.position;
+
     }
 
 
@@ -140,6 +147,8 @@ public class mapUI : MonoBehaviour
             }
 
         }
+
+
     }
     public void instantPullDown()
     {
@@ -202,4 +211,8 @@ public class mapUI : MonoBehaviour
 
     }
 
+    public static void showTopUI(bool val)
+    {
+        instance.topResourcesCanvas.SetActive(val);
+    }
 }

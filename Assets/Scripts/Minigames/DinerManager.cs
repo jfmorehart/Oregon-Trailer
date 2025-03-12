@@ -40,6 +40,7 @@ public class DinerManager : MonoBehaviour
         DinerOutsideScreen.SetActive(true);
         owningFaction = faction.Neutral;
         updateStatsButton();
+        mapUI.showTopUI(true);
         titleText.text = owningFaction.ToString()+"'s Diner";
     }
     public void displayDiner(faction f)
@@ -54,8 +55,10 @@ public class DinerManager : MonoBehaviour
         DinerOutsideScreen.SetActive(false);
         dinerDeniedScreen.SetActive(false);
         dinerInside.SetActive(false);
+        mapUI.showTopUI(false);
         //communicate with map manager to display the map
         MapManager.instance.nodeActivityDone();
+
     }
 
     public void getGasButton()

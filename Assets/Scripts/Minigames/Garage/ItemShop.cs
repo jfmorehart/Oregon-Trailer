@@ -53,11 +53,13 @@ public class ItemShop : MonoBehaviour
     public void displayShop()
     {
         itemshopScene.SetActive(true);
+        mapUI.showTopUI(true);
 
     }
 
     public void hideGarage()
     {
+        mapUI.showTopUI(false);
         //set the q and e upgrades appropriately
         ItemDescriptionPanel.SetActive(false);
         itemshopScene.SetActive(false);
