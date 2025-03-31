@@ -468,6 +468,7 @@ public class MapManager : MonoBehaviour
         //if the player is not in transit, then they should be able to choose
         //and if they are not at an ending road
         //and if they have fuel still
+        Debug.Log("Player in transit: "+ PlayerInTransit);
         if (!instance.playersCurrentNode.EndingRoad && !PlayerInTransit)
         {
             //allow them to choose between the road options
@@ -512,10 +513,15 @@ public class MapManager : MonoBehaviour
             //reset the player to be at the first point
             mapPlayer.instance.setPositionStrict(playersCurrentNode);
 
+            _playerInTransit = false;
+
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
 
             InLevelCarSlider.instance.levelDone();
+
+            //make sure the player can choose the node
+            allowDestinationChoice();
         }
     }
 
@@ -640,6 +646,9 @@ public class MapManager : MonoBehaviour
         }
 
         fadeToBlackBG.gameObject.SetActive(false);
+        //HERE
+        mapUI.instance.ShouldBeInteractedWith = true;
+
 
         //PlayerChanges();
     }

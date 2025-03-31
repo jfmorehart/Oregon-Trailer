@@ -38,6 +38,10 @@ public class PlayerVan : Drivable
 		{
 			transform.position = new Vector2(ChunkManager.instance.transform.Find("goal(Clone)").position.x, ChunkManager.instance.transform.Find("goal(Clone)").position.y + 4);
 		}
+		if (Input.GetKeyDown(KeyCode.LeftAlt))
+		{
+			GetComponent<Breakable>().Damage(50);
+		}
     }
 	void ActivateUpgrade(Upgrade up)
 	{
