@@ -30,7 +30,6 @@ public class mapUI : MonoBehaviour
 
     bool thisCausedPause = false;
 
-    bool mapBusy = false;
 
     [Header("Menu Transforms")]
     [SerializeField]
@@ -102,11 +101,11 @@ public class mapUI : MonoBehaviour
 
             }
             t += Time.unscaledDeltaTime;
-            mapBusy = true;
             yield return null;
         }
         Time.timeScale = (pausing) ? 0 : 1;
         //Debug.Log("Y=" + pausing + " t = " +  Time.timeScale);
+        mapMoving = false;
     }
 
     private void Update()
