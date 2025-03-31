@@ -11,6 +11,7 @@ public class PlayerVan : Drivable
 
 	//ill replace these with a base class or interface or smth
 	public VanGun TankGun;
+	public Launcher GrenadeLauncher;
 	public OilBarrel barrel;
 
 	protected override void Awake()
@@ -38,7 +39,25 @@ public class PlayerVan : Drivable
 		{
 			transform.position = new Vector2(ChunkManager.instance.transform.Find("goal(Clone)").position.x, ChunkManager.instance.transform.Find("goal(Clone)").position.y + 4);
 		}
-    }
+		if(UpgradeManager.instance.e_upgrade == Upgrade.TankGun || UpgradeManager.instance.q_upgrade == Upgrade.TankGun) {
+			//tank gun
+			TankGun.gameObject.SetActive(true);
+		}
+		else {
+			//no tank gun
+			TankGun.gameObject.SetActive(false);
+		}
+		if (UpgradeManager.instance.e_upgrade == Upgrade.GrenadeLauncher|| UpgradeManager.instance.q_upgrade == Upgrade.GrenadeLauncher)
+		{
+			//launcher
+			GrenadeLauncher.gameObject.SetActive(true);
+		}
+		else
+		{
+			//no launcher
+			GrenadeLauncher.gameObject.SetActive(false);
+		}
+	}
 	void ActivateUpgrade(Upgrade up)
 	{
 		switch (up)
@@ -52,7 +71,10 @@ public class PlayerVan : Drivable
 			case Upgrade.TankGun:
 				TankGun.TryShoot();
 				break;
-        }
+			case Upgrade.GrenadeLauncher:
+				GrenadeLauncher.TryShoot();
+				break;
+		}
 	}
     protected override void FixedUpdate()
 	{
