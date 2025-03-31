@@ -7,7 +7,8 @@ public enum Upgrade
     None, 
     Booster, 
     OilBarrel,
-    TankGun
+    TankGun,
+    GrenadeLauncher
 }
 public class UpgradeManager : MonoBehaviour
 {
@@ -36,10 +37,10 @@ public class UpgradeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+
         q_upgrade = (Upgrade)qdrop.value;
         e_upgrade = (Upgrade)edrop.value;
-        */
+
     }
 
     public void AddOption(Upgrade upg)
