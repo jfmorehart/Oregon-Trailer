@@ -198,10 +198,12 @@ public class Drivable : MonoBehaviour
 	{
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
-			if (_rb.velocity.magnitude > 1)
+			if (_rb.velocity.magnitude > 0.5f)
 			{
-				br.Damage(collisionDamage);
-				breaker.Damage(collisionDamage * 0.5f);
+				float colDamage = collisionDamage * _rb.velocity.magnitude;
+				Debug.Log(colDamage);
+				br.Damage(colDamage);
+				breaker.Damage(colDamage);
 				Pool.smokes.GetObject().Fire(collision.contacts[0].point, Vector2.zero, Vector2.zero);
 			}
 		}

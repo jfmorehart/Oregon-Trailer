@@ -19,6 +19,7 @@ public class Smokestack : MonoBehaviour
 	private void Awake()
 	{
         ps = GetComponentsInChildren<ParticleSystem>();
+        NewAmt(0);
 	}
 
     public void NewAmt(float slider) { 

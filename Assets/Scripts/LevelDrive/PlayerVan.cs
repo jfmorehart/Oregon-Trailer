@@ -24,7 +24,7 @@ public class PlayerVan : Drivable
 		//frame-input goes in update
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			//SceneManager.LoadScene(SceneManager.GetActiveScene)
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 		if (Input.GetKeyDown(KeyCode.Q))
         {
