@@ -53,10 +53,13 @@ public class ItemShop : MonoBehaviour
     public void displayShop()
     {
         itemshopScene.SetActive(true);
+        mapUI.showTopUI(true);
+
     }
 
     public void hideGarage()
     {
+        mapUI.showTopUI(false);
         //set the q and e upgrades appropriately
         ItemDescriptionPanel.SetActive(false);
         itemshopScene.SetActive(false);
@@ -72,7 +75,6 @@ public class ItemShop : MonoBehaviour
         //repairs to full health, until we decide how it should work otherwise
         if (MapManager.instance.BuyResource(50))
             MapManager.instance.repairVan();
-
     }
 
     public void closePanel()
@@ -95,7 +97,6 @@ public class ItemShop : MonoBehaviour
         {
             itemBuyButton.interactable = false;
         }
-
     }
 
     public void buyUpgrade()
@@ -107,6 +108,7 @@ public class ItemShop : MonoBehaviour
             Debug.Log("Bought Upgrade " + boughtUpgrade);
 
             UpgradeManager.instance.AddOption(boughtUpgrade);
+            UpgradeManager.instance.e_upgrade = boughtUpgrade;
             GarageManager.instance.addUpgrade(boughtUpgrade);
             closePanel();
             Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
@@ -115,6 +117,7 @@ public class ItemShop : MonoBehaviour
         {
             Debug.Log("Should not have option to buy upgrade when player does not have enough money");
         }
+
     }
 
     public void stealButtonBehavior()

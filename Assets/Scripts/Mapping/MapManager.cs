@@ -65,7 +65,7 @@ public class MapManager : MonoBehaviour
     int minNodesToGen = 10;
     float nodeYModifier = 1;
     float nodeXModifier = 1;
-    new List<TextAsset> questsToGen = new List<TextAsset>();
+    List<TextAsset> questsToGen = new List<TextAsset>();
 
 
     private void Awake()
@@ -135,9 +135,6 @@ public class MapManager : MonoBehaviour
             GameObject instantiatedMap = Instantiate(map, mapParent);
             levelPrefabVariableHolder levelvariables = instantiatedMap.GetComponent<levelPrefabVariableHolder>();
             currentMap = instantiatedMap.transform;
-
-
-            //Debug.Log("growing");
 
             startingNode = levelvariables.firstNode;
 
@@ -277,7 +274,7 @@ public class MapManager : MonoBehaviour
 
         instance.playersCurrentNode.playerCanChoose = false;
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
-        
+        instance._playerInTransit = false;
         InLevelCarSlider.instance.levelDone();
 
     }
@@ -403,7 +400,7 @@ public class MapManager : MonoBehaviour
         instance.playerDestinationNode = destNode;
         instance.forbidDestinationChoice();
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);
-
+        instance._playerInTransit = true;
         instance.StartCoroutine(instance.PlayerTraveling(destNode));
     }
 
@@ -471,6 +468,7 @@ public class MapManager : MonoBehaviour
         //if the player is not in transit, then they should be able to choose
         //and if they are not at an ending road
         //and if they have fuel still
+        Debug.Log("Player in transit: "+ PlayerInTransit);
         if (!instance.playersCurrentNode.EndingRoad && !PlayerInTransit)
         {
             //allow them to choose between the road options
@@ -510,15 +508,20 @@ public class MapManager : MonoBehaviour
 
     public void Restart()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && _playerInTransit)
         {
             //reset the player to be at the first point
             mapPlayer.instance.setPositionStrict(playersCurrentNode);
+
+            _playerInTransit = false;
 
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
 
             InLevelCarSlider.instance.levelDone();
+
+            //make sure the player can choose the node
+            allowDestinationChoice();
         }
     }
 
@@ -643,6 +646,9 @@ public class MapManager : MonoBehaviour
         }
 
         fadeToBlackBG.gameObject.SetActive(false);
+        //HERE
+        mapUI.instance.ShouldBeInteractedWith = true;
+
 
         //PlayerChanges();
     }

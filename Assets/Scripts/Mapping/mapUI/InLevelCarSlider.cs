@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class InLevelCarSlider : MonoBehaviour
 {
@@ -14,13 +15,18 @@ public class InLevelCarSlider : MonoBehaviour
     Scrollbar levelcompleteslider;
     [SerializeField]
     TMP_Text leveldistancetext;
+    [SerializeField]
+    TMP_Text levelRestartText;
     float maxDistance;
     public static InLevelCarSlider instance;
 
     public Transform arrow;
 
+    private bool vanAlive = false;
+
     private void Awake()
     {
+        
         if(instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -34,12 +40,17 @@ public class InLevelCarSlider : MonoBehaviour
         levelcompleteslider.gameObject.SetActive(false);
         leveldistancetext.gameObject.SetActive(false);
     }
-
+    public Action onKill;
+    private Breakable playervan;
     public void startLevel()
     {
+
         Debug.Log("LevelStartRoutine");
         //records the player's start position
         van = GameObject.Find("Van(Clone)");
+        playervan = PlayerVan.vanTransform.GetComponent<Breakable>();
+        playervan.onKill += playerDead;
+        vanAlive = true;
         if (van == null)
         {
             Debug.Log("Van is not Found");
@@ -48,33 +59,32 @@ public class InLevelCarSlider : MonoBehaviour
         maxDistance = Vector2.Distance(van.transform.position, endingHouse.transform.position);
         leveldistancetext.gameObject.SetActive(true);
         levelcompleteslider.gameObject.SetActive(true);
+        levelRestartText.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (van != null)
+        if (vanAlive) 
         {
-            //accurate distances?
-            //check what node the player is currently on
-            //check the next chunk's beginning point
-            //OR
-            //divide the chunks 
-            //RN
-            //
-            
             float vanDistancePercent = Mathf.Clamp((maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance, 0, 100);
 
-            leveldistancetext.text = ((int) Vector2.Distance(van.transform.position, endingHouse.transform.position)) + "M"; 
+            leveldistancetext.text = ((int)Vector2.Distance(van.transform.position, endingHouse.transform.position)) + "M";
             levelcompleteslider.value = vanDistancePercent;
         }
         else
         {
             //we must be in the other section of the game
             levelcompleteslider.value = 0;
+            levelRestartText.gameObject.SetActive(true);
         }
     }
 
-
+    public void playerDead()
+    {
+        playervan.onKill -= playerDead;
+        vanAlive = false;
+        playervan = null;
+    }
     public void levelDone()
     {
         Debug.Log("Level Done Routine");
@@ -83,9 +93,10 @@ public class InLevelCarSlider : MonoBehaviour
         maxDistance = 10000;
         leveldistancetext.gameObject.SetActive(false);
         levelcompleteslider.gameObject.SetActive(false);
+        levelRestartText.gameObject.SetActive(false);
     }
 
-
+    
 
 
 }

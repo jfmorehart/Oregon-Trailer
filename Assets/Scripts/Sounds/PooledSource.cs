@@ -49,7 +49,7 @@ public class PooledSource : MonoBehaviour
 		src.Play();
 		playing = true;
 
-		Debug.Log("dist = " + Vector2.Distance(transform.position, Camera.main.transform.position));
+		//Debug.Log("dist = " + Vector2.Distance(transform.position, Camera.main.transform.position));
 		if (Vector2.Distance(transform.position, Camera.main.transform.position) < SFX.noStereoRange)
 		{
 			src.spatialBlend = 0;
