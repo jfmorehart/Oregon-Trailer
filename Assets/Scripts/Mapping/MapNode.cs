@@ -58,7 +58,8 @@ public class MapNode : MonoBehaviour
     {
         Diner,
         Hunt,
-        Garage
+        Garage,
+        None
     }
 
 
@@ -111,6 +112,9 @@ public class MapNode : MonoBehaviour
                 break;
             case activity.Garage:
                 _nodeIconRenderer.sprite = mechanicIcon;
+                break;
+            case activity.None:
+                _nodeIconRenderer.color = new Color(1, 1, 1, 0);
                 break;
             default:
                 break;
@@ -179,6 +183,10 @@ public class MapNode : MonoBehaviour
             case activity.Garage:
                 //display garage screen
                 ItemShop.instance.displayShop();
+                break;
+            case activity.None:
+                //literally just mark the activity as done automatically
+                MapManager.instance.nodeActivityDone();
                 break;
             default:
                 break;

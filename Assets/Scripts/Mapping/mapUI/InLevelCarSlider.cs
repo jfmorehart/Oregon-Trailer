@@ -90,6 +90,7 @@ public class InLevelCarSlider : MonoBehaviour
         Debug.Log("Level Done Routine");
         van = null;
         endingHouse = null;
+        vanAlive=false;
         maxDistance = 10000;
         leveldistancetext.gameObject.SetActive(false);
         levelcompleteslider.gameObject.SetActive(false);
