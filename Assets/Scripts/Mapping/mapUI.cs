@@ -125,8 +125,9 @@ public class mapUI : MonoBehaviour
                 popUp();
             }
         }
-        if (topResources != null)
+        if (topResourcesCanvas != null)
         {
+            //Debug.Log("TopResources " + topResourcesCanvas);
             topResourcesCanvas.transform.position = transform.position;
         }
 
