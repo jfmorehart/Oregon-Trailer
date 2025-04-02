@@ -10,16 +10,24 @@ public class MapManager : MonoBehaviour
     //ideally we can start moving this to the gamemanager and just change how its percieved
 
     //for now we can keep track of the player's fuel and other bits here
-    public int fuel = 5;
-    public int money = 10;
-    public int food = 5;
-    public int vanHealth ;//this should track to whatever the health of the van is in driving scenes 
+    [SerializeField]
+    private int fuel = 5;
+    public int Fuel => fuel;
+    [SerializeField]
+    private int money = 10;
+    public int Money => money;
+    [SerializeField]
+    private int food = 5;
+    [SerializeField]
+    private int vanHealth = 100;//this should track to whatever the health of the van is in driving scenes 
+    private const int MAXHEALTH = 100; 
     public static MapManager instance;
 
     private MapNode startingNode;
     //keep track of what node the player is currently at
-    [SerializeField]
-    MapNode playersCurrentNode;
+    public MapNode playersCurrentNode;
+    public RoadPath playersNewPath;
+
     [SerializeField]
     MapNode playerDestinationNode;
 
@@ -57,7 +65,7 @@ public class MapManager : MonoBehaviour
     int minNodesToGen = 10;
     float nodeYModifier = 1;
     float nodeXModifier = 1;
-    new List<TextAsset> questsToGen = new List<TextAsset>();
+    List<TextAsset> questsToGen = new List<TextAsset>();
 
 
     private void Awake()
@@ -111,39 +119,41 @@ public class MapManager : MonoBehaviour
             generateMap(possibleMaps[mapIndex]);
             Debug.Log("Generating Map from list of maps - Map at index " + mapIndex);
             mapIndex++;
+
         }
     }
     
     //try to spawn the generated events in order
     public void generateMap(GameObject map = null) 
     {
-        Debug.Log("Private");
+        //Debug.Log("Private");
         if (map != null)
         {
-            Debug.Log("Historians");
+            //Debug.Log("Historians");
             if(currentMap != null)
                 Destroy(currentMap.gameObject);
             GameObject instantiatedMap = Instantiate(map, mapParent);
             levelPrefabVariableHolder levelvariables = instantiatedMap.GetComponent<levelPrefabVariableHolder>();
             currentMap = instantiatedMap.transform;
 
-
-            Debug.Log("growing");
-
             startingNode = levelvariables.firstNode;
 
             playersCurrentNode = levelvariables.firstNode;
-            mapPlayer.instance.setPositionStrict(playersCurrentNode);
+            levelvariables.firstNode.playerCanChoose = false;
+            //mapPlayer.instance.setPositionStrict(playersCurrentNode);
             playersCurrentNode.goBright();
 
             mapUI.instance.ShouldBeInteractedWith = false;
             mapUI.instance.instantPopUp();
             allowDestinationChoice();
+            mapPlayer.instance.setPositionStrict(playersCurrentNode);
+
         }
         else
         {
-            Debug.Log("HORSI");
-            buildNodes(Random.Range(minNodesToGen, maxNodesToGen));
+            Debug.Log("Map is null after trying to generate");
+            //buildNodes(Random.Range(minNodesToGen, maxNodesToGen));
+            doEnding();
         }
     }
 
@@ -261,14 +271,15 @@ public class MapManager : MonoBehaviour
         //change the color of the current node
         instance.playerDestinationNode.goBright();
         */
-        
-        
-        instance.StartCoroutine(instance.fadeToBlackHandleMovement());
-        
 
+        instance.playersCurrentNode.playerCanChoose = false;
+        instance.StartCoroutine(instance.fadeToBlackHandleMovement());
+        instance._playerInTransit = false;
+        InLevelCarSlider.instance.levelDone();
 
     }
     
+
     private void HandleMovement()
     {
         if(!levelEnding)
@@ -347,7 +358,7 @@ public class MapManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //set the player's position to the new node
-        mapPlayer.instance.setPosition(instance.playersCurrentNode);
+        mapPlayer.instance.setPositionStrict(instance.playersCurrentNode);
 
         Debug.Log("D6");
         yield return new WaitForEndOfFrame();
@@ -385,18 +396,20 @@ public class MapManager : MonoBehaviour
     public static void playerTraveling(MapNode destNode)
     {
 
-        Debug.Log("travelling now");
+        Debug.Log("travelling now to " + destNode.transform.name);
         instance.playerDestinationNode = destNode;
         instance.forbidDestinationChoice();
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);
-
+        instance._playerInTransit = true;
         instance.StartCoroutine(instance.PlayerTraveling(destNode));
     }
 
     //should generalize this by taking in a certain action
     private IEnumerator PlayerTraveling(MapNode destNode)
     {
+        destNode.playerCanChoose = false;
         float duration = 1f;
+        Debug.Log("Fading to black");
         fadeToBlackBG.gameObject.SetActive(true);
         Color transparent = new Color(0, 0, 0, 0);
         Color full = new Color(0, 0, 0, 1);
@@ -410,12 +423,13 @@ public class MapManager : MonoBehaviour
         }
 
         fadeToBlackBG.color = new Color(0, 0, 0, 1);
+        Debug.Log("fade to black complete");
 
 
         //player should be travelling now
-        
 
-        ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(destNode));
+        if(playersCurrentNode.getQuestList(destNode) != null)
+            ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(destNode));
 
 
         //ChunkManager.instance.GenerateLevel();
@@ -423,6 +437,7 @@ public class MapManager : MonoBehaviour
         //lower the map
         mapUI.instance.instantPullDown();
         mapUI.instance.ShouldBeInteractedWith = true;
+        InLevelCarSlider.instance.startLevel();
 
 
         yield return new WaitForSeconds(0.5f);
@@ -453,6 +468,7 @@ public class MapManager : MonoBehaviour
         //if the player is not in transit, then they should be able to choose
         //and if they are not at an ending road
         //and if they have fuel still
+        Debug.Log("Player in transit: "+ PlayerInTransit);
         if (!instance.playersCurrentNode.EndingRoad && !PlayerInTransit)
         {
             //allow them to choose between the road options
@@ -474,27 +490,38 @@ public class MapManager : MonoBehaviour
     }
 
 
-
+    [SerializeField]
+    bool skipmode = true;
     private void Update()
     {
         //testing stuff
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && skipmode)
         {
             playerArrived();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            //money += 1500;
         }
         Restart();
     }
 
     public void Restart()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && _playerInTransit)
         {
             //reset the player to be at the first point
-            mapPlayer.instance.setPosition(playersCurrentNode);
+            mapPlayer.instance.setPositionStrict(playersCurrentNode);
+
+            _playerInTransit = false;
 
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
 
+            InLevelCarSlider.instance.levelDone();
+
+            //make sure the player can choose the node
+            allowDestinationChoice();
         }
     }
 
@@ -507,14 +534,16 @@ public class MapManager : MonoBehaviour
         if (playersCurrentNode.EndingRoad)
         {
             //dont add one to the index because we automatically add one anytime we generate a level
-            if (possibleMaps.Count < mapIndex)
+            if (possibleMaps.Count - 1 < mapIndex)
             {
                 //we have reached the end - if we are on the proc gen mode,  then automatically generate another map
+                Debug.Log("Ending game");
                 doEnding();
             }
             else
             {
                 //otherwise we can generate the next map
+                Debug.Log("Generating next map");
                 generateNextMap();
             }
             return;
@@ -576,6 +605,13 @@ public class MapManager : MonoBehaviour
 
         fadeToBlackBG.gameObject.SetActive(false);
 
+        //temp - destroy all scrap 
+        Pickup[] g = GameObject.FindObjectsOfType<Pickup>();
+        for (int i = 0; i < g.Length; i++)
+        {
+            Destroy(g[i].gameObject);
+        }
+
         //PlayerChanges();
     }
 
@@ -610,6 +646,9 @@ public class MapManager : MonoBehaviour
         }
 
         fadeToBlackBG.gameObject.SetActive(false);
+        //HERE
+        mapUI.instance.ShouldBeInteractedWith = true;
+
 
         //PlayerChanges();
     }
@@ -654,4 +693,29 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public bool BuyResource(int cost)
+    {
+        if (cost < money)
+        {
+            money -= cost;
+            return true;
+
+        }
+        else
+        {
+            Debug.Log("Not enough money");
+            return false;
+        }
+
+    }
+
+    public void AddMoney(int m)
+    {
+        money += m;
+    }
+
+    public void repairVan()
+    {
+        vanHealth = MAXHEALTH;
+    }
 }

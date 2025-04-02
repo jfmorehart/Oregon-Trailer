@@ -6,7 +6,8 @@ public class Smoke : PooledObject
 {
     Color col;
     Color startcol;
-    Vector2 startscale;
+    Vector2 defaultScale;
+    Vector2 startScale;
 
     Renderer ren;
 
@@ -20,7 +21,7 @@ public class Smoke : PooledObject
         ren = GetComponent<Renderer>();
         col = CopyColor(ren.material.color);
         startcol = CopyColor(col);
-        startscale = transform.localScale;
+        defaultScale = transform.localScale;
         Hide();
 	}
 
@@ -30,11 +31,20 @@ public class Smoke : PooledObject
 
     }
 
-    public override void Fire(Vector2 pos, Vector2 _, Vector2 __) {
+    public override void Fire(Vector2 pos, Vector2 scale, Vector2 __) {
         col = CopyColor(startcol);
         live = true;
-		transform.localScale = startscale;
-		transform.position = pos;
+
+		//often zeroed out, but usable as a scale modifier
+		if (scale != Vector2.zero) {
+
+            startScale = scale;
+        }
+        else {
+            startScale = defaultScale;
+	    }
+        transform.localScale = startScale;
+	    transform.position = pos;
         startTime = Time.time;
         ren.enabled = true;
 
@@ -50,7 +60,7 @@ public class Smoke : PooledObject
 	    }
         float lval = (Time.time - (startTime - 0.01f)) / lifeTime;
         float scale = (1 - lval) * 2;
-        transform.localScale = startscale * scale;
+        transform.localScale = startScale * scale;
   //      if(Time.time - startTime < lifeTime * 0.5f) {
   //	col.a *= 1 + Time.deltaTime * fadeSpeed;
   //	transform.localScale *= 1 + Time.deltaTime * fadeSpeed;

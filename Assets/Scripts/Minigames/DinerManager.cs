@@ -40,6 +40,7 @@ public class DinerManager : MonoBehaviour
         DinerOutsideScreen.SetActive(true);
         owningFaction = faction.Neutral;
         updateStatsButton();
+        mapUI.showTopUI(true);
         titleText.text = owningFaction.ToString()+"'s Diner";
     }
     public void displayDiner(faction f)
@@ -54,26 +55,29 @@ public class DinerManager : MonoBehaviour
         DinerOutsideScreen.SetActive(false);
         dinerDeniedScreen.SetActive(false);
         dinerInside.SetActive(false);
+        mapUI.showTopUI(false);
         //communicate with map manager to display the map
         MapManager.instance.nodeActivityDone();
+
     }
 
     public void getGasButton()
     {
-        if (MapManager.instance.money >= 2)
+        if (MapManager.instance.Money >=2)
         {
             MapManager.instance.increaseGas();
-            MapManager.instance.money -= 2;
+            MapManager.instance.BuyResource(2);
+            //MapManager.instance.BuyResource(2);
         }
         updateStatsButton(); 
     }
 
     public void getFoodButton()
     {
-        if (MapManager.instance.money >= 2)
+        if (MapManager.instance.Money >= 2)
         {
             MapManager.instance.increaseFood();
-            MapManager.instance.money -= 2;
+            MapManager.instance.BuyResource(2);
         }
         updateStatsButton();
     }
@@ -105,8 +109,8 @@ public class DinerManager : MonoBehaviour
     }
     void updateStatsButton()
     {
-        stats.text = "Stats:\n\tMoney: " + MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel;
-        insideStats.text = "Stats:\n\tMoney: " + MapManager.instance.money + "\n\tFuel: " + MapManager.instance.fuel;
+        stats.text = "Stats:\n\tMoney: " + MapManager.instance.Money + "\n\tFuel: " + MapManager.instance.Fuel;
+        insideStats.text = "Stats:\n\tMoney: " + MapManager.instance.Fuel + "\n\tFuel: " + MapManager.instance.Fuel;
     }
 
     // Update is called once per frame

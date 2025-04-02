@@ -8,6 +8,7 @@ public class Breakable : MonoBehaviour
     public float hp;
     public HealthBar bar;
     public Action onKill;
+    public Action onShot;
 
 	private void Awake()
 	{
@@ -17,6 +18,7 @@ public class Breakable : MonoBehaviour
 	}
 
 	public void Damage(float dmg) {
+        onShot?.Invoke();
         hp -= dmg;
         if(bar != null) {
             bar.hp = hp;

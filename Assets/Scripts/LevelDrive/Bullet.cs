@@ -18,6 +18,10 @@ public class Bullet : PooledObject
 	[HideInInspector]
 	public float damage;
 
+	public float disabledStartTime;
+	public string ignoreTag;
+
+
 	private void Awake()
 	{
 		tren = GetComponent<TrailRenderer>();
@@ -35,8 +39,9 @@ public class Bullet : PooledObject
 
 	public override void Fire(Vector2 startpos, Vector2 dir, Vector2 initvel) {
 		Camera.main.GetComponent<LevelCamera>().Shake(1, transform.position);
-		flying = true;
+		
 		transform.position = startpos;
+		flying = true;
 		tren.Clear();
 		tren.enabled = true;
 		ren.enabled = true;
@@ -62,11 +67,23 @@ public class Bullet : PooledObject
 			foreach(RaycastHit2D h in hit) {
 				//if (h.collider.gameObject.CompareTag("Player")) continue;
 				//if (Time.time - startTime < 0.05f) return;
+				if(ignoreTag != "") {
+					if (h.collider.CompareTag(ignoreTag))
+					{
+						return;
+					}
+				}
+
 				Pool.smokes.GetObject().Fire(transform.position, Vector2.zero, Vector2.zero);
 				Hide();
-
 				if(h.collider.TryGetComponent(out Breakable br)) {
 					br.Damage(damage);
+					if (h.collider.CompareTag("Enemy")) {
+						SFX.instance.carImpact.PlaySoundAtPosition(h.point, 1f);
+					}
+					else {
+						SFX.instance.rockImpact.PlaySoundAtPosition(h.point, 1f);
+					}
 				}
 				return;
 			} 
