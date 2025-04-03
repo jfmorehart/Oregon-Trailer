@@ -20,7 +20,8 @@ public class MapManager : MonoBehaviour
     private int food = 5;
     [SerializeField]
     private int vanHealth = 100;//this should track to whatever the health of the van is in driving scenes 
-    private const int MAXHEALTH = 100; 
+    public int VanHealth => vanHealth;
+    public const int MAXHEALTH = 100; 
     public static MapManager instance;
 
     private MapNode startingNode;
@@ -275,6 +276,7 @@ public class MapManager : MonoBehaviour
         instance.playersCurrentNode.playerCanChoose = false;
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
         instance._playerInTransit = false;
+        mapUI.instance.endLevel();
         InLevelCarSlider.instance.levelDone();
 
     }
@@ -438,7 +440,7 @@ public class MapManager : MonoBehaviour
         mapUI.instance.instantPullDown();
         mapUI.instance.ShouldBeInteractedWith = true;
         InLevelCarSlider.instance.startLevel();
-
+        mapUI.instance.startLevel();
 
         yield return new WaitForSeconds(0.5f);
         time = 0;
@@ -521,12 +523,16 @@ public class MapManager : MonoBehaviour
             StartCoroutine(fadeToBlackResetPosition());
             Debug.Log("Restart fade to black");
 
+            mapUI.instance.endLevel();
             InLevelCarSlider.instance.levelDone();
 
             //make sure the player can choose the node
             allowDestinationChoice();
             Debug.Log("Restart finalized");
 
+
+            //reset the health to 30
+            vanHealth = 30;
         }
     }
 

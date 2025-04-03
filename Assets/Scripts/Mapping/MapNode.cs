@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -51,8 +52,7 @@ public class MapNode : MonoBehaviour
     List<MapNode> nodesThisReveals = new List<MapNode>();
 
     [SerializeField]
-    LineRenderer lr;
-    Material lrMat;
+    UILineRenderer _lr;
 
     public enum activity
     {
@@ -119,9 +119,18 @@ public class MapNode : MonoBehaviour
             default:
                 break;
         }
-        lrMat = new Material(Shader.Find("Sprites/Default"));
         generateLine();
         goDark();
+    }
+    private void Start()
+    {
+        lrSpriteOrdering();
+    }
+
+    private void lrSpriteOrdering()
+    {
+        _lr.transform.parent = transform.parent;
+        _lr.transform.SetSiblingIndex(0);
     }
 
     public void setEndingNode(bool val)
@@ -131,8 +140,8 @@ public class MapNode : MonoBehaviour
 
     private void Update()
     {
-        if(mapUI.MapMoving)
-            generateLine();
+        
+        generateLine();
 
         if (!MapManager.PlayerInTransit && playerCanChoose)
         {
@@ -288,17 +297,22 @@ public class MapNode : MonoBehaviour
 
     private void generateLine()
     {
-        if (Roads.Length == 0)
+        if (Roads.Length == 0 || _lr == null)
             return;
         Debug.Log("Generating line");
-        
-        lr.sortingOrder = 8;
-        lr.material.color = Color.red;
 
-        lr.startColor = Color.red;
-        lr.endColor = Color.red;
-        lr.SetPosition(0, transform.position);
-        lr.SetPosition(1, Roads[0].Destination.transform.position);
+        if (Roads[0].Destination.playerCanChoose)
+        {
+            Color sc = new Color(0.9882f, 0.9764f, 0.7059f, 0.5f);
+            Color ec = new Color(sc.r, sc.g, sc.b, 0.9f);
+            Color c = Color.Lerp(sc, ec, (Mathf.Sin(Time.time * 2) * 0.5f) + 0.5f);
+            Debug.Log(c);
+            _lr.CreateLine(transform.position, Roads[0].Destination.transform.position, c, true);
+        }
+        else
+        {
+            _lr.CreateLine(transform.position, Roads[0].Destination.transform.position, new Color(0.25f, 0.25f, 0.25f, 0.45f), false);
+        }
     }
 
     //give the 

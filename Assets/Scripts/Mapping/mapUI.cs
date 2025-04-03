@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class mapUI : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class mapUI : MonoBehaviour
     private float pullUpDuration = 0.5f;
     [SerializeField]
     private GameObject topResourcesCanvas;
-
+    public bool inLevel = false;
 
     bool isActivated = false;
     public bool IsActivated => instance.isActivated;
@@ -29,7 +30,7 @@ public class mapUI : MonoBehaviour
     public bool ShouldBeInteractedWith = false;
 
     bool thisCausedPause = false;
-
+    Rigidbody2D vanrb;
 
     [Header("Menu Transforms")]
     [SerializeField]
@@ -45,7 +46,12 @@ public class mapUI : MonoBehaviour
     [SerializeField]
     Vector2 UpgradeScreenONScreenLocation, UpgradeScreenOFFScreenLocation;
 
-
+    [SerializeField]
+    Image TopHealth;
+    [SerializeField]
+    Image TopSpeed;
+    [SerializeField]
+    private float speedMax;
     enum mapScreens
     {
         map,
@@ -217,5 +223,34 @@ public class mapUI : MonoBehaviour
     public static void showTopUI(bool val)
     {
         instance.topResourcesCanvas.SetActive(val);
+    }
+
+    public void startLevel()
+    {
+        inLevel = true;
+        vanrb = PlayerVan.vanTransform.GetComponent<Rigidbody2D>();
+    }
+    //should probably make this use the event system instead
+    public void endLevel()
+    {
+        inLevel = false;
+
+    }
+    public void doHealthUI()
+    {
+        TopHealth.fillAmount = ( MapManager.instance.VanHealth/ MapManager.MAXHEALTH);
+    }
+    public void doSpeedUI()
+    {
+        //if we're currently in level
+        if (inLevel)
+        {
+            TopSpeed.fillAmount = Mathf.Min(1, vanrb.velocity.magnitude / speedMax);//simply the rigid body speed
+        }
+        else
+        {
+            TopSpeed.fillAmount = Mathf.Min(0.6f, Mathf.PerlinNoise1D(Time.time)) ;
+        }
+
     }
 }
