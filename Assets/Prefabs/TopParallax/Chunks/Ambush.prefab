@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256c90c18aeda4cdd801f75dfc28f0d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 0
 --- !u!212 &9090759177673328495
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -296,7 +295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256c90c18aeda4cdd801f75dfc28f0d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 1
 --- !u!212 &253420240865205572
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -491,7 +489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256c90c18aeda4cdd801f75dfc28f0d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 2
 --- !u!212 &5238765789263917420
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -834,6 +831,10 @@ MonoBehaviour:
   dimensions: {x: 41, y: 41}
   enemies: []
   questPoint: {fileID: 0}
+  wayPoints:
+  - {fileID: 7742430095449041469}
+  - {fileID: 5510626941607423049}
+  - {fileID: 1603961497759906151}
 --- !u!1001 &21194587342699746
 PrefabInstance:
   m_ObjectHideFlags: 0
