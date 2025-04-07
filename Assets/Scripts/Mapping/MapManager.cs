@@ -78,7 +78,7 @@ public class MapManager : MonoBehaviour
         else if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         startingNode = playersCurrentNode;
     }
@@ -510,18 +510,23 @@ public class MapManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && _playerInTransit)
         {
+            Debug.Log("Restart pressed");
             //reset the player to be at the first point
             mapPlayer.instance.setPositionStrict(playersCurrentNode);
+            Debug.Log("restart position");
 
             _playerInTransit = false;
 
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
+            Debug.Log("Restart fade to black");
 
             InLevelCarSlider.instance.levelDone();
 
             //make sure the player can choose the node
             allowDestinationChoice();
+            Debug.Log("Restart finalized");
+
         }
     }
 
@@ -624,11 +629,24 @@ public class MapManager : MonoBehaviour
         Color full = new Color(0, 0, 0, 1);
         float time = 0;
         fadeToBlackBG.color = transparent;
+        if (fadeToBlackBG == null)
+            Debug.Log("BG IS NULL");
         while (time < duration)
         {
-            fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
-            time += Time.deltaTime;
-            yield return null;
+
+            if (fadeToBlackBG == null)
+            {
+                Debug.Log("BG IS NULL");
+                time += Time.deltaTime;
+                yield return null;
+            }
+            else
+            {
+
+                fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
 
         fadeToBlackBG.color = new Color(0, 0, 0, 1);

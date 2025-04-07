@@ -9,7 +9,7 @@ public class mapPlayer : MonoBehaviour
     public static mapPlayer instance;
     private Canvas canvas;
     [SerializeField]
-    private Transform _o, _d;//
+    private Transform _o, _d;
 
     private void Awake()
     {
