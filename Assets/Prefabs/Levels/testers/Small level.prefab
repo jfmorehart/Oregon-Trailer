@@ -118,13 +118,15 @@ MonoBehaviour:
   _locationActivity: 0
   _locationFaction: 0
   locationEvent: {fileID: 4900000, guid: 643ccb7c44a753247b5aa4616d615e46, type: 3}
+  lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 1390082554259220195}
     roadLength: 1
     fuelCost: 0
     type: 0
     forcedQuests: []
-    forcedSections: []
+    forcedSections:
+    - {fileID: -623503267821811247, guid: f4652325e197f4700bebf025cb915a55, type: 3}
   playerCanChoose: 0
 --- !u!61 &5606554948410551673
 BoxCollider2D:
@@ -382,6 +384,7 @@ MonoBehaviour:
   _locationActivity: 0
   _locationFaction: 0
   locationEvent: {fileID: 4900000, guid: 643ccb7c44a753247b5aa4616d615e46, type: 3}
+  lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 1082457622459017506}
     roadLength: 1
@@ -389,7 +392,8 @@ MonoBehaviour:
     type: 0
     forcedQuests:
     - {fileID: 4900000, guid: 4b169e4f0fb61544495d85593cd74e2f, type: 3}
-    forcedSections: []
+    forcedSections:
+    - {fileID: -623503267821811247, guid: 761e4d12e4ebf46ccb6219fe5373af89, type: 3}
   playerCanChoose: 0
 --- !u!61 &8816584094802163877
 BoxCollider2D:
@@ -699,6 +703,7 @@ MonoBehaviour:
   _locationActivity: 0
   _locationFaction: 0
   locationEvent: {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
+  lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 0}
     roadLength: 4
@@ -706,7 +711,8 @@ MonoBehaviour:
     type: 1
     forcedQuests:
     - {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
-    forcedSections: []
+    forcedSections:
+    - {fileID: -623503267821811247, guid: fb6dcf269f0d041e5a2ded69abd84150, type: 3}
   playerCanChoose: 0
 --- !u!61 &5656070908572389205
 BoxCollider2D:
@@ -946,13 +952,15 @@ MonoBehaviour:
   _locationActivity: 0
   _locationFaction: 0
   locationEvent: {fileID: 4900000, guid: 696c9dc78b3f97e4b9a1db605010a53f, type: 3}
+  lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 1746957742735081776}
     roadLength: 6
     fuelCost: 0
     type: 1
     forcedQuests: []
-    forcedSections: []
+    forcedSections:
+    - {fileID: -623503267821811247, guid: 902dc4ae5bb8c4f8b8754e9160575248, type: 3}
   playerCanChoose: 0
 --- !u!61 &5639762073956709512
 BoxCollider2D:
