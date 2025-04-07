@@ -1493,50 +1493,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960431481}
   m_CullTransparentMesh: 1
---- !u!1 &995524071
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 995524073}
-  - component: {fileID: 995524072}
-  m_Layer: 0
-  m_Name: Waypoint
-  m_TagString: Waypoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &995524072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 995524071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 256c90c18aeda4cdd801f75dfc28f0d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &995524073
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 995524071}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1074699971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,22 +1815,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test_autoGenerate: 1
   singleChunkMode: 1
-  levelSize: 4
+  levelSize: 1
   level: []
   chunkBag:
-  - {fileID: -623503267821811247, guid: 902dc4ae5bb8c4f8b8754e9160575248, type: 3}
-  - {fileID: -623503267821811247, guid: 761e4d12e4ebf46ccb6219fe5373af89, type: 3}
-  - {fileID: -623503267821811247, guid: f4652325e197f4700bebf025cb915a55, type: 3}
-  - {fileID: -623503267821811247, guid: fb6dcf269f0d041e5a2ded69abd84150, type: 3}
-  - {fileID: -2800348910684745525, guid: 83153d47d63954f08be9e45b0e171959, type: 3}
-  - {fileID: -623503267821811247, guid: 99f03507dc9a347a0bcfa2ff23b17526, type: 3}
-  - {fileID: 2460533215672483101, guid: d82903715c0e44b0c85cc9b2eddbe1a0, type: 3}
+  - {fileID: 2460533215672483101, guid: 6b851ddad4c9241e2a4f669781ccb021, type: 3}
   environment_chunkBags: []
   QuestChunkBag: []
   Quests: []
   enemySpawnsRemaining: 100
   boundaryStack: {fileID: 770879436162116754, guid: cb6b897ca3aa24ff48282a688d7f1b0a, type: 3}
   endHouse: {fileID: 1790104061774785256, guid: 2d20434a7ac6243ed94158615f444895, type: 3}
+  waypoints: []
   VanObj: {fileID: 7847132893973158458, guid: cc0695d72bb974d8fa3cc7eb19f7f79f, type: 3}
   path:
     Destination: {fileID: 0}
@@ -3168,63 +3119,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015500645}
   m_CullTransparentMesh: 1
---- !u!1001 &2050837186
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.2701706
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.31341872
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 337894710091500963, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4936546243638200257, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
-      propertyPath: m_Name
-      value: Enemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8f225c4c2ce96492b857a23672084a81, type: 3}
 --- !u!1 &2130332346
 GameObject:
   m_ObjectHideFlags: 0
@@ -3396,5 +3290,3 @@ SceneRoots:
   - {fileID: 8055745304340491587}
   - {fileID: 1074699975}
   - {fileID: 207675267}
-  - {fileID: 2050837186}
-  - {fileID: 995524073}
