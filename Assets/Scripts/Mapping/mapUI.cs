@@ -82,7 +82,7 @@ public class mapUI : MonoBehaviour
     {
         if (!isActivated)
         {
-            transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.InBounce).SetUpdate(true);
+            transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.Linear).SetUpdate(true);
             isActivated = true;
             if (Time.timeScale != 0)//if this is already paused, we dont need to pause
             {
@@ -155,7 +155,7 @@ public class mapUI : MonoBehaviour
         if (isActivated)
         {
             isActivated = false;
-            transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InBack).SetUpdate(true);
+            transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.Linear).SetUpdate(true);
 
             if (thisCausedPause)//if this is already paused, we dont need to pause
             {

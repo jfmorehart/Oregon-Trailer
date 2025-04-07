@@ -442,6 +442,7 @@ public class MapManager : MonoBehaviour
         InLevelCarSlider.instance.startLevel();
         mapUI.instance.startLevel();
 
+
         yield return new WaitForSeconds(0.5f);
         time = 0;
         while (time < duration)
@@ -722,6 +723,7 @@ public class MapManager : MonoBehaviour
         if (cost < money)
         {
             money -= cost;
+            moneyText.text = money+"";
             return true;
 
         }

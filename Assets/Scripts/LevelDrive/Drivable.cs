@@ -192,8 +192,8 @@ public class Drivable : MonoBehaviour
 	{
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
-			if (_rb.velocity.magnitude > 0.5f)
-			{
+			if (_rb.velocity.magnitude > 0.5f && collision.collider.CompareTag("Finish"))//make sure 
+            {
 				float colDamage = collisionDamage * _rb.velocity.magnitude;
 				Debug.Log(colDamage);
 				br.Damage(colDamage);
