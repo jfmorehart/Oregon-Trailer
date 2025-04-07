@@ -10,6 +10,7 @@ public class Chunk : MonoBehaviour
 	public Vector2 dimensions;
 	public List<EnemyVan> enemies = new List<EnemyVan>();
 	public QuestPoint questPoint;
+	public Waypoint[] wayPoints;
 
 	private void Awake()
 	{
