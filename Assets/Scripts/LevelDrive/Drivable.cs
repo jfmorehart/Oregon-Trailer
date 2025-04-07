@@ -192,7 +192,7 @@ public class Drivable : MonoBehaviour
 	{
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
-			if (_rb.velocity.magnitude > 0.5f && collision.collider.CompareTag("Finish"))//make sure 
+			if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))//make sure we dont die from the ending house
             {
 				float colDamage = collisionDamage * _rb.velocity.magnitude;
 				Debug.Log(colDamage);

@@ -56,6 +56,9 @@ public class mapUI : MonoBehaviour
     Image TopSpeed;
     [SerializeField]
     private float speedMax;
+
+    [SerializeField]
+    private float mapSectionEaseDuration= 0.1f;
     enum mapScreens
     {
         map,
@@ -82,7 +85,7 @@ public class mapUI : MonoBehaviour
     {
         if (!isActivated)
         {
-            transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.Linear).SetUpdate(true);
+            transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             isActivated = true;
             if (Time.timeScale != 0)//if this is already paused, we dont need to pause
             {
@@ -155,7 +158,7 @@ public class mapUI : MonoBehaviour
         if (isActivated)
         {
             isActivated = false;
-            transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.Linear).SetUpdate(true);
+            transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
 
             if (thisCausedPause)//if this is already paused, we dont need to pause
             {
@@ -187,8 +190,8 @@ public class mapUI : MonoBehaviour
         {
 
             //DOTween.KillAll();
-            CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
             currentScreen = mapScreens.character;
 
@@ -197,7 +200,7 @@ public class mapUI : MonoBehaviour
         {
             //DOTween.KillAll();
 
-            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.map;
         }
     }
@@ -207,16 +210,16 @@ public class mapUI : MonoBehaviour
         {
             //upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
             //DOTween.KillAll();
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
-            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.upgrade;
 
         }
         else
         {
             //DOTween.KillAll();
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.map;
         }
     }
@@ -224,8 +227,8 @@ public class mapUI : MonoBehaviour
     {
         //move all other screens to another position
         currentScreen = mapScreens.map;
-        CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
-        upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+        CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+        upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
 
     }
 
