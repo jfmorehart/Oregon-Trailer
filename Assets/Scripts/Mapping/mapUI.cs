@@ -23,6 +23,8 @@ public class mapUI : MonoBehaviour
     bool isActivated = false;
     public bool IsActivated => instance.isActivated;
 
+    public bool vanStopped = false;
+
     Tween popUpTween, pullDownTween;
     bool mapMoving = false;
     public static bool MapMoving => instance.mapMoving;
@@ -48,6 +50,8 @@ public class mapUI : MonoBehaviour
 
     [SerializeField]
     Image TopHealth;
+    [SerializeField]
+    TMP_Text mphText;
     [SerializeField]
     Image TopSpeed;
     [SerializeField]
@@ -116,6 +120,9 @@ public class mapUI : MonoBehaviour
 
     private void Update()
     {
+
+        doHealthUI();
+        doSpeedUI();
         if (!ShouldBeInteractedWith)
         {
             return;
@@ -131,10 +138,12 @@ public class mapUI : MonoBehaviour
                 popUp();
             }
         }
+        //Debug.Log("TopResources " + topResourcesCanvas.name);
+
         if (topResourcesCanvas != null)
         {
-            //Debug.Log("TopResources " + topResourcesCanvas);
             topResourcesCanvas.transform.position = transform.position;
+
         }
 
     }
@@ -238,18 +247,61 @@ public class mapUI : MonoBehaviour
     }
     public void doHealthUI()
     {
-        TopHealth.fillAmount = ( MapManager.instance.VanHealth/ MapManager.MAXHEALTH);
+        if (inLevel)
+        {
+            if (vanrb != null)
+            {
+                //Debug.Log("breaker: " + PlayerVan.vanInstance.Breaker.hp);
+                TopHealth.fillAmount = PlayerVan.vanInstance.Breaker.hp / 100;
+            }
+            else
+            {
+                //player is dead
+                TopHealth.fillAmount = 0;
+            }
+
+        }
+        else
+        {
+            TopHealth.fillAmount = ((float)MapManager.instance.VanHealth/ (float)MapManager.MAXHEALTH);
+        }
+
     }
     public void doSpeedUI()
     {
         //if we're currently in level
         if (inLevel)
         {
-            TopSpeed.fillAmount = Mathf.Min(1, vanrb.velocity.magnitude / speedMax);//simply the rigid body speed
+            if (vanrb != null)
+            {
+                TopSpeed.fillAmount = Mathf.Min(1, vanrb.velocity.magnitude / speedMax);//simply the rigid body speed
+                mphText.text = "" + (int)((vanrb.velocity.magnitude / speedMax) * 100);
+            }
+            else
+            {
+                //player has died
+                TopSpeed.fillAmount = 0;
+                mphText.text = "DED";
+            }
+            
         }
         else
         {
-            TopSpeed.fillAmount = Mathf.Min(0.6f, Mathf.PerlinNoise1D(Time.time)) ;
+            if (!vanStopped)
+            {
+                float fillamnt = (Mathf.PerlinNoise1D(Time.time * 0.1f) + 0.2f);//ranges from 0.4-1.4
+                fillamnt = Mathf.Clamp(fillamnt, 0.4f, 0.8f);//want to add some more dampening at some point
+                TopSpeed.fillAmount = fillamnt;
+                mphText.text = string.Format("{0:0}", ((int)(fillamnt * 100)));
+                //Debug.Log(mphText.text);
+            }
+            else 
+            { 
+                TopSpeed.fillAmount = 0;
+                mphText.text = ""+0;
+            }
+
+
         }
 
     }

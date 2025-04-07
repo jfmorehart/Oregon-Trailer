@@ -299,20 +299,35 @@ public class MapNode : MonoBehaviour
     {
         if (Roads.Length == 0 || _lr == null)
             return;
-        Debug.Log("Generating line");
+        //Debug.Log("Generating line");
+        //TODO reformat this
+        if (MapManager.instance.playersCurrentNode == this)
+        {
+            foreach (RoadPath r in Roads)
+            {
 
-        if (Roads[0].Destination.playerCanChoose)
-        {
-            Color sc = new Color(0.9882f, 0.9764f, 0.7059f, 0.5f);
-            Color ec = new Color(sc.r, sc.g, sc.b, 0.9f);
-            Color c = Color.Lerp(sc, ec, (Mathf.Sin(Time.time * 2) * 0.5f) + 0.5f);
-            Debug.Log(c);
-            _lr.CreateLine(transform.position, Roads[0].Destination.transform.position, c, true);
+            }
         }
-        else
+
+        foreach (RoadPath r in Roads)
         {
-            _lr.CreateLine(transform.position, Roads[0].Destination.transform.position, new Color(0.25f, 0.25f, 0.25f, 0.45f), false);
+            bool playerOnRoad = false;
+            if (r.Destination == MapManager.instance.playerDestinationNode && MapManager.instance.playersCurrentNode)//check if player is on this road
+                playerOnRoad = true;
+            if (r.Destination.playerCanChoose || playerOnRoad)//or if player is on the road actively
+            {
+                Color sc = new Color(0.9882f, 0.9764f, 0.7059f, 0.5f);
+                Color ec = new Color(sc.r, sc.g, sc.b, 0.9f);
+                Color c = Color.Lerp(sc, ec, (Mathf.Sin(Time.time * 2) * 0.5f) + 0.5f);
+                //Debug.Log(c);
+                _lr.CreateLine(transform.position, Roads[0].Destination.transform.position, c, true);
+            }
+            else
+            {
+                _lr.CreateLine(transform.position, Roads[0].Destination.transform.position, new Color(0.25f, 0.25f, 0.25f, 0.45f), false);
+            }
         }
+
     }
 
     //give the 

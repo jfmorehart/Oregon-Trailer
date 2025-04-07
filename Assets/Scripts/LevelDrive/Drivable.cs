@@ -22,8 +22,8 @@ public class Drivable : MonoBehaviour
 	float lastBoostTime, boostRemaining;
 
 	public float collisionDamage;
-	Breakable breaker;
-
+	protected Breakable breaker;
+	public Breakable Breaker => breaker;
 	public GameObject scrapPrefab;
 
 	public int pickupValue; //currency im carrying

@@ -29,8 +29,7 @@ public class MapManager : MonoBehaviour
     public MapNode playersCurrentNode;
     public RoadPath playersNewPath;
 
-    [SerializeField]
-    MapNode playerDestinationNode;
+    public MapNode playerDestinationNode;
 
     [SerializeField]
     private bool _playerInTransit = false;
@@ -257,7 +256,7 @@ public class MapManager : MonoBehaviour
     }
 
 
-    public static void playerArrived()
+    public static void playerArrived(float health)
     {
         if (instance == null)
         {
@@ -272,7 +271,8 @@ public class MapManager : MonoBehaviour
         //change the color of the current node
         instance.playerDestinationNode.goBright();
         */
-
+        Debug.Log("Player arrived " + health);
+        instance.vanHealth = (int) health;
         instance.playersCurrentNode.playerCanChoose = false;
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
         instance._playerInTransit = false;
@@ -499,7 +499,7 @@ public class MapManager : MonoBehaviour
         //testing stuff
         if (Input.GetKeyDown(KeyCode.X) && skipmode)
         {
-            playerArrived();
+            playerArrived(100);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -532,7 +532,7 @@ public class MapManager : MonoBehaviour
 
 
             //reset the health to 30
-            vanHealth = 30;
+            vanHealth = MAXHEALTH;
         }
     }
 
@@ -740,6 +740,7 @@ public class MapManager : MonoBehaviour
 
     public void repairVan()
     {
+        Debug.Log("Van health is reset");
         vanHealth = MAXHEALTH;
     }
 }
