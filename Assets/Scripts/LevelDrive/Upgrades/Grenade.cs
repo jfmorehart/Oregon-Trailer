@@ -11,10 +11,13 @@ public class Grenade : MonoBehaviour
 
     public LayerMask targetMask;
     public float proxFuseSize;
+    public float explosionSize;
 
     float lastProxCheck, proxCheckDelay = 0.1f;
 
     public float grenadeDamage;
+
+    public GameObject test;
 
 	private void Start()
 	{
@@ -45,14 +48,19 @@ public class Grenade : MonoBehaviour
 
     void Explode() {
         Debug.Log("boom");
-        PooledObject smoke = Pool.smokes.GetObject();
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, proxFuseSize);
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, explosionSize);
         for (int i = 0; i < hits.Length; i++) {
             if(hits[i].TryGetComponent(out Breakable br)) {
                 br.Damage(grenadeDamage);
 	        }
     	}
-	    smoke.Fire(transform.position, 2 * proxFuseSize * Vector2.one, Vector2.zero);
-        Destroy(gameObject);
+        //GameObject go = Instantiate(test, transform.position, Quaternion.identity, Pool.instance.transform);
+        //go.transform.localScale = Vector3.one * explosionSize;
+
+        //PooledObject smoke = Pool.smokes.GetObject();
+        //smoke.Fire(transform.position, 2 * proxFuseSize * Vector2.one, Vector2.zero);
+        Pool.explosions.GetObject().Fire(transform.position, Vector2.zero, Vector2.zero);
+		Destroy(gameObject);
     }
 }

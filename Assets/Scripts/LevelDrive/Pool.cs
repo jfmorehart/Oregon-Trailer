@@ -9,15 +9,18 @@ public class Pool : MonoBehaviour
 	[SerializeField] int poolsize;
 	public GameObject bulletPrefab;
 	public GameObject smokePrefab;
+	public GameObject explosionPrefab;
 
 	public static ObjectPool bullets;
 	public static ObjectPool smokes;
+	public static ObjectPool explosions;
 
 	private void Awake()
 	{
 		instance = this;
 		bullets = new ObjectPool(bulletPrefab);
 		smokes = new ObjectPool(smokePrefab, 10);
+		explosions = new ObjectPool(explosionPrefab, 50);
 	}
 
 	public class ObjectPool {
