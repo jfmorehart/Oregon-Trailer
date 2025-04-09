@@ -209,7 +209,11 @@ public class ChunkManager : MonoBehaviour
 
 		Vector2 firstStart = level[0].transform.Find("road_start_point").position;
 		GameObject vplayer = Instantiate(VanObj, firstStart, Quaternion.Euler(0, 0, 180));
-        PlayerVan.vanTransform.GetComponent<Breakable>().hp = MapManager.instance.VanHealth;
+
+        if(MapManager.instance != null) {
+			PlayerVan.vanTransform.GetComponent<Breakable>().hp = MapManager.instance.VanHealth;
+		}
+
 	}
 
     void GenerationLoop(List<int> questChunks) {
