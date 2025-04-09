@@ -12,8 +12,7 @@ public enum Upgrade
 }
 public class UpgradeManager : MonoBehaviour
 {
-
-    List<Upgrade> availableUpgrades = new List<Upgrade>();
+    public List<Upgrade> availableUpgrades = new List<Upgrade>();
     
     public Upgrade q_upgrade;
     public Upgrade e_upgrade;
@@ -38,8 +37,8 @@ public class UpgradeManager : MonoBehaviour
     void Update()
     {
 
-        q_upgrade = (Upgrade)qdrop.value;
-        e_upgrade = (Upgrade)edrop.value;
+        //q_upgrade = (Upgrade)qdrop.value;
+        //e_upgrade = (Upgrade)edrop.value;
 
     }
 

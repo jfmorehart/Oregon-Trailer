@@ -110,13 +110,19 @@ public class ItemShop : MonoBehaviour
             MapManager.instance.BuyResource(SelectedUpgrade.cost);
             Upgrade boughtUpgrade = SelectedUpgrade.upgrade;
             Debug.Log("Bought Upgrade " + boughtUpgrade);
-
             UpgradeManager.instance.AddOption(boughtUpgrade);
             if(UpgradeManager.instance.e_upgrade == Upgrade.None)
+            {
                 UpgradeManager.instance.e_upgrade = boughtUpgrade;
+            }
             else if (UpgradeManager.instance.q_upgrade == Upgrade.None)
+            {
                 UpgradeManager.instance.e_upgrade = boughtUpgrade;
+            }
+            
+            InLevelCarSlider.instance.updateUpgradeUI();
             GarageManager.instance.addUpgrade(boughtUpgrade);
+
             closePanel();
             Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
         }

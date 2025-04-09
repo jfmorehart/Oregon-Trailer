@@ -73,6 +73,7 @@ public class GarageManager : MonoBehaviour
                     primaryName.text = allUpgrades[i].Name;
                     primaryImage.sprite = allUpgrades[i].img;
                     primaryDesc.text = allUpgrades[i].desc;
+                    Debug.Log(allUpgrades[i].upgrade);
                     UpgradeManager.instance.q_upgrade = allUpgrades[i].upgrade;
                 }
                 else
@@ -81,6 +82,7 @@ public class GarageManager : MonoBehaviour
                     secondaryDesc.text = allUpgrades[i].desc;
                     secondaryImage.sprite = allUpgrades[i].img;
                     secondaryName.text = allUpgrades[i].Name;
+                    Debug.Log(allUpgrades[i].upgrade);
                     UpgradeManager.instance.e_upgrade = allUpgrades[i].upgrade;
                 }
 
@@ -88,7 +90,9 @@ public class GarageManager : MonoBehaviour
                 closeUpgradeChoiceMenu();
 
                 //update the upgrade manager
-                Debug.Log("Chose : "  + allUpgrades[i].Name + " \nleftside: " + leftSlotChosen);
+                Debug.Log("nupgrade set E: " + UpgradeManager.instance.q_upgrade + " Q: "+ UpgradeManager.instance.e_upgrade);
+                InLevelCarSlider.instance.updateUpgradeUI();
+
                 return;
             }
         }
@@ -98,6 +102,7 @@ public class GarageManager : MonoBehaviour
     {
         if (leftSideChosen)
         {
+            Debug.Log("Leftside chosen");
             leftSlotChosen = true;
             rightSlotChosen = false;
         }
