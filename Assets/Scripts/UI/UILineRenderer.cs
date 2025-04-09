@@ -20,6 +20,6 @@ public class UILineRenderer : MonoBehaviour
         m_myTransform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
         float lineThickness = (isThick) ? 0.08f: 0.06f;
 
-        m_myTransform.localScale = new Vector3(dir.magnitude, lineThickness, 1);
+        m_myTransform.localScale = new Vector3(dir.magnitude * 1.5f, lineThickness, 1);
     }
 }

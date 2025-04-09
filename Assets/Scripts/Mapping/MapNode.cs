@@ -95,6 +95,7 @@ public class MapNode : MonoBehaviour
                     Debug.LogError("The destination is not set on roadPath: " + transform.name);
             }
         }
+        
 
         sr = GetComponent<Image>();
         _boxCollider = GetComponent<BoxCollider2D>();
@@ -129,8 +130,14 @@ public class MapNode : MonoBehaviour
 
     private void lrSpriteOrdering()
     {
+        if (_lr == null)
+        {
+            _lr = transform.GetChild(2).GetComponent<UILineRenderer>();
+        }
+        _lr.transform.position = transform.position;
         _lr.transform.parent = transform.parent;
         _lr.transform.SetSiblingIndex(0);
+        generateLine();
     }
 
     public void setEndingNode(bool val)
@@ -299,15 +306,6 @@ public class MapNode : MonoBehaviour
     {
         if (Roads.Length == 0 || _lr == null)
             return;
-        //Debug.Log("Generating line");
-        //TODO reformat this
-        if (MapManager.instance.playersCurrentNode == this)
-        {
-            foreach (RoadPath r in Roads)
-            {
-
-            }
-        }
 
         foreach (RoadPath r in Roads)
         {
@@ -320,11 +318,11 @@ public class MapNode : MonoBehaviour
                 Color ec = new Color(sc.r, sc.g, sc.b, 0.9f);
                 Color c = Color.Lerp(sc, ec, (Mathf.Sin(Time.time * 2) * 0.5f) + 0.5f);
                 //Debug.Log(c);
-                _lr.CreateLine(transform.position, Roads[0].Destination.transform.position, c, true);
+                _lr.CreateLine(transform.position, r.Destination.transform.position, c, true);
             }
             else
             {
-                _lr.CreateLine(transform.position, Roads[0].Destination.transform.position, new Color(0.25f, 0.25f, 0.25f, 0.45f), false);
+                _lr.CreateLine(transform.position, r.Destination.transform.position, new Color(0.25f, 0.25f, 0.25f, 0.45f), false);
             }
         }
 
