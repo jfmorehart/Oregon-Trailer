@@ -4268,6 +4268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39eba74af6d574439c95cb587e028ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  availableUpgrades: 
   q_upgrade: 0
   e_upgrade: 0
   StoreUpgrades: []
@@ -27094,6 +27095,15 @@ MonoBehaviour:
   levelRestartText: {fileID: 876858500}
   arrow: {fileID: 452321857}
   inLevel: 0
+  QSlotImage: {fileID: 0}
+  ESlotImage: {fileID: 0}
+  qText: {fileID: 0}
+  eText: {fileID: 0}
+  boostersprite: {fileID: 0}
+  rocketsprite: {fileID: 0}
+  grenadesprite: {fileID: 0}
+  oilsprite: {fileID: 0}
+  nonesprite: {fileID: 0}
 --- !u!1 &2020826713
 GameObject:
   m_ObjectHideFlags: 0
@@ -29130,7 +29140,7 @@ MonoBehaviour:
   fadeToBlackBG: {fileID: 210996198}
   generateFromList: 1
   possibleMaps:
-  - {fileID: 1093908184206508639, guid: 994f78cfbffe84a90b2c1c6af10cf919, type: 3}
+  - {fileID: 1093908184206508639, guid: 6e4379b5ccebb4085a88e677c3e17eea, type: 3}
   BlankNode: {fileID: 0}
   mapParent: {fileID: 124225877}
   skipmode: 1
