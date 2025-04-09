@@ -23,7 +23,7 @@ public class InLevelCarSlider : MonoBehaviour
     public Transform arrow;
 
     private bool vanAlive = false;
-
+    public bool inLevel = false;
     private void Awake()
     {
         
@@ -44,13 +44,13 @@ public class InLevelCarSlider : MonoBehaviour
     private Breakable playervan;
     public void startLevel()
     {
-
         Debug.Log("LevelStartRoutine");
         //records the player's start position
         van = GameObject.Find("Van(Clone)");
         playervan = PlayerVan.vanTransform.GetComponent<Breakable>();
         playervan.onKill += playerDead;
         vanAlive = true;
+        inLevel = true;
         if (van == null)
         {
             Debug.Log("Van is not Found");
@@ -64,7 +64,7 @@ public class InLevelCarSlider : MonoBehaviour
 
     void Update()
     {
-        if (vanAlive) 
+        if (vanAlive && inLevel) 
         {
             float vanDistancePercent = Mathf.Clamp((maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance, 0, 100);
 
@@ -73,14 +73,17 @@ public class InLevelCarSlider : MonoBehaviour
         }
         else
         {
+            
             //we must be in the other section of the game
             levelcompleteslider.value = 0;
-            levelRestartText.gameObject.SetActive(true);
+            if(inLevel)//player is dead
+                levelRestartText.gameObject.SetActive(true);
         }
     }
 
     public void playerDead()
     {
+        inLevel = true;
         playervan.onKill -= playerDead;
         vanAlive = false;
         playervan = null;
@@ -88,6 +91,7 @@ public class InLevelCarSlider : MonoBehaviour
     public void levelDone()
     {
         Debug.Log("Level Done Routine");
+        inLevel = false;
         van = null;
         endingHouse = null;
         vanAlive=false;

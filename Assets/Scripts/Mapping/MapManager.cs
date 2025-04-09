@@ -20,7 +20,8 @@ public class MapManager : MonoBehaviour
     private int food = 5;
     [SerializeField]
     private int vanHealth = 100;//this should track to whatever the health of the van is in driving scenes 
-    private const int MAXHEALTH = 100; 
+    public int VanHealth => vanHealth;
+    public const int MAXHEALTH = 100; 
     public static MapManager instance;
 
     private MapNode startingNode;
@@ -28,8 +29,7 @@ public class MapManager : MonoBehaviour
     public MapNode playersCurrentNode;
     public RoadPath playersNewPath;
 
-    [SerializeField]
-    MapNode playerDestinationNode;
+    public MapNode playerDestinationNode;
 
     [SerializeField]
     private bool _playerInTransit = false;
@@ -256,7 +256,7 @@ public class MapManager : MonoBehaviour
     }
 
 
-    public static void playerArrived()
+    public static void playerArrived(float health)
     {
         if (instance == null)
         {
@@ -271,10 +271,12 @@ public class MapManager : MonoBehaviour
         //change the color of the current node
         instance.playerDestinationNode.goBright();
         */
-
+        Debug.Log("Player arrived " + health);
+        instance.vanHealth = (int) health;
         instance.playersCurrentNode.playerCanChoose = false;
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
         instance._playerInTransit = false;
+        mapUI.instance.endLevel();
         InLevelCarSlider.instance.levelDone();
 
     }
@@ -438,6 +440,7 @@ public class MapManager : MonoBehaviour
         mapUI.instance.instantPullDown();
         mapUI.instance.ShouldBeInteractedWith = true;
         InLevelCarSlider.instance.startLevel();
+        mapUI.instance.startLevel();
 
 
         yield return new WaitForSeconds(0.5f);
@@ -497,7 +500,7 @@ public class MapManager : MonoBehaviour
         //testing stuff
         if (Input.GetKeyDown(KeyCode.X) && skipmode)
         {
-            playerArrived();
+            playerArrived(100);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -521,12 +524,16 @@ public class MapManager : MonoBehaviour
             StartCoroutine(fadeToBlackResetPosition());
             Debug.Log("Restart fade to black");
 
+            mapUI.instance.endLevel();
             InLevelCarSlider.instance.levelDone();
 
             //make sure the player can choose the node
             allowDestinationChoice();
             Debug.Log("Restart finalized");
 
+
+            //reset the health to 30
+            vanHealth = MAXHEALTH;
         }
     }
 
@@ -716,6 +723,7 @@ public class MapManager : MonoBehaviour
         if (cost < money)
         {
             money -= cost;
+            moneyText.text = money+"";
             return true;
 
         }
@@ -734,6 +742,7 @@ public class MapManager : MonoBehaviour
 
     public void repairVan()
     {
+        Debug.Log("Van health is reset");
         vanHealth = MAXHEALTH;
     }
 }
