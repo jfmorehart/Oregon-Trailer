@@ -12,7 +12,7 @@ public class InLevelCarSlider : MonoBehaviour
     private GameObject van;
     private GameObject endingHouse;
     [SerializeField]
-    Scrollbar levelcompleteslider;
+    Slider levelcompleteslider;
     [SerializeField]
     TMP_Text leveldistancetext;
     [SerializeField]
