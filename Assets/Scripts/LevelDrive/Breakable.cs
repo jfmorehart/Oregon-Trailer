@@ -16,8 +16,15 @@ public class Breakable : MonoBehaviour
 			bar = GetComponent<HealthBar>();
 		}
 	}
-
-	public void Damage(float dmg) {
+    private void Start()
+    {
+        if (bar == null)
+        {
+            return;
+        }
+        bar.hp = hp;
+    }
+    public void Damage(float dmg) {
         onShot?.Invoke();
         hp -= dmg;
         if(bar != null) {

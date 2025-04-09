@@ -27,6 +27,8 @@ public class ChunkManager : MonoBehaviour
 
     GameObject spawnedEndHouse = null;
 
+    public Vector2[] waypoints;
+
     [SerializeField]
     private GameObject VanObj;
     private void Awake()
@@ -44,8 +46,65 @@ public class ChunkManager : MonoBehaviour
 
     void Start() {
         if(test_autoGenerate) RandomGenerateLevel();
-	}
 
+        //manual sorting
+        Waypoint[] to_add;
+        List<Vector2> v2s = new();
+        for (int i = 0; i < level.Length; i++) {
+            to_add = level[i].wayPoints;
+            for(int j = 0; j < to_add.Length; j++) {
+                v2s.Add(to_add[j].transform.position);
+	        }
+	    }
+        waypoints = v2s.ToArray();
+
+
+        //auto sorting
+
+		//GameObject[] waypoint_objects = GameObject.FindGameObjectsWithTag("Waypoint");
+
+		//Debug.Log("tagged waypoints: " + waypoint_objects.Length);
+		//List<Waypoint> to_order = new List<Waypoint>();
+		//List<int> indices = new List<int>();
+		//for (int i = 0; i < waypoint_objects.Length; i++)
+		//{
+		//	if (waypoint_objects[i].TryGetComponent(out Waypoint way))
+		//	{
+		//		to_order.Add(way);
+
+  //              Chunk recurse = Recurse(way.transform);
+  //              if(recurse == null) {
+  //                  indices.Add(way.order);
+  //              }
+  //              else { 
+		//            for(int x = 0; x < level.Length; x++) {
+  //                      if (level[x] == recurse) {
+  //                          indices.Add(way.order + x * 1000);
+		//				}
+		//            }
+		//        }
+		//	}
+		//}
+		//Waypoint[] ordered = to_order.ToArray();
+		//int[] keys = indices.ToArray();
+	 //   waypoints = new Vector2[ordered.Length];
+		//System.Array.Sort(keys, ordered);
+		//for (int i = 0; i < ordered.Length; i++)
+		//{
+		//	waypoints[i] = ordered[i].gameObject.transform.position;
+		//}
+	}
+    Chunk Recurse(Transform g) {
+		if (g.parent == null)
+		{
+            return null;
+		}
+		if (g.parent.TryGetComponent(out Chunk chunk))
+		{
+            return chunk;
+		}
+        return Recurse(g.parent);
+	}
     public void DestroyLevel() {
 		if (level != null)
 		{
@@ -131,7 +190,7 @@ public class ChunkManager : MonoBehaviour
         }
 
 		level = new Chunk[levelSize];
-        Debug.Log(level.GetLength(0));
+        //Debug.Log(level.GetLength(0));
 		GenerationLoop(chunksToSpawnQuestsAt);
         Transform endpoint = level[levelSize - 1].transform.Find("road_end_point");
         if(endpoint == null) {
@@ -149,7 +208,8 @@ public class ChunkManager : MonoBehaviour
         }
 
 		Vector2 firstStart = level[0].transform.Find("road_start_point").position;
-		Instantiate(VanObj, firstStart, Quaternion.Euler(0, 0, 180));
+		GameObject vplayer = Instantiate(VanObj, firstStart, Quaternion.Euler(0, 0, 180));
+        PlayerVan.vanTransform.GetComponent<Breakable>().hp = MapManager.instance.VanHealth;
 	}
 
     void GenerationLoop(List<int> questChunks) {

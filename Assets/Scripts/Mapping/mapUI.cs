@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class mapUI : MonoBehaviour
 {
@@ -17,10 +18,12 @@ public class mapUI : MonoBehaviour
     private float pullUpDuration = 0.5f;
     [SerializeField]
     private GameObject topResourcesCanvas;
-
+    public bool inLevel = false;
 
     bool isActivated = false;
     public bool IsActivated => instance.isActivated;
+
+    public bool vanStopped = false;
 
     Tween popUpTween, pullDownTween;
     bool mapMoving = false;
@@ -29,7 +32,7 @@ public class mapUI : MonoBehaviour
     public bool ShouldBeInteractedWith = false;
 
     bool thisCausedPause = false;
-
+    Rigidbody2D vanrb;
 
     [Header("Menu Transforms")]
     [SerializeField]
@@ -45,7 +48,17 @@ public class mapUI : MonoBehaviour
     [SerializeField]
     Vector2 UpgradeScreenONScreenLocation, UpgradeScreenOFFScreenLocation;
 
+    [SerializeField]
+    Image TopHealth;
+    [SerializeField]
+    TMP_Text mphText;
+    [SerializeField]
+    Image TopSpeed;
+    [SerializeField]
+    private float speedMax;
 
+    [SerializeField]
+    private float mapSectionEaseDuration= 0.1f;
     enum mapScreens
     {
         map,
@@ -72,7 +85,7 @@ public class mapUI : MonoBehaviour
     {
         if (!isActivated)
         {
-            transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.InBounce).SetUpdate(true);
+            transform.DOLocalMove(endPosition, pullUpDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             isActivated = true;
             if (Time.timeScale != 0)//if this is already paused, we dont need to pause
             {
@@ -110,6 +123,9 @@ public class mapUI : MonoBehaviour
 
     private void Update()
     {
+
+        doHealthUI();
+        doSpeedUI();
         if (!ShouldBeInteractedWith)
         {
             return;
@@ -125,10 +141,12 @@ public class mapUI : MonoBehaviour
                 popUp();
             }
         }
+        //Debug.Log("TopResources " + topResourcesCanvas.name);
+
         if (topResourcesCanvas != null)
         {
-            //Debug.Log("TopResources " + topResourcesCanvas);
             topResourcesCanvas.transform.position = transform.position;
+
         }
 
     }
@@ -140,7 +158,7 @@ public class mapUI : MonoBehaviour
         if (isActivated)
         {
             isActivated = false;
-            transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InBack).SetUpdate(true);
+            transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
 
             if (thisCausedPause)//if this is already paused, we dont need to pause
             {
@@ -172,8 +190,8 @@ public class mapUI : MonoBehaviour
         {
 
             //DOTween.KillAll();
-            CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
             currentScreen = mapScreens.character;
 
@@ -182,7 +200,7 @@ public class mapUI : MonoBehaviour
         {
             //DOTween.KillAll();
 
-            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.map;
         }
     }
@@ -192,16 +210,16 @@ public class mapUI : MonoBehaviour
         {
             //upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
             //DOTween.KillAll();
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
-            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.upgrade;
 
         }
         else
         {
             //DOTween.KillAll();
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.map;
         }
     }
@@ -209,13 +227,85 @@ public class mapUI : MonoBehaviour
     {
         //move all other screens to another position
         currentScreen = mapScreens.map;
-        CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
-        upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
+        CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+        upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
 
     }
 
     public static void showTopUI(bool val)
     {
         instance.topResourcesCanvas.SetActive(val);
+    }
+
+    public void startLevel()
+    {
+        inLevel = true;
+        vanrb = PlayerVan.vanTransform.GetComponent<Rigidbody2D>();
+    }
+    //should probably make this use the event system instead
+    public void endLevel()
+    {
+        inLevel = false;
+
+    }
+    public void doHealthUI()
+    {
+        if (inLevel)
+        {
+            if (vanrb != null)
+            {
+                //Debug.Log("breaker: " + PlayerVan.vanInstance.Breaker.hp);
+                TopHealth.fillAmount = PlayerVan.vanInstance.Breaker.hp / 100;
+            }
+            else
+            {
+                //player is dead
+                TopHealth.fillAmount = 0;
+            }
+
+        }
+        else
+        {
+            TopHealth.fillAmount = ((float)MapManager.instance.VanHealth/ (float)MapManager.MAXHEALTH);
+        }
+
+    }
+    public void doSpeedUI()
+    {
+        //if we're currently in level
+        if (inLevel)
+        {
+            if (vanrb != null)
+            {
+                TopSpeed.fillAmount = Mathf.Min(1, vanrb.velocity.magnitude / speedMax);//simply the rigid body speed
+                mphText.text = "" + (int)((vanrb.velocity.magnitude / speedMax) * 100);
+            }
+            else
+            {
+                //player has died
+                TopSpeed.fillAmount = 0;
+                mphText.text = "DED";
+            }
+            
+        }
+        else
+        {
+            if (!vanStopped)
+            {
+                float fillamnt = (Mathf.PerlinNoise1D(Time.time * 0.1f) + 0.2f);//ranges from 0.4-1.4
+                fillamnt = Mathf.Clamp(fillamnt, 0.4f, 0.8f);//want to add some more dampening at some point
+                TopSpeed.fillAmount = fillamnt;
+                mphText.text = string.Format("{0:0}", ((int)(fillamnt * 100)));
+                //Debug.Log(mphText.text);
+            }
+            else 
+            { 
+                TopSpeed.fillAmount = 0;
+                mphText.text = ""+0;
+            }
+
+
+        }
+
     }
 }

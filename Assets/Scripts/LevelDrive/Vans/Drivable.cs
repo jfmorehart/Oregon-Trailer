@@ -22,9 +22,10 @@ public class Drivable : MonoBehaviour
 	float lastBoostTime, boostRemaining;
 
 	public float collisionDamage;
-	Breakable breaker;
+	protected Breakable breaker;
 
-	public GameObject scrapPrefab;
+    public Breakable Breaker => breaker;
+    public GameObject scrapPrefab;
 
 	public int pickupValue; //currency im carrying
 
@@ -93,12 +94,12 @@ public class Drivable : MonoBehaviour
 
 			if (terrainGrip > 1.1)
 			{
-				Debug.Log("OnRoad");
+				//Debug.Log("OnRoad");
 				roadSandBlend = SFX.LerpBlend(sandSource, roadSource, 1f, roadSandBlend);
 			}
 			else
 			{
-				Debug.Log("OnSand");
+				//Debug.Log("OnSand");
 				roadSandBlend = SFX.LerpBlend(roadSource, sandSource, 1f, roadSandBlend);
 			}
 
@@ -149,7 +150,7 @@ public class Drivable : MonoBehaviour
 		//turn size
 		float turnAngle = turnRate * Time.fixedDeltaTime;
 		//gotta be moving to turn
-		turnAngle = turnAngle * Mathf.Min(1, _rb.velocity.magnitude / (topSpeed * 0.3f) );
+		turnAngle *= Mathf.Min(1, _rb.velocity.magnitude / (topSpeed * 0.3f) );
 		//dont oversteer
 		//turnAngle = Mathf.Min(Mathf.Abs(theta), turnAngle * TotalTerrainGrip());
 
@@ -192,7 +193,7 @@ public class Drivable : MonoBehaviour
 	{
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
-			if (_rb.velocity.magnitude > 0.5f)
+			if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
 			{
 				float colDamage = collisionDamage * _rb.velocity.magnitude;
 				Debug.Log(colDamage);
@@ -209,7 +210,7 @@ public class Drivable : MonoBehaviour
 	}
     public virtual void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
-		Debug.Log("Enter " + collision.gameObject.layer);
+		//Debug.Log("Enter " + collision.gameObject.layer);
         if (collision.TryGetComponent(out TerrainModifier tm))
         {
             terrainModifiers.Add(tm);

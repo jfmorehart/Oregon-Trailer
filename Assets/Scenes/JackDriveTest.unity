@@ -1402,6 +1402,7 @@ MonoBehaviour:
   poolsize: 100
   bulletPrefab: {fileID: 1064985111028559281, guid: 17d07d4791b124783b7c75238070c8e9, type: 3}
   smokePrefab: {fileID: 1101256069449495527, guid: 8abcb5d3e902541f5897527a2b20c62d, type: 3}
+  explosionPrefab: {fileID: 2537780230014901243, guid: 84dcca6518b66488986f84a7b14f884b, type: 3}
 --- !u!4 &729068862
 Transform:
   m_ObjectHideFlags: 0
@@ -1814,22 +1815,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test_autoGenerate: 1
   singleChunkMode: 1
-  levelSize: 4
+  levelSize: 2
   level: []
   chunkBag:
-  - {fileID: -623503267821811247, guid: 902dc4ae5bb8c4f8b8754e9160575248, type: 3}
-  - {fileID: -623503267821811247, guid: 761e4d12e4ebf46ccb6219fe5373af89, type: 3}
-  - {fileID: -623503267821811247, guid: f4652325e197f4700bebf025cb915a55, type: 3}
-  - {fileID: -623503267821811247, guid: fb6dcf269f0d041e5a2ded69abd84150, type: 3}
-  - {fileID: -2800348910684745525, guid: 83153d47d63954f08be9e45b0e171959, type: 3}
-  - {fileID: -623503267821811247, guid: 99f03507dc9a347a0bcfa2ff23b17526, type: 3}
-  - {fileID: 2460533215672483101, guid: d82903715c0e44b0c85cc9b2eddbe1a0, type: 3}
+  - {fileID: 2460533215672483101, guid: 6b851ddad4c9241e2a4f669781ccb021, type: 3}
   environment_chunkBags: []
   QuestChunkBag: []
   Quests: []
   enemySpawnsRemaining: 100
   boundaryStack: {fileID: 770879436162116754, guid: cb6b897ca3aa24ff48282a688d7f1b0a, type: 3}
   endHouse: {fileID: 1790104061774785256, guid: 2d20434a7ac6243ed94158615f444895, type: 3}
+  waypoints: []
   VanObj: {fileID: 7847132893973158458, guid: cc0695d72bb974d8fa3cc7eb19f7f79f, type: 3}
   path:
     Destination: {fileID: 0}
