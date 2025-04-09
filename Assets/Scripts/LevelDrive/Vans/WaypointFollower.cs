@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaypointFollower : Drivable
 {
     public int current_waypoint;
+	public int waypoint_size = 2;
    
 
     // Update is called once per frame
@@ -22,7 +23,7 @@ public class WaypointFollower : Drivable
 		_rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
 		
 
-	    if(delta.magnitude < 2){
+	    if(delta.magnitude < waypoint_size){
 			current_waypoint++;
 	    }
 

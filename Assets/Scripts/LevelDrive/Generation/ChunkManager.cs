@@ -44,19 +44,24 @@ public class ChunkManager : MonoBehaviour
         }
     }
 
-    void Start() {
-        if(test_autoGenerate) RandomGenerateLevel();
+    void SortWaypoints() {
+		//manual sorting
+		Waypoint[] to_add;
+		List<Vector2> v2s = new();
+		for (int i = 0; i < level.Length; i++)
+		{
+			to_add = level[i].wayPoints;
+			for (int j = 0; j < to_add.Length; j++)
+			{
+				v2s.Add(to_add[j].transform.position);
+			}
+		}
+		waypoints = v2s.ToArray();
 
-        //manual sorting
-        Waypoint[] to_add;
-        List<Vector2> v2s = new();
-        for (int i = 0; i < level.Length; i++) {
-            to_add = level[i].wayPoints;
-            for(int j = 0; j < to_add.Length; j++) {
-                v2s.Add(to_add[j].transform.position);
-	        }
-	    }
-        waypoints = v2s.ToArray();
+	}
+
+	void Start() {
+        if(test_autoGenerate) RandomGenerateLevel();
 
 
         //auto sorting
@@ -213,6 +218,8 @@ public class ChunkManager : MonoBehaviour
         if(MapManager.instance != null) {
 			PlayerVan.vanTransform.GetComponent<Breakable>().hp = MapManager.instance.VanHealth;
 		}
+
+        SortWaypoints();
 
 	}
 

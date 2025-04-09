@@ -709,11 +709,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ec6faa3c77d4375bf1158a1162173d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAcceleration: 2600
+  baseAcceleration: 2000
   acceleration: 0
   topSpeed: 8
   drag: 0.7
-  turnRate: 100
+  turnRate: 150
   sway: 1
   deadzone: 5
   swayfreq: 0.8
@@ -732,6 +732,7 @@ MonoBehaviour:
   sandSource: {fileID: 0}
   terrainModifiers: []
   current_waypoint: 0
+  waypoint_size: 4
 --- !u!1 &5474575274103173069
 GameObject:
   m_ObjectHideFlags: 0
