@@ -27,6 +27,8 @@ public class ChunkManager : MonoBehaviour
 
     GameObject spawnedEndHouse = null;
 
+    public Vector2[] waypoints;
+
     [SerializeField]
     private GameObject VanObj;
     private void Awake()
@@ -151,7 +153,9 @@ public class ChunkManager : MonoBehaviour
 		Vector2 firstStart = level[0].transform.Find("road_start_point").position;
 		GameObject vplayer = Instantiate(VanObj, firstStart, Quaternion.Euler(0, 0, 180));
         PlayerVan.vanTransform.GetComponent<Breakable>().hp = MapManager.instance.VanHealth;
-	}
+
+        SortWaypoints();
+    }
 
     void GenerationLoop(List<int> questChunks) {
 
@@ -258,4 +262,21 @@ public class ChunkManager : MonoBehaviour
             //GenerateLevel();
 	    }
     }
+
+    void SortWaypoints()
+    {
+        //manual sorting
+        Waypoint[] to_add;
+        List<Vector2> v2s = new();
+        for (int i = 0; i < level.Length; i++)
+        {
+            to_add = level[i].wayPoints;
+            for (int j = 0; j < to_add.Length; j++)
+            {
+                v2s.Add(to_add[j].transform.position);
+            }
+        }
+        waypoints = v2s.ToArray();
+    }
+
 }
