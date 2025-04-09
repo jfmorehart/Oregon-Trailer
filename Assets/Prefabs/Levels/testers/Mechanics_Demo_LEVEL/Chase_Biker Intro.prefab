@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 5606554948410551673}
   - component: {fileID: 2196309297903333283}
   m_Layer: 0
-  m_Name: Chase 2
+  m_Name: Biker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,21 +194,21 @@ MonoBehaviour:
   _locationActivity: 1
   _locationFaction: 0
   locationEvent: {fileID: 0}
-  lr: {fileID: 2196309297903333283}
+  _lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 480241772964633798}
-    roadLength: 2
+    roadLength: 7
     fuelCost: 0
     type: 1
     forcedQuests: []
     forcedSections:
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-    - {fileID: 2126144198468528057, guid: 41e2efd502830422ea8f954ddc2ea8d1, type: 3}
+    - {fileID: 910364313076569011, guid: 4c8773327ba904e718c331dc70ad82b5, type: 3}
+    - {fileID: 3213397434579194136, guid: 79492eb56da8440f4b8e15845c07eef5, type: 3}
+    - {fileID: 3213397434579194136, guid: 79492eb56da8440f4b8e15845c07eef5, type: 3}
+    - {fileID: 910364313076569011, guid: 4c8773327ba904e718c331dc70ad82b5, type: 3}
+    - {fileID: 5857623785865956000, guid: ff05bacadae0441d980f88f54bdffa14, type: 3}
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
-    - {fileID: 7722934914840058693, guid: f6ca40f5d833341e7b9ff4b5463f6131, type: 3}
-    - {fileID: 551570922458901608, guid: 88681711c45854eacac31f0293350aec, type: 3}
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
-    - {fileID: 2053872293739144902, guid: 790cca89cd5424ed8b30027790d9e8be, type: 3}
   playerCanChoose: 0
 --- !u!61 &5606554948410551673
 BoxCollider2D:
@@ -649,19 +649,24 @@ MonoBehaviour:
   _locationActivity: 1
   _locationFaction: 0
   locationEvent: {fileID: 0}
-  lr: {fileID: 5346173085253687184}
+  _lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 1746957742735081776}
-    roadLength: 4
+    roadLength: 10
     fuelCost: 2
     type: 1
     forcedQuests: []
     forcedSections:
     - {fileID: 8837144399456302424, guid: 83e254a2f8d924c27a5d8a5d3f8ecc8e, type: 3}
-    - {fileID: 2053872293739144902, guid: 790cca89cd5424ed8b30027790d9e8be, type: 3}
+    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 7054593215280346001, guid: 307f033dfc6b741c1948fa68fdc46eaa, type: 3}
     - {fileID: 2053872293739144902, guid: 96b619be73fa148cca8634b8727c1ee7, type: 3}
+    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
     - {fileID: 551570922458901608, guid: 88681711c45854eacac31f0293350aec, type: 3}
-    - {fileID: 2053872293739144902, guid: f6a67de8fe3724dcba258d584c2b1511, type: 3}
+    - {fileID: 7722934914840058693, guid: f6ca40f5d833341e7b9ff4b5463f6131, type: 3}
+    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 2126144198468528057, guid: 41e2efd502830422ea8f954ddc2ea8d1, type: 3}
   playerCanChoose: 1
 --- !u!61 &3435429629172814286
 BoxCollider2D:
@@ -828,7 +833,7 @@ GameObject:
   - component: {fileID: 8816584094802163877}
   - component: {fileID: 3248736953187319282}
   m_Layer: 0
-  m_Name: Biker
+  m_Name: Chase 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -931,19 +936,22 @@ MonoBehaviour:
   _locationActivity: 2
   _locationFaction: 0
   locationEvent: {fileID: 0}
-  lr: {fileID: 3248736953187319282}
+  _lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 1082457622459017506}
-    roadLength: 5
+    roadLength: 8
     fuelCost: 0
     type: 0
     forcedQuests: []
     forcedSections:
-    - {fileID: 7054593215280346001, guid: 307f033dfc6b741c1948fa68fdc46eaa, type: 3}
-    - {fileID: 551570922458901608, guid: 88681711c45854eacac31f0293350aec, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 8837144399456302424, guid: 83e254a2f8d924c27a5d8a5d3f8ecc8e, type: 3}
+    - {fileID: 2126144198468528057, guid: 41e2efd502830422ea8f954ddc2ea8d1, type: 3}
     - {fileID: 2053872293739144902, guid: 96b619be73fa148cca8634b8727c1ee7, type: 3}
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 2053872293739144902, guid: 790cca89cd5424ed8b30027790d9e8be, type: 3}
+    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 2053872293739144902, guid: f6a67de8fe3724dcba258d584c2b1511, type: 3}
   playerCanChoose: 1
 --- !u!61 &8816584094802163877
 BoxCollider2D:
@@ -1213,7 +1221,7 @@ MonoBehaviour:
   _locationActivity: 1
   _locationFaction: 1
   locationEvent: {fileID: 0}
-  lr: {fileID: 4301022710639241980}
+  _lr: {fileID: 0}
   Roads: []
   playerCanChoose: 0
 --- !u!61 &7314111558587655669
@@ -1629,7 +1637,7 @@ MonoBehaviour:
   _locationActivity: 0
   _locationFaction: 0
   locationEvent: {fileID: 0}
-  lr: {fileID: 4699639218664322677}
+  _lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 474878561594157870}
     roadLength: 3
@@ -1637,8 +1645,15 @@ MonoBehaviour:
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 551570922458901608, guid: 88681711c45854eacac31f0293350aec, type: 3}
+    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 5295801495302608250, guid: 77b734de5f89d4aa88a9b2a75c9d769d, type: 3}
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 5161132594487253386, guid: ad86ad0921beb4d57bcb8807384f4980, type: 3}
+    - {fileID: 8699404637257017451, guid: 5a7d1d4ec8eb746f6a5706e940fc80cd, type: 3}
+    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 2520148266830818826, guid: ee542258acbcb4bfaa17057660c13452, type: 3}
+    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 5161132594487253386, guid: ad86ad0921beb4d57bcb8807384f4980, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
   playerCanChoose: 0
 --- !u!61 &988335566465497985
@@ -1944,7 +1959,7 @@ MonoBehaviour:
   _locationActivity: 0
   _locationFaction: 0
   locationEvent: {fileID: 0}
-  lr: {fileID: 2295729173479806091}
+  _lr: {fileID: 0}
   Roads:
   - Destination: {fileID: 3680344308727568631}
     roadLength: 3
@@ -1952,8 +1967,13 @@ MonoBehaviour:
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 551570922458901608, guid: 88681711c45854eacac31f0293350aec, type: 3}
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 8837144399456302424, guid: 83e254a2f8d924c27a5d8a5d3f8ecc8e, type: 3}
+    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 2255226366701067773, guid: cc214c474f7b846a1ada5c4a58e4dad5, type: 3}
+    - {fileID: 4162445489452295139, guid: 0df0be72b82bc498d85ebd56b7bfa667, type: 3}
+    - {fileID: 3512659324696930310, guid: 28af4e9f1978c4da884a9c67ea31f6e7, type: 3}
+    - {fileID: 4145895373169321232, guid: a8930be632cad430286649caec651ada, type: 3}
+    - {fileID: 8775982995823136982, guid: f13c94623d9f44f909b437963172bf84, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
   playerCanChoose: 0
 --- !u!61 &7617987300960050554
