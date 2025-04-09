@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 21568815}
   - component: {fileID: 21568814}
   - component: {fileID: 21568813}
+  - component: {fileID: 21568816}
   m_Layer: 0
   m_Name: Garage Button
   m_TagString: Untagged
@@ -367,6 +368,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21568811}
   m_CullTransparentMesh: 1
+--- !u!114 &21568816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21568811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bc4571c2fb48341aa0669373d3bbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &24066092
 GameObject:
   m_ObjectHideFlags: 0
@@ -9730,6 +9743,7 @@ GameObject:
   - component: {fileID: 693519924}
   - component: {fileID: 693519923}
   - component: {fileID: 693519922}
+  - component: {fileID: 693519925}
   m_Layer: 0
   m_Name: Crew Button
   m_TagString: Untagged
@@ -9850,6 +9864,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693519920}
   m_CullTransparentMesh: 1
+--- !u!114 &693519925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693519920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bc4571c2fb48341aa0669373d3bbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &693655839
 GameObject:
   m_ObjectHideFlags: 0
@@ -15041,6 +15067,7 @@ GameObject:
   - component: {fileID: 957226222}
   - component: {fileID: 957226221}
   - component: {fileID: 957226220}
+  - component: {fileID: 957226223}
   m_Layer: 0
   m_Name: Items Button
   m_TagString: Untagged
@@ -15149,6 +15176,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957226218}
   m_CullTransparentMesh: 1
+--- !u!114 &957226223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957226218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bc4571c2fb48341aa0669373d3bbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &964967253
 GameObject:
   m_ObjectHideFlags: 0
@@ -18456,6 +18495,7 @@ GameObject:
   - component: {fileID: 1272878768}
   - component: {fileID: 1272878767}
   - component: {fileID: 1272878766}
+  - component: {fileID: 1272878769}
   m_Layer: 0
   m_Name: Map Button
   m_TagString: Untagged
@@ -18576,6 +18616,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272878764}
   m_CullTransparentMesh: 1
+--- !u!114 &1272878769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272878764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bc4571c2fb48341aa0669373d3bbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1273526104
 GameObject:
   m_ObjectHideFlags: 0
@@ -26083,6 +26135,7 @@ GameObject:
   - component: {fileID: 1976760077}
   - component: {fileID: 1976760076}
   - component: {fileID: 1976760075}
+  - component: {fileID: 1976760078}
   m_Layer: 0
   m_Name: Settings Button
   m_TagString: Untagged
@@ -26191,6 +26244,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976760073}
   m_CullTransparentMesh: 1
+--- !u!114 &1976760078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976760073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bc4571c2fb48341aa0669373d3bbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1989356867
 GameObject:
   m_ObjectHideFlags: 0
@@ -29441,6 +29506,7 @@ MonoBehaviour:
   TopSpeed: {fileID: 1228792103}
   speedMax: 30
   mapSectionEaseDuration: 0.5
+  uiMenuButtons: []
 --- !u!114 &8293314046966252676
 MonoBehaviour:
   m_ObjectHideFlags: 0

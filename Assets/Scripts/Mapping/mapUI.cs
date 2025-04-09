@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using JetBrains.Annotations;
 
 public class mapUI : MonoBehaviour
 {
@@ -59,7 +61,14 @@ public class mapUI : MonoBehaviour
 
     [SerializeField]
     private float mapSectionEaseDuration= 0.1f;
-    enum mapScreens
+
+    private bool startingLevel = false;
+
+    [SerializeField]
+    List<TopUIButton> uiMenuButtons = new List<TopUIButton>();
+    private TopUIButton currentSelected = null;
+    private int menuIndex = 0;
+    public enum mapScreens
     {
         map,
         character,
@@ -79,6 +88,10 @@ public class mapUI : MonoBehaviour
         transform.localPosition = startPosition;
         //popUpTween = transform.DOLocalMove(endPosition, animationDuration, false).SetEase(Ease.InBounce);
         //pullDownTween = transform.DOLocalMove(startPosition, animationDuration, false).SetEase(Ease.OutCirc);
+    }
+    private void Start()
+    {
+        //currentSelected = uiMenuButtons[0];
     }
 
     public void popUp()
@@ -149,6 +162,19 @@ public class mapUI : MonoBehaviour
 
         }
 
+
+        //if the map is on screen, allow us to interact with the screen itself
+        if (isActivated)
+        {
+            //left right/a-d should be able to move current selected and set chosen
+            //if (Input.GetKeyDown)
+            {
+
+            }
+
+            //EventSystem.current.SetSelectedGameObject(uiMenuButtons[index]);
+        }
+
     }
 
 
@@ -168,8 +194,6 @@ public class mapUI : MonoBehaviour
             }
 
         }
-
-
     }
     public void instantPullDown()
     {
@@ -242,6 +266,7 @@ public class mapUI : MonoBehaviour
         inLevel = true;
         vanrb = PlayerVan.vanTransform.GetComponent<Rigidbody2D>();
     }
+
     //should probably make this use the event system instead
     public void endLevel()
     {
@@ -277,7 +302,10 @@ public class mapUI : MonoBehaviour
         {
             if (vanrb != null)
             {
-                TopSpeed.fillAmount = Mathf.Min(1, vanrb.velocity.magnitude / speedMax);//simply the rigid body speed
+                float fillamnt = Mathf.Min(1, vanrb.velocity.magnitude / speedMax);
+                fillamnt = Mathf.Clamp(fillamnt, 0, .70f);
+                TopSpeed.fillAmount = fillamnt ;//simply the rigid body speed
+
                 mphText.text = "" + (int)((vanrb.velocity.magnitude / speedMax) * 100);
             }
             else
@@ -292,20 +320,53 @@ public class mapUI : MonoBehaviour
         {
             if (!vanStopped)
             {
-                float fillamnt = (Mathf.PerlinNoise1D(Time.time * 0.1f) + 0.2f);//ranges from 0.4-1.4
-                fillamnt = Mathf.Clamp(fillamnt, 0.4f, 0.8f);//want to add some more dampening at some point
+                float fillamnt = 0;//want to add some more dampening at some point
                 TopSpeed.fillAmount = fillamnt;
                 mphText.text = string.Format("{0:0}", ((int)(fillamnt * 100)));
                 //Debug.Log(mphText.text);
             }
             else 
-            { 
+            {
+                //in level
                 TopSpeed.fillAmount = 0;
-                mphText.text = ""+0;
+                mphText.text = "" + 0;
             }
+        }
+    }
 
 
+    public void buttonPressed(mapScreens button)
+    {
+        switch (button)
+        {
+            case mapScreens.map:
+                mapButton();
+                break;
+            case mapScreens.character:
+                characterScreenMove();
+                break;
+            case mapScreens.upgrade:
+                upgradeScreenMove();
+                break;
+            default:
+                break;
+        }
+
+        foreach (TopUIButton but in uiMenuButtons)
+        {
+            if (but.screen != button)
+            {
+
+            }
+            else
+            {
+                //set that to selected
+            }
         }
 
     }
+
+
+    
+
 }
