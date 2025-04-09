@@ -22,9 +22,10 @@ public class Drivable : MonoBehaviour
 	float lastBoostTime, boostRemaining;
 
 	public float collisionDamage;
-	Breakable breaker;
+	protected Breakable breaker;
 
-	public GameObject scrapPrefab;
+    public Breakable Breaker => breaker;
+    public GameObject scrapPrefab;
 
 	public int pickupValue; //currency im carrying
 
@@ -192,7 +193,7 @@ public class Drivable : MonoBehaviour
 	{
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
-			if (_rb.velocity.magnitude > 0.5f)
+			if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
 			{
 				float colDamage = collisionDamage * _rb.velocity.magnitude;
 				Debug.Log(colDamage);

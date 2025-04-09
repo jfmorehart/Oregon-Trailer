@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerVan : Drivable
 {
 	public static Transform vanTransform;
+    public static PlayerVan vanInstance;
     Vector2 mousePos;
 	bool levelFinished = false;
 
@@ -18,7 +19,8 @@ public class PlayerVan : Drivable
 	{
 		base.Awake();
 		vanTransform = transform;
-	}
+        vanInstance = this;
+    }
 
     private void Update()
     {
@@ -125,7 +127,7 @@ public class PlayerVan : Drivable
 		if (collision.collider.CompareTag("Finish") && !levelFinished) {
 			if (MapManager.instance != null) {
 				Debug.Log("finished scene");
-				MapManager.playerArrived();
+				MapManager.playerArrived(Breaker.hp);
 				levelEnding();
 				levelFinished = true;
 			}
@@ -139,7 +141,8 @@ public class PlayerVan : Drivable
 	{
 		//sends all necessary info to any necessary managers
 		MapManager.instance.AddMoney(pickupValue);
+        MapManager.playerArrived(breaker.hp);
 
-	}
+    }
 
 }
