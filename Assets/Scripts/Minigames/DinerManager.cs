@@ -47,6 +47,7 @@ public class DinerManager : MonoBehaviour
     {
         DinerOutsideScreen.SetActive(true);
         owningFaction = f;
+        mapUI.instance.vanStopped = true;
         updateStatsButton();
     }
 
@@ -55,7 +56,9 @@ public class DinerManager : MonoBehaviour
         DinerOutsideScreen.SetActive(false);
         dinerDeniedScreen.SetActive(false);
         dinerInside.SetActive(false);
-        mapUI.showTopUI(false);
+        mapUI.instance.vanStopped = false;
+
+        //mapUI.showTopUI(false);
         //communicate with map manager to display the map
         MapManager.instance.nodeActivityDone();
 

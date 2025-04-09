@@ -31,7 +31,9 @@ public class ItemShop : MonoBehaviour
     private Button itemBuyButton;
     [SerializeField]
     private Button stealButton;
-    
+
+    [SerializeField]
+    int vanRepairCost = 25;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -54,14 +56,16 @@ public class ItemShop : MonoBehaviour
     {
         itemshopScene.SetActive(true);
         mapUI.showTopUI(true);
+        mapUI.instance.vanStopped = true;
 
     }
 
     public void hideGarage()
     {
-        mapUI.showTopUI(false);
+        //mapUI.showTopUI(false);
         //set the q and e upgrades appropriately
         ItemDescriptionPanel.SetActive(false);
+        mapUI.instance.vanStopped = false;
         itemshopScene.SetActive(false);
         MapManager.instance.nodeActivityDone();
     }
@@ -73,7 +77,7 @@ public class ItemShop : MonoBehaviour
     public void repairVan() 
     {
         //repairs to full health, until we decide how it should work otherwise
-        if (MapManager.instance.BuyResource(50))
+        if (MapManager.instance.BuyResource(vanRepairCost))
             MapManager.instance.repairVan();
     }
 
@@ -108,7 +112,10 @@ public class ItemShop : MonoBehaviour
             Debug.Log("Bought Upgrade " + boughtUpgrade);
 
             UpgradeManager.instance.AddOption(boughtUpgrade);
-            UpgradeManager.instance.e_upgrade = boughtUpgrade;
+            if(UpgradeManager.instance.e_upgrade == Upgrade.None)
+                UpgradeManager.instance.e_upgrade = boughtUpgrade;
+            else if (UpgradeManager.instance.q_upgrade == Upgrade.None)
+                UpgradeManager.instance.e_upgrade = boughtUpgrade;
             GarageManager.instance.addUpgrade(boughtUpgrade);
             closePanel();
             Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
