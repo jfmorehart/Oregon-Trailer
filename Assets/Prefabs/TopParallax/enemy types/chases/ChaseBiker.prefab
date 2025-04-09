@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 233724086894539640}
   - component: {fileID: 1293090762913754490}
   - component: {fileID: 5821187582593117393}
-  - component: {fileID: 3555304265705433801}
+  - component: {fileID: 3563302764713863583}
   m_Layer: 6
-  m_Name: Motorbike
+  m_Name: ChaseBiker
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,9 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620ea0bfe251643589f2d51fc317e876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 80
+  hp: 30
   bar: {fileID: 3063469777188061255}
---- !u!114 &3555304265705433801
+--- !u!114 &3563302764713863583
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,41 +136,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 4936546243638200257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82f2cd821da6c48aa9f909ba2d11a121, type: 3}
+  m_Script: {fileID: 11500000, guid: 37ec6faa3c77d4375bf1158a1162173d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAcceleration: 2500
+  baseAcceleration: 0
   acceleration: 0
-  topSpeed: 40
-  drag: 0.7
-  turnRate: 100
+  topSpeed: 0
+  drag: 0
+  turnRate: 0
   sway: 0
-  deadzone: 5
-  swayfreq: 0.8
-  swayamp: 15
-  rotationDrag: 0.3
-  velConservation: 0.5
+  deadzone: 0
+  swayfreq: 0
+  swayamp: 0
+  rotationDrag: 0
+  velConservation: 0
   _rb: {fileID: 0}
   boostStr: 0
   boostLength: 0
   boostCooldown: 0
-  collisionDamage: 2
-  scrapPrefab: {fileID: 736508616175236411, guid: 0fed7bb8a1eab3648bc13f081f1d8395, type: 3}
-  pickupValue: 3
+  collisionDamage: 0
+  scrapPrefab: {fileID: 0}
+  pickupValue: 0
   enginesrc: {fileID: 0}
   roadSource: {fileID: 0}
   sandSource: {fileID: 0}
   terrainModifiers: []
-  enemyVisionMask:
-    serializedVersion: 2
-    m_Bits: 257
-  spawnChancePercent: 1
-  angry: 1
-  fireTheta: 20
-  guns: []
-  ren: {fileID: 0}
-  spottedPlayer: 0
-  minRayDistance: 12
+  current_waypoint: 0
 --- !u!1 &5495827588795458725
 GameObject:
   m_ObjectHideFlags: 0

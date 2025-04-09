@@ -592,8 +592,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4936546243638200257}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.94, y: -1.44, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.999953, w: 0.009697775}
+  m_LocalPosition: {x: 12.763999, y: -0.07075283, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -610,7 +610,7 @@ Transform:
   - {fileID: 4812655265321018205}
   - {fileID: 5584463528948164134}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 178.889}
 --- !u!50 &233724086894539640
 Rigidbody2D:
   serializedVersion: 4
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620ea0bfe251643589f2d51fc317e876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 30
+  hp: 70
   bar: {fileID: 3063469777188061255}
 --- !u!114 &7562207656841357332
 MonoBehaviour:
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseAcceleration: 1400
   acceleration: 0
-  topSpeed: 20
+  topSpeed: 8
   drag: 0.7
   turnRate: 100
   sway: 0
