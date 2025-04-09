@@ -8,14 +8,21 @@ public class WaypointFollower : Drivable
    
 
     // Update is called once per frame
-    void Update()
+    protected override void FixedUpdate()
     {
+		base.FixedUpdate();
+
 		if(current_waypoint >= ChunkManager.instance.waypoints.Length) return;
 
-		_rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
+
+
 		DriveTowards(ChunkManager.instance.waypoints[current_waypoint]);
-	    Vector2 delta = ChunkManager.instance.waypoints[current_waypoint] - (Vector2)transform.position;
-	    if(delta.magnitude < 1){
+		Vector3 delta = ChunkManager.instance.waypoints[current_waypoint] - (Vector2)transform.position;
+
+		_rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
+		
+
+	    if(delta.magnitude < 2){
 			current_waypoint++;
 	    }
 
