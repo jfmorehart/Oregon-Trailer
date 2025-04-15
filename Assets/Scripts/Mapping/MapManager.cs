@@ -66,7 +66,7 @@ public class MapManager : MonoBehaviour
     float nodeYModifier = 1;
     float nodeXModifier = 1;
     List<TextAsset> questsToGen = new List<TextAsset>();
-
+    [SerializeField]
 
     private void Awake()
     {
@@ -97,7 +97,7 @@ public class MapManager : MonoBehaviour
 
         moneyText.text = money.ToString();
         FuelText.text = fuel.ToString();
-        mapUI.instance.ShouldBeInteractedWith = false;
+        mapUI.instance.ShouldBeInteractedWith = true;
         mapUI.instance.instantPopUp();
         allowDestinationChoice();
 
@@ -143,7 +143,7 @@ public class MapManager : MonoBehaviour
             //mapPlayer.instance.setPositionStrict(playersCurrentNode);
             playersCurrentNode.goBright();
 
-            mapUI.instance.ShouldBeInteractedWith = false;
+            //mapUI.instance.ShouldBeInteractedWith = false;
             mapUI.instance.instantPopUp();
             allowDestinationChoice();
             mapPlayer.instance.setPositionStrict(playersCurrentNode);

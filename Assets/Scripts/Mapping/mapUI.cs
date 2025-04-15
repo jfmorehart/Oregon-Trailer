@@ -22,7 +22,7 @@ public class mapUI : MonoBehaviour
     private GameObject topResourcesCanvas;
     public bool inLevel = false;
 
-    bool isActivated = false;
+    bool isActivated = true;
     public bool IsActivated => instance.isActivated;
 
     public bool vanStopped = false;
@@ -31,7 +31,7 @@ public class mapUI : MonoBehaviour
     bool mapMoving = false;
     public static bool MapMoving => instance.mapMoving;
     //controlled by the mapmanager
-    public bool ShouldBeInteractedWith = false;
+    public bool ShouldBeInteractedWith = true;
 
     bool thisCausedPause = false;
     Rigidbody2D vanrb;
@@ -68,12 +68,23 @@ public class mapUI : MonoBehaviour
     List<TopUIButton> uiMenuButtons = new List<TopUIButton>();
     private TopUIButton currentSelected = null;
     private int menuIndex = 0;
+    [SerializeField]
+    TopUIButton leftButton, rightButton;
+
+    [SerializeField]
+    private Transform menuScreenParent;
+    [SerializeField]//we change the position of the MapBG object
+    private float[] mapScreenPositions;
+    [SerializeField]
+    private float transitionSpeed = 1f;
+
     public enum mapScreens
     {
         map,
         character,
         upgrade,
-
+        items, 
+        settings
     }
     private void Awake()
     {
@@ -86,12 +97,14 @@ public class mapUI : MonoBehaviour
             instance = this;
         }
         transform.localPosition = startPosition;
+
         //popUpTween = transform.DOLocalMove(endPosition, animationDuration, false).SetEase(Ease.InBounce);
         //pullDownTween = transform.DOLocalMove(startPosition, animationDuration, false).SetEase(Ease.OutCirc);
     }
     private void Start()
     {
-        //currentSelected = uiMenuButtons[0];
+        currentSelected = uiMenuButtons[0];
+        buttonPressed(mapScreens.map);
     }
 
     public void popUp()
@@ -139,6 +152,8 @@ public class mapUI : MonoBehaviour
 
         doHealthUI();
         doSpeedUI();
+        //Debug.Log("MPAUI - " + isActivated + " Should be interacted with "  + ShouldBeInteractedWith);
+
         if (!ShouldBeInteractedWith)
         {
             return;
@@ -167,17 +182,69 @@ public class mapUI : MonoBehaviour
         if (isActivated)
         {
             //left right/a-d should be able to move current selected and set chosen
-            //if (Input.GetKeyDown)
+            if (Input.GetKeyDown(KeyCode.A))
             {
+                pressLeftButton();
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                pressRightButton();
+            }
+            EventSystem.current.SetSelectedGameObject(null);
 
+
+            //make the color change depending on if youre holding it down
+            if (Input.GetKey(KeyCode.A))
+            {
+                //turn the button into a certain color
+                leftButton.activate();
+            }
+            else 
+            {
+                leftButton.deselect();
             }
 
-            //EventSystem.current.SetSelectedGameObject(uiMenuButtons[index]);
+            if (Input.GetKey(KeyCode.D))
+            {
+                rightButton.activate();
+                Debug.Log("hitting d key");
+            }
+            else
+            {
+                rightButton.deselect();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                uiMenuButtons[menuIndex].activate();
+                uiMenuButtons[menuIndex].buttonPress();
+            }
         }
+
 
     }
 
+    public void pressLeftButton()
+    {
+        if (uiMenuButtons[menuIndex].pressed == false)
+            uiMenuButtons[menuIndex].deselect();
 
+        menuIndex--;
+        if (menuIndex <= -1)
+            menuIndex = uiMenuButtons.Count - 1;
+        if (uiMenuButtons[menuIndex].pressed == false)
+            uiMenuButtons[menuIndex].highlight();
+    }
+    public void pressRightButton()
+    {
+        if (uiMenuButtons[menuIndex].pressed == false)
+            uiMenuButtons[menuIndex].deselect();
+        menuIndex++;
+        if (menuIndex >= uiMenuButtons.Count)
+            menuIndex = 0;
+        if (uiMenuButtons[menuIndex].pressed == false)
+            uiMenuButtons[menuIndex].highlight();
+    }
 
     public void pullDown()
     {
@@ -185,7 +252,10 @@ public class mapUI : MonoBehaviour
         {
             isActivated = false;
             transform.DOLocalMove(startPosition, pulldownDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
-
+            currentScreen = mapScreens.map;
+            menuIndex = 0;
+            currentSelected = uiMenuButtons[0];
+            buttonPressed(mapScreens.map);
             if (thisCausedPause)//if this is already paused, we dont need to pause
             {
                 thisCausedPause = false;
@@ -214,18 +284,12 @@ public class mapUI : MonoBehaviour
         {
 
             //DOTween.KillAll();
-            CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            //CharacterScreen.transform.DOLocalMove(characterScreenONScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            //upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
             currentScreen = mapScreens.character;
-
-        }
-        else 
-        {
-            //DOTween.KillAll();
-
-            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
-            currentScreen = mapScreens.map;
+            Vector2 charScreenPos = new Vector2(mapScreenPositions[1], 0);
+            menuScreenParent.transform.DOLocalMove(charScreenPos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
         }
     }
     public void upgradeScreenMove()
@@ -234,26 +298,24 @@ public class mapUI : MonoBehaviour
         {
             //upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, 0.5f, false).SetEase(Ease.InBack).SetUpdate(true);
             //DOTween.KillAll();
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            //upgradeScreen.transform.DOLocalMove(UpgradeScreenONScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             //StartCoroutine(MoveCharacterScreenRoutine());
-            CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            //CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.upgrade;
-
-        }
-        else
-        {
-            //DOTween.KillAll();
-            upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
-            currentScreen = mapScreens.map;
+            Vector2 upgradePos = new Vector2(mapScreenPositions[2], 0);
+            menuScreenParent.transform.DOLocalMove(upgradePos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
         }
     }
     public void mapButton()
     {
-        //move all other screens to another position
-        currentScreen = mapScreens.map;
-        CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
-        upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
-
+        if(currentScreen != mapScreens.map)
+        {
+            currentScreen = mapScreens.map;
+            //CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            //upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            Vector2 mapScreenPos = new Vector2(mapScreenPositions[0], 0);
+            menuScreenParent.transform.DOLocalMove(mapScreenPos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+        }
     }
 
     public static void showTopUI(bool val)
@@ -352,15 +414,19 @@ public class mapUI : MonoBehaviour
                 break;
         }
 
-        foreach (TopUIButton but in uiMenuButtons)
+        for (int i = 0; i < uiMenuButtons.Count; i++)
         {
-            if (but.screen != button)
+            if (uiMenuButtons[i].screen != button)
             {
-
+                //deselect it if it is not the button we just pressed
+                //that button is automatically selected 
+                uiMenuButtons[i].deselect();
             }
             else
             {
-                //set that to selected
+                EventSystem.current.SetSelectedGameObject(null);
+                uiMenuButtons[i].activate();
+                //EventSystem.current.SetSelectedGameObject(uiMenuButtons[menuIndex].gameObject);
             }
         }
 
