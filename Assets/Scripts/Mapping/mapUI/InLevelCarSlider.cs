@@ -12,7 +12,7 @@ public class InLevelCarSlider : MonoBehaviour
     private GameObject van;
     private GameObject endingHouse;
     [SerializeField]
-    Scrollbar levelcompleteslider;
+    Slider levelcompleteslider;
     [SerializeField]
     TMP_Text leveldistancetext;
     [SerializeField]
@@ -23,6 +23,13 @@ public class InLevelCarSlider : MonoBehaviour
     public Transform arrow;
 
     private bool vanAlive = false;
+    public bool inLevel = false;
+    [SerializeField]
+    private Image QSlotImage, ESlotImage;
+    [SerializeField]
+    private TMP_Text qText, eText;
+    [SerializeField]
+    Sprite boostersprite, rocketsprite, grenadesprite, oilsprite, nonesprite;
 
     private void Awake()
     {
@@ -44,13 +51,14 @@ public class InLevelCarSlider : MonoBehaviour
     private Breakable playervan;
     public void startLevel()
     {
-
+        updateUpgradeUI();
         Debug.Log("LevelStartRoutine");
         //records the player's start position
         van = GameObject.Find("Van(Clone)");
         playervan = PlayerVan.vanTransform.GetComponent<Breakable>();
         playervan.onKill += playerDead;
         vanAlive = true;
+        inLevel = true;
         if (van == null)
         {
             Debug.Log("Van is not Found");
@@ -64,7 +72,7 @@ public class InLevelCarSlider : MonoBehaviour
 
     void Update()
     {
-        if (vanAlive) 
+        if (vanAlive && inLevel) 
         {
             float vanDistancePercent = Mathf.Clamp((maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance, 0, 100);
 
@@ -73,14 +81,17 @@ public class InLevelCarSlider : MonoBehaviour
         }
         else
         {
+            
             //we must be in the other section of the game
             levelcompleteslider.value = 0;
-            levelRestartText.gameObject.SetActive(true);
+            if(inLevel)//player is dead
+                levelRestartText.gameObject.SetActive(true);
         }
     }
 
     public void playerDead()
     {
+        inLevel = true;
         playervan.onKill -= playerDead;
         vanAlive = false;
         playervan = null;
@@ -88,6 +99,7 @@ public class InLevelCarSlider : MonoBehaviour
     public void levelDone()
     {
         Debug.Log("Level Done Routine");
+        inLevel = false;
         van = null;
         endingHouse = null;
         vanAlive=false;
@@ -98,6 +110,63 @@ public class InLevelCarSlider : MonoBehaviour
     }
 
     
-
+    public void updateUpgradeUI()
+    {
+        ESlotImage.color = Color.white;
+        QSlotImage.color = Color.white;
+        
+        switch (UpgradeManager.instance.q_upgrade)
+        {
+            case Upgrade.None:
+                QSlotImage.color = Color.black;
+                QSlotImage.sprite = nonesprite;
+                qText.text = "None";
+                break;
+            case Upgrade.Booster:
+                QSlotImage.sprite = boostersprite;
+                qText.text = "Boost";
+                break;
+            case Upgrade.OilBarrel:
+                QSlotImage.sprite = oilsprite;
+                qText.text = "Oil";
+                break;
+            case Upgrade.TankGun:
+                QSlotImage.sprite = rocketsprite;
+                qText.text = "Rocket";
+                break;
+            case Upgrade.GrenadeLauncher:
+                QSlotImage.sprite = grenadesprite;
+                qText.text = "Grenade";
+                break;
+            default:
+                break;
+        }
+        switch (UpgradeManager.instance.e_upgrade)
+        {
+            case Upgrade.None:
+                ESlotImage.color = Color.black;
+                ESlotImage.sprite = nonesprite;
+                eText.text = "None";
+                break;
+            case Upgrade.Booster:
+                ESlotImage.sprite = boostersprite;
+                eText.text = "Boost";
+                break;
+            case Upgrade.OilBarrel:
+                ESlotImage.sprite = oilsprite;
+                eText.text = "Oil";
+                break;
+            case Upgrade.TankGun:
+                ESlotImage.sprite = rocketsprite;
+                eText.text = "Rocket";
+                break;
+            case Upgrade.GrenadeLauncher:
+                ESlotImage.sprite = grenadesprite;
+                eText.text = "Grenade";
+                break;
+            default:
+                break;
+        }
+    }
 
 }
