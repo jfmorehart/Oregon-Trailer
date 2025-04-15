@@ -223,6 +223,7 @@ public class Drivable : MonoBehaviour
 
 		if (collision.gameObject.layer.Equals(8))
 		{
+			Debug.Log("hit trigger layer 8: " + collision.gameObject.name);
 			StartCoroutine(nameof(Fall));
 		}
 	}
