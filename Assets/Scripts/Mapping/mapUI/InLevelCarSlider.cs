@@ -30,6 +30,8 @@ public class InLevelCarSlider : MonoBehaviour
     private TMP_Text qText, eText;
     [SerializeField]
     Sprite boostersprite, rocketsprite, grenadesprite, oilsprite, nonesprite;
+    [SerializeField]
+    TMP_Text currentTimeText;
 
     private void Awake()
     {
@@ -78,6 +80,8 @@ public class InLevelCarSlider : MonoBehaviour
 
             leveldistancetext.text = ((int)Vector2.Distance(van.transform.position, endingHouse.transform.position)) + "M";
             levelcompleteslider.value = vanDistancePercent;
+
+            currentTimeText.text = (Math.Floor(MapManager.instance.PlayerCurrentTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(MapManager.instance.PlayerCurrentTime % 60).ToString("00");
         }
         else
         {

@@ -54,6 +54,7 @@ public class MapNode : MonoBehaviour
     [SerializeField]
     UILineRenderer _lr;
 
+
     public enum activity
     {
         Diner,
@@ -73,6 +74,14 @@ public class MapNode : MonoBehaviour
 
     //public List<TextAsset> inNodeQuests = new List<TextAsset>();
 
+    int earnedStars = 0;//earn 1 star when finishing the level
+    float timeSpentInLevel = 0;//start with 0 time in each level
+    [SerializeField]
+    float twoStarTime;
+    [SerializeField]
+    float threeStarTime;
+    [SerializeField]
+    bool goToGarageScreenOnComplete = false;
     public void Awake()
     {
         //quickly loop through roads and make sure everything is properly set up
@@ -165,7 +174,7 @@ public class MapNode : MonoBehaviour
     }
 
 
-    public void LocationReached()
+    public void LocationReached(float timeEarned = 0)
     {
         //once this location has been reached
         //start the event that is here
@@ -174,6 +183,7 @@ public class MapNode : MonoBehaviour
 
         //do fade to black
         //unload the driving level
+        timeSpentInLevel = timeEarned;
         Debug.Log("Location Reached");
         if(locationEvent != null)
             centralEventHandler.StartEvent(locationEvent, doActivity, _eventBackground);
@@ -186,6 +196,19 @@ public class MapNode : MonoBehaviour
 
     public void doActivity()
     {
+        //do calculations on if we hit the threshold or not
+
+        earnedStars = 1;//we finished the level
+
+        if (timeSpentInLevel < twoStarTime)
+        {
+            earnedStars++;
+        }
+        if (timeSpentInLevel < threeStarTime)
+        {
+            earnedStars++;
+        }
+
         switch (LocationActivity)
         {
             case activity.Diner:
@@ -194,7 +217,8 @@ public class MapNode : MonoBehaviour
                 break;
             case activity.Hunt:
                 //display hunt screen
-                HuntManager.instance.displayHunt();
+
+                HuntManager.instance.displayHunt(goToGarageScreenOnComplete, timeSpentInLevel, twoStarTime, threeStarTime, earnedStars);
                 break;
             case activity.Garage:
                 //display garage screen
@@ -202,7 +226,7 @@ public class MapNode : MonoBehaviour
                 break;
             case activity.None:
                 //literally just mark the activity as done automatically
-                MapManager.instance.nodeActivityDone();
+                MapManager.instance.nodeActivityDone(goToGarageScreenOnComplete, earnedStars);
                 break;
             default:
                 break;
