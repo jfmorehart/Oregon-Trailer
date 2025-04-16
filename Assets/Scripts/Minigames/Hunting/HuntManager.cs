@@ -45,9 +45,9 @@ public class HuntManager : MonoBehaviour
             ThreeStar.SetActive(true);
         this.goToGarageScreenOnComplete = goToGarageScreenOnComplete;
         starsFromLevel = starsEarned;
-        timeEarnedText.text = (Math.Floor(twoStarTime/ 60) % 60).ToString("00") + ":" + Convert.ToInt32(twoStarTime % 60).ToString("00"); //TimeSpan.FromSeconds(timeEarned).ToString("hh':'mm':'ss");//string.Format("{0:t}", TimeSpan.FromSeconds(timeEarned));
+        timeEarnedText.text = (Math.Floor(timeEarned / 60) % 60).ToString("00") + ":" + Convert.ToInt32(timeEarned % 60).ToString("00") ; //TimeSpan.FromSeconds(timeEarned).ToString("hh':'mm':'ss");//string.Format("{0:t}", TimeSpan.FromSeconds(timeEarned));
 
-        twoStarTimeText.text = //string.Format("Two Star Time: {0:t}", twoStarTime );
+        twoStarTimeText.text = (Math.Floor(twoStarTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(twoStarTime % 60).ToString("00");//string.Format("Two Star Time: {0:t}", twoStarTime );
         threeStarTimeText.text = (Math.Floor(threeStarTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(threeStarTime % 60).ToString("00");//string.Format("Three Star Time: {0:t}", threeStarTime);
 
 

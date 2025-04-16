@@ -68,7 +68,7 @@ public class MapManager : MonoBehaviour
     float nodeXModifier = 1;
     List<TextAsset> questsToGen = new List<TextAsset>();
     [SerializeField]
-    float playerCurrentTime = 0;
+    float playerCurrentTime = -2;
     public float PlayerCurrentTime => playerCurrentTime;
 
     private void Awake()
@@ -402,7 +402,7 @@ public class MapManager : MonoBehaviour
     {
 
         Debug.Log("travelling now to " + destNode.transform.name);
-        instance.playerCurrentTime = 0;
+        instance.playerCurrentTime = -2;
         instance.playerDestinationNode = destNode;
         instance.forbidDestinationChoice();
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);

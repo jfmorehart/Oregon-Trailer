@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using DG.Tweening;
 
 public class InLevelCarSlider : MonoBehaviour
 {
@@ -32,6 +33,12 @@ public class InLevelCarSlider : MonoBehaviour
     Sprite boostersprite, rocketsprite, grenadesprite, oilsprite, nonesprite;
     [SerializeField]
     TMP_Text currentTimeText;
+    [SerializeField]
+    TMP_Text twoStarTimeText, threeStarTimeText;
+    [SerializeField]
+    List<Image> threeStarImages = new List<Image>();
+    [SerializeField]
+    List<Image> twoStarImages = new List<Image>();
 
     private void Awake()
     {
@@ -82,14 +89,40 @@ public class InLevelCarSlider : MonoBehaviour
             levelcompleteslider.value = vanDistancePercent;
 
             currentTimeText.text = (Math.Floor(MapManager.instance.PlayerCurrentTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(MapManager.instance.PlayerCurrentTime % 60).ToString("00");
+            twoStarTimeText.text = (Math.Floor(MapManager.instance.playerDestinationNode.TwoStarTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(MapManager.instance.playerDestinationNode.TwoStarTime % 60).ToString("00");
+            threeStarTimeText.text = (Math.Floor(MapManager.instance.playerDestinationNode.ThreeStarTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(MapManager.instance.playerDestinationNode.ThreeStarTime % 60).ToString("00");
+
+            bool overTwoStarTime = false;
+            bool overThreeStarTime = false;
+            if (Mathf.Floor( MapManager.instance.PlayerCurrentTime ) > Mathf.Floor(MapManager.instance.playerDestinationNode.ThreeStarTime) && !overThreeStarTime)
+            {
+                overThreeStarTime = true;
+                for (int i = 0; i < threeStarImages.Count; i++)
+                {
+                    threeStarImages[i].DOColor(Color.black, 1f) ;
+                }
+            }
+            if (Mathf.Floor(MapManager.instance.PlayerCurrentTime) > Mathf.Floor(MapManager.instance.playerDestinationNode.TwoStarTime) && !overTwoStarTime)
+            {
+                overTwoStarTime = true;
+                for (int i = 0; i < twoStarImages.Count; i++)
+                {
+                    twoStarImages[i].DOColor(Color.black, 1);
+                }
+            }
+
         }
         else
         {
             
             //we must be in the other section of the game
             levelcompleteslider.value = 0;
-            if(inLevel)//player is dead
+            if(inLevel)//player is dead{
+            {
                 levelRestartText.gameObject.SetActive(true);
+
+            }
+
         }
     }
 
@@ -111,6 +144,14 @@ public class InLevelCarSlider : MonoBehaviour
         leveldistancetext.gameObject.SetActive(false);
         levelcompleteslider.gameObject.SetActive(false);
         levelRestartText.gameObject.SetActive(false);
+        for (int i = 0; i < twoStarImages.Count; i++)
+        {
+            twoStarImages[i].color = Color.white;
+        }
+        for (int i = 0; i < threeStarImages.Count; i++)
+        {
+            threeStarImages[i].color = Color.white;
+        }
     }
 
     
