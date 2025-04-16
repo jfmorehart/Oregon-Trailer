@@ -37,7 +37,7 @@ public class MapManager : MonoBehaviour
     public static bool PlayerInTransit => instance._playerInTransit;
 
     [SerializeField]
-    TextMeshProUGUI FuelText, moneyText;
+    TextMeshProUGUI moneyText;
     [SerializeField]
     GameObject endingScreen;
     [SerializeField]
@@ -99,7 +99,7 @@ public class MapManager : MonoBehaviour
         //playersCurrentNode.LocationReached();
 
         moneyText.text = money.ToString();
-        FuelText.text = fuel.ToString();
+        //FuelText.text = fuel.ToString();
         mapUI.instance.ShouldBeInteractedWith = true;
         mapUI.instance.instantPopUp();
         allowDestinationChoice();
@@ -307,7 +307,7 @@ public class MapManager : MonoBehaviour
         fuel--;
 
         moneyText.text = instance.money.ToString();
-        FuelText.text = instance.fuel.ToString();
+        //FuelText.text = instance.fuel.ToString();
 
         Debug.Log("D4");
         //handle the nodeswitch
@@ -352,7 +352,7 @@ public class MapManager : MonoBehaviour
         fuel--;
 
         moneyText.text = instance.money.ToString();
-        FuelText.text = instance.fuel.ToString();
+        //FuelText.text = instance.fuel.ToString();
         yield return new WaitForEndOfFrame();
 
         Debug.Log("D4");
@@ -581,7 +581,7 @@ public class MapManager : MonoBehaviour
         money += starsEarnedInLevel;
         allowDestinationChoice();
         instance.moneyText.text = instance.money.ToString();
-        instance.FuelText.text = instance.fuel.ToString();
+        //instance.FuelText.text = instance.fuel.ToString();
     }
 
     public void doEnding()
