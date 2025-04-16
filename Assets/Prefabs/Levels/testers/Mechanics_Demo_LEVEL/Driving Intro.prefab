@@ -110,7 +110,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1293, y: 514}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5468848783719957286
@@ -301,6 +301,9 @@ MonoBehaviour:
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
     - {fileID: 2053872293739144902, guid: 790cca89cd5424ed8b30027790d9e8be, type: 3}
   playerCanChoose: 0
+  twoStarTime: 135
+  threeStarTime: 90
+  goToGarageScreenOnComplete: 1
 --- !u!61 &5606554948410551673
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -753,6 +756,9 @@ MonoBehaviour:
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
     - {fileID: 551570922458901608, guid: 88681711c45854eacac31f0293350aec, type: 3}
   playerCanChoose: 1
+  twoStarTime: 0
+  threeStarTime: 0
+  goToGarageScreenOnComplete: 1
 --- !u!61 &3435429629172814286
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -937,7 +943,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1293, y: 514}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5045811869444531703
@@ -1109,7 +1115,7 @@ MonoBehaviour:
   combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
   mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
-  _locationActivity: 2
+  _locationActivity: 1
   _locationFaction: 0
   locationEvent: {fileID: 0}
   _lr: {fileID: 5468848783719957286}
@@ -1126,6 +1132,9 @@ MonoBehaviour:
     - {fileID: 2053872293739144902, guid: 96b619be73fa148cca8634b8727c1ee7, type: 3}
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
   playerCanChoose: 1
+  twoStarTime: 135
+  threeStarTime: 90
+  goToGarageScreenOnComplete: 1
 --- !u!61 &8816584094802163877
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1398,6 +1407,9 @@ MonoBehaviour:
   _lr: {fileID: 1286871121123897668}
   Roads: []
   playerCanChoose: 0
+  twoStarTime: 135
+  threeStarTime: 90
+  goToGarageScreenOnComplete: 1
 --- !u!61 &7314111558587655669
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1617,7 +1629,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1293, y: 514}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7028626711695274703
@@ -1824,7 +1836,7 @@ MonoBehaviour:
   combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
   mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
-  _locationActivity: 0
+  _locationActivity: 1
   _locationFaction: 0
   locationEvent: {fileID: 0}
   _lr: {fileID: 1286871121123897668}
@@ -1839,6 +1851,9 @@ MonoBehaviour:
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
   playerCanChoose: 0
+  twoStarTime: 135
+  threeStarTime: 90
+  goToGarageScreenOnComplete: 1
 --- !u!61 &988335566465497985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2023,7 +2038,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1293, y: 514}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1286871121123897668
@@ -2113,7 +2128,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1293, y: 514}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6388261775094076087
