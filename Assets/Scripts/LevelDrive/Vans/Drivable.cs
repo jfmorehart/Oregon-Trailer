@@ -85,7 +85,10 @@ public class Drivable : MonoBehaviour
 		//	enginesrc.Track(transform, 2);
 		//	Debug.Log("set engine src");
 		//}
-		enginesrc.src.pitch = 1 + Mathf.Lerp(0f, 0.5f, _rb.velocity.magnitude / topSpeed);
+		if(enginesrc != null) {
+			enginesrc.src.pitch = 1 + Mathf.Lerp(0f, 0.5f, _rb.velocity.magnitude / topSpeed);
+		}
+
 
 		float oldterrainGrip = terrainGrip;
 		terrainGrip = TotalTerrainGrip();
