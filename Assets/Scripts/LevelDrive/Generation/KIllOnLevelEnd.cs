@@ -9,6 +9,7 @@ public class KIllOnLevelEnd : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (mapUI.instance == null) return;
         if (!mapUI.instance.inLevel) {
             Destroy(gameObject);
 	    }
