@@ -233,7 +233,7 @@ public class mapUI : MonoBehaviour
         if (menuIndex <= -1)
             menuIndex = uiMenuButtons.Count - 1;
         if (uiMenuButtons[menuIndex].pressed == false)
-            uiMenuButtons[menuIndex].highlight();
+            buttonPressed(uiMenuButtons[menuIndex].screen);
     }
     public void pressRightButton()
     {
@@ -243,7 +243,7 @@ public class mapUI : MonoBehaviour
         if (menuIndex >= uiMenuButtons.Count)
             menuIndex = 0;
         if (uiMenuButtons[menuIndex].pressed == false)
-            uiMenuButtons[menuIndex].highlight();
+            buttonPressed(uiMenuButtons[menuIndex].screen);
     }
 
     public void pullDown()
