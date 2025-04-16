@@ -28,8 +28,14 @@ public class ChunkManager : MonoBehaviour
     GameObject spawnedEndHouse = null;
 
     public Vector2[] waypoints;
+	public Vector2[] boundary_top;
+	public Vector2[] boundary_bottom;
 
-    [SerializeField]
+	public GameObject boundary_prefab;
+	public GameObject boundary_point;
+	public float boundary_width;
+
+	[SerializeField]
     private GameObject VanObj;
     private void Awake()
     {
@@ -58,7 +64,74 @@ public class ChunkManager : MonoBehaviour
 		}
 		waypoints = v2s.ToArray();
 
+		//boundaries
+        v2s.Clear();
+		List<Vector2> bottom = new List<Vector2>();
+
+		//close out the back
+		//Instantiate(boundary_point, Vector2.right *30, Quaternion.Euler(0, 0, 90), transform);
+		v2s.Add(Vector2.right * 80);
+		v2s.Add(Vector2.right * 30);
+		bottom.Add(Vector2.right * 30);
+
+		for (int i = 0; i < level.Length; i++)
+		{
+			int topL = 0;
+			if (level[i].boundary_top != null) {
+				topL = level[i].boundary_top.Length;
+			}
+			int botL = 0;
+			if(level[i].boundary_bottom != null)
+			{
+				botL = level[i].boundary_bottom.Length;
+			}
+
+			for (int j = 0; j < Mathf.Max(topL, botL); j++)
+			{
+				if(j < topL) {
+					v2s.Add(level[i].boundary_top[j].transform.position);
+				}
+				if (j < botL)
+				{
+					bottom.Add(level[i].boundary_bottom[j].transform.position);
+				}
+			}
+		}
+		//close out the end
+		v2s.Add(spawnedEndHouse.transform.position - Vector3.right * 30);
+		bottom.Add(spawnedEndHouse.transform.position - Vector3.right * 30);
+		Instantiate(boundary_point, spawnedEndHouse.transform.position - Vector3.right * 10, Quaternion.Euler(0, 0, 90), transform);
+
+		if(bottom.Count > 3) {
+			boundary_bottom = bottom.ToArray();
+			InstantiateBoundary(boundary_bottom);
+		}
+		if(v2s.Count > 3) {
+			boundary_top = v2s.ToArray();
+			InstantiateBoundary(boundary_top);
+		}
 	}
+
+	void InstantiateBoundary(Vector2[] points) {
+		GameObject parent = Instantiate(new GameObject(), transform);
+		parent.name = "Boundary";
+
+		for(int i = 0; i < points.Length; i++) {
+			if(points.Length > i + 1) {
+				Vector3 middle = points[i] + points[i + 1];
+				middle *= 0.5f;
+				middle.z = 9;
+				Vector2 delta = points[i + 1] - points[i];
+				GameObject go = Instantiate(boundary_prefab, middle, Quaternion.identity, parent.transform);
+				go.transform.localScale = new Vector3(delta.magnitude, boundary_width, 0);
+				go.transform.right = delta;
+				go.transform.eulerAngles = new Vector3(0, 0, go.transform.eulerAngles.z);
+			}
+			else { 
+				//this is the last point
+			}
+		}
+    }
 
 	void Start() {
         if(test_autoGenerate) RandomGenerateLevel();

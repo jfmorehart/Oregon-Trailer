@@ -59,7 +59,6 @@ public class EnemyVan : Drivable
 		if (PlayerVan.vanTransform == null)
 		{
 			//DrivingLogic(0);
-			Debug.Log("null player");
 			return;
 		}
 		//if (!ren.isVisible && !spottedPlayer) {

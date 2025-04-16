@@ -12,6 +12,9 @@ public class Chunk : MonoBehaviour
 	public QuestPoint questPoint;
 	public Waypoint[] wayPoints;
 
+	public Transform[] boundary_top;
+	public Transform[] boundary_bottom;
+
 	private void Awake()
 	{
 		//dimensions = transform.Find("back").transform.localScale;

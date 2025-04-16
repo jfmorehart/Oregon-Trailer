@@ -196,9 +196,6 @@ public class Drivable : MonoBehaviour
 			if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
 			{
 				float colDamage = collisionDamage * _rb.velocity.magnitude;
-				Debug.Log(colDamage);
-				br.Damage(colDamage);
-				breaker.Damage(colDamage);
 				Pool.smokes.GetObject().Fire(collision.contacts[0].point, Vector2.zero, Vector2.zero);
 			}
 		}
@@ -218,11 +215,13 @@ public class Drivable : MonoBehaviour
 
 		if(collision.TryGetComponent(out Pickup pi))
 		{
-			pickupValue	+= pi.Collect();
+			breaker.hp += pi.Collect();
+			breaker.bar.hp = breaker.hp;
 		}
 
 		if (collision.gameObject.layer.Equals(8))
 		{
+			Debug.Log("hit trigger layer 8: " + collision.gameObject.name);
 			StartCoroutine(nameof(Fall));
 		}
 	}
