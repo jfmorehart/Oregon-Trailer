@@ -49,7 +49,6 @@ public class MapNode : MonoBehaviour
     
     private Sprite _eventBackground;
 
-    List<MapNode> nodesThisReveals = new List<MapNode>();
 
     [SerializeField]
     UILineRenderer _lr;
@@ -78,8 +77,10 @@ public class MapNode : MonoBehaviour
     float timeSpentInLevel = 0;//start with 0 time in each level
     [SerializeField]
     float twoStarTime;
+    public float TwoStarTime => twoStarTime;
     [SerializeField]
     float threeStarTime;
+    public float ThreeStarTime => threeStarTime;
     [SerializeField]
     bool goToGarageScreenOnComplete = false;
     public void Awake()
