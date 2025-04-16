@@ -45,6 +45,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private Image fadeToBlackBG;
 
+    
     //whether we are finished loading the level ( this makes the exit not get touched twice)
     bool levelEnding = false;
 
@@ -67,6 +68,8 @@ public class MapManager : MonoBehaviour
     float nodeXModifier = 1;
     List<TextAsset> questsToGen = new List<TextAsset>();
     [SerializeField]
+    float playerCurrentTime = -2;
+    public float PlayerCurrentTime => playerCurrentTime;
 
     private void Awake()
     {
@@ -366,7 +369,7 @@ public class MapManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         mapUI.instance.instantPopUp();
-        playersCurrentNode.LocationReached();
+        playersCurrentNode.LocationReached(playerCurrentTime);
         Debug.Log("D7");
 
         nextNodeBlink();
@@ -399,6 +402,7 @@ public class MapManager : MonoBehaviour
     {
 
         Debug.Log("travelling now to " + destNode.transform.name);
+        instance.playerCurrentTime = -2;
         instance.playerDestinationNode = destNode;
         instance.forbidDestinationChoice();
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);
@@ -507,6 +511,9 @@ public class MapManager : MonoBehaviour
             //money += 1500;
         }
         Restart();
+
+        if(_playerInTransit)
+            playerCurrentTime += Time.deltaTime;
     }
 
     public void Restart()
@@ -531,6 +538,7 @@ public class MapManager : MonoBehaviour
             allowDestinationChoice();
             Debug.Log("Restart finalized");
 
+            playerCurrentTime = 0;
 
             //reset the health to 30
             vanHealth = MAXHEALTH;
@@ -541,7 +549,7 @@ public class MapManager : MonoBehaviour
 
 
     //activity is finished, display map again and allow the player to choose where to go
-    public void nodeActivityDone()
+    public void nodeActivityDone(bool goToGarageScene = false, int starsEarnedInLevel = 1)
     {
         if (playersCurrentNode.EndingRoad)
         {
@@ -561,11 +569,16 @@ public class MapManager : MonoBehaviour
             return;
         }
         mapUI.instance.instantPopUp();
+        if (goToGarageScene)
+        {
+            mapUI.instance.upgradeScreenMove();
+        }
 
         if (fuel <= 0)
         {
             playerDiedScreen.SetActive(true);
         }
+        money += starsEarnedInLevel;
         allowDestinationChoice();
         instance.moneyText.text = instance.money.ToString();
         instance.FuelText.text = instance.fuel.ToString();

@@ -1796,6 +1796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39eba74af6d574439c95cb587e028ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  availableUpgrades: 
   q_upgrade: 1
   e_upgrade: 2
   StoreUpgrades: []
@@ -1815,10 +1816,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test_autoGenerate: 1
   singleChunkMode: 1
-  levelSize: 2
+  levelSize: 3
   level: []
   chunkBag:
-  - {fileID: 2460533215672483101, guid: 6b851ddad4c9241e2a4f669781ccb021, type: 3}
+  - {fileID: 2460533215672483101, guid: 5fee3bf16ae954f43a32b6bb61631544, type: 3}
   environment_chunkBags: []
   QuestChunkBag: []
   Quests: []
@@ -1826,6 +1827,11 @@ MonoBehaviour:
   boundaryStack: {fileID: 770879436162116754, guid: cb6b897ca3aa24ff48282a688d7f1b0a, type: 3}
   endHouse: {fileID: 1790104061774785256, guid: 2d20434a7ac6243ed94158615f444895, type: 3}
   waypoints: []
+  boundary_top: []
+  boundary_bottom: []
+  boundary_prefab: {fileID: 2938721297649521649, guid: 0689805f94fbb4ae7a540f394bcf62fd, type: 3}
+  boundary_point: {fileID: 6394786886347970076, guid: cbf1daa4452cb42ad834a1e934af8619, type: 3}
+  boundary_width: 7
   VanObj: {fileID: 7847132893973158458, guid: cc0695d72bb974d8fa3cc7eb19f7f79f, type: 3}
   path:
     Destination: {fileID: 0}
