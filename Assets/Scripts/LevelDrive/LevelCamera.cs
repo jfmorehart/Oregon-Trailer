@@ -20,7 +20,7 @@ public class LevelCamera : MonoBehaviour
 	void FixedUpdate()
     {
 		if (PlayerVan.vanTransform == null) return;
-		transform.position = PlayerVan.vanTransform.position - Vector3.forward;
+		transform.position = PlayerVan.vanTransform.position - Vector3.forward * 10;
 		Vector3 pos = transform.position - (Vector3)shake;
 
 		shake = shakestr * new Vector3(shakeAmp * (Mathf.PerlinNoise1D(Time.time * shakeFreq) - 0.5f), shakeAmp * (Mathf.PerlinNoise1D(Time.time * shakeFreq + 1) - 0.5f));
