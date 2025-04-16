@@ -102,11 +102,11 @@ public class ChunkManager : MonoBehaviour
 		bottom.Add(spawnedEndHouse.transform.position - Vector3.right * 30);
 		Instantiate(boundary_point, spawnedEndHouse.transform.position - Vector3.right * 10, Quaternion.Euler(0, 0, 90), transform);
 
-		if(bottom.Count > 2) {
+		if(bottom.Count > 3) {
 			boundary_bottom = bottom.ToArray();
 			InstantiateBoundary(boundary_bottom);
 		}
-		if(v2s.Count > 2) {
+		if(v2s.Count > 3) {
 			boundary_top = v2s.ToArray();
 			InstantiateBoundary(boundary_top);
 		}
