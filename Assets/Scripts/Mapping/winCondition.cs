@@ -7,7 +7,7 @@ using UnityEditor.Experimental.GraphView;
 public class winCondition : MonoBehaviour
 {
 
-    enum winconditions
+    public enum winconditions
     {
         timeTrail, 
         chase,
@@ -15,6 +15,7 @@ public class winCondition : MonoBehaviour
     }
     [SerializeField]
     winconditions Condition = winconditions.timeTrail;
+    public winconditions getCondition => this.Condition;
     //added onto each level
     public List<Breakable> target = new List<Breakable>();
     int frameTimer = 0;
@@ -79,7 +80,7 @@ public class winCondition : MonoBehaviour
         Debug.Log("winCondition fulfilled");
         active = false;
     }
-    void levelLost()
+    public void levelLost()
     {
         PlayerVan.vanInstance.canMove = false;
         InLevelCarSlider.instance.levelFailed();
