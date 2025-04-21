@@ -293,8 +293,9 @@ public class ChunkManager : MonoBehaviour
 		}
 
         SortWaypoints();
+        MapManager.instance.playersCurrentNode.WinCondition.startLevel();
 
-	}
+    }
 
     void GenerationLoop(List<int> questChunks) {
 

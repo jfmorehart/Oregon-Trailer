@@ -14,6 +14,7 @@ public class PlayerVan : Drivable
 	public VanGun TankGun;
 	public Launcher GrenadeLauncher;
 	public OilBarrel barrel;
+	public bool canMove = true;
 
 	protected override void Awake()
 	{
@@ -29,6 +30,10 @@ public class PlayerVan : Drivable
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
+
+		if (canMove == false)
+			return;
+
 		if (Input.GetKeyDown(KeyCode.Q))
         {
             ActivateUpgrade(UpgradeManager.instance.q_upgrade);   
@@ -86,9 +91,13 @@ public class PlayerVan : Drivable
 	}
     protected override void FixedUpdate()
 	{
-		base.FixedUpdate();
-		//where are we going?
-		mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        base.FixedUpdate();
+        //where are we going?
+
+        if (canMove == false)
+            return;
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		
 		//held input can live in fixedupdate
 		//gas?
@@ -136,6 +145,18 @@ public class PlayerVan : Drivable
 			}
 
 		}
+		else if (collision.collider.TryGetComponent(out Breakable b) && !levelFinished)
+		{
+			if (b.target == true)
+			{
+                Debug.Log("finished scene");
+                MapManager.playerArrived(Breaker.hp);
+                levelEnding();
+				//MapManager.winConditionReached();
+                levelFinished = true;
+            }
+				
+		}
 	}
     public void levelEnding()
 	{
@@ -144,5 +165,4 @@ public class PlayerVan : Drivable
         MapManager.playerArrived(breaker.hp);
 
     }
-
 }
