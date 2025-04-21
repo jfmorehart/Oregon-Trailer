@@ -233,7 +233,7 @@ public class mapUI : MonoBehaviour
         if (menuIndex <= -1)
             menuIndex = uiMenuButtons.Count - 1;
         if (uiMenuButtons[menuIndex].pressed == false)
-            uiMenuButtons[menuIndex].highlight();
+            buttonPressed(uiMenuButtons[menuIndex].screen);
     }
     public void pressRightButton()
     {
@@ -243,7 +243,7 @@ public class mapUI : MonoBehaviour
         if (menuIndex >= uiMenuButtons.Count)
             menuIndex = 0;
         if (uiMenuButtons[menuIndex].pressed == false)
-            uiMenuButtons[menuIndex].highlight();
+            buttonPressed(uiMenuButtons[menuIndex].screen);
     }
 
     public void pullDown()
@@ -317,7 +317,17 @@ public class mapUI : MonoBehaviour
             menuScreenParent.transform.DOLocalMove(mapScreenPos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
         }
     }
-
+    public void settingsButton()
+    {
+        if (currentScreen != mapScreens.settings)
+        {
+            currentScreen = mapScreens.settings;
+            //CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            //upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+            Vector2 settingsScreenPos = new Vector2(mapScreenPositions[3], 0);
+            menuScreenParent.transform.DOLocalMove(settingsScreenPos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
+        }
+    }
     public static void showTopUI(bool val)
     {
         instance.topResourcesCanvas.SetActive(val);
@@ -409,6 +419,9 @@ public class mapUI : MonoBehaviour
                 break;
             case mapScreens.upgrade:
                 upgradeScreenMove();
+                break;
+            case mapScreens.settings:
+                settingsButton();
                 break;
             default:
                 break;

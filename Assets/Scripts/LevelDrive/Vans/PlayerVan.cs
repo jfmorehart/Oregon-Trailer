@@ -37,14 +37,14 @@ public class PlayerVan : Drivable
         {
 			ActivateUpgrade(UpgradeManager.instance.e_upgrade);
         }
-		if (Input.GetKeyDown(KeyCode.L))
-		{
-			transform.position = new Vector2(ChunkManager.instance.transform.Find("goal(Clone)").position.x, ChunkManager.instance.transform.Find("goal(Clone)").position.y + 4);
-		}
-		if (Input.GetKeyDown(KeyCode.LeftAlt))
-		{
-			GetComponent<Breakable>().Damage(50);
-		}
+		//if (Input.GetKeyDown(KeyCode.L))
+		//{
+		//	transform.position = new Vector2(ChunkManager.instance.transform.Find("goal(Clone)").position.x, ChunkManager.instance.transform.Find("goal(Clone)").position.y + 4);
+		//}
+		//if (Input.GetKeyDown(KeyCode.LeftAlt))
+		//{
+		//	GetComponent<Breakable>().Damage(50);
+		//}
     
 		if(UpgradeManager.instance.e_upgrade == Upgrade.TankGun || UpgradeManager.instance.q_upgrade == Upgrade.TankGun) {
 			//tank gun

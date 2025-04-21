@@ -571,7 +571,7 @@ public class MapManager : MonoBehaviour
         mapUI.instance.instantPopUp();
         if (goToGarageScene)
         {
-            mapUI.instance.upgradeScreenMove();
+            mapUI.instance.buttonPressed(mapUI.mapScreens.upgrade);
         }
 
         if (fuel <= 0)

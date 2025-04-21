@@ -194,12 +194,20 @@ public class Drivable : MonoBehaviour
 	}
 	public virtual void OnCollisionEnter2D(Collision2D collision)
 	{
+		//if(breaker)
+		if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
+		{
+			float colDamage = collisionDamage * _rb.velocity.magnitude;
+			breaker.Damage(colDamage);
+		}
+
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
 			if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
 			{
 				float colDamage = collisionDamage * _rb.velocity.magnitude;
 				Pool.smokes.GetObject().Fire(collision.contacts[0].point, Vector2.zero, Vector2.zero);
+				br.Damage(colDamage);
 			}
 		}
 

@@ -38,11 +38,15 @@ public class HuntManager : MonoBehaviour
 
         huntScene.SetActive(true);
         //one star is active automatically
+        Debug.Log("Stars earned " + starsEarned);
         oneStar.SetActive(true);
         if (starsEarned == 2)
             twoStar.SetActive(true);
         if (starsEarned == 3)
+        {
             ThreeStar.SetActive(true);
+            twoStar.SetActive(true);//both should be set active
+        }
         this.goToGarageScreenOnComplete = goToGarageScreenOnComplete;
         starsFromLevel = starsEarned;
         timeEarnedText.text = (Math.Floor(timeEarned / 60) % 60).ToString("00") + ":" + Convert.ToInt32(timeEarned % 60).ToString("00") ; //TimeSpan.FromSeconds(timeEarned).ToString("hh':'mm':'ss");//string.Format("{0:t}", TimeSpan.FromSeconds(timeEarned));
