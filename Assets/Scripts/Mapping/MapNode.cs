@@ -53,6 +53,8 @@ public class MapNode : MonoBehaviour
     [SerializeField]
     UILineRenderer _lr;
 
+    [SerializeField]
+    public winCondition WinCondition;
 
     public enum activity
     {
@@ -135,6 +137,8 @@ public class MapNode : MonoBehaviour
     }
     private void Start()
     {
+        if (WinCondition == null)
+            WinCondition = GetComponent<winCondition>();
         lrSpriteOrdering();
     }
 
@@ -308,8 +312,9 @@ public class MapNode : MonoBehaviour
 			{
 				MapManager.playerTraveling(this);
 				Debug.Log("Player chose " + transform.name);
-				//go into driving scene
-			}
+
+                //go into driving scene
+            }
         }
     }
 
