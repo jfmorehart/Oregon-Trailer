@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 568230886528477332}
   - component: {fileID: 7091572084801273004}
   - component: {fileID: 5911504602450894776}
+  - component: {fileID: 7553740301097819589}
   m_Layer: 0
   m_Name: Map Node
   m_TagString: Untagged
@@ -121,8 +122,12 @@ MonoBehaviour:
   _locationFaction: 0
   locationEvent: {fileID: 0}
   _lr: {fileID: 6986818797848249556}
+  WinCondition: {fileID: 0}
   Roads: []
   playerCanChoose: 0
+  twoStarTime: 0
+  threeStarTime: 0
+  goToGarageScreenOnComplete: 0
 --- !u!61 &7091572084801273004
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -272,6 +277,22 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &7553740301097819589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253129115885280457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Condition: 0
+  target: []
+  active: 0
+  node: {fileID: 0}
 --- !u!1 &1881503609492627446
 GameObject:
   m_ObjectHideFlags: 0

@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 1082457622459017506}
   - component: {fileID: 5606554948410551673}
   - component: {fileID: 2196309297903333283}
+  - component: {fileID: 4319145908324002194}
   m_Layer: 0
   m_Name: //Medium Driving Maps
   m_TagString: Untagged
@@ -286,6 +287,7 @@ MonoBehaviour:
   _locationFaction: 0
   locationEvent: {fileID: 0}
   _lr: {fileID: 7028626711695274703}
+  WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 480241772964633798}
     roadLength: 2
@@ -453,6 +455,22 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &4319145908324002194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066110662960577435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Condition: 0
+  target: []
+  active: 0
+  node: {fileID: 0}
 --- !u!1 &1093908184206508639
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +656,7 @@ GameObject:
   - component: {fileID: 5922807365497892968}
   - component: {fileID: 3435429629172814286}
   - component: {fileID: 5346173085253687184}
+  - component: {fileID: 2254679359500359757}
   m_Layer: 0
   m_Name: //Easy Driving Maps
   m_TagString: Untagged
@@ -744,6 +763,7 @@ MonoBehaviour:
   _locationFaction: 0
   locationEvent: {fileID: 0}
   _lr: {fileID: 5045811869444531703}
+  WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 1746957742735081776}
     roadLength: 4
@@ -908,6 +928,22 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &2254679359500359757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349300933306115679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Condition: 0
+  target: []
+  active: 0
+  node: {fileID: 0}
 --- !u!1 &1386091760976467713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1049,7 @@ GameObject:
   - component: {fileID: 1746957742735081776}
   - component: {fileID: 8816584094802163877}
   - component: {fileID: 3248736953187319282}
+  - component: {fileID: 2411236477076994369}
   m_Layer: 0
   m_Name: Garage
   m_TagString: Untagged
@@ -1119,6 +1156,7 @@ MonoBehaviour:
   _locationFaction: 0
   locationEvent: {fileID: 0}
   _lr: {fileID: 5468848783719957286}
+  WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 1082457622459017506}
     roadLength: 5
@@ -1284,6 +1322,22 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &2411236477076994369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815570832019831475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Condition: 0
+  target: []
+  active: 0
+  node: {fileID: 0}
 --- !u!1 &2568639920315839819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,6 +1353,7 @@ GameObject:
   - component: {fileID: 3680344308727568631}
   - component: {fileID: 7314111558587655669}
   - component: {fileID: 4301022710639241980}
+  - component: {fileID: 2045394053986795113}
   m_Layer: 0
   m_Name: Ending
   m_TagString: Untagged
@@ -1405,6 +1460,7 @@ MonoBehaviour:
   _locationFaction: 1
   locationEvent: {fileID: 0}
   _lr: {fileID: 1286871121123897668}
+  WinCondition: {fileID: 0}
   Roads: []
   playerCanChoose: 0
   twoStarTime: 135
@@ -1559,6 +1615,22 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &2045394053986795113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2568639920315839819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Condition: 0
+  target: []
+  active: 0
+  node: {fileID: 0}
 --- !u!1 &2830840791498561991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,6 +1806,7 @@ GameObject:
   - component: {fileID: 480241772964633798}
   - component: {fileID: 988335566465497985}
   - component: {fileID: 4699639218664322677}
+  - component: {fileID: 5488195280407817522}
   m_Layer: 0
   m_Name: //Fuel Stop
   m_TagString: Untagged
@@ -1840,6 +1913,7 @@ MonoBehaviour:
   _locationFaction: 0
   locationEvent: {fileID: 0}
   _lr: {fileID: 1286871121123897668}
+  WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 3680344308727568631}
     roadLength: 3
@@ -2003,6 +2077,22 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &5488195280407817522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4699393997113090645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Condition: 0
+  target: []
+  active: 0
+  node: {fileID: 0}
 --- !u!1 &5846426086315385313
 GameObject:
   m_ObjectHideFlags: 0
