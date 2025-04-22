@@ -16,6 +16,14 @@ Shader "Unlit/River"
 
         Pass
         {
+
+            //Stencil {
+            //Ref 0
+            //Comp NotEqual
+            //Pass Replace
+            //}
+
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -109,7 +117,7 @@ Shader "Unlit/River"
                 float oval = pow(2 * abs(i.uv.x - 0.5), 4) + abs(i.uv.y - 0.5);//
                 n += oval * 0.3;
                 n_fixed = n;
-                if(n > 0.9) discard;
+                if(n > _thresh) discard;
                 n = n_time;
                 n += sinterm * 0.05;
                 n += abs(i.uv.y - 0.5);

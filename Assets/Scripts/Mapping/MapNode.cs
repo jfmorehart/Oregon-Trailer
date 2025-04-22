@@ -49,11 +49,12 @@ public class MapNode : MonoBehaviour
     
     private Sprite _eventBackground;
 
-    List<MapNode> nodesThisReveals = new List<MapNode>();
 
     [SerializeField]
     UILineRenderer _lr;
 
+    [SerializeField]
+    public winCondition WinCondition;
 
     public enum activity
     {
@@ -78,8 +79,10 @@ public class MapNode : MonoBehaviour
     float timeSpentInLevel = 0;//start with 0 time in each level
     [SerializeField]
     float twoStarTime;
+    public float TwoStarTime => twoStarTime;
     [SerializeField]
     float threeStarTime;
+    public float ThreeStarTime => threeStarTime;
     [SerializeField]
     bool goToGarageScreenOnComplete = false;
     public void Awake()
@@ -134,6 +137,8 @@ public class MapNode : MonoBehaviour
     }
     private void Start()
     {
+        if (WinCondition == null)
+            WinCondition = GetComponent<winCondition>();
         lrSpriteOrdering();
     }
 
@@ -307,8 +312,9 @@ public class MapNode : MonoBehaviour
 			{
 				MapManager.playerTraveling(this);
 				Debug.Log("Player chose " + transform.name);
-				//go into driving scene
-			}
+
+                //go into driving scene
+            }
         }
     }
 

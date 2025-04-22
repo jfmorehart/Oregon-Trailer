@@ -85,7 +85,10 @@ public class Drivable : MonoBehaviour
 		//	enginesrc.Track(transform, 2);
 		//	Debug.Log("set engine src");
 		//}
-		enginesrc.src.pitch = 1 + Mathf.Lerp(0f, 0.5f, _rb.velocity.magnitude / topSpeed);
+		if(enginesrc != null) {
+			enginesrc.src.pitch = 1 + Mathf.Lerp(0f, 0.5f, _rb.velocity.magnitude / topSpeed);
+		}
+
 
 		float oldterrainGrip = terrainGrip;
 		terrainGrip = TotalTerrainGrip();
@@ -191,14 +194,28 @@ public class Drivable : MonoBehaviour
 	}
 	public virtual void OnCollisionEnter2D(Collision2D collision)
 	{
+		//if(breaker)
+		if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
+		{
+			float colDamage = collisionDamage * _rb.velocity.magnitude;
+			breaker.Damage(colDamage);
+		}
+
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
 			if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
 			{
 				float colDamage = collisionDamage * _rb.velocity.magnitude;
 				Pool.smokes.GetObject().Fire(collision.contacts[0].point, Vector2.zero, Vector2.zero);
+				br.Damage(colDamage);
 			}
 		}
+
+		//if we are in a chase and this hits a finish and its the target
+		if (collision.collider.CompareTag("Finish") && breaker.target && MapManager.instance.playerDestinationNode.WinCondition.getCondition == winCondition.winconditions.chase)
+		{
+			MapManager.instance.playerDestinationNode.WinCondition.levelLost();
+        }
 
 		//if (collision.collider.TryGetComponent(out TerrainModifier tm))
 		//{
