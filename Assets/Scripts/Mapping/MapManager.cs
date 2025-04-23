@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Data.SqlTypes;
 
 public class MapManager : MonoBehaviour
 {
@@ -258,7 +259,26 @@ public class MapManager : MonoBehaviour
 
     }
 
+    public static void winConditionReached()
+    {
+        if (instance == null)
+        {
+            Debug.LogError("MapManager is null");
+            return;
+        }
 
+        Debug.Log("Win condition reached " + PlayerVan.vanInstance.Breaker.hp);
+
+        instance.vanHealth = (int)PlayerVan.vanInstance.Breaker.hp;
+        instance.money += PlayerVan.vanInstance.pickupValue;
+        instance.playersCurrentNode.playerCanChoose = false;
+        instance.playersCurrentNode.WinCondition.active = false;
+        instance.StartCoroutine(instance.fadeToBlackHandleMovement());
+        instance._playerInTransit = false;
+        mapUI.instance.endLevel();
+        InLevelCarSlider.instance.levelDone();
+
+    }
     public static void playerArrived(float health)
     {
         if (instance == null)
@@ -278,6 +298,7 @@ public class MapManager : MonoBehaviour
         instance.vanHealth = (int) health;
         instance.playersCurrentNode.playerCanChoose = false;
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
+        instance.playersCurrentNode.WinCondition.active = false;
         instance._playerInTransit = false;
         mapUI.instance.endLevel();
         InLevelCarSlider.instance.levelDone();
@@ -527,6 +548,7 @@ public class MapManager : MonoBehaviour
 
             _playerInTransit = false;
 
+            playersCurrentNode.WinCondition.active = false;
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
             Debug.Log("Restart fade to black");

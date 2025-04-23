@@ -9,6 +9,7 @@ public class Breakable : MonoBehaviour
     public HealthBar bar;
     public Action onKill;
     public Action onShot;
+    public bool target = false;
 
 	private void Awake()
 	{

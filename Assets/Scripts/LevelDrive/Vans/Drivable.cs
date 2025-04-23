@@ -211,6 +211,12 @@ public class Drivable : MonoBehaviour
 			}
 		}
 
+		//if we are in a chase and this hits a finish and its the target
+		if (collision.collider.CompareTag("Finish") && breaker.target && MapManager.instance.playerDestinationNode.WinCondition.getCondition == winCondition.winconditions.chase)
+		{
+			MapManager.instance.playerDestinationNode.WinCondition.levelLost();
+        }
+
 		//if (collision.collider.TryGetComponent(out TerrainModifier tm))
 		//{
 		//	terrainModifiers.Add(tm);

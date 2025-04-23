@@ -133,6 +133,12 @@ public class InLevelCarSlider : MonoBehaviour
         vanAlive = false;
         playervan = null;
     }
+    public void levelFailed()
+    {
+        inLevel = true;
+        vanAlive = false;
+        playervan = null;
+    }
     public void levelDone()
     {
         Debug.Log("Level Done Routine");
