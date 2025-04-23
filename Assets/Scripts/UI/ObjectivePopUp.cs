@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,13 +11,40 @@ public class ObjectivePopUp : MonoBehaviour
     public string quest;
     public TMP_Text questDisplay;
 
-    public void ObjectiveAppear(string text)// pop up on string
+    //Animations
+    public AnimationCurve opacityCurve;
+    public AnimationCurve scaleCurve;
+    private float time = 0;
+    
+    public static ObjectivePopUp instance;
+
+    public void Awake()
     {
-        
+        instance = this;
     }
 
-    public void ObjectiveFadeOut(string text)// fade out
+
+    public void Update()
     {
-        
+        questDisplay.color = new Color(1, 1, 1, opacityCurve.Evaluate(time));
+        transform.localScale = Vector3.one*scaleCurve.Evaluate(time);
+        //questDisplay.text = text; // change the written text
+        time += Time.deltaTime;
+
+        if (time >= 4) // after 4 seconds, destroy object
+        {
+            Destroy(instance);
+        }
     }
+
+
+
+    public void ObjectiveAppearDissapear(string text)// appear & dissapear
+    {
+        questDisplay.color = new Color(1, 1, 1, opacityCurve.Evaluate(time));
+        transform.localScale = Vector3.one*scaleCurve.Evaluate(time);
+        questDisplay.text = text; // change the written text
+        time += Time.deltaTime;
+    }
+    
 }
