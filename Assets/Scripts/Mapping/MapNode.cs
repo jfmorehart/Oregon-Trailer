@@ -1,11 +1,8 @@
-using DG.Tweening;
-using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Burst.CompilerServices;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class MapNode : MonoBehaviour
@@ -85,6 +82,26 @@ public class MapNode : MonoBehaviour
     public float ThreeStarTime => threeStarTime;
     [SerializeField]
     bool goToGarageScreenOnComplete = false;
+    [SerializeField]
+    GameObject hoverUIParent;
+
+    [SerializeField]
+    GameObject hoverUnlockedPanel;
+    [SerializeField]
+    GameObject hoverLockedPanel;
+    [SerializeField]
+    List<GameObject> hoverStars;
+    [SerializeField]
+    TMP_Text actualTimeEarnedText;
+    [SerializeField]
+    public bool allowHover = true;
+    [SerializeField]
+    bool isLocked = true;
+    [SerializeField]
+    TMP_Text hoverCostText;
+    [SerializeField]
+    int levelCost = 0;
+
     public void Awake()
     {
         //quickly loop through roads and make sure everything is properly set up
@@ -111,7 +128,7 @@ public class MapNode : MonoBehaviour
 
         sr = GetComponent<Image>();
         _boxCollider = GetComponent<BoxCollider2D>();
-        int rn = Random.Range(0,100);
+        int rn = UnityEngine.Random.Range(0,100);
 
         _nodeIconRenderer.gameObject.SetActive(true);
         
@@ -140,6 +157,15 @@ public class MapNode : MonoBehaviour
         if (WinCondition == null)
             WinCondition = GetComponent<winCondition>();
         lrSpriteOrdering();
+
+        if (levelCost == 0)
+            isLocked = false;
+        else
+            isLocked = true;
+
+
+        hoverCostText = hoverLockedPanel.transform.GetChild(2).GetComponent<TMP_Text>();
+        hoverCostText.text = levelCost+"";
     }
 
     private void lrSpriteOrdering()
@@ -294,6 +320,39 @@ public class MapNode : MonoBehaviour
     //check to see if the player clicks on this point
     private void checkIfChosen()
     {
+        if (isLocked && playerCanChoose)
+        {
+            if (!_boxCollider.isActiveAndEnabled)
+            {
+                _boxCollider.enabled = true;
+                //Debug.Log("Collider is not active enable now");
+            }
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider == null)
+            {
+                //Debug.Log("Player Hit Nothing");
+                return;
+            }
+
+            if (hit.collider.gameObject == gameObject && (Input.GetKeyDown(KeyCode.Mouse0)))
+            {
+                //unlock the level
+                if (MapManager.instance.Money < levelCost)
+                {
+                    return;
+                }
+                else
+                {
+                    //buy the level
+                    MapManager.instance.BuyResource(levelCost);
+                    isLocked = true;
+                    showHoverUI();
+                    Debug.Log("Unlocked level");
+                }
+            }
+            return;
+        }
+
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
@@ -317,7 +376,49 @@ public class MapNode : MonoBehaviour
             }
         }
     }
+    private void showHoverUI()
+    {
+        //activate the stats for that level
+        if (allowHover)
+        {
+            hoverUIParent.SetActive(true);
+            if (isLocked)
+            {
+                hoverUnlockedPanel.SetActive(false);
+                hoverLockedPanel.SetActive(true);
+                hoverCostText.text = "cost here";
+            }
+            else
+            {
+                hoverUnlockedPanel.SetActive(true);
+                hoverLockedPanel.SetActive(false);
+                for (int i = 0; i < hoverStars.Count; i++)
+                {
+                    if (i < earnedStars)
+                        hoverStars[i].gameObject.SetActive(true);
+                    else
+                        hoverStars[i].gameObject.SetActive(false);
+                }
 
+                if (timeSpentInLevel < 1)
+                    actualTimeEarnedText.text = "\n\n\nNot attempted";
+                else
+                    actualTimeEarnedText.text = (Mathf.Floor(timeSpentInLevel / 60) % 60).ToString("00") + ":" + Convert.ToInt32(timeSpentInLevel % 60).ToString("00");
+            }
+        }
+    }
+    private void OnMouseOver()
+    {
+      showHoverUI();
+
+    }
+    private void OnMouseExit()
+    {
+        hoverUIParent.SetActive(false);
+    }
+
+
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (Roads.Length > 0)
@@ -331,6 +432,7 @@ public class MapNode : MonoBehaviour
             }
         }
     }
+#endif
 
     private void generateLine()
     {
