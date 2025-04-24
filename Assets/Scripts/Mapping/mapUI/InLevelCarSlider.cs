@@ -69,11 +69,13 @@ public class InLevelCarSlider : MonoBehaviour
         
         //GameObject g = Instantiate(popupprefab.gameObject, GameObject.FindGameObjectWithTag("Canvas").transform);
         GameObject g = Instantiate(popupprefab.gameObject);
+        g.transform.localScale = new Vector3(.01f,.01f,.01f);
+        g.transform.position = new Vector3(0,0,0);
         ObjectivePopUp popup = g.GetComponent<ObjectivePopUp>();
         //TODO get levelType
 
         //change the string
-        popup.quest = MapManager.instance.playerDestinationNode.WinCondition.getCondition + " ";
+        //popup.quest = MapManager.instance.playerDestinationNode.WinCondition.getCondition + " ";
         
         playervan = PlayerVan.vanTransform.GetComponent<Breakable>();
         playervan.onKill += playerDead;
