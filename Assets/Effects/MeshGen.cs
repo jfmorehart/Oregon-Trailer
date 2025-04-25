@@ -7,13 +7,14 @@ public class MeshGen : MonoBehaviour
 	//creates a custom mesh between points Start and Dest with influence point Infl
 
 
-	public static (Vector3[], Vector2[], int[]) GenerateMesh(Transform me, Transform influ, Transform desti, Vector3 prev, Vector3 next, int steps = 10, float extrusion = 5)
+	public static (Vector3[], Vector2[], int[]) GenerateMesh(Transform me, Transform influA, Transform influB, Transform desti, Vector3 prev, Vector3 next, int steps = 10, float extrusion = 5)
 	{
-		Vector2 start = Vector2.zero;// me.localPosition;
-		Vector2 inf = influ.localPosition;
-		Vector2 dest = 2f * (desti.position - me.position);//.localPosition;
+		Vector2 start = me.transform.position;
+		Vector2 infA = influA.position;//.localPosition * 2;
+		Vector2 infB = influB.position;//.localPosition * 2;
+		Vector2 dest = desti.position;// 2f * (desti.position - me.position);//.localPosition;
 
-		Vector3[] coreSpline = MeshGen.GenerateCoreSpline(start, dest, inf, steps);
+		Vector3[] coreSpline = MeshGen.GenerateCoreSpline(me.root.position, start, dest, infA, infB, steps);
 		Vector3[] rightSpline = MeshGen.GenerateExtrusion(coreSpline, extrusion);
 		Vector3[] leftSpline = MeshGen.GenerateExtrusion(coreSpline, -extrusion);
 		//fix left/right extrusions on first and last indices
@@ -77,21 +78,35 @@ public class MeshGen : MonoBehaviour
 	}
 
 	static List<Vector3> points= new List<Vector3>();
-	static Vector2 lerpSI, lerpID, lerpSD;
-	public static Vector3[] GenerateCoreSpline(Vector2 start, Vector2 dest, Vector2 infl, int steps = 10) {
+	static Vector2 lerpSA, lerpAB, lerpBD, lerpm1, lerpm2, lerpfinal;
+	public static Vector3[] GenerateCoreSpline(Vector2 origin, Vector2 start, Vector2 dest, Vector2 inflA, Vector2 inflB, int steps = 10) {
 
 		float lerpval;
 		points.Clear();
 		steps -= 2;
-		points.Add(start);
+		points.Add(Vector3.zero);// - start);
 		for (int i = 0; i < steps; i++) {
 			lerpval = i / (float)steps;
-			lerpSI = Vector2.Lerp(start, infl, lerpval);
-			lerpID = Vector2.Lerp(infl, dest, lerpval);
-			lerpSD = Vector2.Lerp(lerpSI, lerpID, lerpval);
-			points.Add(lerpSD);
+
+			//start = start;
+			//tier one
+			lerpSA = Vector2.Lerp(start, inflA, lerpval);
+			Debug.DrawLine(start, inflA);
+			lerpAB = Vector2.Lerp(inflA, inflB, lerpval);
+			Debug.DrawLine(start, inflB);
+			lerpBD = Vector2.Lerp(inflB, dest, lerpval);
+
+			//tier two
+			lerpm1 = Vector2.Lerp(lerpSA, lerpAB, lerpval);
+			//Debug.DrawLine(lerpSA, lerpAB);
+			lerpm2 = Vector2.Lerp(lerpAB, lerpBD, lerpval);
+			//Debug.DrawLine(lerpAB, lerpBD);
+			//tier 3
+			lerpfinal = Vector2.Lerp(lerpm1, lerpm2, lerpval);
+			Debug.DrawLine(lerpm1, lerpm2, Color.red);
+			points.Add((lerpfinal - start) );
 		}
-		points.Add(dest);
+		points.Add((dest - start) );
 		return points.ToArray();
     }
 
