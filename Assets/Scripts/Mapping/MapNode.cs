@@ -297,7 +297,8 @@ public class MapNode : MonoBehaviour
 
     public void MouseHasEntered()
     {
-        transform.localScale = new Vector2(1.2f, 1.2f);
+        if(playerCanChoose)
+            transform.localScale = new Vector2(1.2f, 1.2f);
     }
     
     public void MouseHasLeft()
