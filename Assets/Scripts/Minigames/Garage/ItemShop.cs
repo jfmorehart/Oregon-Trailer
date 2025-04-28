@@ -87,12 +87,16 @@ public class ItemShop : MonoBehaviour
     }
     public void selectUpgrade(StoreUpgrades su)
     {
+        
         ItemDescriptionPanel.SetActive(true);
         SelectedUpgrade = su;
         ItemCostText.text = "" + su.cost;
         ItemDescriptionText.text = su.desc;
         ItemNameText.text = su.Name;
         ItemImage.sprite = su.img;
+        
+        //TODO HERE - 4/28
+        /*
         if (MapManager.instance.Money > SelectedUpgrade.cost)
         {
             itemBuyButton.interactable = true;
@@ -101,10 +105,13 @@ public class ItemShop : MonoBehaviour
         {
             itemBuyButton.interactable = false;
         }
+        */
     }
 
     public void buyUpgrade()
     {
+        
+        /* --- UI --- */
         if (SelectedUpgrade != null)
         {
             MapManager.instance.BuyResource(SelectedUpgrade.cost);
