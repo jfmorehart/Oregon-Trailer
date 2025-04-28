@@ -126,7 +126,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 80
+  shader_maxHp: 0
   bar: {fileID: 3063469777188061255}
+  target: 0
+  use_breaking_texture: 0
 --- !u!114 &3555304265705433801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +163,7 @@ MonoBehaviour:
   enginesrc: {fileID: 0}
   roadSource: {fileID: 0}
   sandSource: {fileID: 0}
+  sideDrag: 0.5
   terrainModifiers: []
   enemyVisionMask:
     serializedVersion: 2
