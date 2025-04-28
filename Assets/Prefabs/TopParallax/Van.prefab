@@ -396,13 +396,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4095890672933520528}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.7041047, w: 0.71009624}
-  m_LocalPosition: {x: -0.003, y: 0.476, z: 0}
-  m_LocalScale: {x: 1.05, y: 1.1879, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.05, y: 0.31, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8245173818137526343}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.515}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7152962112150571160
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -444,7 +444,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 7
-  m_Sprite: {fileID: 21300000, guid: 28e13ff8c1f5548c7ae3822714360f54, type: 3}
+  m_Sprite: {fileID: -557441144, guid: 0a80e3853ccf44136926fff565e04d8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -564,13 +564,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6009029716724604702}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.284, y: 0.052, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5161448909287869332}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &5919461320838924736
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -612,7 +612,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 66644ddfc8f204f05ae1773f4970b5ff, type: 3}
+  m_Sprite: {fileID: -478418196, guid: 0a80e3853ccf44136926fff565e04d8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -894,7 +894,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 9da395af0de4e4fbb953ee39f5176b7c, type: 3}
+  m_Sprite: {fileID: 1290556421, guid: 0a80e3853ccf44136926fff565e04d8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -978,7 +978,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 9da395af0de4e4fbb953ee39f5176b7c, type: 3}
+  m_Sprite: {fileID: 1290556421, guid: 0a80e3853ccf44136926fff565e04d8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1391,6 +1391,7 @@ MonoBehaviour:
   TankGun: {fileID: 6760162303511796599}
   GrenadeLauncher: {fileID: 4935402299554508891}
   barrel: {fileID: 6323132058727385068}
+  canMove: 1
 --- !u!50 &5501251984745074556
 Rigidbody2D:
   serializedVersion: 4
@@ -1477,6 +1478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   bar: {fileID: 4270948942369041101}
+  target: 0
 --- !u!1 &8381054185626069900
 GameObject:
   m_ObjectHideFlags: 0

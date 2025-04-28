@@ -56,6 +56,8 @@ public class MapNode : MonoBehaviour
     [SerializeField]
     public winCondition WinCondition;
 
+    public GameObject self;
+
     public enum activity
     {
         Diner,
@@ -167,6 +169,9 @@ public class MapNode : MonoBehaviour
         if (!MapManager.PlayerInTransit && playerCanChoose)
         {
             checkIfChosen();
+            
+            // Add animations for the choosable Icon by changing its scale?
+            
         }
 
         if (!playerCanChoose)
@@ -290,10 +295,23 @@ public class MapNode : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public void MouseHasEntered()
+    {
+        if(playerCanChoose)
+            transform.localScale = new Vector2(1.2f, 1.2f);
+    }
+    
+    public void MouseHasLeft()
+    {
+        transform.localScale = new Vector2(1f, 1f);
+    }
+
 
     //check to see if the player clicks on this point
     private void checkIfChosen()
     {
+        // if mouse is hovering on the node (?)
+        
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
