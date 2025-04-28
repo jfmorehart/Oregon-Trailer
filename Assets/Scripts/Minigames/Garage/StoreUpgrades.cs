@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,4 +12,17 @@ public class StoreUpgrades : MonoBehaviour
     public string desc;
     public int cost;
     public Upgrade upgrade;
+    
+    public TMP_Text descriptionText;
+    public GameObject itemDescription;
+    
+    public void Awake()
+    {
+        //Debug.Log(Name);
+        itemDescription.SetActive(true);
+        descriptionText.text = desc;
+        itemDescription.SetActive(false);
+        
+    }
+    
 }

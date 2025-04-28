@@ -50,11 +50,12 @@ public class GarageManager : MonoBehaviour
 
         for (int i = 0; i < allUpgrades.Count; i++)
         {
-            Debug.Log("garage: looping through upgrade " + allUpgrades[i].upgrade + " - trying to find " + upgrade);
+            //Debug.Log("garage: looping through upgrade " + allUpgrades[i].upgrade + " - trying to find " + upgrade);
             if (upgrade == allUpgrades[i].upgrade)
             {
                 Debug.Log("Found upgrade");
-                allUpgrades[i].gameObject.SetActive(true);
+                //allUpgrades[i].gameObject.SetActive(true);
+                
                 return;
             }
         }
