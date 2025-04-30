@@ -92,7 +92,7 @@ public class Launcher : MonoBehaviour
 		//new grenade code
 		GameObject gr = Instantiate(grenadePrefab, aimPoint.transform.position, Quaternion.Euler(aim));
 		Debug.Log("tried to spawn it at:" + aimPoint.transform.position);
-		gr.GetComponent<Rigidbody2D>().velocity = aim * launchVelocity;
+		gr.GetComponent<Rigidbody2D>().velocity = aim * launchVelocity + rb.velocity;
 		rb.AddForce(-aim * knockbackForce);
 
 		float strength = Mathf.Lerp(0.3f, 1, 1 - knockbackForce / 30f);
