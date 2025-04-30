@@ -71,7 +71,13 @@ public class Drivable : MonoBehaviour
 
 	void OnKill()
 	{
-		Pool.explosions.GetObject().Fire(transform.position, _rb.velocity.normalized, _rb.velocity);
+		if (turningLockout) {
+			Pool.splooshes.GetObject().Fire(transform.position, _rb.velocity.normalized, _rb.velocity);
+		}
+		else {
+			Pool.explosions.GetObject().Fire(transform.position, _rb.velocity.normalized, _rb.velocity);
+		}
+
 		breaker.onKill -= OnKill;
 		for (int i = 0; i < pickupValue; i++)
 		{
