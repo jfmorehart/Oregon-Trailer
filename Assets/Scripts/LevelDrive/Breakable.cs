@@ -13,39 +13,32 @@ public class Breakable : MonoBehaviour
     public bool target = false;
 
     public bool use_breaking_texture;
-    Material mat;
+    Material breaking_material;
+    Texture breakTexture;
 
 	private void Awake()
 	{
-        shader_maxHp = hp;
+        breaking_material = new Material(Pool.instance.breakMat);
+		breaking_material.SetTexture("_breakTex", Pool.instance.breakTex);
+		shader_maxHp = hp;
         if(bar == null) {
 			bar = GetComponent<HealthBar>();
 		}
         if (use_breaking_texture) {
 
             if(TryGetComponent(out Renderer ren)) {
-                mat = new Material(ren.material);
-				mat.name = "First Instance";
+                ren.material = breaking_material;
 				Debug.Log("creating new material");
 			}
     
             Renderer[] rens = GetComponentsInChildren<Renderer>();
 
 			for (int i =0; i < rens.Length; i++) {
-                if(mat != null) {
-					rens[i].material = mat;
-                }
-                else {
-                    Debug.Log("creating new material");
-					mat = new Material(rens[i].material);
-                    mat.name = "Instance " + i;
-                    rens[i].material = mat;
-				}
+				rens[i].material = breaking_material;
+			}
 
-	        }
-            Debug.Log("mat ==" + mat);
-            if(mat != null) {
-				mat.SetFloat("hp_ratio", 1);
+            if(breaking_material != null) {
+			    breaking_material.SetFloat("hp_ratio", 1);
 			}
 		}
 	}
@@ -63,9 +56,9 @@ public class Breakable : MonoBehaviour
         if(bar != null) {
             bar.hp = hp;
 	    }
-        if (use_breaking_texture && mat != null) {
-            mat.SetFloat("hp_ratio", hp / shader_maxHp);
-            Debug.Log("setfloat" + (hp / shader_maxHp) + mat.name);
+        if (use_breaking_texture && breaking_material != null) {
+			breaking_material.SetFloat("hp_ratio", hp / shader_maxHp);
+			Debug.Log("setfloat" + (hp / shader_maxHp) + breaking_material.name);
 	    }
         if (hp < 1) Kill();
     }

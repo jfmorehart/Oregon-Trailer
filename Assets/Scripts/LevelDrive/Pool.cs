@@ -15,6 +15,11 @@ public class Pool : MonoBehaviour
 	public static ObjectPool smokes;
 	public static ObjectPool explosions;
 
+
+	//static storage for material stuff...
+	public Material breakMat;
+	public Texture breakTex;
+
 	private void Awake()
 	{
 		instance = this;
