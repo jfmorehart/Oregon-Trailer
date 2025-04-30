@@ -109,15 +109,17 @@ public class PlayerVan : Drivable
 				_rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
 			}
 		}
+		bool forward = true;
 		if ((Input.GetKey(KeyCode.S)))
 		{
+			forward = false;
 			if (_rb.velocity.magnitude < topSpeed)
 			{
 				//Accelerate
 				_rb.AddForce(acceleration * Time.fixedDeltaTime * -transform.right);
 			}
 		}
-		bool forward = Vector2.Dot(transform.right, _rb.velocity) > 0;
+		//bool forward = Vector2.Dot(transform.right, _rb.velocity) > 0;
 
 		if (Input.GetKey(KeyCode.A)){
 			//DriveTowards(transform.position + transform.up);

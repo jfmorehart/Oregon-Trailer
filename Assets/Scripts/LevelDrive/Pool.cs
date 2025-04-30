@@ -10,17 +10,25 @@ public class Pool : MonoBehaviour
 	public GameObject bulletPrefab;
 	public GameObject smokePrefab;
 	public GameObject explosionPrefab;
+	public GameObject splooshPrefab;
 
 	public static ObjectPool bullets;
 	public static ObjectPool smokes;
 	public static ObjectPool explosions;
+	public static ObjectPool splooshes;
+
+
+	//static storage for material stuff...
+	public Material breakMat;
+	public Texture breakTex;
 
 	private void Awake()
 	{
 		instance = this;
 		bullets = new ObjectPool(bulletPrefab);
-		smokes = new ObjectPool(smokePrefab, 10);
-		explosions = new ObjectPool(explosionPrefab, 50);
+		smokes = new ObjectPool(smokePrefab, 30);
+		explosions = new ObjectPool(explosionPrefab, 20);
+		splooshes = new ObjectPool(splooshPrefab, 10);
 	}
 
 	public class ObjectPool {
