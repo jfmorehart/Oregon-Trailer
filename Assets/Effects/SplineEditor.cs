@@ -25,11 +25,7 @@ public class SplineEditor : MonoBehaviour
 	public bool EnforceContinuity;
 	public bool ResetTools; //used for editorbutton
 
-	private void Awake()
-	{
-		KillTools();
-		CreateTools();
-	}
+	[ExecuteInEditMode]
 	private void Update()
 	{
 		if (ResetTools) {
@@ -41,6 +37,8 @@ public class SplineEditor : MonoBehaviour
 			UpdateHandles();
 		}
 		UpdateMeshes();
+
+		UnityEditor.EditorUtility.SetDirty(this);
 	}
 	public void UpdateHandles() { 
 		for(int i = 1; i < influenceA_nodes.Count; i++) {
@@ -50,6 +48,7 @@ public class SplineEditor : MonoBehaviour
 		}
     }
 	public void UpdateMeshes() {
+
 		for(int i = 0; i + 1 < mesh_filters.Count; i++) {
 			MeshFilter mf = mesh_filters[i];
 			Mesh m = mf.sharedMesh;
