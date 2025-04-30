@@ -696,7 +696,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  shader_maxHp: 0
   bar: {fileID: 3063469777188061255}
+  target: 0
+  use_breaking_texture: 0
 --- !u!114 &7562207656841357332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +733,7 @@ MonoBehaviour:
   enginesrc: {fileID: 0}
   roadSource: {fileID: 0}
   sandSource: {fileID: 0}
+  sideDrag: 0
   terrainModifiers: []
   current_waypoint: 0
   waypoint_size: 10

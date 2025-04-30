@@ -1366,7 +1366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99448bde343443e59ed01fe4e57ad5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAcceleration: 2000
+  baseAcceleration: 1200
   acceleration: 0
   topSpeed: 20
   drag: 0.7
@@ -1387,6 +1387,7 @@ MonoBehaviour:
   enginesrc: {fileID: 0}
   roadSource: {fileID: 0}
   sandSource: {fileID: 0}
+  sideDrag: 0
   terrainModifiers: []
   TankGun: {fileID: 6760162303511796599}
   GrenadeLauncher: {fileID: 4935402299554508891}
@@ -1477,8 +1478,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  shader_maxHp: 0
   bar: {fileID: 4270948942369041101}
   target: 0
+  use_breaking_texture: 0
+  mat: {fileID: 0}
 --- !u!1 &8381054185626069900
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,6 +2159,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: AimsAtMouse
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: rechamberTime
       value: 0.2
       objectReference: {fileID: 0}
@@ -2421,6 +2429,10 @@ PrefabInstance:
     - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: ignoreTag
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
+      propertyPath: AimsAtMouse
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6772956198334126985, guid: 27dcc984bbbaa44c881573304d50cda7, type: 3}
       propertyPath: rechamberTime
