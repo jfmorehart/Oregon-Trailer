@@ -39,7 +39,8 @@ public class InLevelCarSlider : MonoBehaviour
     List<Image> threeStarImages = new List<Image>();
     [SerializeField]
     List<Image> twoStarImages = new List<Image>();
-
+    [SerializeField]
+    private ObjectivePopUp popupprefab;
     private void Awake()
     {
         
@@ -58,12 +59,24 @@ public class InLevelCarSlider : MonoBehaviour
     }
     public Action onKill;
     private Breakable playervan;
-    public void startLevel()
+    public void startLevel() //instantiate
     {
         updateUpgradeUI();
         Debug.Log("LevelStartRoutine");
         //records the player's start position
         van = GameObject.Find("Van(Clone)");
+        
+        
+        //GameObject g = Instantiate(popupprefab.gameObject, GameObject.FindGameObjectWithTag("Canvas").transform);
+        GameObject g = Instantiate(popupprefab.gameObject);
+        g.transform.localScale = new Vector3(.01f,.01f,.01f);
+        g.transform.position = new Vector3(0,0,0);
+        ObjectivePopUp popup = g.GetComponent<ObjectivePopUp>();
+        //TODO get levelType
+
+        //change the string
+        //popup.quest = MapManager.instance.playerDestinationNode.WinCondition.getCondition + " ";
+        
         playervan = PlayerVan.vanTransform.GetComponent<Breakable>();
         playervan.onKill += playerDead;
         vanAlive = true;
@@ -85,7 +98,7 @@ public class InLevelCarSlider : MonoBehaviour
         {
             float vanDistancePercent = Mathf.Clamp((maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance, 0, 100);
 
-            leveldistancetext.text = ((int)Vector2.Distance(van.transform.position, endingHouse.transform.position)) + "M";
+            leveldistancetext.text = ((int)Vector2.Distance(van.transform.position, endingHouse.transform.position)) + "";
             levelcompleteslider.value = vanDistancePercent;
 
             currentTimeText.text = (Math.Floor(MapManager.instance.PlayerCurrentTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(MapManager.instance.PlayerCurrentTime % 60).ToString("00");

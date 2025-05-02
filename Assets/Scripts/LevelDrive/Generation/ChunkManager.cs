@@ -290,10 +290,11 @@ public class ChunkManager : MonoBehaviour
 
         if(MapManager.instance != null) {
 			PlayerVan.vanTransform.GetComponent<Breakable>().hp = MapManager.instance.VanHealth;
+			MapManager.instance.playersCurrentNode.WinCondition.startLevel();
 		}
 
         SortWaypoints();
-        MapManager.instance.playersCurrentNode.WinCondition.startLevel();
+
 
     }
 
