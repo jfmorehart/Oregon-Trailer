@@ -9025,6 +9025,9 @@ MonoBehaviour:
   upgrade: 4
   descriptionText: {fileID: 0}
   itemDescription: {fileID: 0}
+  buyButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  costText: {fileID: 0}
 --- !u!114 &584749749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12942,7 +12945,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.98823535, g: 0.97647065, b: 0.7058824, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -12965,9 +12968,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1989912691}
-        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
-        m_MethodName: openUpgradeChoiceMenu
+      - m_Target: {fileID: 1274864863}
+        m_TargetAssemblyTypeName: ItemShop, Assembly-CSharp
+        m_MethodName: clearEquipmentSlot
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13507,6 +13510,9 @@ MonoBehaviour:
   upgrade: 2
   descriptionText: {fileID: 0}
   itemDescription: {fileID: 0}
+  buyButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  costText: {fileID: 0}
 --- !u!114 &902930379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14889,6 +14895,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4936afe7c22af54fa1446f3da90d8b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &975440747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2846045659421902775, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+  m_PrefabInstance: {fileID: 1673295676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &979594868
 GameObject:
   m_ObjectHideFlags: 0
@@ -15137,38 +15148,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 723523453}
     m_Modifications:
-    - target: {fileID: 870565438517555963, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_text
-      value: NITROUS
-      objectReference: {fileID: 0}
-    - target: {fileID: 1123706168591468874, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1123706168591468874, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1123706168591468874, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1123706168591468874, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1452670719166545188, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: su
-      value: 
-      objectReference: {fileID: 2103622622}
     - target: {fileID: 2072790929992965283, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_Name
       value: Nitrous
       objectReference: {fileID: 0}
-    - target: {fileID: 2172728943933858960, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: bdd4563d7827a5b43973f5b7303fdc2d, type: 3}
     - target: {fileID: 2202030580275389880, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -15184,78 +15167,30 @@ PrefabInstance:
     - target: {fileID: 2202030580275389880, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1274864863}
-    - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: buyUpgrade
-      objectReference: {fileID: 0}
-    - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ItemShop, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956088147506206004, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956088147506206004, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956088147506206004, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956088147506206004, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: img
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 21300000, guid: 3f1a1468d09d44ea2a5d56be98cd5aaf, type: 3}
-    - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: Name
-      value: NITROUS
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: cost
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: desc
-      value: Bomb enemies with nitrous gas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6195591464154369185, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 4956088147506206004, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6195591464154369185, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+    - target: {fileID: 4956088147506206004, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6195591464154369185, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+    - target: {fileID: 4956088147506206004, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6195591464154369185, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+    - target: {fileID: 4956088147506206004, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7649813644256574126, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -21
       objectReference: {fileID: 0}
     - target: {fileID: 8267145355234983640, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_Pivot.x
@@ -15336,10 +15271,6 @@ PrefabInstance:
     - target: {fileID: 8267145355234983640, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8709178601967850961, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
-      propertyPath: m_text
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15519,6 +15450,9 @@ MonoBehaviour:
   upgrade: 3
   descriptionText: {fileID: 0}
   itemDescription: {fileID: 0}
+  buyButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  costText: {fileID: 0}
 --- !u!114 &1001118403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18348,10 +18282,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemshopScene: {fileID: 1989912689}
   availableUpgrades:
-  - {fileID: 2037163707}
-  - {fileID: 584749748}
-  - {fileID: 902930378}
-  - {fileID: 1001118402}
+  - {fileID: 1198100152}
+  - {fileID: 1638199228}
+  - {fileID: 966474635}
+  - {fileID: 2103622622}
   ItemDescriptionPanel: {fileID: 828139611}
   ItemNameText: {fileID: 1246678987}
   ItemDescriptionText: {fileID: 157749850}
@@ -18359,6 +18293,8 @@ MonoBehaviour:
   ItemImage: {fileID: 1980870416}
   itemBuyButton: {fileID: 1601287415}
   stealButton: {fileID: 0}
+  eButton: {fileID: 1914730285}
+  qButton: {fileID: 865578077}
   vanRepairCost: 25
 --- !u!1 &1279134710
 GameObject:
@@ -21808,6 +21744,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461936373}
   m_CullTransparentMesh: 1
+--- !u!1 &1475660460 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2846045659421902775, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+  m_PrefabInstance: {fileID: 1771122140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1482569317
 GameObject:
   m_ObjectHideFlags: 0
@@ -25019,6 +24960,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
+      objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.0000038146973
@@ -25059,6 +25008,10 @@ PrefabInstance:
       propertyPath: upgrade
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: costText
+      value: 
+      objectReference: {fileID: 975440747}
     - target: {fileID: 6195591464154369185, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -26592,6 +26545,9 @@ MonoBehaviour:
   upgrade: 1
   descriptionText: {fileID: 0}
   itemDescription: {fileID: 0}
+  buyButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  costText: {fileID: 0}
 --- !u!114 &1740365458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27577,6 +27533,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
+      objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.0000038146973
@@ -27617,6 +27581,10 @@ PrefabInstance:
       propertyPath: upgrade
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: costText
+      value: 
+      objectReference: {fileID: 1475660460}
     - target: {fileID: 6195591464154369185, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -29998,7 +29966,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.9882353, g: 0.9764706, b: 0.7058824, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -30021,9 +29989,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1989912691}
-        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
-        m_MethodName: openUpgradeChoiceMenu
+      - m_Target: {fileID: 1274864863}
+        m_TargetAssemblyTypeName: ItemShop, Assembly-CSharp
+        m_MethodName: clearEquipmentSlot
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30031,7 +29999,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1914730286
 MonoBehaviour:
@@ -30723,17 +30691,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allUpgrades:
-  - {fileID: 1740365457}
-  - {fileID: 1001118402}
-  - {fileID: 902930378}
-  - {fileID: 584749748}
+  - {fileID: 1198100152}
+  - {fileID: 1638199228}
+  - {fileID: 966474635}
+  - {fileID: 2103622622}
   upgradeChoiceParent: {fileID: 723523452}
   primaryName: {fileID: 1156777980}
   secondaryName: {fileID: 0}
   primaryDesc: {fileID: 506541493}
   secondaryDesc: {fileID: 0}
   primaryImage: {fileID: 865578076}
-  secondaryImage: {fileID: 0}
+  secondaryImage: {fileID: 1914730286}
 --- !u!114 &1989912692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33350,6 +33318,14 @@ PrefabInstance:
     - target: {fileID: 3259054793513923507, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
       objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_SizeDelta.y

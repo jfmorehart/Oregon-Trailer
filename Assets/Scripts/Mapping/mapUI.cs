@@ -207,7 +207,7 @@ public class mapUI : MonoBehaviour
             if (Input.GetKey(KeyCode.D))
             {
                 rightButton.activate();
-                Debug.Log("hitting d key");
+                //Debug.Log("hitting d key");
             }
             else
             {

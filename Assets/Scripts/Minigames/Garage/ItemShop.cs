@@ -33,6 +33,11 @@ public class ItemShop : MonoBehaviour
     private Button stealButton;
 
     [SerializeField]
+    private Button eButton;
+    [SerializeField]
+    private Button qButton;
+
+    [SerializeField]
     int vanRepairCost = 25;
     private void Awake()
     {
@@ -90,7 +95,7 @@ public class ItemShop : MonoBehaviour
         
         //ItemDescriptionPanel.SetActive(true);
         SelectedUpgrade = su;
-        Debug.Log("Selected: " + su.name);
+        //Debug.Log("Selected: " + su.name);
         /*
         ItemCostText.text = "" + su.cost;
         ItemDescriptionText.text = su.desc;
@@ -119,23 +124,28 @@ public class ItemShop : MonoBehaviour
             MapManager.instance.BuyResource(SelectedUpgrade.cost);
             Upgrade boughtUpgrade = SelectedUpgrade.upgrade;
             Debug.Log("Bought Upgrade " + boughtUpgrade);
-            UpgradeManager.instance.AddOption(boughtUpgrade);
+            //UpgradeManager.instance.AddOption(boughtUpgrade);
             if(UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
                 UpgradeManager.instance.e_upgrade = boughtUpgrade;
+                qButton.image.sprite = SelectedUpgrade.img;
+                qButton.image.color = Color.white;
             }
             else if (UpgradeManager.instance.q_upgrade == Upgrade.None)
             {
-                UpgradeManager.instance.e_upgrade = boughtUpgrade;
+                UpgradeManager.instance.q_upgrade = boughtUpgrade;
+                eButton.image.sprite = SelectedUpgrade.img;
+                eButton.image.color = Color.white;
             }
-            
+
             InLevelCarSlider.instance.updateUpgradeUI();
             GarageManager.instance.addUpgrade(boughtUpgrade);
 
             closePanel();
-            availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject.SetActive(true);
-
-            Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
+            availableUpgrades.Find(x => x.upgrade == boughtUpgrade).itemBought();
+            //availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject.SetActive(true);
+            
+            //Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
         }
         else
         {
@@ -147,5 +157,48 @@ public class ItemShop : MonoBehaviour
     public void stealButtonBehavior()
     {
         Debug.Log("Behavior is not implemented");
+    }
+
+    
+    public void equipUpgrade()
+    {
+        if (SelectedUpgrade != null)
+        {
+            //check to see if either slots are open
+            if (UpgradeManager.instance.e_upgrade == Upgrade.None)
+            {
+                UpgradeManager.instance.e_upgrade = SelectedUpgrade.upgrade;
+                eButton.image.sprite = SelectedUpgrade.img;
+            }
+            else if (UpgradeManager.instance.q_upgrade == Upgrade.None)
+            {
+                UpgradeManager.instance.q_upgrade = SelectedUpgrade.upgrade;
+                qButton.image.sprite = SelectedUpgrade.img;
+            }
+            else
+            {
+                //really hacky and not intuitive, but maybe it should replace the left slot otherwise
+                //or maybe just grey it out - but this will make players think they cannot equip any other items 
+            }
+        }
+    }
+
+    //clears the equipment slot in the garage, 0 = left & 1 = right
+    public void clearEquipmentSlot(bool leftSlot)
+    {
+        if (leftSlot)
+        {
+
+            UpgradeManager.instance.q_upgrade = Upgrade.None;
+            qButton.image.sprite = null;
+            qButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
+        }
+        else if (!leftSlot)
+        {
+            UpgradeManager.instance.e_upgrade = Upgrade.None;
+            eButton.image.sprite = null;
+            eButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
+
+        }
     }
 }
