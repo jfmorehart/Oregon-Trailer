@@ -125,19 +125,23 @@ public class ItemShop : MonoBehaviour
             Upgrade boughtUpgrade = SelectedUpgrade.upgrade;
             Debug.Log("Bought Upgrade " + boughtUpgrade);
             //UpgradeManager.instance.AddOption(boughtUpgrade);
-            if(UpgradeManager.instance.e_upgrade == Upgrade.None)
+
+            if(UpgradeManager.instance.q_upgrade == Upgrade.None)
             {
-                UpgradeManager.instance.e_upgrade = boughtUpgrade;
+                UpgradeManager.instance.q_upgrade = boughtUpgrade;
                 qButton.image.sprite = SelectedUpgrade.img;
                 qButton.image.color = Color.white;
             }
-            else if (UpgradeManager.instance.q_upgrade == Upgrade.None)
+            else if (UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
-                UpgradeManager.instance.q_upgrade = boughtUpgrade;
+                UpgradeManager.instance.e_upgrade = boughtUpgrade;
                 eButton.image.sprite = SelectedUpgrade.img;
                 eButton.image.color = Color.white;
             }
-
+            else
+            {
+                Debug.Log("missed both slots");
+            }
             InLevelCarSlider.instance.updateUpgradeUI();
             GarageManager.instance.addUpgrade(boughtUpgrade);
 
@@ -177,14 +181,22 @@ public class ItemShop : MonoBehaviour
     {
         if (SelectedUpgrade != null)
         {
+            if(UpgradeManager.instance.q_upgrade == SelectedUpgrade.upgrade || UpgradeManager.instance.e_upgrade == SelectedUpgrade.upgrade)
+            {
+                Debug.Log("already exists");
+                return;
+            }
             //check to see if either slots are open
             if (UpgradeManager.instance.q_upgrade == Upgrade.None)
             {
                 UpgradeManager.instance.q_upgrade = SelectedUpgrade.upgrade;
                 qButton.image.sprite = SelectedUpgrade.img;
+                Debug.Log("Added to Q");
+
             }
             else if (UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
+                Debug.Log("Added to E");
                 UpgradeManager.instance.e_upgrade = SelectedUpgrade.upgrade;
                 eButton.image.sprite = SelectedUpgrade.img;
             }

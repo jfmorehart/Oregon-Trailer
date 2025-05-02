@@ -150,12 +150,9 @@ public class MapNode : MonoBehaviour
         else
             isLocked = true;
 
-        if (hoverPanelPrefab == null)
-        {
-            var hvp = Resources.Load<GameObject>("Prefabs/HoverPanel");
-            Debug.Log("Hover panel prefab initialized");
-            hoverPanelPrefab = hvp;
-        }
+        var hvp = Resources.Load<GameObject>("Prefabs/HoverPanel");
+        Debug.Log("Hover panel prefab initialized");
+        hoverPanelPrefab = hvp;
         GameObject hvpGO = Instantiate(hoverPanelPrefab, transform);
 
         ownedHoverPanel = hvpGO.GetComponent<HoverPanelUI>();

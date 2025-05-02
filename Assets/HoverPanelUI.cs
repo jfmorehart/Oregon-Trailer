@@ -46,6 +46,7 @@ public class HoverPanelUI : MonoBehaviour
 
             for (int i = 0; i < hoverStars.Count; i++)
             {
+                Debug.Log("Hover star valid " + (hoverStars[i] != null));
                 if (i < mn.earnedStars)
                     hoverStars[i].color = Color.white;
                 else
