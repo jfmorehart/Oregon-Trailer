@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HoverPanelUI : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class HoverPanelUI : MonoBehaviour
     GameObject starsParentTransform;
 
     public MapNode mn;
-    public List<GameObject> hoverStars = new List<GameObject>();
+    public List<Image> hoverStars = new List<Image>();
 
     public void init(MapNode mn)
     {
@@ -40,9 +41,16 @@ public class HoverPanelUI : MonoBehaviour
         if (mn.earnedStars == 0)
         {
             if (mn.timeSpentInLevel < 1)
-                actualTimeEarnedText.text = "Unattempted";
+                actualTimeEarnedText.text = "Not attempted";
+            starsParentTransform.SetActive(true);
 
-            starsParentTransform.SetActive(false);
+            for (int i = 0; i < hoverStars.Count; i++)
+            {
+                if (i < mn.earnedStars)
+                    hoverStars[i].color = Color.white;
+                else
+                    hoverStars[i].color = Color.black;
+            }
         }
         else
         {
@@ -50,9 +58,9 @@ public class HoverPanelUI : MonoBehaviour
             for (int i = 0; i < hoverStars.Count; i++)
             {
                 if (i < mn.earnedStars)
-                    hoverStars[i].gameObject.SetActive(true);
+                    hoverStars[i].color = Color.white;
                 else
-                    hoverStars[i].gameObject.SetActive(false);
+                    hoverStars[i].color = Color.black;
             }
 
             if (mn.timeSpentInLevel > 1)

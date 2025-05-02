@@ -143,9 +143,22 @@ public class ItemShop : MonoBehaviour
 
             closePanel();
             availableUpgrades.Find(x => x.upgrade == boughtUpgrade).itemBought();
-            //availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject.SetActive(true);
+
             
-            //Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
+            if (UpgradeManager.instance.q_upgrade == Upgrade.None || UpgradeManager.instance.e_upgrade == Upgrade.None)
+            {
+                foreach (StoreUpgrades upgrade in availableUpgrades)
+                {
+                    upgrade.equipButton.GetComponent<Button>().interactable = true;
+                }
+            }
+            else
+            {
+                foreach (StoreUpgrades upgrade in availableUpgrades)
+                {
+                    upgrade.equipButton.GetComponent<Button>().interactable = false;
+                }
+            }
         }
         else
         {
@@ -165,20 +178,23 @@ public class ItemShop : MonoBehaviour
         if (SelectedUpgrade != null)
         {
             //check to see if either slots are open
-            if (UpgradeManager.instance.e_upgrade == Upgrade.None)
-            {
-                UpgradeManager.instance.e_upgrade = SelectedUpgrade.upgrade;
-                eButton.image.sprite = SelectedUpgrade.img;
-            }
-            else if (UpgradeManager.instance.q_upgrade == Upgrade.None)
+            if (UpgradeManager.instance.q_upgrade == Upgrade.None)
             {
                 UpgradeManager.instance.q_upgrade = SelectedUpgrade.upgrade;
                 qButton.image.sprite = SelectedUpgrade.img;
             }
+            else if (UpgradeManager.instance.e_upgrade == Upgrade.None)
+            {
+                UpgradeManager.instance.e_upgrade = SelectedUpgrade.upgrade;
+                eButton.image.sprite = SelectedUpgrade.img;
+            }
             else
             {
-                //really hacky and not intuitive, but maybe it should replace the left slot otherwise
-                //or maybe just grey it out - but this will make players think they cannot equip any other items 
+                //no slots available, make sure all are unable to be equipped
+                foreach (StoreUpgrades upgrade in availableUpgrades)
+                {
+                    upgrade.equipButton.GetComponent<Button>().interactable = false;
+                }
             }
         }
     }
@@ -199,6 +215,12 @@ public class ItemShop : MonoBehaviour
             eButton.image.sprite = null;
             eButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
 
+        }
+
+        //allow for equip if we have an empty slot
+        foreach (StoreUpgrades upgrade in availableUpgrades)
+        {
+            upgrade.equipButton.GetComponent<Button>().interactable = true;
         }
     }
 }
