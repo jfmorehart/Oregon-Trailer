@@ -219,6 +219,15 @@ public class mapUI : MonoBehaviour
                 uiMenuButtons[menuIndex].activate();
                 uiMenuButtons[menuIndex].buttonPress();
             }
+
+            for (int i = 0; i < uiMenuButtons.Count; i++)
+            {
+                //if we choose a thing thats not 
+                if(i != menuIndex)
+                {
+                    uiMenuButtons[i].resetStates();
+                }
+            }
         }
 
 
