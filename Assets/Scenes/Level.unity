@@ -8471,6 +8471,7 @@ MonoBehaviour:
   button: {fileID: 548442259}
   image: {fileID: 548442260}
   screen: 0
+  btn: {fileID: 0}
 --- !u!1 &552244803
 GameObject:
   m_ObjectHideFlags: 0
@@ -10451,6 +10452,7 @@ MonoBehaviour:
   button: {fileID: 672695273}
   image: {fileID: 672695274}
   screen: 4
+  btn: {fileID: 0}
 --- !u!1001 &676923605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12276,6 +12278,7 @@ MonoBehaviour:
   button: {fileID: 786345349}
   image: {fileID: 786345350}
   screen: 0
+  btn: {fileID: 0}
 --- !u!1 &787891142
 GameObject:
   m_ObjectHideFlags: 0
@@ -12498,6 +12501,7 @@ MonoBehaviour:
   button: {fileID: 806669131}
   image: {fileID: 806669132}
   screen: 0
+  btn: {fileID: 0}
 --- !u!1 &816287477
 GameObject:
   m_ObjectHideFlags: 0
@@ -18773,6 +18777,7 @@ MonoBehaviour:
   button: {fileID: 1289434456}
   image: {fileID: 1289434457}
   screen: 1
+  btn: {fileID: 0}
 --- !u!1 &1292295944
 GameObject:
   m_ObjectHideFlags: 0
@@ -27742,6 +27747,7 @@ GameObject:
   - component: {fileID: 1778210730}
   - component: {fileID: 1778210729}
   - component: {fileID: 1778210732}
+  - component: {fileID: 1778210733}
   m_Layer: 0
   m_Name: Back Button
   m_TagString: Untagged
@@ -27811,7 +27817,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1778210730}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1778210733}
+        m_TargetAssemblyTypeName: ChnageScene, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1778210730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27871,6 +27889,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1778210733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778210727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3a6042e9a404f75b33f9773be9c2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: StartScreen
 --- !u!1 &1778543054
 GameObject:
   m_ObjectHideFlags: 0
@@ -32077,6 +32108,7 @@ MonoBehaviour:
   button: {fileID: 2079236559}
   image: {fileID: 2079236560}
   screen: 2
+  btn: {fileID: 0}
 --- !u!1 &2092292683
 GameObject:
   m_ObjectHideFlags: 0
