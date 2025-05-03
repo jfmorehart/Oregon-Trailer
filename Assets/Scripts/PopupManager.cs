@@ -17,6 +17,7 @@ public class PopupManager : MonoBehaviour
     //checks for a certain input
 
     private bool isTutorializing = false;
+    public bool IsTutorializing => isTutorializing;
     public List<TutorialPopup> firstPopups = new List<TutorialPopup>();
     public TutorialPopup secondPopup;
 
@@ -27,23 +28,62 @@ public class PopupManager : MonoBehaviour
 
     public List<FlavorPopup> flavorPopups = new List<FlavorPopup>();
 
+    public static PopupManager instance;
 
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Awake()
     {
-        
+        instance = this;
+    }
+    //mapmanager checks if the map node has doTutorial
+    public void allowTutorial()
+    {
+        isTutorializing = true;
+    }
+    //only called if we complete the first level
+    public void tutorialDone()
+    {
+        isTutorializing = false;
+    }
+    public void addTutorialPopup(TutorialPopup pop)
+    {
+        if (pop.shootTutorial)
+            secondPopup = pop;
+        else
+            firstPopups.Add(pop);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isTutorializing)
+        {
+            tutorialMonitoring();
+        }
+        else
+        {
+            popupBehavior();
+        }
     }
 
-    public void activateTutorial()
+    public void tutorialMonitoring()
     {
         //activates the first section of the tutorial. If all of those are finished then
+        if (isTutorializing && firstPopups.Count > 0)
+        {
+            bool firstFinished = true;
+            for (int i = 0; i < firstPopups.Count; i++)
+            {
+                if (!firstPopups[i].finished)
+                    firstFinished = false;
+            }
 
+            if (firstFinished)
+            {
+                //do second popup
+                secondPopup.showTutorial();
+            }
+        }
     }
 
     public void popupBehavior()

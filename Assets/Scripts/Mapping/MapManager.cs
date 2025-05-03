@@ -429,6 +429,9 @@ public class MapManager : MonoBehaviour
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);
         instance._playerInTransit = true;
         instance.StartCoroutine(instance.PlayerTraveling(destNode));
+
+        //communicate with game popupmanager here
+
     }
 
     //should generalize this by taking in a certain action
