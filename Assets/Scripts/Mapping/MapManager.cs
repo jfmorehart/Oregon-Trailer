@@ -533,7 +533,6 @@ public class MapManager : MonoBehaviour
         }
         Restart();
 
-        // calculates player time
         if(_playerInTransit)
             playerCurrentTime += Time.deltaTime;
     }
