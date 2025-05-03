@@ -29,7 +29,8 @@ public class PopupManager : MonoBehaviour
     public List<FlavorPopup> flavorPopups = new List<FlavorPopup>();
 
     public static PopupManager instance;
-
+    [SerializeField]
+    private GameObject flavorPopoupPrefab;
     
     private void Awake()
     {
@@ -74,12 +75,15 @@ public class PopupManager : MonoBehaviour
             bool firstFinished = true;
             for (int i = 0; i < firstPopups.Count; i++)
             {
+                if (firstPopups[i] == null)
+                    continue;
                 if (!firstPopups[i].finished)
                     firstFinished = false;
             }
 
-            if (firstFinished)
+            if (firstFinished && secondPopup != null)
             {
+                Debug.Log("FirstFinished");
                 //do second popup
                 secondPopup.showTutorial();
             }

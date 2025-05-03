@@ -25,6 +25,7 @@ public class TutorialPopup : MonoBehaviour
             PopupManager.instance.addTutorialPopup(this);
             if (!shootTutorial)
             {
+                Debug.Log("showing tutorial");
                 showTutorial();
             }
         }
@@ -40,6 +41,9 @@ public class TutorialPopup : MonoBehaviour
         if (!finished && Input.GetKey(key))
         {
             timer += Time.deltaTime;
+            //alpha of this lerps to whatever % we are at, from 100-0%
+            //sr.color = (timer < 0.5f) ? Color.white : Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), (timer -0.5f / 1));
+            sr.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), (timer / 1));
         }
         if (finished)
         {
