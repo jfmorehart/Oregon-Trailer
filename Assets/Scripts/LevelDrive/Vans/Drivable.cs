@@ -39,6 +39,8 @@ public class Drivable : MonoBehaviour
 
 	float terrainGrip;
 
+	//public float sideDrag = 1;
+
 	bool turningLockout; //used while falling
 
 	//lists all of the stuff we're currently driving on
@@ -68,7 +70,14 @@ public class Drivable : MonoBehaviour
 	}
 
 	void OnKill()
-	{ 
+	{
+		if (turningLockout) {
+			Pool.splooshes.GetObject().Fire(transform.position, _rb.velocity.normalized, _rb.velocity);
+		}
+		else {
+			Pool.explosions.GetObject().Fire(transform.position, _rb.velocity.normalized, _rb.velocity);
+		}
+
 		breaker.onKill -= OnKill;
 		for (int i = 0; i < pickupValue; i++)
 		{
@@ -111,6 +120,14 @@ public class Drivable : MonoBehaviour
 
 		acceleration = baseAcceleration * terrainGrip;
 		_rb.velocity *= 1 - Time.fixedDeltaTime * drag * TotalTerrainDrag();
+
+
+		////identify perpendicular component of velocity
+		//float theta = Vector3.Angle(transform.right, _rb.velocity) * Mathf.Deg2Rad;
+		//float forward_component = _rb.velocity.magnitude * Mathf.Cos(theta);
+		//float right_component = _rb.velocity.magnitude * Mathf.Sin(theta);
+		//Vector2 newR = transform.right * forward_component + (-transform.up) * right_component * (1 - Time.fixedDeltaTime * sideDrag);
+		//_rb.velocity = newR;
 
 		if (boostActive)
 		{

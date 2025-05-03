@@ -9,9 +9,6 @@ public class SplineEditor : MonoBehaviour
 {
 	//[HideInInspector]
 
-
-
-
 	public GameObject nodePrefab;
 	public GameObject influencePrefab;
 	public GameObject influenceBPrefab;
@@ -28,11 +25,7 @@ public class SplineEditor : MonoBehaviour
 	public bool EnforceContinuity;
 	public bool ResetTools; //used for editorbutton
 
-	private void Awake()
-	{
-		KillTools();
-		CreateTools();
-	}
+	[ExecuteInEditMode]
 	private void Update()
 	{
 		if (ResetTools) {
@@ -44,6 +37,8 @@ public class SplineEditor : MonoBehaviour
 			UpdateHandles();
 		}
 		UpdateMeshes();
+
+		UnityEditor.EditorUtility.SetDirty(this);
 	}
 	public void UpdateHandles() { 
 		for(int i = 1; i < influenceA_nodes.Count; i++) {
@@ -53,7 +48,7 @@ public class SplineEditor : MonoBehaviour
 		}
     }
 	public void UpdateMeshes() {
-		Debug.Log("update");
+
 		for(int i = 0; i + 1 < mesh_filters.Count; i++) {
 			MeshFilter mf = mesh_filters[i];
 			Mesh m = mf.sharedMesh;
@@ -93,7 +88,6 @@ public class SplineEditor : MonoBehaviour
 			m.uv = meshData.Item2;
 			m.triangles = meshData.Item3;
 			mesh_filters[i].sharedMesh = m;
-			Debug.Log("assign");
 		}
 	}
 	public void KillTools() { 
@@ -111,8 +105,6 @@ public class SplineEditor : MonoBehaviour
 
 		Vector2 pos = transform.position - Vector3.right * (segments * spacer * 1.5f);
 		for(int i = 0; i < segments + 1; i++) {
-			Debug.Log(i);
-
 			GameObject go = Instantiate(nodePrefab, pos, Quaternion.identity, transform);
 			if (i > 0)
 			{

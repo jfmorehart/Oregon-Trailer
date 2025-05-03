@@ -39,10 +39,12 @@ public class mapUI : MonoBehaviour
     [Header("Menu Transforms")]
     [SerializeField]
     Transform topResources;
+    /*
     [SerializeField]
     Transform CharacterScreen;
     [SerializeField]
     Vector2 characterScreenONScreenLocation, characterScreenOFFScreenLocation;
+    */
     [SerializeField]
     mapScreens currentScreen = mapScreens.map;
     [SerializeField]
@@ -278,6 +280,7 @@ public class mapUI : MonoBehaviour
         //Debug.Log("popping up to " + endPosition);
     }
 
+    
     public void characterScreenMove()
     {
         if (currentScreen != mapScreens.character)
@@ -414,9 +417,11 @@ public class mapUI : MonoBehaviour
             case mapScreens.map:
                 mapButton();
                 break;
+            /*
             case mapScreens.character:
                 characterScreenMove();
                 break;
+                */
             case mapScreens.upgrade:
                 upgradeScreenMove();
                 break;

@@ -83,16 +83,22 @@ public class ItemShop : MonoBehaviour
 
     public void closePanel()
     {
-        ItemDescriptionPanel.gameObject.SetActive(false);
+        //ItemDescriptionPanel.gameObject.SetActive(false);
     }
     public void selectUpgrade(StoreUpgrades su)
     {
-        ItemDescriptionPanel.SetActive(true);
+        
+        //ItemDescriptionPanel.SetActive(true);
         SelectedUpgrade = su;
+        Debug.Log("Selected: " + su.name);
+        /*
         ItemCostText.text = "" + su.cost;
         ItemDescriptionText.text = su.desc;
         ItemNameText.text = su.Name;
         ItemImage.sprite = su.img;
+        */
+        //TODO HERE - 4/28
+        /*
         if (MapManager.instance.Money > SelectedUpgrade.cost)
         {
             itemBuyButton.interactable = true;
@@ -101,10 +107,13 @@ public class ItemShop : MonoBehaviour
         {
             itemBuyButton.interactable = false;
         }
+        */
     }
 
     public void buyUpgrade()
     {
+        Debug.Log("Buy Upgrade : " + SelectedUpgrade);
+        /* --- UI --- */
         if (SelectedUpgrade != null)
         {
             MapManager.instance.BuyResource(SelectedUpgrade.cost);
@@ -124,6 +133,8 @@ public class ItemShop : MonoBehaviour
             GarageManager.instance.addUpgrade(boughtUpgrade);
 
             closePanel();
+            availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject.SetActive(true);
+
             Destroy(availableUpgrades.Find(x => x.upgrade == SelectedUpgrade.upgrade).gameObject);
         }
         else
