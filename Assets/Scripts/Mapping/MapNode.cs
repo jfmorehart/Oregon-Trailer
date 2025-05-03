@@ -185,6 +185,7 @@ public class MapNode : MonoBehaviour
 
         if (!MapManager.PlayerInTransit && playerCanChoose)
         {
+            //Debug.Log("Player in transit");
             checkIfChosen();
         }
 
@@ -346,21 +347,25 @@ public class MapNode : MonoBehaviour
             }
             return;
         }
+        Debug.Log("level is unlocked and player can choose");
 
         //check to see if the player clicks on this point
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
         {
             if (!_boxCollider.isActiveAndEnabled)
             {
+                Debug.Log("Activating the box collider");
                 _boxCollider.enabled = true;
                 //Debug.Log("Collider is not active enable now");
             }
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider == null)
             {
-                //Debug.Log("Player Hit Nothing");
+                Debug.Log("Player Hit Nothing");
                 return;
             }
+            Debug.Log("Player Checking");
+
             if (hit.collider.gameObject == gameObject)
             {
                 MapManager.playerTraveling(this);
