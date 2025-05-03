@@ -24,6 +24,17 @@ public class TopUIButton : MonoBehaviour
     [Header("Image")]
     public Image image;
     public mapUI.mapScreens screen;
+
+    public Button btn;
+
+    private void Awake()
+    {
+        btn = GetComponent<Button>();
+        pressedState.selectedSprite = activeSprite;
+        pressedState.highlightedSprite = activeSprite;
+        unpressedState.selectedSprite = inactiveSprite;
+        unpressedState.highlightedSprite = highlightedSprite;
+    }
     public void buttonPress()
     {
         mapUI.instance.buttonPressed(screen);
@@ -32,6 +43,8 @@ public class TopUIButton : MonoBehaviour
     public void deselect()
     {
         image.sprite = inactiveSprite;
+        unpressedState.highlightedSprite = highlightedSprite;
+        resetStates();
         pressed = false;
         if(unpressedState.highlightedSprite != null)
             button.spriteState = unpressedState;
@@ -40,23 +53,38 @@ public class TopUIButton : MonoBehaviour
     public void highlight()
     {
         image.sprite = highlightedSprite;
-        unpressedState = button.spriteState;
+
+        //unpressedState = button.spriteState;
     }
     public void activate()
     {
         unpressedState = button.spriteState;
-        pressedState.selectedSprite = activeSprite;
-        pressedState.highlightedSprite = activeSprite;
+
         button.spriteState = pressedState;
 
         image.sprite = activeSprite;
         pressed = true;
     }
 
+    public void resetStates()
+    {
+        if (pressed)
+            return;
+        pressedState.highlightedSprite = activeSprite;
+        pressedState.selectedSprite = activeSprite;
+        unpressedState.highlightedSprite = highlightedSprite;
+        unpressedState.selectedSprite = inactiveSprite;
+        //unpressedState.pressedSprite = inactiveSprite;
+    }
+
     private void Update()
     {
         if (pressed)
             button.image.sprite = activeSprite;
+        if(!pressed)
+        {
+            unpressedState.highlightedSprite = highlightedSprite;
+        }
     }
 
     public void leftButton()

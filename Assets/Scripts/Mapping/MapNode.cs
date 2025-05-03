@@ -1,11 +1,7 @@
-using DG.Tweening;
-using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Burst.CompilerServices;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class MapNode : MonoBehaviour
@@ -16,7 +12,7 @@ public class MapNode : MonoBehaviour
 
     [SerializeField]
     private Transform _vanPosition;
-    
+
     public Transform VanPosition => _vanPosition;
     //difference between this position and the other 
     public float vanPositionDifference { get { return VanPosition.position.y - transform.position.y; } }
@@ -46,7 +42,7 @@ public class MapNode : MonoBehaviour
     public faction LocationFaction => _locationFaction;
     [SerializeField]
     private TextAsset locationEvent;
-    
+
     private Sprite _eventBackground;
 
 
@@ -55,8 +51,6 @@ public class MapNode : MonoBehaviour
 
     [SerializeField]
     public winCondition WinCondition;
-
-    public GameObject self;
 
     public enum activity
     {
@@ -77,8 +71,8 @@ public class MapNode : MonoBehaviour
 
     //public List<TextAsset> inNodeQuests = new List<TextAsset>();
 
-    int earnedStars = 0;//earn 1 star when finishing the level
-    float timeSpentInLevel = 0;//start with 0 time in each level
+    public int earnedStars = 0;//earn 1 star when finishing the level
+    public float timeSpentInLevel = 0;//start with 0 time in each level
     [SerializeField]
     float twoStarTime;
     public float TwoStarTime => twoStarTime;
@@ -87,6 +81,14 @@ public class MapNode : MonoBehaviour
     public float ThreeStarTime => threeStarTime;
     [SerializeField]
     bool goToGarageScreenOnComplete = false;
+    GameObject hoverPanelPrefab;
+    HoverPanelUI ownedHoverPanel;
+    public bool allowHover = true;
+    [SerializeField]
+    bool isLocked = true;
+    [SerializeField]
+    public int levelCost = 0;
+
     public void Awake()
     {
         //quickly loop through roads and make sure everything is properly set up
@@ -98,7 +100,7 @@ public class MapNode : MonoBehaviour
         {
             for (int i = 0; i < Roads.Length; i++)
             {
-                RoadPath r = Roads[i]; 
+                RoadPath r = Roads[i];
                 //default length should be 5
                 if (Roads[i].roadLength == 0)
                     r.roadLength = 5;
@@ -109,14 +111,14 @@ public class MapNode : MonoBehaviour
                     Debug.LogError("The destination is not set on roadPath: " + transform.name);
             }
         }
-        
+
 
         sr = GetComponent<Image>();
         _boxCollider = GetComponent<BoxCollider2D>();
-        int rn = Random.Range(0,100);
+        int rn = UnityEngine.Random.Range(0, 100);
 
         _nodeIconRenderer.gameObject.SetActive(true);
-        
+
         switch (LocationActivity)
         {
             case activity.Diner:
@@ -142,6 +144,21 @@ public class MapNode : MonoBehaviour
         if (WinCondition == null)
             WinCondition = GetComponent<winCondition>();
         lrSpriteOrdering();
+
+        if (levelCost == 0)
+            isLocked = false;
+        else
+            isLocked = true;
+
+        var hvp = Resources.Load<GameObject>("Prefabs/HoverPanel");
+        Debug.Log("Hover panel prefab initialized");
+        hoverPanelPrefab = hvp;
+        GameObject hvpGO = Instantiate(hoverPanelPrefab, transform);
+
+        ownedHoverPanel = hvpGO.GetComponent<HoverPanelUI>();
+        ownedHoverPanel.transform.localPosition= new Vector3(0, 87, 0);
+        ownedHoverPanel.init(this);
+
     }
 
     private void lrSpriteOrdering()
@@ -163,24 +180,22 @@ public class MapNode : MonoBehaviour
 
     private void Update()
     {
-        
+
         generateLine();
 
         if (!MapManager.PlayerInTransit && playerCanChoose)
         {
+            //Debug.Log("Player in transit");
             checkIfChosen();
-            
-            // Add animations for the choosable Icon by changing its scale?
-            
         }
 
-        if (!playerCanChoose)
+        /*if (!playerCanChoose)
         {
             if (_boxCollider.isActiveAndEnabled)
             {
                 _boxCollider.enabled = false;
             }
-        }
+        }*/
     }
 
 
@@ -195,7 +210,7 @@ public class MapNode : MonoBehaviour
         //unload the driving level
         timeSpentInLevel = timeEarned;
         Debug.Log("Location Reached");
-        if(locationEvent != null)
+        if (locationEvent != null)
             centralEventHandler.StartEvent(locationEvent, doActivity, _eventBackground);
         else
         {
@@ -247,20 +262,20 @@ public class MapNode : MonoBehaviour
     //cause the point to flash
     public void destinationFlash()
     {
-        Debug.Log(transform.name  + "Flashing ");
+        Debug.Log(transform.name + "Flashing ");
         StartCoroutine(destinationflashroutine());
     }
     //maybe change this to sine wave?
     private IEnumerator destinationflashroutine()
     {
         Color startColor = Color.white;
-        Color blinkColor = new Color((float)222 / 255, (float)209 / 255, (float)209 / 255); 
+        Color blinkColor = new Color((float)222 / 255, (float)209 / 255, (float)209 / 255);
         float timer = 0;
         float duration = 1.5f;
         sr.color = startColor;
         while (timer < duration)
         {
-            sr.color = Color.Lerp(startColor, blinkColor, timer/duration);
+            sr.color = Color.Lerp(startColor, blinkColor, timer / duration);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -275,7 +290,7 @@ public class MapNode : MonoBehaviour
         sr.color = startColor;
         StartCoroutine(destinationflashroutine());
     }
-    
+
 
     public void potentialPointFlash() //changed the color from blue to white to better suit the UI mockup
     {
@@ -295,47 +310,100 @@ public class MapNode : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public void MouseHasEntered()
-    {
-        if(playerCanChoose)
-            transform.localScale = new Vector2(1.2f, 1.2f);
-    }
-    
-    public void MouseHasLeft()
-    {
-        transform.localScale = new Vector2(1f, 1f);
-    }
-
 
     //check to see if the player clicks on this point
     private void checkIfChosen()
     {
-        // if mouse is hovering on the node (?)
-        
-        //check to see if the player clicks on this point
-        if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
+        if (isLocked && playerCanChoose)
         {
             if (!_boxCollider.isActiveAndEnabled)
             {
                 _boxCollider.enabled = true;
                 //Debug.Log("Collider is not active enable now");
             }
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero );
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider == null)
             {
                 //Debug.Log("Player Hit Nothing");
                 return;
             }
-			if (hit.collider.gameObject == gameObject)
-			{
-				MapManager.playerTraveling(this);
-				Debug.Log("Player chose " + transform.name);
+
+            if (hit.collider.gameObject == gameObject && (Input.GetKeyDown(KeyCode.Mouse0)))
+            {
+                //unlock the level
+                if (MapManager.instance.Money < levelCost)
+                {
+                    return;
+                }
+                else
+                {
+                    //buy the level
+                    MapManager.instance.BuyResource(levelCost);
+                    isLocked = false;
+                    showHoverUI();
+                    ownedHoverPanel.showUnlocked();
+                    Debug.Log("Unlocked level");
+                }
+            }
+            return;
+        }
+
+        //check to see if the player clicks on this point
+        if (Input.GetKeyDown(KeyCode.Mouse0) && playerCanChoose)
+        {
+            if (!_boxCollider.isActiveAndEnabled)
+            {
+                Debug.Log("Activating the box collider");
+                _boxCollider.enabled = true;
+                //Debug.Log("Collider is not active enable now");
+            }
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider == null)
+            {
+                Debug.Log("Player Hit Nothing " + transform.name);
+                return;
+            }
+            
+            if (hit.collider.gameObject == gameObject)
+            {
+                MapManager.playerTraveling(this);
+                Debug.Log("Player chose " + transform.name);
 
                 //go into driving scene
             }
         }
     }
+    private void showHoverUI()
+    {
+        //activate the stats for that level
+        //if (allowHover)
+        //{
+            ownedHoverPanel.gameObject.SetActive(true);
+            if (isLocked)
+            {
+                ownedHoverPanel.showLocked();
+                //ownedHoverPanel.SetActive(false);
+                //hoverLockedPanel.SetActive(true);
+                //hoverCostText.text = "cost here";
+            }
+            else
+            {
+                ownedHoverPanel.showUnlocked();
+            }
+        //}
+    }
+    private void OnMouseOver()
+    {
+        showHoverUI();
 
+    }
+    private void OnMouseExit()
+    {
+        ownedHoverPanel.gameObject.SetActive(false);
+    }
+
+
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (Roads.Length > 0)
@@ -349,6 +417,7 @@ public class MapNode : MonoBehaviour
             }
         }
     }
+#endif
 
     private void generateLine()
     {
@@ -386,7 +455,7 @@ public class MapNode : MonoBehaviour
             if (Roads[i].Destination == destination)
             {
                 MapManager.instance.playersNewPath = Roads[i];
-				return (Roads[i].forcedQuests.Length ==0) ? new List<TextAsset>(): new List<TextAsset>(Roads[i].forcedQuests); 
+                return (Roads[i].forcedQuests.Length == 0) ? new List<TextAsset>() : new List<TextAsset>(Roads[i].forcedQuests);
             }
         }
 
@@ -415,9 +484,10 @@ public struct RoadPath
 
 }
 [System.Serializable]
-public enum BiomeType { 
+public enum BiomeType
+{
     None,
     Desert,
-    Canyon, 
+    Canyon,
     Forest
 }

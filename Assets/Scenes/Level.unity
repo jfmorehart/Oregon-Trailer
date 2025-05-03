@@ -8006,6 +8006,7 @@ MonoBehaviour:
   button: {fileID: 548442259}
   image: {fileID: 548442260}
   screen: 0
+  btn: {fileID: 0}
 --- !u!1 &552244803
 GameObject:
   m_ObjectHideFlags: 0
@@ -8560,6 +8561,9 @@ MonoBehaviour:
   upgrade: 4
   descriptionText: {fileID: 0}
   itemDescription: {fileID: 0}
+  buyButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  costText: {fileID: 0}
 --- !u!114 &584749749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9447,6 +9451,7 @@ MonoBehaviour:
   button: {fileID: 0}
   image: {fileID: 0}
   screen: 0
+  btn: {fileID: 0}
 --- !u!1 &635786971
 GameObject:
   m_ObjectHideFlags: 0
@@ -10033,6 +10038,7 @@ MonoBehaviour:
   button: {fileID: 672695273}
   image: {fileID: 672695274}
   screen: 4
+  btn: {fileID: 0}
 --- !u!1001 &676923605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11788,6 +11794,7 @@ MonoBehaviour:
   button: {fileID: 786345349}
   image: {fileID: 786345350}
   screen: 0
+  btn: {fileID: 0}
 --- !u!1 &787891142
 GameObject:
   m_ObjectHideFlags: 0
@@ -12010,6 +12017,7 @@ MonoBehaviour:
   button: {fileID: 806669131}
   image: {fileID: 806669132}
   screen: 0
+  btn: {fileID: 0}
 --- !u!1 &816287477
 GameObject:
   m_ObjectHideFlags: 0
@@ -12419,7 +12427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.98823535, g: 0.97647065, b: 0.7058824, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12480,9 +12488,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1989912691}
-        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
-        m_MethodName: openUpgradeChoiceMenu
+      - m_Target: {fileID: 1274864863}
+        m_TargetAssemblyTypeName: ItemShop, Assembly-CSharp
+        m_MethodName: clearEquipmentSlot
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13022,6 +13030,9 @@ MonoBehaviour:
   upgrade: 2
   descriptionText: {fileID: 0}
   itemDescription: {fileID: 0}
+  buyButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  costText: {fileID: 0}
 --- !u!114 &902930379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14818,6 +14829,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
+      objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.0000038146973
@@ -15136,6 +15155,9 @@ MonoBehaviour:
   upgrade: 3
   descriptionText: {fileID: 0}
   itemDescription: {fileID: 0}
+  buyButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  costText: {fileID: 0}
 --- !u!114 &1001118403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17648,10 +17670,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemshopScene: {fileID: 1989912689}
   availableUpgrades:
-  - {fileID: 2037163707}
-  - {fileID: 584749748}
-  - {fileID: 902930378}
-  - {fileID: 1001118402}
+  - {fileID: 1198100152}
+  - {fileID: 1638199228}
+  - {fileID: 966474635}
+  - {fileID: 2103622622}
   ItemDescriptionPanel: {fileID: 828139611}
   ItemNameText: {fileID: 1246678987}
   ItemDescriptionText: {fileID: 157749850}
@@ -17659,6 +17681,8 @@ MonoBehaviour:
   ItemImage: {fileID: 1980870416}
   itemBuyButton: {fileID: 1601287415}
   stealButton: {fileID: 0}
+  eButton: {fileID: 1914730285}
+  qButton: {fileID: 865578077}
   vanRepairCost: 25
 --- !u!1 &1279134710
 GameObject:
@@ -20068,6 +20092,14 @@ PrefabInstance:
     - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
       objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -23532,7 +23564,6 @@ MonoBehaviour:
   - 0
   - -955
   - -1957.57
-  - -2952.38
   transitionSpeed: 0.7
 --- !u!1 &1629944480
 GameObject:
@@ -24110,6 +24141,14 @@ PrefabInstance:
     - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
       objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -25684,6 +25723,9 @@ MonoBehaviour:
   upgrade: 1
   descriptionText: {fileID: 0}
   itemDescription: {fileID: 0}
+  buyButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  costText: {fileID: 0}
 --- !u!114 &1740365458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26669,6 +26711,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
+      objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.0000038146973
@@ -26862,6 +26912,7 @@ GameObject:
   - component: {fileID: 1778210730}
   - component: {fileID: 1778210729}
   - component: {fileID: 1778210732}
+  - component: {fileID: 1778210733}
   m_Layer: 0
   m_Name: Back Button
   m_TagString: Untagged
@@ -26931,7 +26982,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1778210730}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1778210733}
+        m_TargetAssemblyTypeName: ChnageScene, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1778210730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26991,6 +27054,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1778210733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778210727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3a6042e9a404f75b33f9773be9c2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: StartScreen
 --- !u!1 &1778543054
 GameObject:
   m_ObjectHideFlags: 0
@@ -29043,9 +29119,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1989912691}
-        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
-        m_MethodName: openUpgradeChoiceMenu
+      - m_Target: {fileID: 1274864863}
+        m_TargetAssemblyTypeName: ItemShop, Assembly-CSharp
+        m_MethodName: clearEquipmentSlot
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -29053,7 +29129,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1914730286
 MonoBehaviour:
@@ -29068,7 +29144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.98823535, g: 0.97647065, b: 0.7058824, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -29698,7 +29774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1953, y: 0}
+  m_AnchoredPosition: {x: 985, y: 0}
   m_SizeDelta: {x: 1000, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1989912691
@@ -29714,10 +29790,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allUpgrades:
-  - {fileID: 1740365457}
-  - {fileID: 1001118402}
-  - {fileID: 902930378}
-  - {fileID: 584749748}
+  - {fileID: 1198100152}
+  - {fileID: 1638199228}
+  - {fileID: 966474635}
+  - {fileID: 2103622622}
   upgradeChoiceParent: {fileID: 723523452}
   primaryName: {fileID: 1156777980}
   secondaryName: {fileID: 0}
@@ -30141,7 +30217,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2625, y: 15}
+  m_AnchoredPosition: {x: 1657, y: 15}
   m_SizeDelta: {x: 25.94, y: 41.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2038009719
@@ -31007,6 +31083,7 @@ MonoBehaviour:
   button: {fileID: 2079236559}
   image: {fileID: 2079236560}
   screen: 2
+  btn: {fileID: 0}
 --- !u!1 &2092292683
 GameObject:
   m_ObjectHideFlags: 0
