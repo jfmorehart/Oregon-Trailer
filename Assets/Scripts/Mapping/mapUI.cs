@@ -314,7 +314,7 @@ public class mapUI : MonoBehaviour
             //StartCoroutine(MoveCharacterScreenRoutine());
             //CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.upgrade;
-            Vector2 upgradePos = new Vector2(mapScreenPositions[2], 0);
+            Vector2 upgradePos = new Vector2(mapScreenPositions[1], 0);
             menuScreenParent.transform.DOLocalMove(upgradePos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
         }
     }
@@ -336,7 +336,7 @@ public class mapUI : MonoBehaviour
             currentScreen = mapScreens.settings;
             //CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             //upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
-            Vector2 settingsScreenPos = new Vector2(mapScreenPositions[3], 0);
+            Vector2 settingsScreenPos = new Vector2(mapScreenPositions[2], 0);
             menuScreenParent.transform.DOLocalMove(settingsScreenPos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
         }
     }

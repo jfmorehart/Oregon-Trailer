@@ -9271,6 +9271,7 @@ MonoBehaviour:
   button: {fileID: 0}
   image: {fileID: 0}
   screen: 0
+  btn: {fileID: 0}
 --- !u!1 &635786971
 GameObject:
   m_ObjectHideFlags: 0
@@ -12246,7 +12247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.98823535, g: 0.97647065, b: 0.7058824, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12307,9 +12308,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1989912691}
-        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
-        m_MethodName: openUpgradeChoiceMenu
+      - m_Target: {fileID: 1274864863}
+        m_TargetAssemblyTypeName: ItemShop, Assembly-CSharp
+        m_MethodName: clearEquipmentSlot
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14545,6 +14546,14 @@ PrefabInstance:
     - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
       objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -17438,10 +17447,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemshopScene: {fileID: 1989912689}
   availableUpgrades:
-  - {fileID: 2037163707}
-  - {fileID: 584749748}
-  - {fileID: 902930378}
-  - {fileID: 1001118402}
+  - {fileID: 1198100152}
+  - {fileID: 1638199228}
+  - {fileID: 966474635}
+  - {fileID: 2103622622}
   ItemDescriptionPanel: {fileID: 828139611}
   ItemNameText: {fileID: 1246678987}
   ItemDescriptionText: {fileID: 157749850}
@@ -17449,8 +17458,8 @@ MonoBehaviour:
   ItemImage: {fileID: 1980870416}
   itemBuyButton: {fileID: 1601287415}
   stealButton: {fileID: 0}
-  eButton: {fileID: 0}
-  qButton: {fileID: 0}
+  eButton: {fileID: 1914730285}
+  qButton: {fileID: 865578077}
   vanRepairCost: 25
 --- !u!1 &1279134710
 GameObject:
@@ -19860,6 +19869,14 @@ PrefabInstance:
     - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
       objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -23324,7 +23341,6 @@ MonoBehaviour:
   - 0
   - -955
   - -1957.57
-  - -2952.38
   transitionSpeed: 0.7
 --- !u!1 &1629944480
 GameObject:
@@ -23902,6 +23918,14 @@ PrefabInstance:
     - target: {fileID: 2309722448104830525, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
       objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -26464,6 +26488,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ItemShop, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274864863}
+    - target: {fileID: 3387142838251112646, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: equipUpgrade
+      objectReference: {fileID: 0}
     - target: {fileID: 4633866040517013503, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.0000038146973
@@ -28838,9 +28870,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1989912691}
-        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
-        m_MethodName: openUpgradeChoiceMenu
+      - m_Target: {fileID: 1274864863}
+        m_TargetAssemblyTypeName: ItemShop, Assembly-CSharp
+        m_MethodName: clearEquipmentSlot
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28848,7 +28880,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1914730286
 MonoBehaviour:
@@ -28863,7 +28895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.98823535, g: 0.97647065, b: 0.7058824, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -29509,10 +29541,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allUpgrades:
-  - {fileID: 1740365457}
-  - {fileID: 1001118402}
-  - {fileID: 902930378}
-  - {fileID: 584749748}
+  - {fileID: 1198100152}
+  - {fileID: 1638199228}
+  - {fileID: 966474635}
+  - {fileID: 2103622622}
   upgradeChoiceParent: {fileID: 723523452}
   primaryName: {fileID: 1156777980}
   secondaryName: {fileID: 0}
