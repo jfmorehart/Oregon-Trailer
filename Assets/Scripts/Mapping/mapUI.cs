@@ -209,7 +209,7 @@ public class mapUI : MonoBehaviour
             if (Input.GetKey(KeyCode.D))
             {
                 rightButton.activate();
-                Debug.Log("hitting d key");
+                //Debug.Log("hitting d key");
             }
             else
             {
@@ -220,6 +220,15 @@ public class mapUI : MonoBehaviour
             {
                 uiMenuButtons[menuIndex].activate();
                 uiMenuButtons[menuIndex].buttonPress();
+            }
+
+            for (int i = 0; i < uiMenuButtons.Count; i++)
+            {
+                //if we choose a thing thats not 
+                if(i != menuIndex)
+                {
+                    uiMenuButtons[i].resetStates();
+                }
             }
         }
 
@@ -305,7 +314,7 @@ public class mapUI : MonoBehaviour
             //StartCoroutine(MoveCharacterScreenRoutine());
             //CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             currentScreen = mapScreens.upgrade;
-            Vector2 upgradePos = new Vector2(mapScreenPositions[2], 0);
+            Vector2 upgradePos = new Vector2(mapScreenPositions[1], 0);
             menuScreenParent.transform.DOLocalMove(upgradePos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
         }
     }
@@ -327,7 +336,7 @@ public class mapUI : MonoBehaviour
             currentScreen = mapScreens.settings;
             //CharacterScreen.transform.DOLocalMove(characterScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
             //upgradeScreen.transform.DOLocalMove(UpgradeScreenOFFScreenLocation, mapSectionEaseDuration, false).SetEase(Ease.InOutCirc).SetUpdate(true);
-            Vector2 settingsScreenPos = new Vector2(mapScreenPositions[3], 0);
+            Vector2 settingsScreenPos = new Vector2(mapScreenPositions[2], 0);
             menuScreenParent.transform.DOLocalMove(settingsScreenPos, transitionSpeed, false).SetEase(Ease.InOutCirc).SetUpdate(true);
         }
     }

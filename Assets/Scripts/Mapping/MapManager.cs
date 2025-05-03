@@ -594,11 +594,13 @@ public class MapManager : MonoBehaviour
         if (goToGarageScene)
         {
             mapUI.instance.buttonPressed(mapUI.mapScreens.upgrade);
+            //TODO change to instant popup - 
         }
 
         if (fuel <= 0)
         {
-            playerDiedScreen.SetActive(true);
+            //we no longer have fuel
+            //playerDiedScreen.SetActive(true);
         }
         money += starsEarnedInLevel;
         allowDestinationChoice();
