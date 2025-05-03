@@ -59,6 +59,11 @@ public class InLevelCarSlider : MonoBehaviour
     }
     public Action onKill;
     private Breakable playervan;
+
+    public GameObject objectivePrefab;
+    private GameObject objectiveInstance;
+    
+    
     public void startLevel() //instantiate
     {
         updateUpgradeUI();
@@ -92,10 +97,24 @@ public class InLevelCarSlider : MonoBehaviour
         levelRestartText.gameObject.SetActive(false);
         
         // give the starts their values
+        // in index 1, the 3 stars resides
         twoStarImages[1].GetComponent<StarFillUI>().startTime = 0f;
         twoStarImages[1].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.ThreeStarTime;
+        // in index 0, the 2 stars resides
         twoStarImages[0].GetComponent<StarFillUI>().startTime = MapManager.instance.playerDestinationNode.ThreeStarTime;
         twoStarImages[0].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.TwoStarTime;
+        
+        //show level objective text
+        objectiveInstance = Instantiate(objectivePrefab.gameObject); // instantiate it at the middle of the screen
+        // Change where the prefab gets instantiated
+        objectiveInstance.transform.parent = MapManager.instance.transform;
+        //Change the prefabs transform
+        objectiveInstance.transform.position = new Vector2(0, 10);
+        // Change Text
+        objectiveInstance.GetComponent<ObjectivePopUp>().questDisplay.text =  
+            "<u>" +MapManager.instance.playersCurrentNode.NodeName +"</u>"+ "\nObjective: " +
+            MapManager.instance.playersCurrentNode.WinCondition.winConditionText.ToString();
+
 
     }
 
