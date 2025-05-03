@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEditor.Experimental.GraphView;
 public class winCondition : MonoBehaviour
 {
+    public string winConditionText;
 
     public enum winconditions
     {
