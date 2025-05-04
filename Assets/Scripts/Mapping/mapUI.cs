@@ -353,6 +353,7 @@ public class mapUI : MonoBehaviour
     {
         inLevel = true;
         vanrb = PlayerVan.vanTransform.GetComponent<Rigidbody2D>();
+        ShouldBeInteractedWith = false;
     }
 
     //should probably make this use the event system instead
