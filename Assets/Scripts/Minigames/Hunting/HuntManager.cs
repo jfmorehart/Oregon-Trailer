@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,10 +51,32 @@ public class HuntManager : MonoBehaviour
     }
 
 
+    IEnumerator ButtonTimer(float seconds)
+    {
+        buttonUnavailableObject.SetActive(true);
+        float timer = 0;
+        while (timer < seconds)
+        {
+            timer+=Time.deltaTime;
+            if (timer >= seconds)
+            {
+                buttonUnavailableObject.SetActive(false);
+                break;
+            }
+            yield return null;
+        }
+
+    }
+
+    public GameObject buttonUnavailableObject; // the object will set active on initiation, will turn off after 5 seconds
     public void displayHunt(bool goToGarageScreenOnComplete, float timeEarned, float twoStarTime, float threeStarTime, int starsEarned)
     {
+        //--------------------------------------------------------level has ended, show stats
 
         huntScene.SetActive(true);
+        // button unavailable
+        StartCoroutine(ButtonTimer(4));
+        
         //one star is active automatically
         Debug.Log("Stars earned " + starsEarned);
         oneStar.SetActive(true);
@@ -122,6 +145,7 @@ public class HuntManager : MonoBehaviour
     }
     public void hideHunt()
     {
+        //only work if all stars has gone to the end
         huntScene.SetActive(false);
 
 
