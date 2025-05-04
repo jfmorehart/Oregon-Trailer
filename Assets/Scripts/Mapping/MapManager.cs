@@ -469,7 +469,7 @@ public class MapManager : MonoBehaviour
 
         //lower the map
         mapUI.instance.instantPullDown();
-        mapUI.instance.ShouldBeInteractedWith = true;
+        mapUI.instance.ShouldBeInteractedWith = false;
         InLevelCarSlider.instance.startLevel();
         mapUI.instance.startLevel();
 
