@@ -1581,10 +1581,10 @@ MonoBehaviour:
   ESlotImage: {fileID: 2034522379}
   qText: {fileID: 600439772}
   eText: {fileID: 710145610}
-  boostersprite: {fileID: 21300000, guid: 105bc5d064863e5479142e881ecbdf71, type: 3}
-  rocketsprite: {fileID: 21300000, guid: 61782595559fade4882250944712888a, type: 3}
+  boostersprite: {fileID: 21300000, guid: 3f1a1468d09d44ea2a5d56be98cd5aaf, type: 3}
+  rocketsprite: {fileID: 2130436493, guid: eb6d7fc738177a949b835503d55bae8e, type: 3}
   grenadesprite: {fileID: 21300000, guid: faf5b81bf06ee4bb7b2acd2fc140baaa, type: 3}
-  oilsprite: {fileID: 21300000, guid: 9913249bd3c4b994a84f262bd168fc9a, type: 3}
+  oilsprite: {fileID: 21300000, guid: 3af1be462f6414044860186abec0512d, type: 3}
   nonesprite: {fileID: 21300000, guid: 105bc5d064863e5479142e881ecbdf71, type: 3}
   currentTimeText: {fileID: 1126542825}
   twoStarTimeText: {fileID: 268491483}
@@ -4729,6 +4729,8 @@ MonoBehaviour:
   oneStar: {fileID: 737273500}
   twoStar: {fileID: 1250737763}
   ThreeStar: {fileID: 1279134710}
+  starEarnedVFX_Prefab: {fileID: 0}
+  starResourceUIObj: {fileID: 0}
 --- !u!1 &330638445
 GameObject:
   m_ObjectHideFlags: 0
@@ -15107,7 +15109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: desc
-      value: A Nitrous Booster to make your car faster and blaze through teh ro
+      value: Boost your speed and blaze through the road
       objectReference: {fileID: 0}
     - target: {fileID: 6195591464154369185, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchorMax.y
@@ -20503,8 +20505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: desc
-      value: A Firecracker Grenade to blow up structures and enemies standing in
-        your way.
+      value: Blow up anything standing in your way
       objectReference: {fileID: 0}
     - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: upgrade
@@ -24628,7 +24629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: desc
-      value: An Oil Slick to detrack your enemies into a slippery demise.
+      value: Detrack your enemies into a slippery demise
       objectReference: {fileID: 0}
     - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: upgrade
@@ -27235,7 +27236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: desc
-      value: 'An all American Tank Gun to Shoot a powerful missile into your enemies.  '
+      value: Shoot an all american missile
       objectReference: {fileID: 0}
     - target: {fileID: 5371308840381849501, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: upgrade
@@ -32504,6 +32505,7 @@ MonoBehaviour:
   boundary_point: {fileID: 6394786886347970076, guid: cbf1daa4452cb42ad834a1e934af8619, type: 3}
   boundary_width: 8
   VanObj: {fileID: 7847132893973158458, guid: cc0695d72bb974d8fa3cc7eb19f7f79f, type: 3}
+  riverMaker: {fileID: 0}
   path:
     Destination: {fileID: 0}
     roadLength: 0
