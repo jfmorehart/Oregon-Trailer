@@ -23,7 +23,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private int vanHealth = 100;//this should track to whatever the health of the van is in driving scenes 
     public int VanHealth => vanHealth;
-    public const int MAXHEALTH = 100; 
+    public const int MAXHEALTH = 100;
     public static MapManager instance;
 
     private MapNode startingNode;
@@ -47,7 +47,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private Image fadeToBlackBG;
 
-    
+
     //whether we are finished loading the level ( this makes the exit not get touched twice)
     bool levelEnding = false;
 
@@ -93,7 +93,7 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -149,13 +149,13 @@ public class MapManager : MonoBehaviour
     
 
     //try to spawn the generated events in order
-    public void generateMap(GameObject map = null) 
+    public void generateMap(GameObject map = null)
     {
         //Debug.Log("Private");
         if (map != null)
         {
             //Debug.Log("Historians");
-            if(currentMap != null)
+            if (currentMap != null)
                 Destroy(currentMap.gameObject);
             GameObject instantiatedMap = Instantiate(map, mapParent);
             levelPrefabVariableHolder levelvariables = instantiatedMap.GetComponent<levelPrefabVariableHolder>();
@@ -216,10 +216,10 @@ public class MapManager : MonoBehaviour
 
         //we want there to be sufficient options
         int depth = Random.Range((int)(nodesToGen * 0.75f), nodesToGen);
-        bool[,] positions = new bool[depth,3];
-        Dictionary<Vector2, MapNode> dict = new Dictionary<Vector2,MapNode>();
+        bool[,] positions = new bool[depth, 3];
+        Dictionary<Vector2, MapNode> dict = new Dictionary<Vector2, MapNode>();
         //should this use dictionaries instead?
-        List < MapNode> nodes = new List < MapNode>();
+        List<MapNode> nodes = new List<MapNode>();
 
 
 
@@ -230,11 +230,11 @@ public class MapManager : MonoBehaviour
             //loop through this once
             //assure that there is at least one node in each spot in depth
             MapNode mn = Instantiate(BlankNode, mapParent);
-            int yposition = Random.Range(0,4);
+            int yposition = Random.Range(0, 4);
             mn.transform.localPosition = new Vector3(depth, yposition, 0);
             positions[i, yposition] = true;
             nodes.Add(mn);
-            dict.Add(new Vector2(i, yposition),mn);
+            dict.Add(new Vector2(i, yposition), mn);
             nodesToGen--;
             if (i == depth - 1)
                 mn.setEndingNode(true);
@@ -250,12 +250,12 @@ public class MapManager : MonoBehaviour
                 //give it a 50% chance to generate in a random position in a node
                 int ypos = Random.Range(0, 4);
                 MapNode mn = Instantiate(BlankNode, mapParent);
-                if (!positions[i,ypos])
+                if (!positions[i, ypos])
                 {
                     mn.transform.localPosition = new Vector3(depth, ypos, 0);
                     nodes.Add(mn);
                     positions[i, ypos] = true;
-                    dict.Add(new Vector2(i, ypos),mn);
+                    dict.Add(new Vector2(i, ypos), mn);
 
                     nodesToGen--;
                     if (i == depth - 1)
@@ -266,16 +266,16 @@ public class MapManager : MonoBehaviour
 
         //make connections between nodes
         //if this is not the nodes on depth, then this should have at least one road connection
-        for (int i = 0; i < depth-1; i++)
+        for (int i = 0; i < depth - 1; i++)
         {
             MapNode mn = nodes[i];
             if (mn.Roads.Length == 0)
             {
                 List<MapNode> nextnodes = new List<MapNode>();
                 //get node at next position
-                for(int j = 0; j < 3; j++)
+                for (int j = 0; j < 3; j++)
                 {
-                    if (!positions[i+1, j])
+                    if (!positions[i + 1, j])
                     {
                         //this works the same as try get with dict functions
                         nextnodes.Add(dict[new Vector2(i + j, j)]);
@@ -284,7 +284,7 @@ public class MapManager : MonoBehaviour
                 }
 
                 MapNode destinationpath = nextnodes[Random.Range(0, nextnodes.Count)];
-                mn.Roads[0] = new RoadPath() { roadLength = 10, Destination = destinationpath};
+                mn.Roads[0] = new RoadPath() { roadLength = 10, Destination = destinationpath };
 
                 int genSecondRoad = Random.Range(0, 100);
 
@@ -295,7 +295,7 @@ public class MapManager : MonoBehaviour
                     {
                         secondDest = nextnodes[Random.Range(0, nextnodes.Count)];
                     }
-                    mn.Roads[1] = new RoadPath() { roadLength = 10, Destination = secondDest};
+                    mn.Roads[1] = new RoadPath() { roadLength = 10, Destination = secondDest };
                 }
             }
         }
@@ -362,7 +362,7 @@ public class MapManager : MonoBehaviour
         instance.playerDestinationNode.goBright();
         */
         Debug.Log("Player arrived " + health);
-        instance.vanHealth = (int) health;
+        instance.vanHealth = (int)health;
         instance.playersCurrentNode.playerCanChoose = false;
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
         instance.playersCurrentNode.WinCondition.active = false;
@@ -372,15 +372,15 @@ public class MapManager : MonoBehaviour
         InLevelCarSlider.instance.levelDone();
 
     }
-    
+
 
     private void HandleMovement()
     {
-        if(!levelEnding)
+        if (!levelEnding)
             StartCoroutine(handleMovementRoutine());
     }
 
-        //this is the previous handlemovement script, as some aspect of it was just off
+    //this is the previous handlemovement script, as some aspect of it was just off
     private void HandleMovementDeprecated()
     {
 
@@ -389,7 +389,7 @@ public class MapManager : MonoBehaviour
         playersCurrentNode.goDark();
         Debug.Log("D2");
         //change the color of the current node
-        playerDestinationNode.goBright();   
+        playerDestinationNode.goBright();
         Debug.Log("D3");
 
         //remove fuel
@@ -423,7 +423,7 @@ public class MapManager : MonoBehaviour
     }
     //literally only private because there seems to be a delay when calling things,
     //as before, D7 would be called, the D8, then D1, then D2
-    
+
     private IEnumerator handleMovementRoutine()
     {
         levelEnding = true;
@@ -477,7 +477,7 @@ public class MapManager : MonoBehaviour
 
     private void nextNodeBlink()
     {
-        
+
         //cause the next nodes to blink
         if (!playersCurrentNode.EndingRoad)
         {
@@ -530,7 +530,7 @@ public class MapManager : MonoBehaviour
 
         //player should be travelling now
 
-        if(playersCurrentNode.getQuestList(destNode) != null)
+        if (playersCurrentNode.getQuestList(destNode) != null)
             ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(destNode));
 
 
@@ -538,7 +538,7 @@ public class MapManager : MonoBehaviour
 
         //lower the map
         mapUI.instance.instantPullDown();
-        mapUI.instance.ShouldBeInteractedWith = true;
+        mapUI.instance.ShouldBeInteractedWith = false;
         InLevelCarSlider.instance.startLevel();
         mapUI.instance.startLevel();
 
@@ -571,7 +571,7 @@ public class MapManager : MonoBehaviour
         //if the player is not in transit, then they should be able to choose
         //and if they are not at an ending road
         //and if they have fuel still
-        Debug.Log("Player in transit: "+ PlayerInTransit);
+        Debug.Log("Player in transit: " + PlayerInTransit);
         if (!instance.playersCurrentNode.EndingRoad && !PlayerInTransit)
         {
             //allow them to choose between the road options
@@ -609,10 +609,36 @@ public class MapManager : MonoBehaviour
         Restart();
 
         // calculates player time
-        if(_playerInTransit)
+        if (_playerInTransit)
             playerCurrentTime += Time.deltaTime;
     }
 
+    public void forceRestart()
+    {
+        Debug.Log("Restart pressed");
+        //reset the player to be at the first point
+        mapPlayer.instance.setPositionStrict(playersCurrentNode);
+        Debug.Log("restart position");
+
+        _playerInTransit = false;
+
+        playersCurrentNode.WinCondition.active = false;
+        //fade to black
+        StartCoroutine(fadeToBlackRestartToGame());
+        Debug.Log("Restart fade to black");
+
+        mapUI.instance.endLevel();
+        InLevelCarSlider.instance.levelDone();
+
+        //make sure the player can choose the node
+        allowDestinationChoice();
+        Debug.Log("Restart finalized");
+
+        playerCurrentTime = 0;
+
+        //reset the health to 30
+        vanHealth = MAXHEALTH;
+    }
     public void Restart()
     {
         if (Input.GetKeyDown(KeyCode.R) && _playerInTransit)
@@ -642,9 +668,94 @@ public class MapManager : MonoBehaviour
             vanHealth = MAXHEALTH;
         }
     }
+    public void RestartToMainMenu()
+    {
+        
+            Debug.Log("Restart pressed");
+            //reset the player to be at the first point
+            mapPlayer.instance.setPositionStrict(playersCurrentNode);
+            Debug.Log("restart position");
 
+            _playerInTransit = false;
 
+            playersCurrentNode.WinCondition.active = false;
+            //fade to black
+            StartCoroutine(fadeToBlackResetPosition());
+            Debug.Log("Restart fade to black");
 
+            mapUI.instance.endLevel();
+            InLevelCarSlider.instance.levelDone();
+
+            //make sure the player can choose the node
+            //allowDestinationChoice();
+            Debug.Log("Restart finalized");
+
+            playerCurrentTime = 0;
+
+            //reset the health to 30
+            vanHealth = MAXHEALTH;
+        
+    }
+        
+    public IEnumerator fadeToBlackRestartToGame()
+    {
+        //probably more efficient to move this to a dedicated fade to black obj but whatever
+        float duration = 1f;
+        fadeToBlackBG.gameObject.SetActive(true);
+        Color transparent = new Color(0, 0, 0, 0);
+        Color full = new Color(0, 0, 0, 1);
+        float time = 0;
+        fadeToBlackBG.color = transparent;
+        if (fadeToBlackBG == null)
+            Debug.Log("BG IS NULL");
+        while (time < duration)
+        {
+
+            if (fadeToBlackBG == null)
+            {
+                Debug.Log("BG IS NULL");
+                time += Time.deltaTime;
+                yield return null;
+            }
+            else
+            {
+
+                fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
+                time += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        fadeToBlackBG.color = new Color(0, 0, 0, 1);
+
+        //when the screen is black we now show the node stuff
+        ChunkManager.instance.DestroyLevel();
+
+        if (playersCurrentNode.getQuestList(playerDestinationNode) != null)
+            ChunkManager.instance.GenerateLevel(playersCurrentNode.getQuestList(playerDestinationNode));
+
+        mapUI.instance.instantPullDown();
+        mapUI.instance.ShouldBeInteractedWith = false;
+        InLevelCarSlider.instance.startLevel();
+        mapUI.instance.startLevel();
+
+        //nodeActivityDone();
+        yield return new WaitForSeconds(0.5f);
+        time = 0;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(full, transparent, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.gameObject.SetActive(false);
+    }
+
+    public void nodeActivityDoneRestart()
+    {
+
+    }
 
     //activity is finished, display map again and allow the player to choose where to go
     public void nodeActivityDone(bool goToGarageScene = false, int starsEarnedInLevel = 1)
@@ -683,6 +794,8 @@ public class MapManager : MonoBehaviour
         instance.moneyText.text = instance.money.ToString();
         //instance.FuelText.text = instance.fuel.ToString();
     }
+
+
 
     public void doEnding()
     {
