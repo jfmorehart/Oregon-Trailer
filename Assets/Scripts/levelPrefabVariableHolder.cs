@@ -9,5 +9,4 @@ public class levelPrefabVariableHolder : MonoBehaviour
     [SerializeField]
     public List<MapNode> allnodes = new List<MapNode>();
 
-
 }
