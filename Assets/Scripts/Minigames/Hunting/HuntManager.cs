@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class HuntManager : MonoBehaviour
@@ -32,6 +33,20 @@ public class HuntManager : MonoBehaviour
         }
     }
 
+    //instantiate from this prefab
+    public StarEarnedVFX starEarnedVFX_Prefab;
+    public GameObject starResourceUIObj;
+    public void createStarVFX(GameObject star)
+    {
+        //instantiate it under the mom
+        GameObject starVfx = Instantiate(starEarnedVFX_Prefab.gameObject, star.transform);
+        starVfx.GetComponent<StarEarnedVFX>().startPos = star.transform.position;
+        starVfx.GetComponent<StarEarnedVFX>().endPos = starResourceUIObj.transform.position;
+        Instantiate(new GameObject("Start"+ star.transform.parent.name), starVfx.GetComponent<StarEarnedVFX>().startPos, quaternion.identity);
+        Instantiate(new GameObject("End " + star.transform.parent.name), starVfx.GetComponent<StarEarnedVFX>().endPos, quaternion.identity);
+
+    }
+
 
     public void displayHunt(bool goToGarageScreenOnComplete, float timeEarned, float twoStarTime, float threeStarTime, int starsEarned)
     {
@@ -40,13 +55,23 @@ public class HuntManager : MonoBehaviour
         //one star is active automatically
         Debug.Log("Stars earned " + starsEarned);
         oneStar.SetActive(true);
+        // create vfx here
+        createStarVFX(oneStar);
         if (starsEarned == 2)
-            twoStar.SetActive(true);
+        {
+            twoStar.SetActive(true);   
+            createStarVFX(twoStar);
+                //create vfx here
+        }
         if (starsEarned == 3)
         {
             ThreeStar.SetActive(true);
             twoStar.SetActive(true);//both should be set active
+            createStarVFX(twoStar);
+            createStarVFX(ThreeStar);
+            // create vfx here
         }
+        
         this.goToGarageScreenOnComplete = goToGarageScreenOnComplete;
         starsFromLevel = starsEarned;
         timeEarnedText.text = (Math.Floor(timeEarned / 60) % 60).ToString("00") + ":" + Convert.ToInt32(timeEarned % 60).ToString("00") ; //TimeSpan.FromSeconds(timeEarned).ToString("hh':'mm':'ss");//string.Format("{0:t}", TimeSpan.FromSeconds(timeEarned));
