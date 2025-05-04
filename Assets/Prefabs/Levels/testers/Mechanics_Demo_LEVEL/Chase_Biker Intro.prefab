@@ -283,7 +283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 73, y: 3}
+  m_AnchoredPosition: {x: -9, y: 70}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3335257815117088958
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Austin
   _vanPosition: {fileID: 3033962218252320550}
   _nodeIconRenderer: {fileID: 8057508433566164185}
   sr: {fileID: 8651673211385192707}
@@ -364,7 +364,6 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   _lr: {fileID: 0}
   WinCondition: {fileID: 0}
-  self: {fileID: 0}
   Roads:
   - Destination: {fileID: 480241772964633798}
     roadLength: 7
@@ -380,9 +379,15 @@ MonoBehaviour:
     - {fileID: 5857623785865956000, guid: ff05bacadae0441d980f88f54bdffa14, type: 3}
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
   playerCanChoose: 0
+  earnedStars: 0
+  timeSpentInLevel: 0
   twoStarTime: 90
   threeStarTime: 60
   goToGarageScreenOnComplete: 0
+  allowHover: 1
+  isLocked: 0
+  levelCost: 0
+  showsTutorial: 0
 --- !u!61 &5606554948410551673
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -544,6 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winConditionText: Escape Austin
   Condition: 0
   target: []
   active: 0
@@ -870,7 +876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8584906, g: 0.7280057, b: 0.61957103, a: 0.003921569}
+  m_Color: {r: 0.8584906, g: 0.7280057, b: 0.61957103, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -912,7 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Huston
   _vanPosition: {fileID: 6603188339584192722}
   _nodeIconRenderer: {fileID: 704895515507128537}
   sr: {fileID: 2849993279224506162}
@@ -927,7 +933,6 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   _lr: {fileID: 7180241947201671181}
   WinCondition: {fileID: 0}
-  self: {fileID: 0}
   Roads:
   - Destination: {fileID: 1746957742735081776}
     roadLength: 10
@@ -946,9 +951,15 @@ MonoBehaviour:
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
     - {fileID: 2126144198468528057, guid: 41e2efd502830422ea8f954ddc2ea8d1, type: 3}
   playerCanChoose: 1
+  earnedStars: 0
+  timeSpentInLevel: 0
   twoStarTime: 0
   threeStarTime: 0
   goToGarageScreenOnComplete: 0
+  allowHover: 1
+  isLocked: 0
+  levelCost: 2
+  showsTutorial: 0
 --- !u!61 &3435429629172814286
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1110,6 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winConditionText: Drive to McDonalds
   Condition: 0
   target: []
   active: 0
@@ -1268,7 +1280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Huston
   _vanPosition: {fileID: 7874987853083616024}
   _nodeIconRenderer: {fileID: 515358840744429595}
   sr: {fileID: 5481670489311858182}
@@ -1283,7 +1295,6 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   _lr: {fileID: 0}
   WinCondition: {fileID: 0}
-  self: {fileID: 0}
   Roads:
   - Destination: {fileID: 1722544366129951735}
     roadLength: 8
@@ -1300,9 +1311,15 @@ MonoBehaviour:
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
     - {fileID: 2053872293739144902, guid: f6a67de8fe3724dcba258d584c2b1511, type: 3}
   playerCanChoose: 1
+  earnedStars: 0
+  timeSpentInLevel: 0
   twoStarTime: 120
   threeStarTime: 15
   goToGarageScreenOnComplete: 1
+  allowHover: 1
+  isLocked: 0
+  levelCost: 3
+  showsTutorial: 1
 --- !u!61 &8816584094802163877
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1464,6 +1481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winConditionText: Drive to McDonalds
   Condition: 1
   target: []
   active: 0
@@ -1712,7 +1730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: New Mexico
   _vanPosition: {fileID: 1148375900148677047}
   _nodeIconRenderer: {fileID: 6405405800584658567}
   sr: {fileID: 5933547258014964090}
@@ -1727,12 +1745,17 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   _lr: {fileID: 0}
   WinCondition: {fileID: 0}
-  self: {fileID: 0}
   Roads: []
   playerCanChoose: 0
+  earnedStars: 0
+  timeSpentInLevel: 0
   twoStarTime: 1000
   threeStarTime: 1500
   goToGarageScreenOnComplete: 0
+  allowHover: 1
+  isLocked: 0
+  levelCost: 0
+  showsTutorial: 0
 --- !u!61 &7314111558587655669
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1894,6 +1917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winConditionText: Drive to New Mexico
   Condition: 0
   target: []
   active: 0
@@ -2177,7 +2201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Dallas
   _vanPosition: {fileID: 27506663895093680}
   _nodeIconRenderer: {fileID: 1894187225654374193}
   sr: {fileID: 7066366944743292652}
@@ -2192,7 +2216,6 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   _lr: {fileID: 0}
   WinCondition: {fileID: 0}
-  self: {fileID: 0}
   Roads:
   - Destination: {fileID: 1082457622459017506}
     roadLength: 4
@@ -2205,9 +2228,15 @@ MonoBehaviour:
     - {fileID: 7054593215280346001, guid: 307f033dfc6b741c1948fa68fdc46eaa, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
   playerCanChoose: 0
+  earnedStars: 0
+  timeSpentInLevel: 0
   twoStarTime: 90
   threeStarTime: 60
   goToGarageScreenOnComplete: 0
+  allowHover: 1
+  isLocked: 0
+  levelCost: 0
+  showsTutorial: 0
 --- !u!61 &4734710136006575110
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2369,6 +2398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winConditionText: Kill all Enemies
   Condition: 0
   target: []
   active: 0
@@ -2637,7 +2667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Kansas
   _vanPosition: {fileID: 3094647002986933337}
   _nodeIconRenderer: {fileID: 4965604823618636187}
   sr: {fileID: 7254826649669971652}
@@ -2652,7 +2682,6 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   _lr: {fileID: 0}
   WinCondition: {fileID: 0}
-  self: {fileID: 0}
   Roads:
   - Destination: {fileID: 2644372289083950111}
     roadLength: 10
@@ -2671,9 +2700,15 @@ MonoBehaviour:
     - {fileID: 5161132594487253386, guid: ad86ad0921beb4d57bcb8807384f4980, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
   playerCanChoose: 0
+  earnedStars: 0
+  timeSpentInLevel: 0
   twoStarTime: 60
   threeStarTime: 90
   goToGarageScreenOnComplete: 0
+  allowHover: 1
+  isLocked: 0
+  levelCost: 0
+  showsTutorial: 0
 --- !u!61 &988335566465497985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2835,6 +2870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winConditionText: Catch informer
   Condition: 0
   target: []
   active: 0
@@ -3118,7 +3154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Isreal
   _vanPosition: {fileID: 1514133715757427578}
   _nodeIconRenderer: {fileID: 7069553261374044381}
   sr: {fileID: 5561116814020442679}
@@ -3133,7 +3169,6 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   _lr: {fileID: 0}
   WinCondition: {fileID: 0}
-  self: {fileID: 0}
   Roads:
   - Destination: {fileID: 3680344308727568631}
     roadLength: 8
@@ -3150,9 +3185,15 @@ MonoBehaviour:
     - {fileID: 8775982995823136982, guid: f13c94623d9f44f909b437963172bf84, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
   playerCanChoose: 0
+  earnedStars: 0
+  timeSpentInLevel: 0
   twoStarTime: 100
   threeStarTime: 80
   goToGarageScreenOnComplete: 0
+  allowHover: 1
+  isLocked: 0
+  levelCost: 0
+  showsTutorial: 0
 --- !u!61 &7617987300960050554
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3314,6 +3355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winConditionText: Escape Isreal
   Condition: 0
   target: []
   active: 0
@@ -3852,7 +3894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Istanbul
   _vanPosition: {fileID: 2444837728531331068}
   _nodeIconRenderer: {fileID: 3620476357201916662}
   sr: {fileID: 3146744251171061991}
@@ -3867,7 +3909,6 @@ MonoBehaviour:
   locationEvent: {fileID: 0}
   _lr: {fileID: 0}
   WinCondition: {fileID: 0}
-  self: {fileID: 0}
   Roads:
   - Destination: {fileID: 474878561594157870}
     roadLength: 4
@@ -3880,9 +3921,15 @@ MonoBehaviour:
     - {fileID: 7054593215280346001, guid: 307f033dfc6b741c1948fa68fdc46eaa, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
   playerCanChoose: 0
+  earnedStars: 0
+  timeSpentInLevel: 0
   twoStarTime: 80
   threeStarTime: 40
   goToGarageScreenOnComplete: 0
+  allowHover: 1
+  isLocked: 0
+  levelCost: 0
+  showsTutorial: 0
 --- !u!61 &2739421321156829262
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4044,6 +4091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winConditionText: Ambush the Frat base
   Condition: 0
   target: []
   active: 0

@@ -138,6 +138,7 @@ public class MapManager : MonoBehaviour
                 Destroy(currentMap.gameObject);
             GameObject instantiatedMap = Instantiate(map, mapParent);
             levelPrefabVariableHolder levelvariables = instantiatedMap.GetComponent<levelPrefabVariableHolder>();
+            levelvariables.firstNode.allowHover = false;
             currentMap = instantiatedMap.transform;
 
             startingNode = levelvariables.firstNode;
@@ -300,6 +301,7 @@ public class MapManager : MonoBehaviour
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
         instance.playersCurrentNode.WinCondition.active = false;
         instance._playerInTransit = false;
+        PopupManager.instance.tutorialDone();
         mapUI.instance.endLevel();
         InLevelCarSlider.instance.levelDone();
 
@@ -429,6 +431,10 @@ public class MapManager : MonoBehaviour
         mapPlayer.instance.setPosition(instance.playersCurrentNode, destNode);
         instance._playerInTransit = true;
         instance.StartCoroutine(instance.PlayerTraveling(destNode));
+
+        //communicate with game popupmanager here
+        if (instance.playerDestinationNode.showsTutorial)
+            PopupManager.instance.allowTutorial();
     }
 
     //should generalize this by taking in a certain action
@@ -533,6 +539,7 @@ public class MapManager : MonoBehaviour
         }
         Restart();
 
+        // calculates player time
         if(_playerInTransit)
             playerCurrentTime += Time.deltaTime;
     }
@@ -594,11 +601,13 @@ public class MapManager : MonoBehaviour
         if (goToGarageScene)
         {
             mapUI.instance.buttonPressed(mapUI.mapScreens.upgrade);
+            //TODO change to instant popup - 
         }
 
         if (fuel <= 0)
         {
-            playerDiedScreen.SetActive(true);
+            //we no longer have fuel
+            //playerDiedScreen.SetActive(true);
         }
         money += starsEarnedInLevel;
         allowDestinationChoice();
