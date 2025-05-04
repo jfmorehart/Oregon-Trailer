@@ -59,6 +59,11 @@ public class InLevelCarSlider : MonoBehaviour
     }
     public Action onKill;
     private Breakable playervan;
+
+    public GameObject objectivePrefab;
+    private GameObject objectiveInstance;
+    
+    
     public void startLevel() //instantiate
     {
         updateUpgradeUI();
@@ -90,25 +95,50 @@ public class InLevelCarSlider : MonoBehaviour
         leveldistancetext.gameObject.SetActive(true);
         levelcompleteslider.gameObject.SetActive(true);
         levelRestartText.gameObject.SetActive(false);
+        
+        // give the starts their values
+        // in index 1, the 3 stars resides
+        twoStarImages[1].GetComponent<StarFillUI>().startTime = 0f;
+        twoStarImages[1].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.ThreeStarTime;
+        // in index 0, the 2 stars resides
+        twoStarImages[0].GetComponent<StarFillUI>().startTime = MapManager.instance.playerDestinationNode.ThreeStarTime;
+        twoStarImages[0].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.TwoStarTime;
+        
+        //show level objective text
+        objectiveInstance = Instantiate(objectivePrefab.gameObject); // instantiate it at the middle of the screen
+        // Change where the prefab gets instantiated
+        objectiveInstance.transform.parent = MapManager.instance.transform;
+        //Change the prefabs transform
+        objectiveInstance.transform.position = new Vector2(0, 10);
+        // Change Text
+        objectiveInstance.GetComponent<ObjectivePopUp>().questDisplay.text =  
+            "<u>" +MapManager.instance.playersCurrentNode.NodeName +"</u>"+ "\nObjective: " +
+            MapManager.instance.playersCurrentNode.WinCondition.winConditionText.ToString();
+
+
     }
 
     void Update()
     {
         if (vanAlive && inLevel) 
         {
+            // calculate UI on top middle
             float vanDistancePercent = Mathf.Clamp((maxDistance - Vector2.Distance(van.transform.position, endingHouse.transform.position)) / maxDistance, 0, 100);
-
+            
             leveldistancetext.text = ((int)Vector2.Distance(van.transform.position, endingHouse.transform.position)) + "";
             levelcompleteslider.value = vanDistancePercent;
 
+            // level timer UI
             currentTimeText.text = (Math.Floor(MapManager.instance.PlayerCurrentTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(MapManager.instance.PlayerCurrentTime % 60).ToString("00");
             twoStarTimeText.text = (Math.Floor(MapManager.instance.playerDestinationNode.TwoStarTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(MapManager.instance.playerDestinationNode.TwoStarTime % 60).ToString("00");
             threeStarTimeText.text = (Math.Floor(MapManager.instance.playerDestinationNode.ThreeStarTime / 60) % 60).ToString("00") + ":" + Convert.ToInt32(MapManager.instance.playerDestinationNode.ThreeStarTime % 60).ToString("00");
 
+            /*
             bool overTwoStarTime = false;
             bool overThreeStarTime = false;
-            if (Mathf.Floor( MapManager.instance.PlayerCurrentTime ) > Mathf.Floor(MapManager.instance.playerDestinationNode.ThreeStarTime) && !overThreeStarTime)
+            if (Mathf.Floor( MapManager.instance.PlayerCurrentTime ) > Mathf.Floor(MapManager.instance.playerDestinationNode.ThreeStarTime) && !overThreeStarTime) //isn't this always false?
             {
+                //      When the player time passes the 3 star win time (can no longer win 3 stars)
                 overThreeStarTime = true;
                 for (int i = 0; i < threeStarImages.Count; i++)
                 {
@@ -123,6 +153,7 @@ public class InLevelCarSlider : MonoBehaviour
                     twoStarImages[i].DOColor(Color.black, 1);
                 }
             }
+            */
 
         }
         else
