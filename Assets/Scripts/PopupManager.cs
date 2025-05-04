@@ -48,6 +48,7 @@ public class PopupManager : MonoBehaviour
     }
     public void addTutorialPopup(TutorialPopup pop)
     {
+        Debug.Log(pop.gameObject.name);
         if (pop.shootTutorial)
             secondPopup = pop;
         else
@@ -67,25 +68,30 @@ public class PopupManager : MonoBehaviour
         }
     }
 
+    public void removeTutorialPopup(TutorialPopup pop)
+    {
+        //only for tutorial first popups
+        Debug.Log("Removed this " + pop.name);
+        firstPopups.Remove(pop);
+    }
+
     public void tutorialMonitoring()
     {
         //activates the first section of the tutorial. If all of those are finished then
-        if (isTutorializing && firstPopups.Count > 0)
+        if (isTutorializing)
         {
-            bool firstFinished = true;
-            for (int i = 0; i < firstPopups.Count; i++)
+            if (firstPopups.Count > 0)
             {
-                if (firstPopups[i] == null)
-                    continue;
-                if (!firstPopups[i].finished)
-                    firstFinished = false;
-            }
-
-            if (firstFinished && secondPopup != null)
-            {
-                Debug.Log("FirstFinished");
+                Debug.Log("first tutorial" + firstPopups.Count);
                 //do second popup
-                secondPopup.showTutorial();
+            }
+            else
+            {
+                Debug.Log("Seconds tutorial" );
+
+                if (secondPopup != null)
+                    secondPopup.showTutorial();
+
             }
         }
     }
