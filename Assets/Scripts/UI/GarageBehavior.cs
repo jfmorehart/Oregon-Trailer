@@ -12,6 +12,7 @@ public class GarageBehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     //public GameObject overlay;
     RectTransform rectTransform;
     public GameObject ItemDescription;
+    public float openOffset;
     [SerializeField]
     StoreUpgrades su;
     //TODO HERE - 4/28
@@ -25,7 +26,7 @@ public class GarageBehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             
             //change rect
             rectTransform = gameObject.GetComponent<RectTransform>();
-            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, -46);
+            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, openOffset);
         
             //add the store upgrade to the itemshop's selected upgrade thing
             ItemShop.instance.selectUpgrade(su);
