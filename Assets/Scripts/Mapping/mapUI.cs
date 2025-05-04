@@ -237,6 +237,8 @@ public class mapUI : MonoBehaviour
 
     public void pressLeftButton()
     {
+        if (!isActivated)
+            return;
         if (uiMenuButtons[menuIndex].pressed == false)
             uiMenuButtons[menuIndex].deselect();
 
@@ -248,6 +250,8 @@ public class mapUI : MonoBehaviour
     }
     public void pressRightButton()
     {
+        if (!isActivated)
+            return;
         if (uiMenuButtons[menuIndex].pressed == false)
             uiMenuButtons[menuIndex].deselect();
         menuIndex++;
