@@ -39,11 +39,12 @@ public class HuntManager : MonoBehaviour
     public void createStarVFX(GameObject star)
     {
         //instantiate it under the mom
-        GameObject starVfx = Instantiate(starEarnedVFX_Prefab.gameObject, star.transform);
+        GameObject starVfx = Instantiate(starEarnedVFX_Prefab.gameObject, starResourceUIObj.transform);
+        starVfx.GetComponent<Transform>().position = star.transform.position;
         starVfx.GetComponent<StarEarnedVFX>().startPos = star.transform.position;
         starVfx.GetComponent<StarEarnedVFX>().endPos = starResourceUIObj.transform.position;
-        Instantiate(new GameObject("Start"+ star.transform.parent.name), starVfx.GetComponent<StarEarnedVFX>().startPos, quaternion.identity);
-        Instantiate(new GameObject("End " + star.transform.parent.name), starVfx.GetComponent<StarEarnedVFX>().endPos, quaternion.identity);
+        //Instantiate(new GameObject("Start"+ star.transform.parent.name), starVfx.GetComponent<StarEarnedVFX>().startPos, quaternion.identity);
+        //Instantiate(new GameObject("End " + star.transform.parent.name), starVfx.GetComponent<StarEarnedVFX>().endPos, quaternion.identity);
 
     }
 
@@ -56,19 +57,17 @@ public class HuntManager : MonoBehaviour
         Debug.Log("Stars earned " + starsEarned);
         oneStar.SetActive(true);
         // create vfx here
-        createStarVFX(oneStar);
+        //createStarVFX(oneStar);
+        if(starsEarned==1)
+            StartCoroutine(starBehaviorRoutine(1));
         if (starsEarned == 2)
         {
-            twoStar.SetActive(true);   
-            createStarVFX(twoStar);
-                //create vfx here
+            StartCoroutine(starBehaviorRoutine(2));
+            //create vfx here
         }
         if (starsEarned == 3)
         {
-            ThreeStar.SetActive(true);
-            twoStar.SetActive(true);//both should be set active
-            createStarVFX(twoStar);
-            createStarVFX(ThreeStar);
+            StartCoroutine(starBehaviorRoutine(3));
             // create vfx here
         }
         
@@ -81,6 +80,34 @@ public class HuntManager : MonoBehaviour
 
 
         //hideHunt();
+    }
+
+    IEnumerator starBehaviorRoutine(int starsEarned)
+    {
+        oneStar.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+
+        createStarVFX(oneStar);
+        
+        if (starsEarned == 2)
+        {
+            twoStar.SetActive(true);              
+            yield return new WaitForSeconds(0.25f);
+            createStarVFX(twoStar);
+            
+            
+        }
+        else
+        {
+            //three stars
+            ThreeStar.SetActive(true);
+            twoStar.SetActive(true);//both should be set active
+            yield return new WaitForSeconds(0.25f);
+            createStarVFX(twoStar);
+            yield return new WaitForSeconds(0.25f);
+            createStarVFX(ThreeStar);
+        }
+        
     }
     public void hideHunt()
     {
@@ -97,7 +124,7 @@ public class HuntManager : MonoBehaviour
         threeStarTimeText.text = "";
 
         //communicate with map manager to display the map
-        MapManager.instance.nodeActivityDone(goToGarageScreenOnComplete, starsFromLevel);
+        MapManager.instance.nodeActivityDone(goToGarageScreenOnComplete, 0);
 
     }
 

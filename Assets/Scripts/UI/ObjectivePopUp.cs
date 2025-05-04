@@ -33,7 +33,7 @@ public class ObjectivePopUp : MonoBehaviour
 
         if (time >= 4) // after 4 seconds, destroy object
         {
-            Destroy(instance);
+            Destroy(gameObject);
         }
     }
 

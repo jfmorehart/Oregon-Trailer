@@ -71,13 +71,15 @@ public class InLevelCarSlider : MonoBehaviour
         //records the player's start position
         van = GameObject.Find("Van(Clone)");
         
-        
+        /*
         //GameObject g = Instantiate(popupprefab.gameObject, GameObject.FindGameObjectWithTag("Canvas").transform);
-        GameObject g = Instantiate(popupprefab.gameObject);
+        GameObject g = Instantiate(popupprefab.gameObject, MapManager.instance.transform);
         g.transform.localScale = new Vector3(.01f,.01f,.01f);
-        g.transform.position = new Vector3(0,0,0);
+        g.transform.position = new Vector2(0,10);
         ObjectivePopUp popup = g.GetComponent<ObjectivePopUp>();
+        popup.questDisplay.text = "<u>" + MapManager.instance.playersCurrentNode.NodeName + "</u>" +"\nObjective"+ MapManager.instance.playersCurrentNode.WinCondition.winConditionText.ToString();
         //TODO get levelType
+        */
 
         //change the string
         //popup.quest = MapManager.instance.playerDestinationNode.WinCondition.getCondition + " ";
@@ -105,7 +107,7 @@ public class InLevelCarSlider : MonoBehaviour
         twoStarImages[0].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.TwoStarTime;
         
         //show level objective text
-        objectiveInstance = Instantiate(objectivePrefab.gameObject); // instantiate it at the middle of the screen
+        objectiveInstance = Instantiate(objectivePrefab.gameObject,MapManager.instance.transform); // instantiate it at the middle of the screen
         // Change where the prefab gets instantiated
         objectiveInstance.transform.parent = MapManager.instance.transform;
         //Change the prefabs transform
