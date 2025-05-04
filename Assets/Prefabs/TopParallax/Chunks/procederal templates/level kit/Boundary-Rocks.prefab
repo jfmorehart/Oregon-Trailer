@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 3563430041938838798}
   - component: {fileID: 5580238298050958400}
   m_Layer: 0
-  m_Name: stack_rocks 4
+  m_Name: Boundary-Rocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,11 +319,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620ea0bfe251643589f2d51fc317e876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 500000
   shader_maxHp: 0
   bar: {fileID: 0}
   target: 0
-  use_breaking_texture: 1
+  use_breaking_texture: 0
 --- !u!60 &3563430041938838798
 PolygonCollider2D:
   m_ObjectHideFlags: 0

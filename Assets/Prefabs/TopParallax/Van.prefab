@@ -1335,7 +1335,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2646024028343249697}
   - {fileID: 4396679663191573292}
@@ -1387,7 +1387,6 @@ MonoBehaviour:
   enginesrc: {fileID: 0}
   roadSource: {fileID: 0}
   sandSource: {fileID: 0}
-  sideDrag: 0
   terrainModifiers: []
   TankGun: {fileID: 6760162303511796599}
   GrenadeLauncher: {fileID: 4935402299554508891}
@@ -1482,7 +1481,6 @@ MonoBehaviour:
   bar: {fileID: 4270948942369041101}
   target: 0
   use_breaking_texture: 0
-  mat: {fileID: 0}
 --- !u!1 &8381054185626069900
 GameObject:
   m_ObjectHideFlags: 0
