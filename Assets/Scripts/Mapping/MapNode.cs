@@ -89,6 +89,8 @@ public class MapNode : MonoBehaviour
     [SerializeField]
     public int levelCost = 0;
 
+    [SerializeField]
+    public bool showsTutorial = false;
     public void Awake()
     {
         //quickly loop through roads and make sure everything is properly set up
@@ -376,8 +378,8 @@ public class MapNode : MonoBehaviour
     private void showHoverUI()
     {
         //activate the stats for that level
-        //if (allowHover)
-        //{
+        if (allowHover)
+        {
             ownedHoverPanel.gameObject.SetActive(true);
             if (isLocked)
             {
@@ -390,7 +392,7 @@ public class MapNode : MonoBehaviour
             {
                 ownedHoverPanel.showUnlocked();
             }
-        //}
+        }
     }
     private void OnMouseOver()
     {

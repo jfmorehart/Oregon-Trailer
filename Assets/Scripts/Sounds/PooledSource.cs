@@ -18,7 +18,7 @@ public class PooledSource : MonoBehaviour
 	void Update()
     {
 		if (playing) {
-			src.volume = vMult * SFX.globalVolume;
+			src.volume = vMult * SFX.SFX_volume;
 			if (!src.isPlaying) {
 				Disable();
 			}

@@ -84,6 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5564970689174670921}
+  - component: {fileID: 7961272502022972475}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -113,6 +114,23 @@ RectTransform:
   m_AnchoredPosition: {x: 109, y: 0}
   m_SizeDelta: {x: 120, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7961272502022972475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3420171820188561430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce616e67ae60ce1489d8162aec089499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDuration: 0.8
+  ease: 1
+  phrase: {fileID: 2392342510837144379}
+  charname: {fileID: 8675180840335672551}
+  faceImg: {fileID: 3033347789429660118}
 --- !u!1 &5527973017109137583
 GameObject:
   m_ObjectHideFlags: 0

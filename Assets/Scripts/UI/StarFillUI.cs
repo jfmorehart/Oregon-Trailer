@@ -31,8 +31,8 @@ public class StarFillUI : MonoBehaviour
         if(MapManager.instance.PlayerCurrentTime <= startTime)
             starFill.SetActive(true);
         
-        Debug.Log("Starfill  " + endTime + 
-                  " | " + (MapManager.instance.PlayerCurrentTime <=endTime) );
+        //Debug.Log("Starfill  " + endTime + 
+        //          " | " + (MapManager.instance.PlayerCurrentTime <=endTime) );
         if (MapManager.instance.PlayerCurrentTime >= startTime && MapManager.instance.PlayerCurrentTime < endTime) 
         {
             Debug.Log("More then start time");
