@@ -355,7 +355,6 @@ public class mapUI : MonoBehaviour
     public void endLevel()
     {
         inLevel = false;
-
     }
     public void doHealthUI()
     {

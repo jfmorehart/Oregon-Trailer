@@ -573,7 +573,35 @@ public class MapManager : MonoBehaviour
             vanHealth = MAXHEALTH;
         }
     }
+    public void RestartToMainMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && _playerInTransit)
+        {
+            Debug.Log("Restart pressed");
+            //reset the player to be at the first point
+            mapPlayer.instance.setPositionStrict(playersCurrentNode);
+            Debug.Log("restart position");
 
+            _playerInTransit = false;
+
+            playersCurrentNode.WinCondition.active = false;
+            //fade to black
+            StartCoroutine(fadeToBlackResetPosition());
+            Debug.Log("Restart fade to black");
+
+            mapUI.instance.endLevel();
+            InLevelCarSlider.instance.levelDone();
+
+            //make sure the player can choose the node
+            //allowDestinationChoice();
+            Debug.Log("Restart finalized");
+
+            playerCurrentTime = 0;
+
+            //reset the health to 30
+            vanHealth = MAXHEALTH;
+        }
+    }
 
 
 

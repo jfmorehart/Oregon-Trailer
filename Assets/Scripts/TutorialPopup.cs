@@ -8,7 +8,8 @@ public class TutorialPopup : MonoBehaviour
 {
     public KeyCode key;
     public float timer = 0;
-    public bool finished => (timer > 1);
+    private float duration = 2;
+    public bool finished => (timer > 2);
     SpriteRenderer sr;
     public bool allowTut = false;
     public bool shootTutorial = false;
@@ -42,8 +43,8 @@ public class TutorialPopup : MonoBehaviour
         {
             timer += Time.deltaTime;
             //alpha of this lerps to whatever % we are at, from 100-0%
-            //sr.color = (timer < 0.5f) ? Color.white : Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), (timer -0.5f / 1));
-            sr.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), (timer / 1));
+            sr.color = (timer < 0.5f) ? new Color(1, 1, 1, 1) : Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), (timer -0.5f / duration - 0.5f));
+            //sr.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), (timer / duration));
         }
         if (finished)
         {
