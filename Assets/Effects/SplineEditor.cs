@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEditor;
+using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 [ExecuteInEditMode]
 public class SplineEditor : MonoBehaviour
@@ -15,6 +17,9 @@ public class SplineEditor : MonoBehaviour
 	public GameObject meshPrefab;
 
 	public float spacer, segments;
+	public int steps;
+	public float width = 10;
+	public Material roadMat;
 
 	public List<GameObject> all_tools = new List<GameObject>();
 	public List<GameObject> mesh_nodes = new List<GameObject>();
@@ -24,6 +29,7 @@ public class SplineEditor : MonoBehaviour
 
 	public bool EnforceContinuity;
 	public bool ResetTools; //used for editorbutton
+	public bool CreateColliders;
 
 	[ExecuteInEditMode]
 	private void Update()
@@ -33,12 +39,96 @@ public class SplineEditor : MonoBehaviour
 			KillTools();
 			CreateTools();
 		}
+		if (CreateColliders) {
+			CreateColliders = false;
+			BuildMeshColliders();
+		}
 		if (EnforceContinuity) {
 			UpdateHandles();
 		}
 		UpdateMeshes();
 
 		UnityEditor.EditorUtility.SetDirty(this);
+	}
+	public void BuildMeshColliders() {
+		Debug.Log("building colliders");
+		List<Vector2> tris = new List<Vector2>();
+		for (int i = 0; i + 1 < mesh_filters.Count; i++)
+		{
+			Debug.Log("building collider  " + i);
+			MeshFilter mf = mesh_filters[i];
+			Mesh m = mf.sharedMesh;
+			GameObject go = mesh_filters[i].gameObject;
+			PolygonCollider2D col;
+			if (go.TryGetComponent(out MeshCollider mcol))
+			{
+				DestroyImmediate(mcol);
+			}
+			if (go.TryGetComponent(out PolygonCollider2D collider))
+			{
+				col = collider;
+			}
+			else
+			{
+				col = go.AddComponent<PolygonCollider2D>();
+			}
+			if(col == null) {
+				Debug.Log("failed, no collider on object " + i);
+			}
+			col.isTrigger = true;
+			Debug.Log(col);
+			col.pathCount = (int)steps;
+			int pathNumber = 0;
+			//left side
+
+
+			for (int vert = 0; vert + 5 < m.vertices.Length; vert += 3)
+			{
+				tris.Clear();
+				tris.Add(m.vertices[vert + 0]);
+				tris.Add(m.vertices[vert + 2]);
+				tris.Add(m.vertices[vert + 5]);
+				tris.Add(m.vertices[vert + 3]);
+				tris.Add(m.vertices[vert + 0]);
+				//foreach(Vector2 tri in tris) {
+				//	Debug.Log(tri);
+				//}
+				col.SetPath(pathNumber, tris.ToArray());
+
+				Debug.Log("path " + pathNumber + " = " + (vert + 0) + " " + (vert + 2) + " " + (vert + 5) + "  " + (vert + 0));
+				pathNumber++;
+			}
+			//for (int segs = 0; segs + 1 < steps; segs++)
+			//{
+			//	Debug.Log("testing" + (segs * 3) + "  " + (segs * 3 + 3) + "out of " + m.vertices.Length);
+			//	triangle = new Vector2[2] { m.vertices[segs * 3], m.vertices[segs * 3 + 3]};
+			//	Debug.Log("path= " + pathNumber + " " + triangle[0] + " " + triangle[1]);
+			//	Debug.DrawLine(triangle[0], triangle[1], Color.red, 10);
+			//	col.SetPath(segs, triangle);
+			//	pathNumber++;
+			//}
+			////top
+			//triangle = new Vector2[2] { m.vertices[m.vertices.Length - 3], m.vertices[m.vertices.Length - 1] };
+			//Debug.Log(triangle[0] + " " + triangle[1]);
+			//Debug.DrawLine(triangle[0], triangle[1], Color.red, 10);
+			//col.SetPath(pathNumber, triangle);
+			//pathNumber++;
+
+			////right side
+			//for (int seg = steps - 1; seg > 1; seg--)
+			//{
+			//	triangle = new Vector2[2] { m.vertices[seg * 3 + 2], m.vertices[seg * 3 - 1] };
+			//	Debug.Log(triangle[0] + " " + triangle[1]);
+			//	Debug.DrawLine(triangle[0], triangle[1], Color.red, 10);
+			//	col.SetPath(seg, triangle);
+			//	pathNumber++;
+			//}
+			//triangle = new Vector2[2] { m.vertices[2], m.vertices[0] };
+			//Debug.Log(triangle[0] + " " + triangle[1]);
+			//Debug.DrawLine(triangle[0], triangle[1], Color.red, 10);
+			//col.SetPath(pathNumber, triangle);
+			//pathNumber++;
+		}
 	}
 	public void UpdateHandles() { 
 		for(int i = 1; i < influenceA_nodes.Count; i++) {
@@ -82,12 +172,14 @@ public class SplineEditor : MonoBehaviour
 			}
 			mesh_filters[i].transform.eulerAngles = new Vector3(0, 0, 0);// -transform.eulerAngles.z);
 
-			var meshData = MeshGen.GenerateMesh(mesh_nodes[i].transform, influenceA_nodes[i].transform, influenceB_nodes[i].transform, mesh_nodes[i + 1].transform, prev, next);
+			var meshData = MeshGen.GenerateMesh(mesh_nodes[i].transform, influenceA_nodes[i].transform, influenceB_nodes[i].transform, mesh_nodes[i + 1].transform, prev, next, steps, width);
 			//Debug.Log(meshData.Item1.Length + " " + m);
 			m.vertices = meshData.Item1;
 			m.uv = meshData.Item2;
 			m.triangles = meshData.Item3;
 			mesh_filters[i].sharedMesh = m;
+
+			mesh_filters[i].gameObject.GetComponent<MeshRenderer>().material = roadMat;
 		}
 	}
 	public void KillTools() { 

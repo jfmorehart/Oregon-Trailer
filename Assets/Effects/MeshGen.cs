@@ -7,7 +7,7 @@ public class MeshGen : MonoBehaviour
 	//creates a custom mesh between points Start and Dest with influence point Infl
 
 
-	public static (Vector3[], Vector2[], int[]) GenerateMesh(Transform me, Transform influA, Transform influB, Transform desti, Vector3 prev, Vector3 next, int steps = 10, float extrusion = 5)
+	public static (Vector3[], Vector2[], int[]) GenerateMesh(Transform me, Transform influA, Transform influB, Transform desti, Vector3 prev, Vector3 next, int steps = 3, float extrusion = 5)
 	{
 		Vector2 start = me.transform.position;
 		Vector2 infA = influA.position;//.localPosition * 2;
@@ -91,9 +91,9 @@ public class MeshGen : MonoBehaviour
 			//start = start;
 			//tier one
 			lerpSA = Vector2.Lerp(start, inflA, lerpval);
-			Debug.DrawLine(start, inflA);
+			//Debug.DrawLine(start, inflA);
 			lerpAB = Vector2.Lerp(inflA, inflB, lerpval);
-			Debug.DrawLine(start, inflB);
+			//Debug.DrawLine(start, inflB);
 			lerpBD = Vector2.Lerp(inflB, dest, lerpval);
 
 			//tier two
@@ -103,7 +103,7 @@ public class MeshGen : MonoBehaviour
 			//Debug.DrawLine(lerpAB, lerpBD);
 			//tier 3
 			lerpfinal = Vector2.Lerp(lerpm1, lerpm2, lerpval);
-			Debug.DrawLine(lerpm1, lerpm2, Color.red);
+			//Debug.DrawLine(lerpm1, lerpm2, Color.red);
 			points.Add((lerpfinal - start) );
 		}
 		points.Add((dest - start) );
