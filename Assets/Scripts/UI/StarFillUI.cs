@@ -35,7 +35,7 @@ public class StarFillUI : MonoBehaviour
         //          " | " + (MapManager.instance.PlayerCurrentTime <=endTime) );
         if (MapManager.instance.PlayerCurrentTime >= startTime && MapManager.instance.PlayerCurrentTime < endTime) 
         {
-            Debug.Log("More then start time");
+            //Debug.Log("More then start time");
             starFill.transform.localPosition = Vector3.Lerp(new Vector3(startX, starFill.transform.localPosition.y), 
                 new Vector3(endX, starFill.transform.localPosition.y), 
                 MapManager.instance.PlayerCurrentTime/(endTime - startTime));
