@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using TMPro;
 using System.Data.SqlTypes;
 
 public class MapManager : MonoBehaviour
@@ -71,6 +72,24 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     float playerCurrentTime = -2;
     public float PlayerCurrentTime => playerCurrentTime;
+    
+    
+    // ------------------------------create notebook items
+    //Mom object, use index 1 to put items in, use index -1 to add complete objectives
+    public GameObject itemNotebookLog;
+    //List with all the refrences to available objectives
+    public TMP_Text[] availableObjectivesList = new TMP_Text[100];
+    //List with all the complete objectives
+    public TMP_Text[] completeObjectivesList = new TMP_Text[100];
+    //Font to create available texts
+    public Material availableFont;
+    //Font to create complete texts
+    public Material completeFont;
+    //Prefab of TMP_Text
+    public TMP_Text textPrefab;
+
+    public int currentNodeIndex = 0;
+    // ------------------------------ End
 
     private void Awake()
     {
@@ -126,7 +145,9 @@ public class MapManager : MonoBehaviour
 
         }
     }
+
     
+
     //try to spawn the generated events in order
     public void generateMap(GameObject map = null) 
     {
@@ -152,7 +173,32 @@ public class MapManager : MonoBehaviour
             mapUI.instance.instantPopUp();
             allowDestinationChoice();
             mapPlayer.instance.setPositionStrict(playersCurrentNode);
+            
+            //-------------------------------------------------------------------------------------------Generate Text Files
+            List<MapNode> allNodes = MapManager.instance.possibleMaps[0].GetComponent<levelPrefabVariableHolder>().allnodes;
+            // first, delete everything
+            
+            for (int i = 1; i < allNodes.Count; i++) // go through the list - starts from 2nd item
+            {
+                /*
+                //create the text object under the parent
+                TMP_Text txt = Instantiate(textPrefab, itemNotebookLog.transform);
+                availableObjectivesList[allNodes.Count - 1] = txt;
+                txt.transform.SetSiblingIndex(1);
+                // change the text to the name of the node
+                txt.text = allNodes[allNodes.Count - 1].GetComponent<MapNode>().NodeName;
+                //change the font
+                txt.material = availableFont;
+                */
+                TMP_Text txt = Instantiate(textPrefab, itemNotebookLog.transform);
+                txt.text = "- " + allNodes[i].NodeName;
+                txt.transform.SetSiblingIndex(1+i);
+                txt.fontMaterial = availableFont;
+                Debug.Log(availableObjectivesList.Length);
+                availableObjectivesList[i-1] = txt;
 
+            }
+            
         }
         else
         {
@@ -259,8 +305,28 @@ public class MapManager : MonoBehaviour
 
 
     }
+    
+    public void ObjectiveCompleted() // ----------------------------------------- Objective Completed ----------------
+    {
+        if (currentNodeIndex <= instance.possibleMaps[0].GetComponent<levelPrefabVariableHolder>().allnodes.Count - 1)
+        {
+            Debug.Log("current node index "+ currentNodeIndex);
+            // complete objective
+            List<MapNode> allNodes = MapManager.instance.possibleMaps[0].GetComponent<levelPrefabVariableHolder>().allnodes;
+            availableObjectivesList[currentNodeIndex].gameObject.SetActive(false);
+            TMP_Text txt = Instantiate(textPrefab, itemNotebookLog.transform);
+            txt.text = "- " + allNodes[currentNodeIndex].NodeName;
+            txt.transform.SetSiblingIndex(-1);
+            txt.fontMaterial = availableFont;
+            txt.color = new Color32(0, 255, 255, 100);
+            completeObjectivesList[currentNodeIndex] = txt;
+        
+            instance.currentNodeIndex++;
+            
+        }
+    }
 
-    public static void winConditionReached()
+    public static void winConditionReached() //won the level
     {
         if (instance == null)
         {
@@ -269,7 +335,7 @@ public class MapManager : MonoBehaviour
         }
 
         Debug.Log("Win condition reached " + PlayerVan.vanInstance.Breaker.hp);
-
+        
         instance.vanHealth = (int)PlayerVan.vanInstance.Breaker.hp;
         instance.money += PlayerVan.vanInstance.pickupValue;
         instance.playersCurrentNode.playerCanChoose = false;
@@ -377,6 +443,9 @@ public class MapManager : MonoBehaviour
         moneyText.text = instance.money.ToString();
         //FuelText.text = instance.fuel.ToString();
         yield return new WaitForEndOfFrame();
+
+        ObjectiveCompleted();
+        
 
         Debug.Log("D4");
         //handle the nodeswitch
