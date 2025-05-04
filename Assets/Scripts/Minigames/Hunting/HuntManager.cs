@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HuntManager : MonoBehaviour
 {
@@ -88,20 +89,30 @@ public class HuntManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         createStarVFX(oneStar);
-        
+        if (starsEarned==1)
+        {
+            ThreeStar.transform.GetComponent<Image>().color = new Color(0.9882354f, 0.6941177f, 0.2313726f, 0);//orange: 0.9882354f 0.6941177f 0.2313726f
+            twoStar.transform.GetComponent<Image>().color = new Color(0.9882354f, 0.6941177f, 0.2313726f, 0);
+        }
         if (starsEarned == 2)
         {
-            twoStar.SetActive(true);              
+            ThreeStar.transform.GetComponent<Image>().color = new Color(0.9882354f, 0.6941177f, 0.2313726f, 0);//orange: 0.9882354f 0.6941177f 0.2313726f
+            twoStar.transform.GetComponent<Image>().color = new Color(0.9882354f, 0.6941177f, 0.2313726f, 1);
+            twoStar.SetActive(true);         
             yield return new WaitForSeconds(0.25f);
             createStarVFX(twoStar);
-            
-            
+
+
+
         }
         else
         {
             //three stars
             ThreeStar.SetActive(true);
             twoStar.SetActive(true);//both should be set active
+            //PLEASE DONT CHANGE THE ORDER OF THE STAR PREFAB PLEASE PLEASE PLEASE I AM BEGGING YOU 
+            ThreeStar.transform.GetComponent<Image>().color = new Color(0.9882354f, 0.6941177f, 0.2313726f, 1);//orange: 0.9882354f 0.6941177f 0.2313726f
+            twoStar.transform.GetComponent<Image>().color = new Color(0.9882354f, 0.6941177f, 0.2313726f, 1);//orange: 0.9882354f 0.6941177f 0.2313726f
             yield return new WaitForSeconds(0.25f);
             createStarVFX(twoStar);
             yield return new WaitForSeconds(0.25f);
