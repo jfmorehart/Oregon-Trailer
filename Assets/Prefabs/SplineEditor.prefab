@@ -44,13 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e114478b107f647fb9712acfd5b068d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetTools: 0
   nodePrefab: {fileID: 8343819982211646064, guid: 0abf5b672f95942078d503273c019eb7, type: 3}
   influencePrefab: {fileID: 1695648780471725211, guid: 6c583c724dbad411180978904abaab41, type: 3}
   influenceBPrefab: {fileID: 1695648780471725211, guid: 2c6405381c1544a19a5c336eaeb52ba6, type: 3}
   meshPrefab: {fileID: 5993352829638681199, guid: f126e00bd01904a068a994aa6cb86d87, type: 3}
   spacer: 12
   segments: 12
+  width: 10
+  roadMat: {fileID: 2100000, guid: b5df4735192845740bd11076dc9cdc99, type: 2}
   all_tools:
   - {fileID: 0}
   - {fileID: 0}
@@ -115,4 +116,4 @@ MonoBehaviour:
   influenceA_nodes: []
   influenceB_nodes: []
   EnforceContinuity: 1
-  handleDistance: 0
+  ResetTools: 0

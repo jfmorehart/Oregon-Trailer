@@ -28,7 +28,7 @@ public class OneShotSource : MonoBehaviour
 	public void Play(AudioClip clip) {
         src = GetComponent<AudioSource>();
         src.clip = clip;
-        src.volume = clipVolume * exteralBlend * SFX.globalVolume;
+        src.volume = clipVolume * exteralBlend * SFX.SFX_volume;
         src.Play();
         Invoke(nameof(Kill), clip.length);
     }
@@ -36,7 +36,7 @@ public class OneShotSource : MonoBehaviour
     public OneShotSource LoopFromPool(AudioClip[] pool) {
 		src = GetComponent<AudioSource>();
 		src.clip = SFX.RandomClip(pool);
-		src.volume = clipVolume * exteralBlend * SFX.globalVolume;
+		src.volume = clipVolume * exteralBlend * SFX.SFX_volume;
         src.loop = true;
 		src.Play();
         clipPool = pool;
@@ -105,7 +105,7 @@ public class OneShotSource : MonoBehaviour
             speedval = Mathf.Lerp(0, 1, tracked.GetComponent<Rigidbody2D>().velocity.magnitude / trackMaxSpeed);
 	    }
         float fallofValue = SFX.Falloff(transform.position);
-		src.volume = clipVolume * speedval * internalBlend * exteralBlend * SFX.globalVolume * fallofValue;
+		src.volume = clipVolume * speedval * internalBlend * exteralBlend * SFX.SFX_volume * fallofValue;
 	}
 
 	void Kill() {
