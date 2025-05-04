@@ -13,7 +13,7 @@ public class TutorialPopup : MonoBehaviour
     SpriteRenderer sr;
     public bool allowTut = false;
     public bool shootTutorial = false;
-
+    private float aliveTimer = 0;
     public void Awake()
     {
         //check to see if tutorial should be active
@@ -39,6 +39,12 @@ public class TutorialPopup : MonoBehaviour
     }
     private void Update()
     {
+        if(!finished && aliveTimer > 25 && timer > 0.75f)
+        {
+            timer = duration + 5;
+        }
+        if (!finished && timer > 0.75f)
+            aliveTimer += Time.deltaTime;
         if (!finished && Input.GetKey(key))
         {
             timer += Time.deltaTime;
@@ -50,5 +56,6 @@ public class TutorialPopup : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
 }
