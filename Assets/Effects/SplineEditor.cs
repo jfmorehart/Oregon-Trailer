@@ -72,7 +72,16 @@ public class SplineEditor : MonoBehaviour
 			{
 				col = go.AddComponent<PolygonCollider2D>();
 			}
-			if(col == null) {
+			TerrainModifier terr;
+			if(go.TryGetComponent(out TerrainModifier tm)) {
+				terr = tm;
+			}
+			else {
+				terr = go.AddComponent<TerrainModifier>();
+			}
+			terr.gripModifier = 1.4f;
+			terr.dragModifier = 0.9f;
+			if (col == null) {
 				Debug.Log("failed, no collider on object " + i);
 			}
 			col.isTrigger = true;
