@@ -78,9 +78,9 @@ public class MapManager : MonoBehaviour
     //Mom object, use index 1 to put items in, use index -1 to add complete objectives
     public GameObject itemNotebookLog;
     //List with all the refrences to available objectives
-    public TMP_Text[] availableObjectivesList = new TMP_Text[100];
+    private TMP_Text[] availableObjectivesList = new TMP_Text[100];
     //List with all the complete objectives
-    public TMP_Text[] completeObjectivesList = new TMP_Text[100];
+    private TMP_Text[] completeObjectivesList = new TMP_Text[100];
     //Font to create available texts
     public Material availableFont;
     //Font to create complete texts
