@@ -37,6 +37,9 @@ public class ChunkManager : MonoBehaviour
 
 	[SerializeField]
     private GameObject VanObj;
+
+	public GameObject riverMaker;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -116,8 +119,10 @@ public class ChunkManager : MonoBehaviour
 		GameObject parent = Instantiate(new GameObject(), transform);
 		parent.name = "Boundary";
 
-		for(int i = 0; i < points.Length; i++) {
-			if(points.Length > i + 1) {
+		for (int i = 0; i < points.Length; i++)
+		{
+			if (points.Length > i + 1)
+			{
 				Vector3 middle = points[i] + points[i + 1];
 				middle *= 0.5f;
 				middle.z = 9;
@@ -127,10 +132,14 @@ public class ChunkManager : MonoBehaviour
 				go.transform.right = delta;
 				go.transform.eulerAngles = new Vector3(0, 0, go.transform.eulerAngles.z);
 			}
-			else { 
+			else
+			{
 				//this is the last point
 			}
 		}
+
+		//RiverMeshMaker rmm = Instantiate(riverMaker, transform).GetComponent<RiverMeshMaker>();
+		//rmm.Generate(points);
     }
 
 	void Start() {

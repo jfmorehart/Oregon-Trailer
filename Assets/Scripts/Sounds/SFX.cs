@@ -7,6 +7,11 @@ public class SFX : MonoBehaviour
 {
 	public static SFX instance;
 
+	AudioSource music_src;
+	public AudioClip menu, driving;
+	bool isdriving;
+
+
 	public AudioClip[] road;
 	public AudioClip[] sand;
 	public AudioClip[] engine;
@@ -23,7 +28,9 @@ public class SFX : MonoBehaviour
 	[HideInInspector]
 	public bool reloadAudio;
 
-	public static float globalVolume = 1;
+	public static float SFX_volume {
+		get { return AudioSettings.settings_sfx_volume; }
+    }
 
 	public GameObject oneShotSourcePrefab;
 	public GameObject pooledSourcePrefab;
@@ -40,8 +47,31 @@ public class SFX : MonoBehaviour
 		PopulateSoundPool(carImpact);
 		PopulateSoundPool(houseImpact);
 		PopulateSoundPool(rockImpact);
+
+		music_src = GetComponent<AudioSource>();
 	}
 
+	private void Update()
+	{
+		if (isdriving)
+		{
+			if (PlayerVan.vanInstance == null)
+			{
+				isdriving = false;
+				music_src.clip = menu;
+				music_src.Play();
+			}
+		}
+		else
+		{
+			if (PlayerVan.vanInstance != null)
+			{
+				isdriving = true;
+				music_src.clip = driving;
+				music_src.Play();
+			}
+		}
+	}
 	void PopulateSoundPool(SoundPool p) {
 		p.sourcePool = new PooledSource[p.sourcePoolSize];
 		for (int i = 0; i < p.sourcePoolSize; i++)
