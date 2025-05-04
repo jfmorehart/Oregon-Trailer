@@ -782,6 +782,8 @@ public class MapManager : MonoBehaviour
     public void AddMoney(int m)
     {
         money += m;
+        instance.moneyText.text = instance.money.ToString();
+
     }
 
     public void repairVan()
