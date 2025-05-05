@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using TMPro;
 using System.Data.SqlTypes;
 
 public class MapManager : MonoBehaviour
