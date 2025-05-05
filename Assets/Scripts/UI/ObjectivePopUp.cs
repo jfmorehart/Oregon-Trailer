@@ -19,9 +19,21 @@ public class ObjectivePopUp : MonoBehaviour
     private float time = 0;
 
 
-
+    private void Awake()
+    {
+        if (questDisplay == null)
+            Debug.Log("Quest Display is null on awake - " + transform.name + " ");
+    }
+    private void Start()
+    {
+        if (questDisplay == null)
+            Debug.Log("Quest Display is null on start");
+    }
     public void Update()
     {
+        if(questDisplay == null)
+            Debug.Log("Quest Display is null " + (questDisplay == null));
+
         questDisplay.GetComponent<Image>().color = new Color(0.9882353f, 0.972549f, 0.7098039f, opacityCurve.Evaluate(time));
         line.GetComponent<Image>().color = new Color(0.8862746f, 0.3411765f, 0.1647059f, opacityCurve.Evaluate(time));
         questText.color = new Color(0.9882353f, 0.972549f, 0.7098039f, opacityCurve.Evaluate(time));
