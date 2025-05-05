@@ -24,14 +24,17 @@ public class PopupManager : MonoBehaviour
     public List<flavor> flavors = new List<flavor>();
 
     public Vector2 flavorOnScreenLocation = new Vector2();
-    public Vector2 flavorOnScreenPosition = new Vector2();
+    public Vector2 flavorOffScreenLocation = new Vector2();
 
     public List<FlavorPopup> flavorPopups = new List<FlavorPopup>();
 
     public static PopupManager instance;
     [SerializeField]
     private GameObject flavorPopoupPrefab;
-    
+
+
+    float timeSinceLastPopup = 0;
+    float popuptime = 0;
     private void Awake()
     {
         instance = this;
@@ -64,14 +67,14 @@ public class PopupManager : MonoBehaviour
         }
         else
         {
-            popupBehavior();
+            //popupBehavior();
         }
     }
 
     public void removeTutorialPopup(TutorialPopup pop)
     {
         //only for tutorial first popups
-        Debug.Log("Removed this " + pop.name);
+        //Debug.Log("Removed this " + pop.name);
         firstPopups.Remove(pop);
     }
 
@@ -82,12 +85,12 @@ public class PopupManager : MonoBehaviour
         {
             if (firstPopups.Count > 0)
             {
-                Debug.Log("first tutorial" + firstPopups.Count);
+                //Debug.Log("first tutorial" + firstPopups.Count);
                 //do second popup
             }
             else
             {
-                Debug.Log("Seconds tutorial" );
+                //Debug.Log("Seconds tutorial" );
 
                 if (secondPopup != null)
                     secondPopup.showTutorial();
@@ -96,9 +99,30 @@ public class PopupManager : MonoBehaviour
         }
     }
 
-    public void popupBehavior()
+    public void popupBehavior(flavor flav)
     {
-        
+        //Debug.Log("popup " + popup);
+        float posY = 0;
+        switch (flav.position)
+        {
+            case 0:
+                posY = 54;
+                break;
+            case 1:
+                posY = -61;
+                break;
+            case 2:
+                posY = -170;
+                break;
+            default:
+                break;
+        }
+        Vector2 onScreen = new Vector2(flavorOnScreenLocation.x, posY);
+        Vector2 offScreen = new Vector2(flavorOffScreenLocation.x, posY);
+
+
+        GameObject g = Instantiate(flavorPopoupPrefab, new Vector2(03000, 0), Quaternion.identity, transform);
+        g.GetComponent<FlavorPopup>().initPopup(offScreen, onScreen, flav);
     }
 
 }
@@ -109,4 +133,5 @@ public struct flavor
     public string phrase;
     public Sprite face;
     public float duration;//defaults to 5 seconds
+    public float position;
 }
