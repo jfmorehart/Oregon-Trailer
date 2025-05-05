@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEditor;
-using Unity.VisualScripting;
 using UnityEngine.UIElements;
 
 [ExecuteInEditMode]
@@ -31,6 +30,8 @@ public class SplineEditor : MonoBehaviour
 	public bool ResetTools; //used for editorbutton
 	public bool CreateColliders;
 
+
+#if UNITY_EDITOR
 	[ExecuteInEditMode]
 	private void Update()
 	{
@@ -48,7 +49,6 @@ public class SplineEditor : MonoBehaviour
 		}
 		UpdateMeshes();
 
-		UnityEditor.EditorUtility.SetDirty(this);
 	}
 	public void BuildMeshColliders() {
 		Debug.Log("building colliders");
@@ -233,4 +233,5 @@ public class SplineEditor : MonoBehaviour
 			mesh_filters.Add(mf);
 		}
     }
+#endif
 }
