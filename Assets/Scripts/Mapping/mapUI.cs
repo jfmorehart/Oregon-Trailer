@@ -160,6 +160,7 @@ public class mapUI : MonoBehaviour
         {
             return;
         }
+        Debug.Log("can eb intereatcted with");
         if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Escape))
         {
             if (IsActivated)
@@ -270,6 +271,8 @@ public class mapUI : MonoBehaviour
             currentScreen = mapScreens.map;
             menuIndex = 0;
             currentSelected = uiMenuButtons[0];
+            uiMenuButtons[1].deselect();
+            uiMenuButtons[2].deselect();
             buttonPressed(mapScreens.map);
             if (thisCausedPause)//if this is already paused, we dont need to pause
             {
@@ -353,7 +356,7 @@ public class mapUI : MonoBehaviour
     {
         inLevel = true;
         vanrb = PlayerVan.vanTransform.GetComponent<Rigidbody2D>();
-        //ShouldBeInteractedWith = true;
+        ShouldBeInteractedWith = true;
     }
 
     //should probably make this use the event system instead
