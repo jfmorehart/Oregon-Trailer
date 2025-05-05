@@ -125,12 +125,15 @@ public class MapNode : MonoBehaviour
         {
             case activity.Diner:
                 _nodeIconRenderer.sprite = gasIcon;
+                _nodeIconRenderer.color = new Color(1, 1, 1, 0);
                 break;
             case activity.Hunt:
                 _nodeIconRenderer.sprite = combatIcon;
+                _nodeIconRenderer.color = new Color(1, 1, 1, 0);
                 break;
             case activity.Garage:
                 _nodeIconRenderer.sprite = mechanicIcon;
+                _nodeIconRenderer.color = new Color(1, 1, 1, 0);
                 break;
             case activity.None:
                 _nodeIconRenderer.color = new Color(1, 1, 1, 0);

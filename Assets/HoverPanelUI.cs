@@ -41,16 +41,16 @@ public class HoverPanelUI : MonoBehaviour
         if (mn.earnedStars == 0)
         {
             if (mn.timeSpentInLevel < 1)
-                actualTimeEarnedText.text = "Not attempted";
+                actualTimeEarnedText.text = "NONE";
             starsParentTransform.SetActive(true);
 
             for (int i = 0; i < hoverStars.Count; i++)
             {
                 //Debug.Log("Hover star valid " + (hoverStars[i] != null));
                 if (i < mn.earnedStars)
-                    hoverStars[i].color = Color.white;
+                    hoverStars[i].color = new Color32(251, 176, 59, 255);
                 else
-                    hoverStars[i].color = Color.black;
+                    hoverStars[i].color = new Color(0,0,0,0.5f);
             }
         }
         else
@@ -59,9 +59,9 @@ public class HoverPanelUI : MonoBehaviour
             for (int i = 0; i < hoverStars.Count; i++)
             {
                 if (i < mn.earnedStars)
-                    hoverStars[i].color = Color.white;
+                    hoverStars[i].color = new Color32(251, 176, 59, 255);
                 else
-                    hoverStars[i].color = Color.black;
+                    hoverStars[i].color = new Color(0,0,0,0.5f);
             }
 
             if (mn.timeSpentInLevel > 1)
