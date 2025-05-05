@@ -26,7 +26,7 @@ public class TutorialPopup : MonoBehaviour
             PopupManager.instance.addTutorialPopup(this);
             if (!shootTutorial)
             {
-                Debug.Log("showing tutorial");
+                //Debug.Log("showing tutorial");
                 showTutorial();
             }
         }
