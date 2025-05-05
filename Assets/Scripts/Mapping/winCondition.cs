@@ -59,7 +59,7 @@ public class winCondition : MonoBehaviour
 
         frameTimer++;
 
-        if (frameTimer >= 300)
+        if (frameTimer >= 200)
         {
             Debug.Log("Frame Timer: "  + Condition + " " + frameTimer + " " + target.Count);
 
@@ -72,7 +72,7 @@ public class winCondition : MonoBehaviour
             {
                 if (target[i] == null)
                 {
-                    Debug.Log("Removing at the position " + i + " " + target[i].name);
+                    //Debug.Log("Removing at the position " + i + " " + target[i].name);
                     target.RemoveAt(i);//reduce list to 0 once something is killed
                 }
             }
