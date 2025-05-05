@@ -81,8 +81,8 @@ public class MapNode : MonoBehaviour
     public float ThreeStarTime => threeStarTime;
     [SerializeField]
     bool goToGarageScreenOnComplete = false;
-    GameObject hoverPanelPrefab;
-    HoverPanelUI ownedHoverPanel;
+    GameObject hoverPanelPrefab; 
+    HoverPanelUI ownedHoverPanel; // the one the node has
     public bool allowHover = true;
     [SerializeField]
     bool isLocked = true;
@@ -394,14 +394,16 @@ public class MapNode : MonoBehaviour
             }
         }
     }
-    private void OnMouseOver()
+    public void OnMouseOver()
     {
         showHoverUI();
+        gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
 
     }
-    private void OnMouseExit()
+    public void OnMouseExit()
     {
         ownedHoverPanel.gameObject.SetActive(false);
+        gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
 
