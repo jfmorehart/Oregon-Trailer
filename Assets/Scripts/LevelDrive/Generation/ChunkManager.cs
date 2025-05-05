@@ -304,7 +304,7 @@ public class ChunkManager : MonoBehaviour
 
         SortWaypoints();
 
-
+		// Check for infA or infB
     }
 
     void GenerationLoop(List<int> questChunks) {

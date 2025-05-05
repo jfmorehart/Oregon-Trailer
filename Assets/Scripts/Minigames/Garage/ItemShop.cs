@@ -117,11 +117,15 @@ public class ItemShop : MonoBehaviour
 
     public void buyUpgrade()
     {
+
+
+
         Debug.Log("Buy Upgrade : " + SelectedUpgrade);
         /* --- UI --- */
         if (SelectedUpgrade != null)
         {
-            MapManager.instance.BuyResource(SelectedUpgrade.cost);
+            if(MapManager.instance.BuyResource(SelectedUpgrade.cost) == false)
+                return;
             Upgrade boughtUpgrade = SelectedUpgrade.upgrade;
             Debug.Log("Bought Upgrade " + boughtUpgrade);
             

@@ -31,7 +31,6 @@ public class SplineEditor : MonoBehaviour
 	public bool CreateColliders;
 
 
-#if UNITY_EDITOR
 	[ExecuteInEditMode]
 	private void Update()
 	{
@@ -233,5 +232,4 @@ public class SplineEditor : MonoBehaviour
 			mesh_filters.Add(mf);
 		}
     }
-#endif
 }
