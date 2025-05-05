@@ -55,7 +55,7 @@ public class winCondition : MonoBehaviour
     {
         if (Condition == winconditions.timeTrail)
         {
-            Debug.Log("Time Trail");
+            //Debug.Log("Time Trail");
             return;
         }
 

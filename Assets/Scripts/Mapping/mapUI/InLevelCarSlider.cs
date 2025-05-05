@@ -39,8 +39,6 @@ public class InLevelCarSlider : MonoBehaviour
     List<Image> threeStarImages = new List<Image>();
     [SerializeField]
     List<Image> twoStarImages = new List<Image>();
-    [SerializeField]
-    private ObjectivePopUp popupprefab;
     private void Awake()
     {
         
@@ -75,19 +73,12 @@ public class InLevelCarSlider : MonoBehaviour
         van = GameObject.Find("Van(Clone)");
         
         //change the text on the top
-        destinationText.text = MapManager.instance.playerDestinationNode.NodeName;
+        if(MapManager.instance.playerDestinationNode)
+            destinationText.text = MapManager.instance.playerDestinationNode.NodeName;
+        else
+            destinationText.text = "New Mexico";
         currentNodeText.text = MapManager.instance.playersCurrentNode.NodeName;
         
-        /*
-        //GameObject g = Instantiate(popupprefab.gameObject, GameObject.FindGameObjectWithTag("Canvas").transform);
-        GameObject g = Instantiate(popupprefab.gameObject, MapManager.instance.transform);
-        g.transform.localScale = new Vector3(.01f,.01f,.01f);
-        g.transform.position = new Vector2(0,10);
-        ObjectivePopUp popup = g.GetComponent<ObjectivePopUp>();
-        popup.questDisplay.text = "<u>" + MapManager.instance.playersCurrentNode.NodeName + "</u>" +"\nObjective"+ MapManager.instance.playersCurrentNode.WinCondition.winConditionText.ToString();
-        //TODO get levelType
-        */
-
         //change the string
         //popup.quest = MapManager.instance.playerDestinationNode.WinCondition.getCondition + " ";
         
@@ -124,7 +115,7 @@ public class InLevelCarSlider : MonoBehaviour
         // Change Text
         if(MapManager.instance.playerDestinationNode)
             objectiveInstance.transform.GetChild(0).GetComponent<TMP_Text>().text =  
-                "<u>" +MapManager.instance.playerDestinationNode.NodeName +"</u>"+ "\nObjective: " +
+                "<u>" +MapManager.instance.playersCurrentNode.NodeName +"</u>"+ "\nObjective: " +
                 MapManager.instance.playerDestinationNode.WinCondition.winConditionText.ToString();
 
 
