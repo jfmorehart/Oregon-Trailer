@@ -34,6 +34,8 @@ public class SplineEditor : MonoBehaviour
 	[ExecuteInEditMode]
 	private void Update()
 	{
+		if(Application.isPlaying)return;
+
 		if (ResetTools) {
 			ResetTools = false; //this will avoid infinite errors
 			KillTools();
