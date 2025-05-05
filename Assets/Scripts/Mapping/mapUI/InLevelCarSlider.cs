@@ -118,10 +118,12 @@ public class InLevelCarSlider : MonoBehaviour
         // Change where the prefab gets instantiated
         objectiveInstance.transform.parent = MapManager.instance.transform;
         //Change the prefabs transform
-        objectiveInstance.transform.position = new Vector2(0, 10);
+        objectiveInstance.transform.position = new Vector2(MapManager.instance.transform.position.x, MapManager.instance.transform.position.y + 8);
+        //Change Scale
+        //objectiveInstance.transform.localScale = new Vector3(.01f, .01f, 1);
         // Change Text
         if(MapManager.instance.playerDestinationNode)
-            objectiveInstance.GetComponent<ObjectivePopUp>().questDisplay.text =  
+            objectiveInstance.transform.GetChild(0).GetComponent<TMP_Text>().text =  
                 "<u>" +MapManager.instance.playerDestinationNode.NodeName +"</u>"+ "\nObjective: " +
                 MapManager.instance.playerDestinationNode.WinCondition.winConditionText.ToString();
 
