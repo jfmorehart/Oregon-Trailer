@@ -147,7 +147,7 @@ public class PlayerVan : Drivable
 			}
 
 		}
-		else if (collision.collider.TryGetComponent(out Breakable b) && !levelFinished)
+		else if (collision.collider.TryGetComponent(out Breakable b) && !levelFinished && MapManager.instance.playersCurrentNode.WinCondition.getCondition == winCondition.winconditions.chase)
 		{
 			if (b.target == true)
 			{
