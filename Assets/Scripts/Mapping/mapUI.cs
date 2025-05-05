@@ -160,8 +160,9 @@ public class mapUI : MonoBehaviour
         {
             return;
         }
-        Debug.Log("can eb intereatcted with");
-        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Escape))
+        
+        //Debug.Log("can eb intereatcted with");
+        if (Input.GetKeyDown(KeyCode.M) && inLevel || Input.GetKeyDown(KeyCode.Escape) && inLevel)
         {
             if (IsActivated)
             {
@@ -271,6 +272,7 @@ public class mapUI : MonoBehaviour
             currentScreen = mapScreens.map;
             menuIndex = 0;
             currentSelected = uiMenuButtons[0];
+            uiMenuButtons[0].activate();
             uiMenuButtons[1].deselect();
             uiMenuButtons[2].deselect();
             buttonPressed(mapScreens.map);
@@ -363,6 +365,7 @@ public class mapUI : MonoBehaviour
     public void endLevel()
     {
         inLevel = false;
+        //ShouldBeInteractedWith = false;
     }
     public void doHealthUI()
     {
