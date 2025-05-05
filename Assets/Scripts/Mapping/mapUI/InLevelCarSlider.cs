@@ -73,7 +73,10 @@ public class InLevelCarSlider : MonoBehaviour
         van = GameObject.Find("Van(Clone)");
         
         //change the text on the top
-        destinationText.text = MapManager.instance.playerDestinationNode.NodeName;
+        if(MapManager.instance.playerDestinationNode)
+            destinationText.text = MapManager.instance.playerDestinationNode.NodeName;
+        else
+            destinationText.text = "New Mexico";
         currentNodeText.text = MapManager.instance.playersCurrentNode.NodeName;
         
         //change the string
