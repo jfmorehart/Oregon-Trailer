@@ -9,7 +9,7 @@ public class TutorialPopup : MonoBehaviour
     public KeyCode key;
     public float timer = 0;
     private float duration = 2;
-    public bool finished => (timer > 2);
+    public bool finished => (timer > duration);
     SpriteRenderer sr;
     public bool allowTut = false;
     public bool shootTutorial = false;
@@ -34,16 +34,21 @@ public class TutorialPopup : MonoBehaviour
     }
     public void showTutorial()
     {
-        sr.enabled = true;
-        allowTut = true;
+        if (!allowTut)
+        {
+            sr.enabled = true;
+            allowTut = true;
+        }
+        
     }
     private void Update()
     {
-        if(!finished && aliveTimer > 25 && timer > 0.75f)
+        if(!finished && aliveTimer > 5 && timer > duration / 2)
         {
+            Debug.Log("FINISHED " + name + ": "+ timer);
             timer = duration + 5;
         }
-        if (!finished && timer > 0.75f)
+        if (!finished && timer > duration / 2)
             aliveTimer += Time.deltaTime;
         if (!finished && Input.GetKey(key))
         {
@@ -54,7 +59,9 @@ public class TutorialPopup : MonoBehaviour
         }
         if (finished)
         {
-            Destroy(gameObject);
+            PopupManager.instance.removeTutorialPopup(this);
+            Debug.Log("Popupmanager talked to");
+            Destroy(gameObject, 1);
         }
         
     }
