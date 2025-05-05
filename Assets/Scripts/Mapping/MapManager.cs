@@ -668,6 +668,8 @@ public class MapManager : MonoBehaviour
             vanHealth = MAXHEALTH;
         }
     }
+
+    //public void RestartToMainMenu()
     public void RestartToMainMenu()
     {
         
@@ -677,7 +679,7 @@ public class MapManager : MonoBehaviour
             Debug.Log("restart position");
 
             _playerInTransit = false;
-
+            
             playersCurrentNode.WinCondition.active = false;
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
