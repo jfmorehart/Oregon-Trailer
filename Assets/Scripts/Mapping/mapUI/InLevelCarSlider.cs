@@ -222,7 +222,32 @@ public class InLevelCarSlider : MonoBehaviour
         maxDistance = 10000;
         leveldistancetext.gameObject.SetActive(false);
         levelcompleteslider.gameObject.SetActive(false);
-        levelRestartText.gameObject.SetActive(false);
+        //levelRestartText.gameObject.SetActive(true);
+        if (!restartTextCalled)
+        {
+            Image[] children = levelRestartText.GetComponentsInChildren<Image>();
+            foreach (Image i in children)
+            {
+                //get the ending color - on the black background, we do not want to turn it white
+                Color endColor = i.color;
+                Debug.Log(endColor);
+                float duration = 1f;
+                //change the color to pure black, and transparent
+                i.color = new Color(0, 0, 0, 0);
+                if (i.TryGetComponent<Button>(out Button bb))
+                {
+                    bb.interactable = false;
+                    i.DOColor(endColor, duration).SetUpdate(true).onComplete = (() => { bb.interactable = true; Debug.Log("At the end"); });
+                }
+                else
+                {
+                    i.DOColor(endColor, duration).SetUpdate(true);
+                }
+
+            }
+            restartTextCalled = true;
+        }
+        //levelRestartText.gameObject.SetActive(false);
         for (int i = 0; i < twoStarImages.Count; i++)
         {
             twoStarImages[i].color = Color.white;

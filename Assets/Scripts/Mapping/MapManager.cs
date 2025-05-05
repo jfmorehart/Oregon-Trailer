@@ -600,7 +600,7 @@ public class MapManager : MonoBehaviour
         //testing stuff
         if (Input.GetKeyDown(KeyCode.X) && skipmode)
         {
-            playerArrived(100);
+            //playerArrived(100);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -668,6 +668,8 @@ public class MapManager : MonoBehaviour
             vanHealth = MAXHEALTH;
         }
     }
+
+    //public void RestartToMainMenu()
     public void RestartToMainMenu()
     {
         
@@ -677,7 +679,7 @@ public class MapManager : MonoBehaviour
             Debug.Log("restart position");
 
             _playerInTransit = false;
-
+            
             playersCurrentNode.WinCondition.active = false;
             //fade to black
             StartCoroutine(fadeToBlackResetPosition());
