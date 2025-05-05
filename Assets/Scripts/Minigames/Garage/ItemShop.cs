@@ -131,16 +131,21 @@ public class ItemShop : MonoBehaviour
                 UpgradeManager.instance.q_upgrade = boughtUpgrade;
                 qButton.image.sprite = SelectedUpgrade.img;
                 qButton.image.color = Color.white;
+                Debug.Log("Gameobject is now this " + SelectedUpgrade.name);
+                SelectedUpgrade.equipButton.SetActive(false);
             }
             else if (UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
                 UpgradeManager.instance.e_upgrade = boughtUpgrade;
                 eButton.image.sprite = SelectedUpgrade.img;
                 eButton.image.color = Color.white;
+                //disable the object
+                Debug.Log("Gameobject is now this");
+                SelectedUpgrade.equipButton.SetActive(false);
             }
             else
             {
-                Debug.Log("missed both slots");
+                //Debug.Log("missed both slots");
             }
             InLevelCarSlider.instance.updateUpgradeUI();
             GarageManager.instance.addUpgrade(boughtUpgrade);
@@ -153,14 +158,15 @@ public class ItemShop : MonoBehaviour
             {
                 foreach (StoreUpgrades upgrade in availableUpgrades)
                 {
-                    upgrade.equipButton.GetComponent<Button>().interactable = true;
+                    if (upgrade.upgrade != UpgradeManager.instance.e_upgrade && upgrade.upgrade != UpgradeManager.instance.q_upgrade && upgrade.buyButton.activeSelf == false)
+                        upgrade.equipButton.SetActive(true);//technically if is not needed 
                 }
             }
             else
             {
                 foreach (StoreUpgrades upgrade in availableUpgrades)
                 {
-                    upgrade.equipButton.GetComponent<Button>().interactable = false;
+                    upgrade.equipButton.SetActive(false) ;
                 }
             }
         }
@@ -168,7 +174,6 @@ public class ItemShop : MonoBehaviour
         {
             Debug.Log("Should not have option to buy upgrade when player does not have enough money");
         }
-
     }
 
     public void stealButtonBehavior()
@@ -181,7 +186,7 @@ public class ItemShop : MonoBehaviour
     {
         if (SelectedUpgrade != null)
         {
-            if(UpgradeManager.instance.q_upgrade == SelectedUpgrade.upgrade || UpgradeManager.instance.e_upgrade == SelectedUpgrade.upgrade)
+            if(UpgradeManager.instance.q_upgrade == SelectedUpgrade.upgrade || UpgradeManager.instance.e_upgrade == SelectedUpgrade.upgrade )
             {
                 Debug.Log("already exists");
                 return;
@@ -192,7 +197,6 @@ public class ItemShop : MonoBehaviour
                 UpgradeManager.instance.q_upgrade = SelectedUpgrade.upgrade;
                 qButton.image.sprite = SelectedUpgrade.img;
                 Debug.Log("Added to Q");
-
             }
             else if (UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
@@ -205,7 +209,7 @@ public class ItemShop : MonoBehaviour
                 //no slots available, make sure all are unable to be equipped
                 foreach (StoreUpgrades upgrade in availableUpgrades)
                 {
-                    upgrade.equipButton.GetComponent<Button>().interactable = false;
+                    upgrade.equipButton.SetActive(false);
                 }
             }
         }
@@ -216,7 +220,6 @@ public class ItemShop : MonoBehaviour
     {
         if (leftSlot)
         {
-
             UpgradeManager.instance.q_upgrade = Upgrade.None;
             qButton.image.sprite = null;
             qButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
@@ -226,13 +229,13 @@ public class ItemShop : MonoBehaviour
             UpgradeManager.instance.e_upgrade = Upgrade.None;
             eButton.image.sprite = null;
             eButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
-
         }
 
         //allow for equip if we have an empty slot
         foreach (StoreUpgrades upgrade in availableUpgrades)
         {
-            upgrade.equipButton.GetComponent<Button>().interactable = true;
+            if (upgrade.upgrade != UpgradeManager.instance.e_upgrade && upgrade.upgrade != UpgradeManager.instance.q_upgrade && upgrade.buyButton.activeSelf == false)
+                upgrade.equipButton.SetActive(true);
         }
     }
 }

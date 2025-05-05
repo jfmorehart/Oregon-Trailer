@@ -38,7 +38,7 @@ public class StoreUpgrades : MonoBehaviour
             return;
         }
         //Debug.Log("equipbutton " + equipButton.activeInHierarchy + " " + upgrade);
-        equipButton.SetActive(true);
+        //equipButton.SetActive(true);
         buyButton.SetActive(false);
         costText.SetActive(false);
     }
