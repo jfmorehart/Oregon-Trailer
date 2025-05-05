@@ -143,8 +143,24 @@ public class HuntManager : MonoBehaviour
         }
         
     }
-    public void hideHunt()
+    
+    public Image fadeToBlackBG;
+    public IEnumerator fadeToBlackHandleMovement()
     {
+        //probably more efficient to move this to a dedicated fade to black obj but whatever
+        float duration = 1f;
+        fadeToBlackBG.gameObject.SetActive(true);
+        Color transparent = new Color(0, 0, 0, 0);
+        Color full = new Color(0, 0, 0, 1);
+        float time = 0;
+        fadeToBlackBG.color = transparent;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        // -------------------------------------------------------------------------------------------- change the scene
         //only work if all stars has gone to the end
         huntScene.SetActive(false);
 
@@ -160,7 +176,35 @@ public class HuntManager : MonoBehaviour
 
         //communicate with map manager to display the map
         MapManager.instance.nodeActivityDone(goToGarageScreenOnComplete, 0);
+        
+        // -------------------------------------------------------------------------------------------------------------
 
+        fadeToBlackBG.color = new Color(0, 0, 0, 1);
+
+        //when the screen is black we now show the node stuff
+        yield return new WaitForSeconds(0.5f);
+        time = 0;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(full, transparent, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.gameObject.SetActive(false);
+
+        //temp - destroy all scrap 
+        Pickup[] g = GameObject.FindObjectsOfType<Pickup>();
+        for (int i = 0; i < g.Length; i++)
+        {
+            Destroy(g[i].gameObject);
+        }
+
+        //PlayerChanges();
+    }
+    public void hideHunt()
+    {
+        StartCoroutine(fadeToBlackHandleMovement());
     }
 
 }
