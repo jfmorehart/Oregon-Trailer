@@ -947,7 +947,7 @@ public class MapManager : MonoBehaviour
 
     public bool BuyResource(int cost)
     {
-        if (cost < money)
+        if (cost <= money)
         {
             money -= cost;
             moneyText.text = money+"";
