@@ -39,6 +39,7 @@ public class InLevelCarSlider : MonoBehaviour
     List<Image> threeStarImages = new List<Image>();
     [SerializeField]
     List<Image> twoStarImages = new List<Image>();
+    bool restartTextCalled = false;
     private void Awake()
     {
         
@@ -113,14 +114,16 @@ public class InLevelCarSlider : MonoBehaviour
         //Change Scale
         //objectiveInstance.transform.localScale = new Vector3(.01f, .01f, 1);
         // Change Text
-        if(MapManager.instance.playerDestinationNode)
-            objectiveInstance.transform.GetChild(0).GetComponent<TMP_Text>().text =  
-                "<u>" +MapManager.instance.playersCurrentNode.NodeName +"</u>"+ "\nObjective: " +
+        if (MapManager.instance.playerDestinationNode)
+            objectiveInstance.transform.GetChild(0).GetComponent<TMP_Text>().text =
+                "<u>" + MapManager.instance.playersCurrentNode.NodeName + "</u>" + "\nObjective: " +
                 MapManager.instance.playerDestinationNode.WinCondition.winConditionText.ToString();
+        
+
+
 
 
     }
-
     void Update()
     {
         if (vanAlive && inLevel) 
@@ -164,10 +167,31 @@ public class InLevelCarSlider : MonoBehaviour
             
             //we must be in the other section of the game
             levelcompleteslider.value = 0;
-            if(inLevel)//player is dead{
+            if(inLevel && !restartTextCalled)//player is dead{
             {
-                levelRestartText.gameObject.SetActive(true);
 
+                levelRestartText.gameObject.SetActive(true);
+                Image[] children = levelRestartText.GetComponentsInChildren<Image>();
+                foreach (Image i in children)
+                {
+                    //get the ending color - on the black background, we do not want to turn it white
+                    Color endColor = i.color;
+                    Debug.Log(endColor);
+                    float duration = 1f;
+                    //change the color to pure black, and transparent
+                    i.color = new Color(0, 0, 0, 0);
+                    if (i.TryGetComponent<Button>(out Button bb))
+                    {
+                        bb.interactable = false;
+                        i.DOColor(endColor, duration).SetUpdate(true).onComplete = (() => { bb.interactable = true; Debug.Log("At the end"); }); 
+                    }
+                    else
+                    {
+                        i.DOColor(endColor, duration).SetUpdate(true);
+                    }
+
+                }
+                restartTextCalled = true;
             }
 
         }
@@ -179,12 +203,14 @@ public class InLevelCarSlider : MonoBehaviour
         playervan.onKill -= playerDead;
         vanAlive = false;
         playervan = null;
+        restartTextCalled = false;
     }
     public void levelFailed()
     {
         inLevel = true;
         vanAlive = false;
         playervan = null;
+        restartTextCalled = false;
     }
     public void levelDone()
     {
