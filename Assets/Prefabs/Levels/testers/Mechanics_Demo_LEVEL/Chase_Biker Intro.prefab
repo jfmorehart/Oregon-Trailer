@@ -67,7 +67,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282014581057614543}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -284,7 +284,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -30, y: 92.5}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3335257815117088958
 CanvasRenderer:
@@ -307,16 +307,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85882354, g: 0.7294118, b: 0.61960787, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -353,11 +353,11 @@ MonoBehaviour:
   _vanPosition: {fileID: 3033962218252320550}
   _nodeIconRenderer: {fileID: 8057508433566164185}
   sr: {fileID: 8651673211385192707}
-  unknownIcon: {fileID: 0}
-  gasIcon: {fileID: 0}
-  dinerIcon: {fileID: 0}
-  combatIcon: {fileID: 0}
-  mechanicIcon: {fileID: 0}
+  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
+  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
+  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
   _locationActivity: 1
   _locationFaction: 0
@@ -853,7 +853,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 262, y: -103}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9035688267655955958
 CanvasRenderer:
@@ -876,16 +876,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8584906, g: 0.7280057, b: 0.61957103, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -922,11 +922,11 @@ MonoBehaviour:
   _vanPosition: {fileID: 6603188339584192722}
   _nodeIconRenderer: {fileID: 704895515507128537}
   sr: {fileID: 2849993279224506162}
-  unknownIcon: {fileID: 0}
-  gasIcon: {fileID: 0}
-  dinerIcon: {fileID: 0}
-  combatIcon: {fileID: 0}
-  mechanicIcon: {fileID: 0}
+  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
+  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
+  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
   _locationActivity: 1
   _locationFaction: 0
@@ -1215,7 +1215,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 196, y: 27}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2629155731010083499
 CanvasRenderer:
@@ -1238,16 +1238,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85882354, g: 0.7294118, b: 0.61960787, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1284,11 +1284,11 @@ MonoBehaviour:
   _vanPosition: {fileID: 7874987853083616024}
   _nodeIconRenderer: {fileID: 515358840744429595}
   sr: {fileID: 5481670489311858182}
-  unknownIcon: {fileID: 0}
-  gasIcon: {fileID: 0}
-  dinerIcon: {fileID: 0}
-  combatIcon: {fileID: 0}
-  mechanicIcon: {fileID: 0}
+  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
+  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  combatIcon: {fileID: 21300000, guid: dd01d9ef80a4c4567adc78a6c5645a02, type: 3}
+  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
   _locationActivity: 1
   _locationFaction: 0
@@ -1302,13 +1302,13 @@ MonoBehaviour:
     type: 0
     forcedQuests: []
     forcedSections:
-    - {fileID: 8837144399456302424, guid: 83e254a2f8d924c27a5d8a5d3f8ecc8e, type: 3}
+    - {fileID: 8837144399456302424, guid: 792577f4f51dfa940b7e6d8e049a3d83, type: 3}
     - {fileID: 2126144198468528057, guid: 41e2efd502830422ea8f954ddc2ea8d1, type: 3}
-    - {fileID: 2053872293739144902, guid: 96b619be73fa148cca8634b8727c1ee7, type: 3}
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 2053872293739144902, guid: bac3e371ff19d0f499948aeab9ea7f04, type: 3}
+    - {fileID: 972361969115977147, guid: 89ea17e4bdcc4b046aa05b238b357020, type: 3}
+    - {fileID: 2053872293739144902, guid: 198f3dca1fbceae47aed70d4ef818448, type: 3}
     - {fileID: 2053872293739144902, guid: 790cca89cd5424ed8b30027790d9e8be, type: 3}
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 972361969115977147, guid: 89ea17e4bdcc4b046aa05b238b357020, type: 3}
     - {fileID: 2053872293739144902, guid: f6a67de8fe3724dcba258d584c2b1511, type: 3}
   playerCanChoose: 1
   earnedStars: 0
@@ -1598,7 +1598,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906056520436847997}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1664,8 +1664,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -349, y: 36}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -395, y: 3}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5895216134977166
 CanvasRenderer:
@@ -1688,16 +1688,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8584906, g: 0.7280057, b: 0.61957103, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1734,11 +1734,11 @@ MonoBehaviour:
   _vanPosition: {fileID: 1148375900148677047}
   _nodeIconRenderer: {fileID: 6405405800584658567}
   sr: {fileID: 5933547258014964090}
-  unknownIcon: {fileID: 0}
-  gasIcon: {fileID: 0}
-  dinerIcon: {fileID: 0}
-  combatIcon: {fileID: 0}
-  mechanicIcon: {fileID: 0}
+  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
+  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
+  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
   _locationActivity: 1
   _locationFaction: 1
@@ -2069,7 +2069,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3126059637907546769}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2135,8 +2135,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 96, y: 126}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: 96, y: 134}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5748141367020376603
 CanvasRenderer:
@@ -2159,16 +2159,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85882354, g: 0.7294118, b: 0.61960787, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2205,11 +2205,11 @@ MonoBehaviour:
   _vanPosition: {fileID: 27506663895093680}
   _nodeIconRenderer: {fileID: 1894187225654374193}
   sr: {fileID: 7066366944743292652}
-  unknownIcon: {fileID: 0}
-  gasIcon: {fileID: 0}
-  dinerIcon: {fileID: 0}
-  combatIcon: {fileID: 0}
-  mechanicIcon: {fileID: 0}
+  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
+  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  combatIcon: {fileID: 21300000, guid: 027e78da72f3346d5b17ab955005ea0e, type: 3}
+  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
   _locationActivity: 1
   _locationFaction: 0
@@ -2223,7 +2223,7 @@ MonoBehaviour:
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 972361969115977147, guid: 07bf4bcbc9e212e47a5c4855691176ee, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
     - {fileID: 7054593215280346001, guid: 307f033dfc6b741c1948fa68fdc46eaa, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
@@ -2602,7 +2602,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -97, y: 3}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1123965606397636271
 CanvasRenderer:
@@ -2625,16 +2625,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85882354, g: 0.7294118, b: 0.61960787, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2671,11 +2671,11 @@ MonoBehaviour:
   _vanPosition: {fileID: 3094647002986933337}
   _nodeIconRenderer: {fileID: 4965604823618636187}
   sr: {fileID: 7254826649669971652}
-  unknownIcon: {fileID: 0}
-  gasIcon: {fileID: 0}
-  dinerIcon: {fileID: 0}
-  combatIcon: {fileID: 0}
-  mechanicIcon: {fileID: 0}
+  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
+  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
+  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
   _locationActivity: 1
   _locationFaction: 0
@@ -3089,7 +3089,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -275, y: -87}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6081084606801429248
 CanvasRenderer:
@@ -3112,16 +3112,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85882354, g: 0.7294118, b: 0.61960787, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3158,11 +3158,11 @@ MonoBehaviour:
   _vanPosition: {fileID: 1514133715757427578}
   _nodeIconRenderer: {fileID: 7069553261374044381}
   sr: {fileID: 5561116814020442679}
-  unknownIcon: {fileID: 0}
-  gasIcon: {fileID: 0}
-  dinerIcon: {fileID: 0}
-  combatIcon: {fileID: 0}
-  mechanicIcon: {fileID: 0}
+  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
+  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
+  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
   _locationActivity: 1
   _locationFaction: 0
@@ -3176,7 +3176,7 @@ MonoBehaviour:
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 8837144399456302424, guid: 83e254a2f8d924c27a5d8a5d3f8ecc8e, type: 3}
+    - {fileID: 8837144399456302424, guid: e20610c9b5ef80a45af4751d1d43042e, type: 3}
     - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
     - {fileID: 2255226366701067773, guid: cc214c474f7b846a1ada5c4a58e4dad5, type: 3}
     - {fileID: 4162445489452295139, guid: 0df0be72b82bc498d85ebd56b7bfa667, type: 3}
@@ -3472,7 +3472,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5683280280684864295}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3562,7 +3562,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5922702873090865529}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3652,7 +3652,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6581161022925558753}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3829,7 +3829,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -130, y: -87}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1713806603935525378
 CanvasRenderer:
@@ -3852,16 +3852,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85882354, g: 0.7294118, b: 0.61960787, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3898,11 +3898,11 @@ MonoBehaviour:
   _vanPosition: {fileID: 2444837728531331068}
   _nodeIconRenderer: {fileID: 3620476357201916662}
   sr: {fileID: 3146744251171061991}
-  unknownIcon: {fileID: 0}
-  gasIcon: {fileID: 0}
-  dinerIcon: {fileID: 0}
-  combatIcon: {fileID: 0}
-  mechanicIcon: {fileID: 0}
+  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
+  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
+  combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
+  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
   _hasKnownQuest: 0
   _locationActivity: 1
   _locationFaction: 0
@@ -4283,7 +4283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8268569084659526340}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
