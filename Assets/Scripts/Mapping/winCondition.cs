@@ -32,12 +32,14 @@ public class winCondition : MonoBehaviour
     {
         //check through all gameobjects in level for breakable
         Breakable[] allBreakables = GameObject.FindObjectsByType<Breakable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        
+        Debug.Log("Allbreakables: " + allBreakables.Length);
         //theres probably a better way of doing this
         target = allBreakables.Where(x => x.target == true).ToList();
         if(target.Count == 0)
             Debug.Log("Target count is null");
-
+        else
+            Debug.Log(target[0].transform.name);
+        
         active = true;
     }
 
