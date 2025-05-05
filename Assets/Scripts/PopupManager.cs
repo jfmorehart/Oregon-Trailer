@@ -24,14 +24,17 @@ public class PopupManager : MonoBehaviour
     public List<flavor> flavors = new List<flavor>();
 
     public Vector2 flavorOnScreenLocation = new Vector2();
-    public Vector2 flavorOnScreenPosition = new Vector2();
+    public Vector2 flavorOffScreenLocation = new Vector2();
 
     public List<FlavorPopup> flavorPopups = new List<FlavorPopup>();
 
     public static PopupManager instance;
     [SerializeField]
     private GameObject flavorPopoupPrefab;
-    
+
+
+    float timeSinceLastPopup = 0;
+    float popuptime = 0;
     private void Awake()
     {
         instance = this;
@@ -48,6 +51,7 @@ public class PopupManager : MonoBehaviour
     }
     public void addTutorialPopup(TutorialPopup pop)
     {
+        Debug.Log(pop.gameObject.name);
         if (pop.shootTutorial)
             secondPopup = pop;
         else
@@ -63,36 +67,62 @@ public class PopupManager : MonoBehaviour
         }
         else
         {
-            popupBehavior();
+            //popupBehavior();
         }
+    }
+
+    public void removeTutorialPopup(TutorialPopup pop)
+    {
+        //only for tutorial first popups
+        //Debug.Log("Removed this " + pop.name);
+        firstPopups.Remove(pop);
     }
 
     public void tutorialMonitoring()
     {
         //activates the first section of the tutorial. If all of those are finished then
-        if (isTutorializing && firstPopups.Count > 0)
+        if (isTutorializing)
         {
-            bool firstFinished = true;
-            for (int i = 0; i < firstPopups.Count; i++)
+            if (firstPopups.Count > 0)
             {
-                if (firstPopups[i] == null)
-                    continue;
-                if (!firstPopups[i].finished)
-                    firstFinished = false;
-            }
-
-            if (firstFinished && secondPopup != null)
-            {
-                Debug.Log("FirstFinished");
+                //Debug.Log("first tutorial" + firstPopups.Count);
                 //do second popup
-                secondPopup.showTutorial();
+            }
+            else
+            {
+                //Debug.Log("Seconds tutorial" );
+
+                if (secondPopup != null)
+                    secondPopup.showTutorial();
+
             }
         }
     }
 
-    public void popupBehavior()
+    public void popupBehavior(flavor flav)
     {
-        
+        //Debug.Log("popup " + popup);
+        float posY = 0;
+        switch (flav.position)
+        {
+            case 0:
+                posY = 54;
+                break;
+            case 1:
+                posY = -61;
+                break;
+            case 2:
+                posY = -170;
+                break;
+            default:
+                break;
+        }
+        Vector2 onScreen = new Vector2(flavorOnScreenLocation.x, posY);
+        Vector2 offScreen = new Vector2(flavorOffScreenLocation.x, posY);
+
+
+        GameObject g = Instantiate(flavorPopoupPrefab, new Vector2(03000, 0), Quaternion.identity, transform);
+        g.GetComponent<FlavorPopup>().initPopup(offScreen, onScreen, flav);
     }
 
 }
@@ -103,4 +133,5 @@ public struct flavor
     public string phrase;
     public Sprite face;
     public float duration;//defaults to 5 seconds
+    public float position;
 }
