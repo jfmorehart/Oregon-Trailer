@@ -67,7 +67,10 @@ public class winCondition : MonoBehaviour
             if (target.Count == 0 && Condition == winconditions.assassination)
                 levelWon();//win if you kill the target(s)
             if (target.Count == 0 && Condition == winconditions.chase)
+            {
+                Debug.Log("Level Lost");
                 levelLost();//lose if you kill the target on a chase
+            }
 
             for (int i = target.Count - 1; i >= 0; i--)
             {
