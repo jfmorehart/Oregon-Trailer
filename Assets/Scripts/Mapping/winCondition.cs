@@ -52,12 +52,17 @@ public class winCondition : MonoBehaviour
     void checkTargets()
     {
         if (Condition == winconditions.timeTrail)
+        {
+            //Debug.Log("Time Trail");
             return;
+        }
 
         frameTimer++;
 
-        if (frameTimer >= 300)
+        if (frameTimer >= 200)
         {
+            Debug.Log("Frame Timer: "  + Condition + " " + frameTimer + " " + target.Count);
+
             if (target.Count == 0 && Condition == winconditions.assassination)
                 levelWon();//win if you kill the target(s)
             if (target.Count == 0 && Condition == winconditions.chase)
@@ -67,6 +72,7 @@ public class winCondition : MonoBehaviour
             {
                 if (target[i] == null)
                 {
+                    //Debug.Log("Removing at the position " + i + " " + target[i].name);
                     target.RemoveAt(i);//reduce list to 0 once something is killed
                 }
             }

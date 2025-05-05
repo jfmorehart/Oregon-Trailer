@@ -51,7 +51,7 @@ public class PopupManager : MonoBehaviour
     }
     public void addTutorialPopup(TutorialPopup pop)
     {
-        Debug.Log(pop.gameObject.name);
+        //Debug.Log(pop.gameObject.name);
         if (pop.shootTutorial)
             secondPopup = pop;
         else
