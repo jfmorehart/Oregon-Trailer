@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winConditionText: Escape!!!
-  Condition: 0
+  Condition: 1
   target: []
   active: 0
   node: {fileID: 0}
@@ -1284,11 +1284,12 @@ MonoBehaviour:
   WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 1722544366129951735}
-    roadLength: 1
+    roadLength: 2
     fuelCost: 0
     type: 0
     forcedQuests: []
     forcedSections:
+    - {fileID: 2875744169602052619, guid: 4e9e2ea6957c34bd7846235ad8ffbfbf, type: 3}
     - {fileID: -623503267821811247, guid: 014333141b5144e3e8b28aaa0d05724a, type: 3}
   playerCanChoose: 1
   earnedStars: 0
@@ -2203,9 +2204,10 @@ MonoBehaviour:
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: -623503267821811247, guid: f4652325e197f4700bebf025cb915a55, type: 3}
-    - {fileID: 7722934914840058693, guid: 187e5c86be3124baab9413e83344c54a, type: 3}
+    - {fileID: 972361969115977147, guid: 850872d736220462da3afdfb7407ed14, type: 3}
     - {fileID: 2053872293739144902, guid: eda0da38c907b4124937ef2925f38f97, type: 3}
+    - {fileID: 7722934914840058693, guid: 187e5c86be3124baab9413e83344c54a, type: 3}
+    - {fileID: 972361969115977147, guid: 850872d736220462da3afdfb7407ed14, type: 3}
   playerCanChoose: 0
   earnedStars: 0
   timeSpentInLevel: 0
@@ -2767,7 +2769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winConditionText: Chase Enemy Biker to San Angelo
-  Condition: 0
+  Condition: 2
   target: []
   active: 0
   node: {fileID: 0}
@@ -3412,15 +3414,12 @@ MonoBehaviour:
   WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 3680344308727568631}
-    roadLength: 4
-    fuelCost: 2
+    roadLength: 1
+    fuelCost: 0
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 972361969115977147, guid: 89ea17e4bdcc4b046aa05b238b357020, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-    - {fileID: 7054593215280346001, guid: 307f033dfc6b741c1948fa68fdc46eaa, type: 3}
-    - {fileID: 2053872293739144902, guid: 198f3dca1fbceae47aed70d4ef818448, type: 3}
+    - {fileID: 2053872293739144902, guid: e6b2fbee408034cfab46fc448cde0152, type: 3}
   playerCanChoose: 0
   earnedStars: 0
   timeSpentInLevel: 0
@@ -3593,7 +3592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winConditionText: Ambush the Frat Bikers' Base
-  Condition: 0
+  Condition: 2
   target: []
   active: 0
   node: {fileID: 0}
