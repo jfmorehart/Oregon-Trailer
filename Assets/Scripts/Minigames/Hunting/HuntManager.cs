@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,10 +51,32 @@ public class HuntManager : MonoBehaviour
     }
 
 
+    IEnumerator ButtonTimer(float seconds)
+    {
+        buttonUnavailableObject.SetActive(true);
+        float timer = 0;
+        while (timer < seconds)
+        {
+            timer+=Time.deltaTime;
+            if (timer >= seconds)
+            {
+                buttonUnavailableObject.SetActive(false);
+                break;
+            }
+            yield return null;
+        }
+
+    }
+
+    public GameObject buttonUnavailableObject; // the object will set active on initiation, will turn off after 5 seconds
     public void displayHunt(bool goToGarageScreenOnComplete, float timeEarned, float twoStarTime, float threeStarTime, int starsEarned)
     {
+        //--------------------------------------------------------level has ended, show stats
 
         huntScene.SetActive(true);
+        // button unavailable
+        StartCoroutine(ButtonTimer(4));
+        
         //one star is active automatically
         Debug.Log("Stars earned " + starsEarned);
         oneStar.SetActive(true);
@@ -120,8 +143,25 @@ public class HuntManager : MonoBehaviour
         }
         
     }
-    public void hideHunt()
+    
+    public Image fadeToBlackBG;
+    public IEnumerator fadeToBlackHandleMovement()
     {
+        //probably more efficient to move this to a dedicated fade to black obj but whatever
+        float duration = 1f;
+        fadeToBlackBG.gameObject.SetActive(true);
+        Color transparent = new Color(0, 0, 0, 0);
+        Color full = new Color(0, 0, 0, 1);
+        float time = 0;
+        fadeToBlackBG.color = transparent;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(transparent, full, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        // -------------------------------------------------------------------------------------------- change the scene
+        //only work if all stars has gone to the end
         huntScene.SetActive(false);
 
 
@@ -136,7 +176,35 @@ public class HuntManager : MonoBehaviour
 
         //communicate with map manager to display the map
         MapManager.instance.nodeActivityDone(goToGarageScreenOnComplete, 0);
+        
+        // -------------------------------------------------------------------------------------------------------------
 
+        fadeToBlackBG.color = new Color(0, 0, 0, 1);
+
+        //when the screen is black we now show the node stuff
+        yield return new WaitForSeconds(0.5f);
+        time = 0;
+        while (time < duration)
+        {
+            fadeToBlackBG.color = Color.Lerp(full, transparent, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        fadeToBlackBG.gameObject.SetActive(false);
+
+        //temp - destroy all scrap 
+        Pickup[] g = GameObject.FindObjectsOfType<Pickup>();
+        for (int i = 0; i < g.Length; i++)
+        {
+            Destroy(g[i].gameObject);
+        }
+
+        //PlayerChanges();
+    }
+    public void hideHunt()
+    {
+        StartCoroutine(fadeToBlackHandleMovement());
     }
 
 }

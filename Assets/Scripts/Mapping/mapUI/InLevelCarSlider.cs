@@ -62,7 +62,10 @@ public class InLevelCarSlider : MonoBehaviour
 
     public GameObject objectivePrefab;
     private GameObject objectiveInstance;
-    
+
+
+    public TMP_Text destinationText;
+    public TMP_Text currentNodeText;
     
     public void startLevel() //instantiate
     {
@@ -70,6 +73,10 @@ public class InLevelCarSlider : MonoBehaviour
         Debug.Log("LevelStartRoutine");
         //records the player's start position
         van = GameObject.Find("Van(Clone)");
+        
+        //change the text on the top
+        destinationText.text = MapManager.instance.playerDestinationNode.NodeName;
+        currentNodeText.text = MapManager.instance.playersCurrentNode.NodeName;
         
         /*
         //GameObject g = Instantiate(popupprefab.gameObject, GameObject.FindGameObjectWithTag("Canvas").transform);
@@ -111,11 +118,14 @@ public class InLevelCarSlider : MonoBehaviour
         // Change where the prefab gets instantiated
         objectiveInstance.transform.parent = MapManager.instance.transform;
         //Change the prefabs transform
-        objectiveInstance.transform.position = new Vector2(0, 10);
+        objectiveInstance.transform.position = new Vector2(MapManager.instance.transform.position.x, MapManager.instance.transform.position.y + 8);
+        //Change Scale
+        //objectiveInstance.transform.localScale = new Vector3(.01f, .01f, 1);
         // Change Text
-        objectiveInstance.GetComponent<ObjectivePopUp>().questDisplay.text =  
-            "<u>" +MapManager.instance.playersCurrentNode.NodeName +"</u>"+ "\nObjective: " +
-            MapManager.instance.playersCurrentNode.WinCondition.winConditionText.ToString();
+        if(MapManager.instance.playerDestinationNode)
+            objectiveInstance.transform.GetChild(0).GetComponent<TMP_Text>().text =  
+                "<u>" +MapManager.instance.playerDestinationNode.NodeName +"</u>"+ "\nObjective: " +
+                MapManager.instance.playerDestinationNode.WinCondition.winConditionText.ToString();
 
 
     }
