@@ -117,24 +117,36 @@ public class ItemShop : MonoBehaviour
 
     public void buyUpgrade()
     {
+
+
+
         Debug.Log("Buy Upgrade : " + SelectedUpgrade);
         /* --- UI --- */
         if (SelectedUpgrade != null)
         {
-            MapManager.instance.BuyResource(SelectedUpgrade.cost);
+            if(MapManager.instance.BuyResource(SelectedUpgrade.cost) == false)
+                return;
             Upgrade boughtUpgrade = SelectedUpgrade.upgrade;
             Debug.Log("Bought Upgrade " + boughtUpgrade);
+            
+            
             //UpgradeManager.instance.AddOption(boughtUpgrade);
 
             if(UpgradeManager.instance.q_upgrade == Upgrade.None)
             {
                 UpgradeManager.instance.q_upgrade = boughtUpgrade;
+                //show equipped overlay
+                //SelectedUpgrade.equippedImg.SetActive(true);
+                
                 qButton.image.sprite = SelectedUpgrade.img;
                 qButton.image.color = Color.white;
             }
             else if (UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
                 UpgradeManager.instance.e_upgrade = boughtUpgrade;
+                //show equipped overlay
+                //SelectedUpgrade.equippedImg.SetActive(true);
+                
                 eButton.image.sprite = SelectedUpgrade.img;
                 eButton.image.color = Color.white;
             }
@@ -181,6 +193,7 @@ public class ItemShop : MonoBehaviour
     {
         if (SelectedUpgrade != null)
         {
+            
             if(UpgradeManager.instance.q_upgrade == SelectedUpgrade.upgrade || UpgradeManager.instance.e_upgrade == SelectedUpgrade.upgrade)
             {
                 Debug.Log("already exists");
@@ -190,15 +203,23 @@ public class ItemShop : MonoBehaviour
             if (UpgradeManager.instance.q_upgrade == Upgrade.None)
             {
                 UpgradeManager.instance.q_upgrade = SelectedUpgrade.upgrade;
+                
+                //show equipped overlay
+                //SelectedUpgrade.equippedImg.SetActive(true);
+                qButton.image.color = Color.white;
                 qButton.image.sprite = SelectedUpgrade.img;
                 Debug.Log("Added to Q");
 
             }
             else if (UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
-                Debug.Log("Added to E");
                 UpgradeManager.instance.e_upgrade = SelectedUpgrade.upgrade;
+                
+                //show equipped overlay
+                //SelectedUpgrade.equippedImg.SetActive(true);
+                eButton.image.color = Color.white;
                 eButton.image.sprite = SelectedUpgrade.img;
+                Debug.Log("Added to E");
             }
             else
             {
@@ -216,14 +237,21 @@ public class ItemShop : MonoBehaviour
     {
         if (leftSlot)
         {
-
+            //hide equipped overlay
+            //SelectedUpgrade.equippedImg.SetActive(false);
+            
             UpgradeManager.instance.q_upgrade = Upgrade.None;
+            
             qButton.image.sprite = null;
             qButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
         }
         else if (!leftSlot)
         {
+            //hide equipped overlay
+            //SelectedUpgrade.equippedImg.SetActive(false);
+            
             UpgradeManager.instance.e_upgrade = Upgrade.None;
+            
             eButton.image.sprite = null;
             eButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
 
@@ -232,6 +260,8 @@ public class ItemShop : MonoBehaviour
         //allow for equip if we have an empty slot
         foreach (StoreUpgrades upgrade in availableUpgrades)
         {
+            //qButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
+
             upgrade.equipButton.GetComponent<Button>().interactable = true;
         }
     }

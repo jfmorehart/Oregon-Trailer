@@ -59,9 +59,7 @@ public class TopUIButton : MonoBehaviour
     public void activate()
     {
         unpressedState = button.spriteState;
-
         button.spriteState = pressedState;
-
         image.sprite = activeSprite;
         pressed = true;
     }

@@ -160,7 +160,9 @@ public class mapUI : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Escape))
+        
+        //Debug.Log("can eb intereatcted with");
+        if (Input.GetKeyDown(KeyCode.M) && inLevel || Input.GetKeyDown(KeyCode.Escape) && inLevel)
         {
             if (IsActivated)
             {
@@ -237,6 +239,8 @@ public class mapUI : MonoBehaviour
 
     public void pressLeftButton()
     {
+        if (!isActivated)
+            return;
         if (uiMenuButtons[menuIndex].pressed == false)
             uiMenuButtons[menuIndex].deselect();
 
@@ -248,6 +252,8 @@ public class mapUI : MonoBehaviour
     }
     public void pressRightButton()
     {
+        if (!isActivated)
+            return;
         if (uiMenuButtons[menuIndex].pressed == false)
             uiMenuButtons[menuIndex].deselect();
         menuIndex++;
@@ -266,6 +272,9 @@ public class mapUI : MonoBehaviour
             currentScreen = mapScreens.map;
             menuIndex = 0;
             currentSelected = uiMenuButtons[0];
+            uiMenuButtons[0].activate();
+            uiMenuButtons[1].deselect();
+            uiMenuButtons[2].deselect();
             buttonPressed(mapScreens.map);
             if (thisCausedPause)//if this is already paused, we dont need to pause
             {
@@ -349,13 +358,14 @@ public class mapUI : MonoBehaviour
     {
         inLevel = true;
         vanrb = PlayerVan.vanTransform.GetComponent<Rigidbody2D>();
+        ShouldBeInteractedWith = true;
     }
 
     //should probably make this use the event system instead
     public void endLevel()
     {
         inLevel = false;
-
+        //ShouldBeInteractedWith = false;
     }
     public void doHealthUI()
     {

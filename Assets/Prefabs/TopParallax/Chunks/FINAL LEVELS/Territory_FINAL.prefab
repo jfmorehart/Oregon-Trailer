@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 9136891358312993735}
   - component: {fileID: 6667198090257128515}
   m_Layer: 0
-  m_Name: Biker
+  m_Name: Chase Biker level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,8 +283,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 73, y: 3}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 143}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3335257815117088958
 CanvasRenderer:
@@ -314,9 +314,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Abilene
   _vanPosition: {fileID: 3033962218252320550}
   _nodeIconRenderer: {fileID: 8057508433566164185}
   sr: {fileID: 8651673211385192707}
@@ -366,18 +366,15 @@ MonoBehaviour:
   WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 480241772964633798}
-    roadLength: 7
+    roadLength: 4
     fuelCost: 0
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-    - {fileID: 910364313076569011, guid: 4c8773327ba904e718c331dc70ad82b5, type: 3}
-    - {fileID: 3213397434579194136, guid: 79492eb56da8440f4b8e15845c07eef5, type: 3}
-    - {fileID: 3213397434579194136, guid: 79492eb56da8440f4b8e15845c07eef5, type: 3}
-    - {fileID: 910364313076569011, guid: 4c8773327ba904e718c331dc70ad82b5, type: 3}
-    - {fileID: 5857623785865956000, guid: ff05bacadae0441d980f88f54bdffa14, type: 3}
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
+    - {fileID: 972361969115977147, guid: 8175e7e6410754cfab6a363ebf0415ee, type: 3}
+    - {fileID: 551570922458901608, guid: ea945855795ab478dbcd8aa29777fd91, type: 3}
+    - {fileID: 2053872293739144902, guid: ea2abfad744cf4eeda7a9e8c0126a1b8, type: 3}
+    - {fileID: 2053872293739144902, guid: 4fab00f472ad1448fa1fc8b76d7ead6d, type: 3}
   playerCanChoose: 0
   earnedStars: 0
   timeSpentInLevel: 0
@@ -549,8 +546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winConditionText: 
-  Condition: 0
+  winConditionText: Escape!!!
+  Condition: 1
   target: []
   active: 0
   node: {fileID: 0}
@@ -669,7 +666,6 @@ RectTransform:
   - {fileID: 9001455060193849682}
   - {fileID: 6770466652109457264}
   - {fileID: 2618779063877683698}
-  - {fileID: 2571104197327665349}
   - {fileID: 7370252440259324560}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -852,8 +848,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 262, y: -103}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 203, y: -100}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9035688267655955958
 CanvasRenderer:
@@ -883,9 +879,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -918,7 +914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Houston
   _vanPosition: {fileID: 6603188339584192722}
   _nodeIconRenderer: {fileID: 704895515507128537}
   sr: {fileID: 2849993279224506162}
@@ -1112,7 +1108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winConditionText: 
+  winConditionText: Drive to Fairfield
   Condition: 0
   target: []
   active: 0
@@ -1205,8 +1201,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 169, y: -70}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 186, y: 10}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2629155731010083499
 CanvasRenderer:
@@ -1236,9 +1232,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1271,7 +1267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Fairfield
   _vanPosition: {fileID: 7874987853083616024}
   _nodeIconRenderer: {fileID: 515358840744429595}
   sr: {fileID: 5481670489311858182}
@@ -1288,12 +1284,13 @@ MonoBehaviour:
   WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 1722544366129951735}
-    roadLength: 1
+    roadLength: 2
     fuelCost: 0
     type: 0
     forcedQuests: []
     forcedSections:
-    - {fileID: -623503267821811247, guid: a9e400bd7f107436992a091363ff0918, type: 3}
+    - {fileID: 2875744169602052619, guid: 4e9e2ea6957c34bd7846235ad8ffbfbf, type: 3}
+    - {fileID: -623503267821811247, guid: 014333141b5144e3e8b28aaa0d05724a, type: 3}
   playerCanChoose: 1
   earnedStars: 0
   timeSpentInLevel: 0
@@ -1303,7 +1300,7 @@ MonoBehaviour:
   allowHover: 1
   isLocked: 1
   levelCost: 0
-  showsTutorial: 0
+  showsTutorial: 1
 --- !u!61 &8816584094802163877
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1465,7 +1462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winConditionText: 
+  winConditionText: Drive To Fairfield
   Condition: 2
   target: []
   active: 0
@@ -1648,8 +1645,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -272, y: 16}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -368, y: 30}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5895216134977166
 CanvasRenderer:
@@ -1679,9 +1676,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1714,7 +1711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: El Paso
   _vanPosition: {fileID: 1148375900148677047}
   _nodeIconRenderer: {fileID: 6405405800584658567}
   sr: {fileID: 5933547258014964090}
@@ -1901,7 +1898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winConditionText: 
+  winConditionText: 'Final Showdown: Survive! '
   Condition: 0
   target: []
   active: 0
@@ -2094,7 +2091,7 @@ GameObject:
   - component: {fileID: 4871910327405012799}
   - component: {fileID: 552526377410370706}
   m_Layer: 0
-  m_Name: Pit Stop
+  m_Name: Escape Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2119,8 +2116,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 73, y: 3}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 118, y: 87}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5748141367020376603
 CanvasRenderer:
@@ -2150,9 +2147,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2185,7 +2182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Jacksboro
   _vanPosition: {fileID: 27506663895093680}
   _nodeIconRenderer: {fileID: 1894187225654374193}
   sr: {fileID: 7066366944743292652}
@@ -2202,15 +2199,15 @@ MonoBehaviour:
   WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 1082457622459017506}
-    roadLength: 4
+    roadLength: 3
     fuelCost: 1
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-    - {fileID: 7054593215280346001, guid: 307f033dfc6b741c1948fa68fdc46eaa, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 972361969115977147, guid: 850872d736220462da3afdfb7407ed14, type: 3}
+    - {fileID: 2053872293739144902, guid: eda0da38c907b4124937ef2925f38f97, type: 3}
+    - {fileID: 7722934914840058693, guid: 187e5c86be3124baab9413e83344c54a, type: 3}
+    - {fileID: 972361969115977147, guid: 850872d736220462da3afdfb7407ed14, type: 3}
   playerCanChoose: 0
   earnedStars: 0
   timeSpentInLevel: 0
@@ -2382,7 +2379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winConditionText: 
+  winConditionText: Defeat the Frat Cars!
   Condition: 0
   target: []
   active: 0
@@ -2432,81 +2429,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!1 &3525861190209468856
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2768054868253795574}
-  - component: {fileID: 7359988677551412080}
-  - component: {fileID: 7069553261374044381}
-  m_Layer: 0
-  m_Name: Node Icon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &2768054868253795574
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3525861190209468856}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2571104197327665349}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7359988677551412080
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3525861190209468856}
-  m_CullTransparentMesh: 1
---- !u!114 &7069553261374044381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3525861190209468856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4041332688755299744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2560,7 +2482,7 @@ GameObject:
   - component: {fileID: 6064972782972905657}
   - component: {fileID: 4539828736917574740}
   m_Layer: 0
-  m_Name: Biker 2
+  m_Name: Biker Base Ambush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2585,8 +2507,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -95, y: -28}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -81, y: 30}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1123965606397636271
 CanvasRenderer:
@@ -2616,9 +2538,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2651,7 +2573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: San Angelo
   _vanPosition: {fileID: 3094647002986933337}
   _nodeIconRenderer: {fileID: 4965604823618636187}
   sr: {fileID: 7254826649669971652}
@@ -2668,21 +2590,13 @@ MonoBehaviour:
   WinCondition: {fileID: 0}
   Roads:
   - Destination: {fileID: 2644372289083950111}
-    roadLength: 10
+    roadLength: 2
     fuelCost: 0
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-    - {fileID: 5295801495302608250, guid: 77b734de5f89d4aa88a9b2a75c9d769d, type: 3}
     - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
-    - {fileID: 5161132594487253386, guid: ad86ad0921beb4d57bcb8807384f4980, type: 3}
-    - {fileID: 8699404637257017451, guid: 5a7d1d4ec8eb746f6a5706e940fc80cd, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-    - {fileID: 2520148266830818826, guid: ee542258acbcb4bfaa17057660c13452, type: 3}
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
-    - {fileID: 5161132594487253386, guid: ad86ad0921beb4d57bcb8807384f4980, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 2053872293739144902, guid: b61b9545bdaab458ca1c03e276fb3c42, type: 3}
   playerCanChoose: 0
   earnedStars: 0
   timeSpentInLevel: 0
@@ -2854,8 +2768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winConditionText: 
-  Condition: 0
+  winConditionText: Chase Enemy Biker to San Angelo
+  Condition: 2
   target: []
   active: 0
   node: {fileID: 0}
@@ -2994,401 +2908,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &5316620523685574312
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1514133715757427578}
-  m_Layer: 0
-  m_Name: VanPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1514133715757427578
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5316620523685574312}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2571104197327665349}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 35.9}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &5464765203685079159
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2571104197327665349}
-  - component: {fileID: 6081084606801429248}
-  - component: {fileID: 5561116814020442679}
-  - component: {fileID: 5251419587432244885}
-  - component: {fileID: 474878561594157870}
-  - component: {fileID: 7617987300960050554}
-  - component: {fileID: 2295729173479806091}
-  - component: {fileID: 204365480386116433}
-  - component: {fileID: 2535219198120865528}
-  m_Layer: 0
-  m_Name: Chase 3 (HARD)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2571104197327665349
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2768054868253795574}
-  - {fileID: 1514133715757427578}
-  - {fileID: 2806631156562728464}
-  m_Father: {fileID: 3810909282630205900}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -244, y: -113}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &6081084606801429248
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_CullTransparentMesh: 1
---- !u!114 &5561116814020442679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.85882354, g: 0.7294118, b: 0.61960787, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &5251419587432244885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 0
---- !u!114 &474878561594157870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nodeName: 
-  _vanPosition: {fileID: 1514133715757427578}
-  _nodeIconRenderer: {fileID: 7069553261374044381}
-  sr: {fileID: 5561116814020442679}
-  unknownIcon: {fileID: 21300000, guid: 870784816f0ad3c4bbd88091c9087e19, type: 3}
-  gasIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
-  dinerIcon: {fileID: 21300000, guid: 92661ba8c12b6744286c22cfec4fdcba, type: 3}
-  combatIcon: {fileID: 21300000, guid: 24500fb9ddab25b4c97680cf8c25dbcb, type: 3}
-  mechanicIcon: {fileID: 21300000, guid: 68021c2fcd59fa740a65ca3ff485b93a, type: 3}
-  _hasKnownQuest: 0
-  _locationActivity: 1
-  _locationFaction: 0
-  locationEvent: {fileID: 0}
-  _lr: {fileID: 0}
-  WinCondition: {fileID: 0}
-  Roads:
-  - Destination: {fileID: 3680344308727568631}
-    roadLength: 8
-    fuelCost: 0
-    type: 1
-    forcedQuests: []
-    forcedSections:
-    - {fileID: 8837144399456302424, guid: 83e254a2f8d924c27a5d8a5d3f8ecc8e, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-    - {fileID: 2255226366701067773, guid: cc214c474f7b846a1ada5c4a58e4dad5, type: 3}
-    - {fileID: 4162445489452295139, guid: 0df0be72b82bc498d85ebd56b7bfa667, type: 3}
-    - {fileID: 3512659324696930310, guid: 28af4e9f1978c4da884a9c67ea31f6e7, type: 3}
-    - {fileID: 4145895373169321232, guid: a8930be632cad430286649caec651ada, type: 3}
-    - {fileID: 8775982995823136982, guid: f13c94623d9f44f909b437963172bf84, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-  playerCanChoose: 0
-  earnedStars: 0
-  timeSpentInLevel: 0
-  twoStarTime: 100
-  threeStarTime: 80
-  goToGarageScreenOnComplete: 0
-  allowHover: 1
-  isLocked: 1
-  levelCost: 0
-  showsTutorial: 0
---- !u!61 &7617987300960050554
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 100, y: 100}
-  m_EdgeRadius: 0
---- !u!120 &2295729173479806091
-LineRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  m_Parameters:
-    serializedVersion: 3
-    widthMultiplier: 1
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_ColorSpace: -1
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
-    alignment: 0
-    textureMode: 0
-    textureScale: {x: 1, y: 1}
-    shadowBias: 0.5
-    generateLightingData: 0
-  m_MaskInteraction: 0
-  m_UseWorldSpace: 0
-  m_Loop: 0
-  m_ApplyActiveColorSpace: 1
---- !u!114 &204365480386116433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winConditionText: 
-  Condition: 0
-  target: []
-  active: 0
-  node: {fileID: 0}
---- !u!114 &2535219198120865528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464765203685079159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 474878561594157870}
-          m_TargetAssemblyTypeName: MapNode, Assembly-CSharp
-          m_MethodName: MouseHasEntered
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 474878561594157870}
-          m_TargetAssemblyTypeName: MapNode, Assembly-CSharp
-          m_MethodName: MouseHasLeft
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &5683280280684864295
 GameObject:
   m_ObjectHideFlags: 0
@@ -3787,7 +3306,7 @@ GameObject:
   - component: {fileID: 6180369926718832608}
   - component: {fileID: 5665159375622944205}
   m_Layer: 0
-  m_Name: Fuel Stop
+  m_Name: Car+Biker Destroy Bases
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3812,8 +3331,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -95, y: -28}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -130, y: -55}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1713806603935525378
 CanvasRenderer:
@@ -3843,9 +3362,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d966aac1785f21041a89a501a1a26074, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f32a371b422d745aaa0def57f4440c31, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3878,7 +3397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74452905306eccb4b84ee4e1640b94c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeName: 
+  _nodeName: Sonora
   _vanPosition: {fileID: 2444837728531331068}
   _nodeIconRenderer: {fileID: 3620476357201916662}
   sr: {fileID: 3146744251171061991}
@@ -3894,16 +3413,13 @@ MonoBehaviour:
   _lr: {fileID: 0}
   WinCondition: {fileID: 0}
   Roads:
-  - Destination: {fileID: 474878561594157870}
-    roadLength: 4
-    fuelCost: 2
+  - Destination: {fileID: 3680344308727568631}
+    roadLength: 1
+    fuelCost: 0
     type: 1
     forcedQuests: []
     forcedSections:
-    - {fileID: 972361969115977147, guid: 2cffcc103f8af4d22883600e84c1241e, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
-    - {fileID: 7054593215280346001, guid: 307f033dfc6b741c1948fa68fdc46eaa, type: 3}
-    - {fileID: 2053872293739144902, guid: e7871365df4f44fe3aad22cb96613ffe, type: 3}
+    - {fileID: 2053872293739144902, guid: e6b2fbee408034cfab46fc448cde0152, type: 3}
   playerCanChoose: 0
   earnedStars: 0
   timeSpentInLevel: 0
@@ -4075,8 +3591,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599bd33ef52d67b45ac80fd951d3f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winConditionText: 
-  Condition: 0
+  winConditionText: Ambush the Frat Bikers' Base
+  Condition: 2
   target: []
   active: 0
   node: {fileID: 0}
@@ -4177,96 +3693,6 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8139348816581804467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!1 &8268569084659526340
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2806631156562728464}
-  - component: {fileID: 2457428227530189118}
-  - component: {fileID: 5618730034096825611}
-  - component: {fileID: 3245875476818267018}
-  m_Layer: 0
-  m_Name: LR
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2806631156562728464
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8268569084659526340}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.05, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2571104197327665349}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2457428227530189118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8268569084659526340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eade6573dc2c0584a8c3d115c913e0ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_myTransform: {fileID: 2806631156562728464}
-  m_image: {fileID: 3245875476818267018}
---- !u!222 &5618730034096825611
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8268569084659526340}
-  m_CullTransparentMesh: 1
---- !u!114 &3245875476818267018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8268569084659526340}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}

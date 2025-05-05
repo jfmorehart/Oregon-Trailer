@@ -81,8 +81,8 @@ public class MapNode : MonoBehaviour
     public float ThreeStarTime => threeStarTime;
     [SerializeField]
     bool goToGarageScreenOnComplete = false;
-    GameObject hoverPanelPrefab;
-    HoverPanelUI ownedHoverPanel;
+    GameObject hoverPanelPrefab; 
+    HoverPanelUI ownedHoverPanel; // the one the node has
     public bool allowHover = true;
     [SerializeField]
     bool isLocked = true;
@@ -125,12 +125,15 @@ public class MapNode : MonoBehaviour
         {
             case activity.Diner:
                 _nodeIconRenderer.sprite = gasIcon;
+                _nodeIconRenderer.color = new Color(1, 1, 1, 0);
                 break;
             case activity.Hunt:
                 _nodeIconRenderer.sprite = combatIcon;
+                _nodeIconRenderer.color = new Color(1, 1, 1, 0);
                 break;
             case activity.Garage:
                 _nodeIconRenderer.sprite = mechanicIcon;
+                _nodeIconRenderer.color = new Color(1, 1, 1, 0);
                 break;
             case activity.None:
                 _nodeIconRenderer.color = new Color(1, 1, 1, 0);
@@ -394,14 +397,16 @@ public class MapNode : MonoBehaviour
             }
         }
     }
-    private void OnMouseOver()
+    public void OnMouseOver()
     {
         showHoverUI();
+        gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
 
     }
-    private void OnMouseExit()
+    public void OnMouseExit()
     {
         ownedHoverPanel.gameObject.SetActive(false);
+        gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
 

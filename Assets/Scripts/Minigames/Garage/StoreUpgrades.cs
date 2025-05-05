@@ -20,6 +20,8 @@ public class StoreUpgrades : MonoBehaviour
     public GameObject equipButton;
 
     public GameObject costText;
+    public GameObject equippedImg; //equipped overlay
+    
 
     public void Awake()
     {
@@ -28,6 +30,7 @@ public class StoreUpgrades : MonoBehaviour
         descriptionText.text = desc;
         itemDescription.SetActive(false);
         equipButton.SetActive(false);
+        //equippedImg.SetActive(false);
     }
     
     public void itemBought()
@@ -38,7 +41,7 @@ public class StoreUpgrades : MonoBehaviour
             return;
         }
         //Debug.Log("equipbutton " + equipButton.activeInHierarchy + " " + upgrade);
-        equipButton.SetActive(true);
+        //equipButton.SetActive(true);
         buyButton.SetActive(false);
         costText.SetActive(false);
     }

@@ -30,6 +30,7 @@ public class StarEarnedVFX : MonoBehaviour
     private void killSelf()
     {
         MapManager.instance.AddMoney(1);
+        
         Destroy(self);
     }
     public void Update()

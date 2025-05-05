@@ -125,10 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620ea0bfe251643589f2d51fc317e876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 30
+  hp: 250
   shader_maxHp: 0
   bar: {fileID: 3063469777188061255}
-  target: 0
+  target: 1
   use_breaking_texture: 0
 --- !u!114 &3563302764713863583
 MonoBehaviour:
@@ -142,31 +142,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ec6faa3c77d4375bf1158a1162173d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAcceleration: 0
+  baseAcceleration: 2000
   acceleration: 0
-  topSpeed: 0
-  drag: 0
-  turnRate: 0
-  sway: 0
-  deadzone: 0
-  swayfreq: 0
-  swayamp: 0
-  rotationDrag: 0
-  velConservation: 0
+  topSpeed: 8
+  drag: 0.7
+  turnRate: 150
+  sway: 1
+  deadzone: 5
+  swayfreq: 0.8
+  swayamp: 5
+  rotationDrag: 0.3
+  velConservation: 0.5
   _rb: {fileID: 0}
   boostStr: 0
   boostLength: 0
   boostCooldown: 0
-  collisionDamage: 0
-  scrapPrefab: {fileID: 0}
-  pickupValue: 0
+  collisionDamage: 0.5
+  scrapPrefab: {fileID: 736508616175236411, guid: 0fed7bb8a1eab3648bc13f081f1d8395, type: 3}
+  pickupValue: 3
   enginesrc: {fileID: 0}
   roadSource: {fileID: 0}
   sandSource: {fileID: 0}
-  sideDrag: 0.5
   terrainModifiers: []
   current_waypoint: 0
-  waypoint_size: 2
+  waypoint_size: 10
 --- !u!1 &5495827588795458725
 GameObject:
   m_ObjectHideFlags: 0

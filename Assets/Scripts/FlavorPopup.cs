@@ -18,7 +18,7 @@ public class FlavorPopup : MonoBehaviour
     private Image faceImg;
 
 
-    public void initPopup(Vector2 endScreenPos, float duration, flavor flavor)
+    public void initPopup(Vector2 offScreenPos, Vector2 endScreenPos, flavor flavor)
     {
         charname.text = flavor.name;
         phrase.text = flavor.phrase;
@@ -28,16 +28,19 @@ public class FlavorPopup : MonoBehaviour
         //stay there for duration
         //lerp back
         //destroy self on completion
-        transform.position = startPos;
+        transform.localPosition = offScreenPos;
+        startPos = offScreenPos;
         onScreenPos = endScreenPos;
-        dur = duration;
+        dur = flavor.duration;
 
-        transform.DOMove(endScreenPos, 0.5f, false).SetEase(ease).onComplete = (()=> StartCoroutine(stayOnScreen()));
+        transform.DOLocalMove(endScreenPos, 0.5f, false).SetEase(ease).onComplete = (()=> StartCoroutine(stayOnScreen()));
+        Debug.Log("popup instance ---" + flavor.duration);
+
     }
     IEnumerator stayOnScreen()
     {
         yield return new WaitForSeconds(dur);
-        transform.DOMove(startPos, 0.5f, false).SetEase(ease).onComplete = (()=>Destroy(gameObject));
+        transform.DOLocalMove(startPos, 0.5f, false).SetEase(ease).onComplete = (()=>Destroy(gameObject));
 
     }
 
