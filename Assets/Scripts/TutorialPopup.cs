@@ -45,7 +45,7 @@ public class TutorialPopup : MonoBehaviour
     {
         if(!finished && aliveTimer > 5 && timer > duration / 2)
         {
-            Debug.Log("FINISHED " + name + ": "+ timer);
+            //Debug.Log("FINISHED " + name + ": "+ timer);
             timer = duration + 5;
         }
         if (!finished && timer > duration / 2)
@@ -60,7 +60,7 @@ public class TutorialPopup : MonoBehaviour
         if (finished)
         {
             PopupManager.instance.removeTutorialPopup(this);
-            Debug.Log("Popupmanager talked to");
+            //Debug.Log("Popupmanager talked to");
             Destroy(gameObject, 1);
         }
         
