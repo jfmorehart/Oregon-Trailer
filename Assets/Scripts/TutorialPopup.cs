@@ -14,12 +14,17 @@ public class TutorialPopup : MonoBehaviour
     public bool allowTut = false;
     public bool shootTutorial = false;
     private float aliveTimer = 0;
+    Vector3 offset;
+
+    
     public void Awake()
     {
         //check to see if tutorial should be active
         //if it should then activate itself 
         sr = GetComponent<SpriteRenderer>();
         sr.enabled = false;
+        //space to shoot offset
+        offset = transform.position - transform.parent.parent.transform.position;
         if(PopupManager.instance.IsTutorializing)
         {
             //allow this to go on
@@ -30,8 +35,9 @@ public class TutorialPopup : MonoBehaviour
                 showTutorial();
             }
         }
-        
     }
+    
+    
     public void showTutorial()
     {
         if (!allowTut)
@@ -43,6 +49,14 @@ public class TutorialPopup : MonoBehaviour
     }
     private void Update()
     {
+        //if space to shoot
+        if (key == KeyCode.Space)
+        {
+            //stabilize position to bottom of car
+            transform.eulerAngles = new Vector3(0, 0, 0);
+            transform.position = transform.parent.parent.transform.position + offset;
+        }
+        
         if(!finished && aliveTimer > 5 && timer > duration / 2)
         {
             //Debug.Log("FINISHED " + name + ": "+ timer);
