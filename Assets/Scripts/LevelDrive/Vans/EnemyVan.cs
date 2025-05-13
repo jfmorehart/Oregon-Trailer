@@ -59,7 +59,6 @@ public class EnemyVan : Drivable
 		if (PlayerVan.vanTransform == null)
 		{
 			//DrivingLogic(0);
-			Debug.Log("Player is not found");
 			return;
 		}
 		//if (!ren.isVisible && !spottedPlayer) {
@@ -72,17 +71,14 @@ public class EnemyVan : Drivable
 		
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, delta.normalized, fireRange, enemyVisionMask);
 		float hitp = Vector2.Distance(hit.point, transform.position);
-		//Debug.DrawRay(transform.position, delta.normalized * fireRange);
+		Debug.DrawRay(transform.position, delta.normalized * fireRange);
 		if (hit) {
-			//Debug.Log(hit.transform.name);
 			if (hit.collider.CompareTag("Player"))
 			{
-				Debug.DrawRay(transform.position, delta.normalized * fireRange, Color.blue);
 				spottedPlayer = true;
-                //can drive straight at them!
-                DrivingLogic(thetaToPlayer);
+				//can drive straight at them!
+				DrivingLogic(thetaToPlayer);
 				_rb.AddForce(acceleration * Time.fixedDeltaTime * transform.right);
-				//Debug.Log("Player is spotted " + transform.position + " - should be true: " + spottedPlayer);
 
 				if (Mathf.Abs(thetaToPlayer) < fireTheta && delta.magnitude < fireRange)
 				{
@@ -91,16 +87,13 @@ public class EnemyVan : Drivable
 			}
 			else if (spottedPlayer)
 			{
-                Debug.DrawRay(transform.position, delta.normalized * fireRange, Color.magenta);
-                float checkLen = Vector2.Distance(hit.point, transform.position);
+				float checkLen = Vector2.Distance(hit.point, transform.position);
 				float rangeExtension = 1 + _rb.velocity.magnitude / topSpeed;
 				checkLen = Mathf.Max(checkLen, minRayDistance * rangeExtension);
 				float raycastTries = 4;
 				float totalAngle = 45;
 				float angle;
-                //Debug.Log("Already spotted player");
-
-                for (int i = 0; i < raycastTries; i++)
+				for (int i = 0; i < raycastTries; i++)
 				{
 					int sign = ((i % 2) == 0) ? 1 : -1;
 					//this will alternate right and left of the direction, looking for a gap
