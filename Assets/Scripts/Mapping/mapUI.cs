@@ -374,7 +374,7 @@ public class mapUI : MonoBehaviour
             if (vanrb != null)
             {
                 //Debug.Log("breaker: " + PlayerVan.vanInstance.Breaker.hp);
-                TopHealth.fillAmount = PlayerVan.vanInstance.Breaker.hp / 100;
+                TopHealth.fillAmount = PlayerVan.vanInstance.Breaker.hp / 150;
             }
             else
             {

@@ -32,5 +32,6 @@ public class HealthBar : MonoBehaviour
 
 		bar.transform.localPosition = pos;
 		bar.transform.localScale = scale;
-	}
+
+    }
 }

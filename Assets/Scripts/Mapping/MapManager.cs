@@ -20,9 +20,9 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private int food = 5;
     [SerializeField]
-    private int vanHealth = 100;//this should track to whatever the health of the van is in driving scenes 
+    private int vanHealth = 150;//this should track to whatever the health of the van is in driving scenes 
     public int VanHealth => vanHealth;
-    public const int MAXHEALTH = 100;
+    public const int MAXHEALTH = 150;
     public static MapManager instance;
 
     private MapNode startingNode;
@@ -334,7 +334,7 @@ public class MapManager : MonoBehaviour
         }
 
         Debug.Log("Win condition reached " + PlayerVan.vanInstance.Breaker.hp);
-        
+
         instance.vanHealth = (int)PlayerVan.vanInstance.Breaker.hp;
         instance.money += PlayerVan.vanInstance.pickupValue;
         instance.playersCurrentNode.playerCanChoose = false;
