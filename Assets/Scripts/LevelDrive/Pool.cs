@@ -12,6 +12,9 @@ public class Pool : MonoBehaviour
 	public GameObject explosionPrefab;
 	public GameObject splooshPrefab;
 
+	public GameObject scrapPrefab;
+
+
 	public static ObjectPool bullets;
 	public static ObjectPool smokes;
 	public static ObjectPool explosions;

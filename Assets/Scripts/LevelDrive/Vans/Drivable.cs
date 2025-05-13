@@ -25,9 +25,6 @@ public class Drivable : MonoBehaviour
 	protected Breakable breaker;
 
     public Breakable Breaker => breaker;
-    public GameObject scrapPrefab;
-
-	public int pickupValue; //currency im carrying
 
 	[Header("Sounds")]
 	//public float fadeOutTime;
@@ -79,11 +76,6 @@ public class Drivable : MonoBehaviour
 		}
 
 		breaker.onKill -= OnKill;
-		for (int i = 0; i < pickupValue; i++)
-		{
-			GameObject go = Instantiate(scrapPrefab, transform.position, transform.rotation, Pool.instance.transform);
-			go.GetComponent<Rigidbody2D>().velocity = _rb.velocity + Random.insideUnitCircle * 4;
-		}
 	}
 	protected virtual void FixedUpdate()
 	{
@@ -251,6 +243,10 @@ public class Drivable : MonoBehaviour
 		{
 			breaker.hp += pi.Collect();
 			breaker.bar.hp = breaker.hp;
+			if(this is PlayerVan) {
+				MapManager.instance.AddMoney(pi.value);
+			}
+
 		}
 
 		if (collision.gameObject.layer.Equals(8))

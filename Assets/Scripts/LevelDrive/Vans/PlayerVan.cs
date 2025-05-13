@@ -163,7 +163,6 @@ public class PlayerVan : Drivable
     public void levelEnding()
 	{
 		//sends all necessary info to any necessary managers
-		MapManager.instance.AddMoney(pickupValue);
         MapManager.playerArrived(breaker.hp);
 
     }

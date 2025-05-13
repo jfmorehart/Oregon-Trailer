@@ -336,7 +336,7 @@ public class MapManager : MonoBehaviour
         Debug.Log("Win condition reached " + PlayerVan.vanInstance.Breaker.hp);
 
         instance.vanHealth = (int)PlayerVan.vanInstance.Breaker.hp;
-        instance.money += PlayerVan.vanInstance.pickupValue;
+        //instance.money += PlayerVan.vanInstance.pickupValue;
         instance.playersCurrentNode.playerCanChoose = false;
         instance.playersCurrentNode.WinCondition.active = false;
         instance.StartCoroutine(instance.fadeToBlackHandleMovement());
