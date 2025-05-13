@@ -116,7 +116,7 @@ public class InLevelCarSlider : MonoBehaviour
         // Change Text
         if (MapManager.instance.playerDestinationNode)
             objectiveInstance.transform.GetChild(0).GetComponent<TMP_Text>().text =
-                "<u>" + MapManager.instance.playersCurrentNode.NodeName + "</u>" + "\nObjective: " +
+                MapManager.instance.playersCurrentNode.NodeName + "\n" +
                 MapManager.instance.playerDestinationNode.WinCondition.winConditionText.ToString();
         
 
