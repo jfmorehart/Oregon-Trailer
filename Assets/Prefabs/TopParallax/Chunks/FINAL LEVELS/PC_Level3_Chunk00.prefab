@@ -10576,6 +10576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SplineEditor (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8769712458416398162, guid: 34718bc4a3d38450ea81d04cfa3cdf29, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -12691,7 +12695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8769712458416398162, guid: 34718bc4a3d38450ea81d04cfa3cdf29, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16198,6 +16202,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -623503267821811247, guid: f4652325e197f4700bebf025cb915a55, type: 3}
+      propertyPath: enemyMaxThisChunk
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -623503267821811247, guid: f4652325e197f4700bebf025cb915a55, type: 3}
+      propertyPath: enemySpawnMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -623503267821811247, guid: f4652325e197f4700bebf025cb915a55, type: 3}
       propertyPath: wayPoints.Array.size
       value: 25
