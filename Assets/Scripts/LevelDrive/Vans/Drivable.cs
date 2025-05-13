@@ -22,6 +22,9 @@ public class Drivable : MonoBehaviour
 	float lastBoostTime, boostRemaining;
 
 	public float collisionDamage;
+	public float collisionResistance = 1;
+
+
 	protected Breakable breaker;
 
     public Breakable Breaker => breaker;
@@ -203,13 +206,14 @@ public class Drivable : MonoBehaviour
 	}
 	public virtual void OnCollisionEnter2D(Collision2D collision)
 	{
-		//if(breaker)
+		//damage to self
 		if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
 		{
-			float colDamage = collisionDamage * _rb.velocity.magnitude;
+			float colDamage = (1 / collisionResistance + 0.00001f) * _rb.velocity.magnitude;
 			breaker.Damage(colDamage);
 		}
 
+		//damage to enemy
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
 			if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
