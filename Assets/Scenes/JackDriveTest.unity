@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.04054894, g: 0.06102971, b: 0.080336414, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4339,6 +4339,7 @@ MonoBehaviour:
   smokePrefab: {fileID: 1101256069449495527, guid: 8abcb5d3e902541f5897527a2b20c62d, type: 3}
   explosionPrefab: {fileID: 2537780230014901243, guid: 84dcca6518b66488986f84a7b14f884b, type: 3}
   splooshPrefab: {fileID: 2537780230014901243, guid: 4aba7b3c342104b7ab101228e541a55c, type: 3}
+  scrapPrefab: {fileID: 736508616175236411, guid: 0fed7bb8a1eab3648bc13f081f1d8395, type: 3}
   breakMat: {fileID: 2100000, guid: da7606b71dfc54259ac79eca0ec4f0aa, type: 2}
   breakTex: {fileID: 2800000, guid: cbce8db60ded346fb814fd973dee19e1, type: 3}
 --- !u!4 &729068862
@@ -8214,8 +8215,6 @@ MonoBehaviour:
   boostLength: 0
   boostCooldown: 0
   collisionDamage: 5
-  scrapPrefab: {fileID: 0}
-  pickupValue: 3
   enginesrc: {fileID: 0}
   roadSource: {fileID: 0}
   sandSource: {fileID: 0}
@@ -8309,6 +8308,8 @@ MonoBehaviour:
   bar: {fileID: 1921774775}
   target: 0
   use_breaking_texture: 0
+  scrapPrefab: {fileID: 0}
+  scrap_dropped_on_kill: 0
 --- !u!43 &1576801091
 Mesh:
   m_ObjectHideFlags: 0
@@ -12687,6 +12688,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SFX
       objectReference: {fileID: 0}
+    - target: {fileID: 5068363940895095086, guid: 1faa3f95dd05142268dc7fd4896d1797, type: 3}
+      propertyPath: menu
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ba66719fd12240cc9c0e43f9cf08dc2, type: 3}
+    - target: {fileID: 5068363940895095086, guid: 1faa3f95dd05142268dc7fd4896d1797, type: 3}
+      propertyPath: driving
+      value: 
+      objectReference: {fileID: 8300000, guid: 1961a637e07c24040a4264c83a37e8c5, type: 3}
     - target: {fileID: 5068363940895095086, guid: 1faa3f95dd05142268dc7fd4896d1797, type: 3}
       propertyPath: shoot.sourcePoolSize
       value: 10
