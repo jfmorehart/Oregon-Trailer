@@ -204,6 +204,7 @@ public class InLevelCarSlider : MonoBehaviour
         vanAlive = false;
         playervan = null;
         restartTextCalled = false;
+        FlavorPopup.destroyAllPopups();
     }
     public void levelFailed()
     {
@@ -211,10 +212,12 @@ public class InLevelCarSlider : MonoBehaviour
         vanAlive = false;
         playervan = null;
         restartTextCalled = false;
+        FlavorPopup.destroyAllPopups();
     }
     public void levelDone()
     {
         Debug.Log("Level Done Routine");
+        FlavorPopup.destroyAllPopups();
         inLevel = false;
         van = null;
         endingHouse = null;
