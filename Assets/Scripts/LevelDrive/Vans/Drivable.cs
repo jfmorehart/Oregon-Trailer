@@ -22,12 +22,12 @@ public class Drivable : MonoBehaviour
 	float lastBoostTime, boostRemaining;
 
 	public float collisionDamage;
-	public float collisionResistance = 1;
-
-
 	protected Breakable breaker;
 
     public Breakable Breaker => breaker;
+    public GameObject scrapPrefab;
+
+	public int pickupValue; //currency im carrying
 
 	[Header("Sounds")]
 	//public float fadeOutTime;
@@ -79,6 +79,11 @@ public class Drivable : MonoBehaviour
 		}
 
 		breaker.onKill -= OnKill;
+		for (int i = 0; i < pickupValue; i++)
+		{
+			GameObject go = Instantiate(scrapPrefab, transform.position, transform.rotation, Pool.instance.transform);
+			go.GetComponent<Rigidbody2D>().velocity = _rb.velocity + Random.insideUnitCircle * 4;
+		}
 	}
 	protected virtual void FixedUpdate()
 	{
@@ -206,14 +211,13 @@ public class Drivable : MonoBehaviour
 	}
 	public virtual void OnCollisionEnter2D(Collision2D collision)
 	{
-		//damage to self
+		//if(breaker)
 		if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
 		{
-			float colDamage = (1 / collisionResistance + 0.00001f) * _rb.velocity.magnitude;
+			float colDamage = collisionDamage * _rb.velocity.magnitude;
 			breaker.Damage(colDamage);
 		}
 
-		//damage to enemy
 		if (collision.collider.TryGetComponent(out Breakable br))
 		{
 			if (_rb.velocity.magnitude > 0.5f && !collision.collider.CompareTag("Finish"))
@@ -247,10 +251,6 @@ public class Drivable : MonoBehaviour
 		{
 			breaker.hp += pi.Collect();
 			breaker.bar.hp = breaker.hp;
-			if(this is PlayerVan) {
-				MapManager.instance.AddMoney(pi.value);
-			}
-
 		}
 
 		if (collision.gameObject.layer.Equals(8))

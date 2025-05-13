@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +12,8 @@ public class ItemShop : MonoBehaviour
 
     //available upgrade
     //bought upgrades
-    public List<StoreUpgrades> availableUpgrades = new List<StoreUpgrades>();//all upgrades list
-    public List<StoreUpgrades> obtainedUpgrades = new List<StoreUpgrades>();//bought upgrades list
+    public List<StoreUpgrades> availableUpgrades = new List<StoreUpgrades>();
+    //public List<StoreUpgrades> obtainedUpgrades = new List<StoreUpgrades>();
 
     //little drop down that shows each of the drop downs that we should 
     private StoreUpgrades SelectedUpgrade;
@@ -129,11 +128,11 @@ public class ItemShop : MonoBehaviour
                 return;
             Upgrade boughtUpgrade = SelectedUpgrade.upgrade;
             Debug.Log("Bought Upgrade " + boughtUpgrade);
-            obtainedUpgrades.Add(SelectedUpgrade);
-
+            
+            
             //UpgradeManager.instance.AddOption(boughtUpgrade);
 
-            if (UpgradeManager.instance.q_upgrade == Upgrade.None)
+            if(UpgradeManager.instance.q_upgrade == Upgrade.None)
             {
                 UpgradeManager.instance.q_upgrade = boughtUpgrade;
                 //show equipped overlay
@@ -164,19 +163,15 @@ public class ItemShop : MonoBehaviour
             
             if (UpgradeManager.instance.q_upgrade == Upgrade.None || UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
-                Debug.Log("Attempting to equip upgrades");
-                foreach (StoreUpgrades upgrade in obtainedUpgrades)
+                foreach (StoreUpgrades upgrade in availableUpgrades)
                 {
-                    Debug.Log("Attempting to equip upgrades: " + upgrade);
                     upgrade.equipButton.GetComponent<Button>().interactable = true;
                 }
             }
             else
             {
-                Debug.Log("Cannot equip upgrade");
-                foreach (StoreUpgrades upgrade in obtainedUpgrades)
+                foreach (StoreUpgrades upgrade in availableUpgrades)
                 {
-                    Debug.Log("Cannot equip upgrade: " + upgrade);
                     upgrade.equipButton.GetComponent<Button>().interactable = false;
                 }
             }
@@ -214,6 +209,7 @@ public class ItemShop : MonoBehaviour
                 qButton.image.color = Color.white;
                 qButton.image.sprite = SelectedUpgrade.img;
                 Debug.Log("Added to Q");
+
             }
             else if (UpgradeManager.instance.e_upgrade == Upgrade.None)
             {
@@ -231,20 +227,6 @@ public class ItemShop : MonoBehaviour
                 foreach (StoreUpgrades upgrade in availableUpgrades)
                 {
                     upgrade.equipButton.GetComponent<Button>().interactable = false;
-                }
-            }
-
-            //both e and q are slotted
-            if (UpgradeManager.instance.e_upgrade != Upgrade.None && UpgradeManager.instance.q_upgrade != Upgrade.None)
-            {
-                foreach (StoreUpgrades upgrade in obtainedUpgrades)
-                {
-                    Button b = upgrade.equipButton.GetComponent<Button>();
-                    upgrade.equipButton.SetActive(false);
-                    b.interactable = false;
-                    b.animator.ResetTrigger(b.animationTriggers.pressedTrigger);
-                    b.animator.ResetTrigger(b.animationTriggers.normalTrigger);
-
                 }
             }
         }
@@ -267,44 +249,20 @@ public class ItemShop : MonoBehaviour
         {
             //hide equipped overlay
             //SelectedUpgrade.equippedImg.SetActive(false);
+            
             UpgradeManager.instance.e_upgrade = Upgrade.None;
             
             eButton.image.sprite = null;
             eButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
-            
+
         }
 
         //allow for equip if we have an empty slot
-        foreach (StoreUpgrades upgrade in obtainedUpgrades)
+        foreach (StoreUpgrades upgrade in availableUpgrades)
         {
-            Debug.Log("Available upgrade: " + upgrade);
-
             //qButton.image.color = new Color(0.9882354f, 0.9764706f, 0.7058824f);
-            if (UpgradeManager.instance.q_upgrade == upgrade.upgrade || UpgradeManager.instance.e_upgrade == upgrade.upgrade)
-                continue;
-            //upgrade.equipButton.SetActive(true);
-            Button b = upgrade.equipButton.GetComponent<Button>();
-            b.interactable = true;
-            b.animator.ResetTrigger(b.animationTriggers.pressedTrigger);//reset to normal instead of being slanted
-            b.animator.ResetTrigger(b.animationTriggers.normalTrigger);
-            upgrade.equipButton.SetActive(true);
+
+            upgrade.equipButton.GetComponent<Button>().interactable = true;
         }
-        /*
-        if (UpgradeManager.instance.q_upgrade == Upgrade.None || UpgradeManager.instance.e_upgrade == Upgrade.None)
-        {
-            Debug.Log("Attempting to equip upgrades");
-            foreach (StoreUpgrades upgrade in obtainedUpgrades)
-            {
-                upgrade.equipButton.GetComponent<Button>().interactable = true;
-            }
-        }
-        else
-        {
-            Debug.Log("Cannot equip upgrade");
-            foreach (StoreUpgrades upgrade in obtainedUpgrades)
-            {
-                upgrade.equipButton.GetComponent<Button>().interactable = false;
-            }
-        }*/
     }
 }

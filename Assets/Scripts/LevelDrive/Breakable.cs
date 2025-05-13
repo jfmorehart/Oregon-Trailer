@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Breakable : MonoBehaviour
 {
@@ -15,8 +14,7 @@ public class Breakable : MonoBehaviour
 
     public bool use_breaking_texture;
     Material breaking_material;
-
-	public int scrap_dropped_on_kill; //currency im carrying
+    Texture breakTexture;
 
 	private void Awake()
 	{
@@ -66,18 +64,7 @@ public class Breakable : MonoBehaviour
     }
 
     public void Kill() {
-		for (int i = 0; i < scrap_dropped_on_kill; i++)
-		{
-			GameObject go = Instantiate(Pool.instance.scrapPrefab, transform.position, transform.rotation, Pool.instance.transform);
-            if(TryGetComponent(out Rigidbody2D _rb)) {
-				go.GetComponent<Rigidbody2D>().velocity = _rb.velocity + Random.insideUnitCircle * 4;
-            }
-            else {
-				go.GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle * 4;
-			}
-
-		}
-		onKill?.Invoke();
+        onKill?.Invoke();
         Destroy(gameObject);
     }
 }
