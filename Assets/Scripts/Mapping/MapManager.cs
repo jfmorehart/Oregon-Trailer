@@ -190,10 +190,10 @@ public class MapManager : MonoBehaviour
                 txt.material = availableFont;
                 */
                 TMP_Text txt = Instantiate(textPrefab, itemNotebookLog.transform);
-                txt.text = "- " + allNodes[i].NodeName;
+                txt.text = "• " + allNodes[i-1].NodeName;
                 txt.transform.SetSiblingIndex(1+i);
                 txt.fontMaterial = availableFont;
-                //Debug.Log(availableObjectivesList.Length);
+                //Debug.Log("availableObjectivesList" + availableObjectivesList.Length);
                 availableObjectivesList[i-1] = txt;
 
             }
@@ -314,7 +314,7 @@ public class MapManager : MonoBehaviour
             List<MapNode> allNodes = MapManager.instance.possibleMaps[0].GetComponent<levelPrefabVariableHolder>().allnodes;
             availableObjectivesList[currentNodeIndex].gameObject.SetActive(false);
             TMP_Text txt = Instantiate(textPrefab, itemNotebookLog.transform);
-            txt.text = "- " + allNodes[currentNodeIndex].NodeName;
+            txt.text = "• " + allNodes[currentNodeIndex].NodeName;
             txt.transform.SetSiblingIndex(-1);
             txt.fontMaterial = availableFont;
             txt.color = new Color32(0, 255, 255, 100);
@@ -599,7 +599,7 @@ public class MapManager : MonoBehaviour
         //testing stuff
         if (Input.GetKeyDown(KeyCode.X) && skipmode)
         {
-            //playerArrived(100);
+            playerArrived(100);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {

@@ -173,7 +173,7 @@ public class MapNode : MonoBehaviour
             _lr = transform.GetChild(2).GetComponent<UILineRenderer>();
         }
         _lr.transform.position = transform.position;
-        _lr.transform.SetParent(transform.parent);
+        _lr.transform.parent = transform.parent;
         _lr.transform.SetSiblingIndex(0);
         generateLine();
     }
