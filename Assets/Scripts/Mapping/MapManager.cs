@@ -193,7 +193,7 @@ public class MapManager : MonoBehaviour
                 txt.text = "- " + allNodes[i].NodeName;
                 txt.transform.SetSiblingIndex(1+i);
                 txt.fontMaterial = availableFont;
-                Debug.Log(availableObjectivesList.Length);
+                //Debug.Log(availableObjectivesList.Length);
                 availableObjectivesList[i-1] = txt;
 
             }

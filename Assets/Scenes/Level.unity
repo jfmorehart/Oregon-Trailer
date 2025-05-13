@@ -19300,6 +19300,7 @@ MonoBehaviour:
   - {fileID: 1638199228}
   - {fileID: 966474635}
   - {fileID: 2103622622}
+  obtainedUpgrades: []
   ItemDescriptionPanel: {fileID: 828139611}
   ItemNameText: {fileID: 1246678987}
   ItemDescriptionText: {fileID: 157749850}
@@ -21811,19 +21812,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 607913452307286989, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 607913452307286989, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 607913452307286989, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 72.4984
       objectReference: {fileID: 0}
     - target: {fileID: 607913452307286989, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 870565438517555963, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_text
@@ -21988,6 +21989,10 @@ PrefabInstance:
     - target: {fileID: 7649813644256574126, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069030232913644007, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8267145355234983640, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_Pivot.x
@@ -26106,6 +26111,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -21
       objectReference: {fileID: 0}
+    - target: {fileID: 8069030232913644007, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8267145355234983640, guid: 41d1db4f5c8fc4d4d9b88ff60aa1eefa, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -28089,7 +28098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuel: 99999
-  money: 0
+  money: 200
   food: 5
   vanHealth: 150
   playersCurrentNode: {fileID: 0}

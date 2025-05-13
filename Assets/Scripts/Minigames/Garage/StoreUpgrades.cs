@@ -33,7 +33,7 @@ public class StoreUpgrades : MonoBehaviour
         //equippedImg.SetActive(false);
     }
     
-    public void itemBought()
+    public void itemBought(bool setEquipped = true)
     {
         if (equipButton == null)
         {
@@ -41,7 +41,8 @@ public class StoreUpgrades : MonoBehaviour
             return;
         }
         //Debug.Log("equipbutton " + equipButton.activeInHierarchy + " " + upgrade);
-        equipButton.SetActive(true);
+        if(!setEquipped)
+            equipButton.SetActive(true);
         buyButton.SetActive(false);
         costText.SetActive(false);
     }
