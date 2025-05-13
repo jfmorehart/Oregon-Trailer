@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,14 @@ public class FlavorPopup : MonoBehaviour
     private TMP_Text charname;
     [SerializeField]
     private Image faceImg;
+    protected static List<FlavorPopup> allPopups;
 
+    private void Awake()
+    {
+        if (allPopups == null)
+            allPopups = new List<FlavorPopup>();
+        allPopups.Add(this);
+    }
 
     public void initPopup(Vector2 offScreenPos, Vector2 endScreenPos, flavor flavor)
     {
@@ -44,4 +52,12 @@ public class FlavorPopup : MonoBehaviour
 
     }
 
+    public static void destroyAllPopups()
+    {
+        foreach (FlavorPopup item in allPopups)
+        {
+            Destroy(item.gameObject);
+        }
+        allPopups.Clear();
+    }
 }
