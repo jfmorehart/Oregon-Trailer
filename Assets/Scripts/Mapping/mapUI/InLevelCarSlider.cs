@@ -65,7 +65,9 @@ public class InLevelCarSlider : MonoBehaviour
 
     public TMP_Text destinationText;
     public TMP_Text currentNodeText;
-    
+
+
+    public TMP_Text enemiesLeftText;//either blank, or gets updated every once in a while
     public void startLevel() //instantiate
     {
         updateUpgradeUI();
@@ -204,6 +206,8 @@ public class InLevelCarSlider : MonoBehaviour
         vanAlive = false;
         playervan = null;
         restartTextCalled = false;
+        enemiesLeftText.text = "";
+
     }
     public void levelFailed()
     {
@@ -211,6 +215,7 @@ public class InLevelCarSlider : MonoBehaviour
         vanAlive = false;
         playervan = null;
         restartTextCalled = false;
+        enemiesLeftText.text = "";
     }
     public void levelDone()
     {
@@ -260,13 +265,17 @@ public class InLevelCarSlider : MonoBehaviour
 
         // in index 1, the 3 stars resides
         twoStarImages[1].GetComponent<StarFillUI>().resetStarPosition();
-        //twoStarImages[1].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.ThreeStarTime;
         // in index 0, the 2 stars resides
         twoStarImages[0].GetComponent<StarFillUI>().resetStarPosition();
-        //twoStarImages[0].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.TwoStarTime;
+
+        enemiesLeftText.text = "";
     }
 
-    
+    public void updateEnemiesLeftText(string el)
+    {
+        if(inLevel && playervan != null)
+            enemiesLeftText.text = el;
+    }
     public void updateUpgradeUI()
     {
         ESlotImage.color = Color.white;
