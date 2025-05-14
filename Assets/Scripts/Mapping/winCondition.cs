@@ -34,7 +34,12 @@ public class winCondition : MonoBehaviour
         Debug.Log("Allbreakables: " + allBreakables.Length);
         //theres probably a better way of doing this
         target = allBreakables.Where(x => x.target == true).ToList();
-        if(target.Count == 0)
+
+        if (Condition == winconditions.chase)
+            InLevelCarSlider.instance.updateEnemiesLeftText(target.Count + "");
+        else
+            InLevelCarSlider.instance.updateEnemiesLeftText("");
+        if (target.Count == 0)
             Debug.Log("Target count is null");
         else
             Debug.Log(target[0].transform.name);
@@ -60,12 +65,18 @@ public class winCondition : MonoBehaviour
 
         frameTimer++;
 
-        if (frameTimer >= 200)
+        if (frameTimer >= 10)
         {
-            Debug.Log("Frame Timer: "  + Condition + " " + frameTimer + " " + target.Count);
-
+            //Debug.Log("Frame Timer: "  + Condition + " " + frameTimer + " " + target.Count);
+            if (Condition == winconditions.assassination)
+            {
+                InLevelCarSlider.instance.updateEnemiesLeftText(target.Count+"");
+            }
             if (target.Count == 0 && Condition == winconditions.assassination)
                 levelWon();//win if you kill the target(s)
+
+            if(Condition == winconditions.chase)
+                Debug.Log("Target :" + target[0]);
             if (target.Count == 0 && Condition == winconditions.chase)
             {
                 Debug.Log("Level Lost");
