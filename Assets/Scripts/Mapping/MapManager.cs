@@ -628,12 +628,14 @@ public class MapManager : MonoBehaviour
 
         mapUI.instance.endLevel();
         InLevelCarSlider.instance.levelDone();
+        
 
         //make sure the player can choose the node
         allowDestinationChoice();
         Debug.Log("Restart finalized");
 
-        playerCurrentTime = 0;
+        playerCurrentTime = -2;
+        _playerInTransit = true;
 
         //reset the health to 30
         vanHealth = MAXHEALTH;
