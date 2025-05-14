@@ -599,7 +599,7 @@ public class MapManager : MonoBehaviour
         //testing stuff
         if (Input.GetKeyDown(KeyCode.X) && skipmode)
         {
-            playerArrived(100);
+            //playerArrived(100);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
