@@ -23,8 +23,15 @@ public class StarFillUI : MonoBehaviour
         //make the mom object communicate with this script to give it a timer
     }
 
+    public void resetStarPosition()
+    {
+        starFill.transform.localPosition = new Vector2( startX, starFill.transform.localPosition.y);
+    }
+
     public void Update()
     {
+        if (!InLevelCarSlider.instance.inLevel)
+            return;
         // find the game object which possesses this script
         //InLevelCarSlider ilcs = GameObject.Find("Driving UI MOM").GetComponent<InLevelCarSlider>();
         //Debug.Log(MapManager.instance.PlayerCurrentTime);

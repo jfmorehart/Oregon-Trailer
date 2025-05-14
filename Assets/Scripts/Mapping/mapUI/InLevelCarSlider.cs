@@ -256,6 +256,14 @@ public class InLevelCarSlider : MonoBehaviour
         {
             threeStarImages[i].color = Color.white;
         }
+
+
+        // in index 1, the 3 stars resides
+        twoStarImages[1].GetComponent<StarFillUI>().resetStarPosition();
+        //twoStarImages[1].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.ThreeStarTime;
+        // in index 0, the 2 stars resides
+        twoStarImages[0].GetComponent<StarFillUI>().resetStarPosition();
+        //twoStarImages[0].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.TwoStarTime;
     }
 
     
