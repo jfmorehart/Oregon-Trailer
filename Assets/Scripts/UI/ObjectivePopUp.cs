@@ -10,13 +10,17 @@ public class ObjectivePopUp : MonoBehaviour
     //string to display
     //public string quest;
     public GameObject questDisplay;
+    private Image questImage;
+    public TMP_Text cityText;
     public GameObject line;
+    private Image lineImage;
     public TMP_Text questText;
 
     //Animations
     public AnimationCurve opacityCurve;
     public AnimationCurve scaleCurve;
     private float time = 0;
+    
 
 
     private void Awake()
@@ -28,17 +32,31 @@ public class ObjectivePopUp : MonoBehaviour
     {
         if (questDisplay == null)
             Debug.Log("Quest Display is null on start");
+        questImage = questDisplay.GetComponent<Image>();
+        lineImage = line.GetComponent<Image>();
     }
     public void Update()
     {
         if(questDisplay == null)
             Debug.Log("Quest Display is null " + (questDisplay == null));
-
-        questDisplay.GetComponent<Image>().color = new Color(0.9882353f, 0.972549f, 0.7098039f, opacityCurve.Evaluate(time));
-        line.GetComponent<Image>().color = new Color(0.8862746f, 0.3411765f, 0.1647059f, opacityCurve.Evaluate(time));
-        questText.color = new Color(0.9882353f, 0.972549f, 0.7098039f, opacityCurve.Evaluate(time));
+        
+        //Fade in/out
+        
+        //background
+        questImage.color = new Color(questImage.color.r, questImage.color.g, questImage.color.b, opacityCurve.Evaluate(time));
+        
+        //city text
+        cityText.color = new Color(cityText.color.r, cityText.color.g, cityText.color.b, opacityCurve.Evaluate(time));
+        
+        //line
+        lineImage.color = new Color(lineImage.color.r, lineImage.color.g, lineImage.color.b, opacityCurve.Evaluate(time));
+        
+        //quest text
+        questText.color = new Color(questText.color.r, questText.color.g, questText.color.b, opacityCurve.Evaluate(time));
+        
         //transform.localScale = Vector3.one*scaleCurve.Evaluate(time);
         //questDisplay.text = text; // change the written text
+        
         time += Time.deltaTime;
 
         if (time >= 4) // after 4 seconds, destroy object

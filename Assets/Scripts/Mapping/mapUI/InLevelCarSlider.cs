@@ -40,6 +40,7 @@ public class InLevelCarSlider : MonoBehaviour
     [SerializeField]
     List<Image> twoStarImages = new List<Image>();
     bool restartTextCalled = false;
+    
     private void Awake()
     {
         
@@ -56,6 +57,7 @@ public class InLevelCarSlider : MonoBehaviour
         levelcompleteslider.gameObject.SetActive(false);
         leveldistancetext.gameObject.SetActive(false);
     }
+    
     public Action onKill;
     private Breakable playervan;
 
@@ -68,12 +70,17 @@ public class InLevelCarSlider : MonoBehaviour
 
 
     public TMP_Text enemiesLeftText;//either blank, or gets updated every once in a while
+    public GameObject enemiesLeft;
+    
     public void startLevel() //instantiate
     {
         updateUpgradeUI();
         Debug.Log("LevelStartRoutine");
+        
         //records the player's start position
         van = GameObject.Find("Van(Clone)");
+
+        enemiesLeft.SetActive(false);
         
         //change the text on the top
         if(MapManager.instance.playerDestinationNode)
@@ -81,9 +88,6 @@ public class InLevelCarSlider : MonoBehaviour
         else
             destinationText.text = "New Mexico";
         currentNodeText.text = MapManager.instance.playersCurrentNode.NodeName;
-        
-        //change the string
-        //popup.quest = MapManager.instance.playerDestinationNode.WinCondition.getCondition + " ";
         
         playervan = PlayerVan.vanTransform.GetComponent<Breakable>();
         playervan.onKill += playerDead;
@@ -107,25 +111,25 @@ public class InLevelCarSlider : MonoBehaviour
         twoStarImages[0].GetComponent<StarFillUI>().startTime = MapManager.instance.playerDestinationNode.ThreeStarTime;
         twoStarImages[0].GetComponent<StarFillUI>().endTime = MapManager.instance.playerDestinationNode.TwoStarTime;
         
+        
+        // OBJECTIVE POPUP
         //show level objective text
         objectiveInstance = Instantiate(objectivePrefab.gameObject,MapManager.instance.transform); // instantiate it at the middle of the screen
         // Change where the prefab gets instantiated
         objectiveInstance.transform.parent = MapManager.instance.transform;
         //Change the prefabs transform
         objectiveInstance.transform.position = new Vector2(MapManager.instance.transform.position.x, MapManager.instance.transform.position.y + 8);
-        //Change Scale
-        //objectiveInstance.transform.localScale = new Vector3(.01f, .01f, 1);
         // Change Text
         if (MapManager.instance.playerDestinationNode)
-            objectiveInstance.transform.GetChild(0).GetComponent<TMP_Text>().text =
-                MapManager.instance.playersCurrentNode.NodeName + "\n" +
-                MapManager.instance.playerDestinationNode.WinCondition.winConditionText.ToString();
-        
-
-
-
-
+        {
+            //city text
+            objectiveInstance.transform.GetChild(0).GetComponent<TMP_Text>().text = MapManager.instance.playersCurrentNode.NodeName;
+            //objective text
+            objectiveInstance.transform.GetChild(2).GetComponent<TMP_Text>().text = MapManager.instance.playerDestinationNode.WinCondition.winConditionText.ToString();
+        }
     }
+    
+    
     void Update()
     {
         if (vanAlive && inLevel) 
@@ -206,8 +210,10 @@ public class InLevelCarSlider : MonoBehaviour
         vanAlive = false;
         playervan = null;
         restartTextCalled = false;
+        
+        //hide enemies left ui
         enemiesLeftText.text = "";
-
+        enemiesLeft.SetActive(false);
     }
     public void levelFailed()
     {
@@ -215,7 +221,10 @@ public class InLevelCarSlider : MonoBehaviour
         vanAlive = false;
         playervan = null;
         restartTextCalled = false;
+        
+        //hide enemies left ui
         enemiesLeftText.text = "";
+        enemiesLeft.SetActive(false);
     }
     public void levelDone()
     {
@@ -273,9 +282,13 @@ public class InLevelCarSlider : MonoBehaviour
 
     public void updateEnemiesLeftText(string el)
     {
+        //show enemies left tav
+        enemiesLeft.SetActive(true);
+        
         if(inLevel && playervan != null)
             enemiesLeftText.text = el;
     }
+    
     public void updateUpgradeUI()
     {
         ESlotImage.color = Color.white;
